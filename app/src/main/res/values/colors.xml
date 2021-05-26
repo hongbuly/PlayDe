@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="Black">#000000</color>
+    <color name="Gainsboro">#dcdcdc</color>
+    <color name="LightGrey">#d3d3d3</color>
+    <color name="Grey">#808080</color>
+    <color name="DimGrey">#696969</color>
+    <color name="White">#ffffff</color>
+    <color name="MainYellow">#FAC400</color>
+    <color name="MainRed">#EF6139</color>
+    <color name="MainGrey">#353535</color>
+    <color name="LineGrey">#BDBDBD</color>
+</resources>
