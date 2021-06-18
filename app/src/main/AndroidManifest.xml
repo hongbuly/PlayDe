@@ -11,18 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SelectGameActivity" />
         <activity android:name=".ReserveBillActivity" />
         <activity android:name=".ReserveTimeActivity" />
         <activity android:name=".MapActivity" />
+        <activity
+            android:name=".YoutubeActivity"
+            android:windowSoftInputMode="adjustNothing" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDRjLjbuX8A63rHcw1DpJvnWla-rI67diY" />
 
-        <activity
-            android:name=".YoutubeActivity"
-            android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".SelectGameActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

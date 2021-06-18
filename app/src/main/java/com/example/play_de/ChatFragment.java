@@ -7,36 +7,20 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ChatFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ChatFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ListView chat_listView;
+    private ChatListViewAdapter chat_adapter;
+    private ImageView chat_profile;
+    private TextView chat_name;
+    private TextView chat_dong;
 
-    public ChatFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChatFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ChatFragment newInstance(String param1, String param2) {
         ChatFragment fragment = new ChatFragment();
         Bundle args = new Bundle();
@@ -49,16 +33,37 @@ public class ChatFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+
+        chat_adapter = new ChatListViewAdapter();
+        chat_listView = view.findViewById(R.id.chat_list);
+        chat_listView.setAdapter(chat_adapter);
+        addChatListView();
+
+        chat_profile = view.findViewById(R.id.chat_profile);
+        chat_name = view.findViewById(R.id.chat_name);
+        chat_dong = view.findViewById(R.id.chat_dong);
+
+        //여기서 프로필 이미지, 이름, 동을 설정할 것.
+
+        return view;
+    }
+
+    void addChatListView() {
+        //여기서 메시지 내용과 누가 보낸 것인지 설정하면 됨.
+        String text = "안녕하세요~ 보드게임 아직 하시나요?? 저랑 보드게임하지 않으실래요?? 언제 시간되시나요??";
+        boolean isISend = true;
+
+        for (int i = 0; i < 10; i++) {
+            chat_adapter.addItem(text, isISend);
+            isISend = !isISend;
+        }
+
+        chat_adapter.notifyDataSetChanged();
     }
 }
