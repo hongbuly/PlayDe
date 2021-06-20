@@ -45,6 +45,13 @@ public class CommunityListViewAdapter extends BaseAdapter {
         heartTextView.setText(listViewItem.getHeart());
         placeTextView.setText(listViewItem.getPlace());
 
+        heartTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //겹치는 보드게임들을 보여줘야함. overlapGame 이 하다 만것.
+            }
+        });
+
         return convertView;
     }
 

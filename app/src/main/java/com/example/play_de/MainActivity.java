@@ -2,6 +2,7 @@ package com.example.play_de;
 
 import android.os.Bundle;
 import android.view.WindowManager;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
