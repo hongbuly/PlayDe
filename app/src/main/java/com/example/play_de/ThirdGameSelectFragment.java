@@ -12,9 +12,6 @@ public class ThirdGameSelectFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private String mParam1;
-    private String mParam2;
-
     public static ThirdGameSelectFragment newInstance(String param1, String param2) {
         ThirdGameSelectFragment fragment = new ThirdGameSelectFragment();
         Bundle args = new Bundle();
@@ -27,10 +24,6 @@ public class ThirdGameSelectFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -42,6 +35,7 @@ public class ThirdGameSelectFragment extends Fragment {
         Button btn3 = view.findViewById(R.id.third_select_btn03);
         Button btn4 = view.findViewById(R.id.third_select_btn04);
 
+        //어떤 게임이 선택되었는지 이미지를 바꿔주고 정보를 저장해야함.
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -340,6 +340,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/next_btn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="15dp"

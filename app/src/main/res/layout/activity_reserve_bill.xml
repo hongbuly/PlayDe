@@ -49,6 +49,7 @@
             android:background="@color/LightGrey" />
 
         <TextView
+            android:id="@+id/reserve_day"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
@@ -92,6 +93,7 @@
             android:background="@color/LightGrey" />
 
         <TextView
+            android:id="@+id/reserve_time"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
@@ -136,6 +138,7 @@
             android:background="@color/LightGrey" />
 
         <TextView
+            android:id="@+id/reserve_people"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
@@ -180,6 +183,7 @@
             android:background="@color/LightGrey" />
 
         <TextView
+            android:id="@+id/reserve_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
@@ -223,6 +227,7 @@
             android:background="@color/LightGrey" />
 
         <TextView
+            android:id="@+id/reserve_number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
@@ -236,6 +241,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/reserve_game"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="15dp"
@@ -270,6 +276,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/reserve_bill"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
@@ -282,6 +289,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/next_btn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="15dp"

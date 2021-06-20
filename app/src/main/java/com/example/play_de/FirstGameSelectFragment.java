@@ -44,6 +44,7 @@ public class FirstGameSelectFragment extends Fragment {
         Button btn3 = view.findViewById(R.id.first_select_btn03);
         Button btn4 = view.findViewById(R.id.first_select_btn04);
 
+        //어떤 게임이 선택되었는지 이미지를 바꿔주고 정보를 저장해야함.
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
