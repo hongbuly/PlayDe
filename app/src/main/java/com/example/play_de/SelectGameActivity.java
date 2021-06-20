@@ -33,11 +33,11 @@ public class SelectGameActivity extends AppCompatActivity {
         tab.getTabAt(1).setIcon(images.get(1));
         tab.getTabAt(2).setIcon(images.get(1));
 
-        Button pay_btn = findViewById(R.id.pay_btn);
-        pay_btn.setOnClickListener(new View.OnClickListener() {
+        Button next_btn = findViewById(R.id.next_btn);
+        next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //결제 버튼인데 화면 순서를 바꿔야 될 것 같음.
+                //선택한 게임 정보를 인자로 다음 화면에 넘겨주기.
             }
         });
     }

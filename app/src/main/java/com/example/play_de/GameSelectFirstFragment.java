@@ -8,17 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
-public class FirstGameSelectFragment extends Fragment {
+public class GameSelectFirstFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
     private String mParam2;
 
-    public static FirstGameSelectFragment newInstance(String param1, String param2) {
-        FirstGameSelectFragment fragment = new FirstGameSelectFragment();
+    public static GameSelectFirstFragment newInstance(String param1, String param2) {
+        GameSelectFirstFragment fragment = new GameSelectFirstFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

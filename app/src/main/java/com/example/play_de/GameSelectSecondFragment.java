@@ -8,12 +8,12 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
-public class SecondGameSelectFragment extends Fragment {
+public class GameSelectSecondFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    public static SecondGameSelectFragment newInstance(String param1, String param2) {
-        SecondGameSelectFragment fragment = new SecondGameSelectFragment();
+    public static GameSelectSecondFragment newInstance(String param1, String param2) {
+        GameSelectSecondFragment fragment = new GameSelectSecondFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

@@ -12,9 +12,9 @@ public class SelectGameVPAdapter extends FragmentPagerAdapter {
     public SelectGameVPAdapter(FragmentManager fm) {
         super(fm);
         items = new ArrayList<>();
-        items.add(new FirstGameSelectFragment());
-        items.add(new SecondGameSelectFragment());
-        items.add(new ThirdGameSelectFragment());
+        items.add(new GameSelectFirstFragment());
+        items.add(new GameSelectSecondFragment());
+        items.add(new GameSelectThirdFragment());
     }
 
     @Override
