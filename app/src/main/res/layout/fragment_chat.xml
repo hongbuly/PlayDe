@@ -68,8 +68,9 @@
                 android:gravity="right"
                 android:orientation="vertical">
 
-                <TextView
+                <Button
                     android:id="@+id/chat_heart"
+                    style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -77,11 +78,11 @@
                     android:drawablePadding="10dp"
                     android:gravity="center"
                     android:text="5개가 겹칩니다"
-                    android:textColor="@color/Black"
-                    android:textSize="15dp" />
+                    android:textColor="@color/Black" />
 
-                <TextView
+                <Button
                     android:id="@+id/chat_place"
+                    style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -89,8 +90,7 @@
                     android:drawablePadding="10dp"
                     android:gravity="center"
                     android:text="2개가 겹칩니다"
-                    android:textColor="@color/Black"
-                    android:textSize="15dp" />
+                    android:textColor="@color/Black" />
 
             </LinearLayout>
         </LinearLayout>
@@ -102,12 +102,12 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
             android:layout_weight="14"
             android:background="@drawable/round_yellow_btn"
             android:divider="@color/MainYellow"
             android:dividerHeight="15dp"
-            android:listSelector="@android:color/transparent" />
+            android:listSelector="@android:color/transparent"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp" />
     </LinearLayout>
 </FrameLayout>
