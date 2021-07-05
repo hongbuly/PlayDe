@@ -1,16 +1,19 @@
 package com.example.play_de;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class CategoryListViewAdapter extends BaseAdapter {
 
+    private LinearLayout category_list;
     private TextView nameTextView;
     private TextView themeTextView;
     private TextView peopleTextView;
@@ -28,10 +31,11 @@ public class CategoryListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.category_listview, parent, false);
         }
 
-        nameTextView = (TextView) convertView.findViewById(R.id.p12_nameList);
-        themeTextView = (TextView) convertView.findViewById(R.id.p12_themeList);
-        peopleTextView = (TextView) convertView.findViewById(R.id.p12_peopleList);
-        levelTextView = (TextView) convertView.findViewById(R.id.p12_levelList);
+        category_list = convertView.findViewById(R.id.category_list);
+        nameTextView = convertView.findViewById(R.id.nameList);
+        themeTextView = convertView.findViewById(R.id.themeList);
+        peopleTextView = convertView.findViewById(R.id.peopleList);
+        levelTextView = convertView.findViewById(R.id.levelList);
 
         CategoryListViewItem listViewItem = listViewItemsList.get(position);
 
@@ -39,6 +43,15 @@ public class CategoryListViewAdapter extends BaseAdapter {
         themeTextView.setText(listViewItem.getTheme());
         peopleTextView.setText(listViewItem.getPeople());
         levelTextView.setText(listViewItem.getLevel());
+
+        category_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), YoutubeActivity.class);
+                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+                v.getContext().startActivity(intent);
+            }
+        });
 
         return convertView;
     }
