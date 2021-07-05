@@ -30,6 +30,9 @@ public class ProfileFragment extends Fragment {
     private ImageButton heart_btn;
     private ImageButton store_btn;
 
+    public static LinearLayout favorite_game;
+    public static LinearLayout favorite_store;
+
     private Button recent_play_btnM;
     private LinearLayout recent_play01M;
     private ImageView recent_play_image01M;
@@ -113,6 +116,8 @@ public class ProfileFragment extends Fragment {
         review_profile = view.findViewById(R.id.review_profile);
         review_background = view.findViewById(R.id.review_background);
         block_reason = view.findViewById(R.id.block_reason);
+        favorite_game = view.findViewById(R.id.favorite_game);
+        favorite_store = view.findViewById(R.id.favorite_store);
 
         backBtn = view.findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +135,8 @@ public class ProfileFragment extends Fragment {
         heart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                main_profile.setVisibility(View.GONE);
+                favorite_game.setVisibility(View.VISIBLE);
             }
         });
 
@@ -138,7 +144,8 @@ public class ProfileFragment extends Fragment {
         store_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                main_profile.setVisibility(View.GONE);
+                favorite_store.setVisibility(View.VISIBLE);
             }
         });
 
@@ -313,6 +320,8 @@ public class ProfileFragment extends Fragment {
         main_profile.setVisibility(View.VISIBLE);
         review_profile.setVisibility(View.GONE);
         block_reason.setVisibility(View.GONE);
+        favorite_game.setVisibility(View.GONE);
+        favorite_store.setVisibility(View.GONE);
     }
 
     public static boolean is_review_view() {

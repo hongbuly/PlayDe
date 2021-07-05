@@ -541,7 +541,7 @@
                 android:textColor="@color/Black"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:text="좋아하는 게임"
+                android:text="좋아하는 가게"
                 android:gravity="center"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"/>

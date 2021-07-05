@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,9 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 
 public class ReserveActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    private TextView positionText;
+    private ImageButton backBtn;
 
     private LinearLayout reserve_view01;
     private GoogleMap map;
@@ -54,17 +58,27 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         reserve_view03 = findViewById(R.id.reserve_view03);
         reserve_view04 = findViewById(R.id.reserve_view04);
 
+        positionText = findViewById(R.id.positionText);
+        backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //뒤로가기 버튼.
+            }
+        });
+
         map_seat = findViewById(R.id.map_seat);
         map_seat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 reserve_view01.setVisibility(View.GONE);
                 reserve_view02.setVisibility(View.VISIBLE);
+                positionText.setText("카페 이름");
             }
         });
 
         ViewPager vp = findViewById(R.id.SelectGameVP);
-        SelectGameVPAdapter adapter = new SelectGameVPAdapter(getSupportFragmentManager());
+        GameSelectVPAdapter adapter = new GameSelectVPAdapter(getSupportFragmentManager());
         vp.setAdapter(adapter);
 
         TabLayout tab = findViewById(R.id.SelectGameTab);
@@ -142,6 +156,7 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
                 //결제하기.
                 reserve_view01.setVisibility(View.VISIBLE);
                 reserve_view04.setVisibility(View.GONE);
+                positionText.setText("지도");
                 Toast.makeText(ReserveActivity.this, "결제되었습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }

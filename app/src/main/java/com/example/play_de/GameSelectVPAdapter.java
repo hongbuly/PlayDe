@@ -6,10 +6,10 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
-public class SelectGameVPAdapter extends FragmentPagerAdapter {
+public class GameSelectVPAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> items;
 
-    public SelectGameVPAdapter(FragmentManager fm) {
+    public GameSelectVPAdapter(FragmentManager fm) {
         super(fm);
         items = new ArrayList<>();
         items.add(new GameSelectFirstFragment());
