@@ -16,8 +16,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageButton backBtn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,14 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < 5; i++)
             tab.getTabAt(i).setIcon(images.get(i));
-
-        backBtn = findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ProfileFragment.back_view();
-            }
-        });
     }
 
     private long backKeyPressedTime = 0;

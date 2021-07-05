@@ -8,139 +8,178 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/round_back_white"
-        android:orientation="vertical">
+        android:background="@color/MainYellow"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="30dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:background="@color/MainYellow">
 
             <TextView
-                android:id="@+id/countText"
-                android:layout_width="0dp"
+                android:id="@+id/positionText"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="전체\n12,395"
+                android:layout_marginBottom="5dp"
+                android:background="@color/MainYellow"
+                android:gravity="bottom|center"
+                android:text="게임 선택"
                 android:textColor="@color/Black"
-                android:textSize="10dp" />
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/filterEdit"
-                android:layout_width="0dp"
+            <ImageButton
+                android:id="@+id/backBtn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="8"
-                android:background="@drawable/round_corner_yellow"
-                android:drawableRight="@drawable/reading_glasses"
-                android:paddingRight="7dp" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp"
+                android:minWidth="0dp"
+                android:paddingTop="40dp"
+                android:src="@drawable/back" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_weight="10"
+            android:background="@drawable/round_back_white"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/popularBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginRight="15dp"
+                android:layout_marginBottom="30dp"
                 android:layout_weight="1"
-                android:background="@drawable/round_corner_btn"
-                android:drawableRight="@drawable/down_triangle"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:paddingTop="3dp"
-                android:paddingRight="7dp"
-                android:paddingBottom="3dp"
-                android:text="인기순"
-                android:textColor="@color/White"
-                android:textSize="13dp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/themeBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_corner_btn"
-                android:drawableRight="@drawable/down_triangle"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:paddingTop="3dp"
-                android:paddingRight="7dp"
-                android:paddingBottom="3dp"
-                android:text="테마"
-                android:textColor="@color/White"
-                android:textSize="13dp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/countText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="전체\n12,395"
+                    android:textColor="@color/Black"
+                    android:textSize="10dp" />
 
-            <Button
-                android:id="@+id/levelBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_corner_btn"
-                android:drawableRight="@drawable/down_triangle"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:paddingTop="3dp"
-                android:paddingRight="7dp"
-                android:paddingBottom="3dp"
-                android:text="난이도"
-                android:textColor="@color/White"
-                android:textSize="13dp"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/filterEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:background="@drawable/round_corner_yellow"
+                    android:drawableRight="@drawable/reading_glasses"
+                    android:paddingRight="7dp" />
 
-            <Button
-                android:id="@+id/peopleBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/round_corner_btn"
-                android:drawableRight="@drawable/down_triangle"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:paddingTop="3dp"
-                android:paddingRight="7dp"
-                android:paddingBottom="3dp"
-                android:text="인원 수"
-                android:textColor="@color/White"
-                android:textSize="13dp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/popularBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_corner_btn"
+                    android:drawableRight="@drawable/down_triangle"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="7dp"
+                    android:paddingBottom="3dp"
+                    android:text="인기순"
+                    android:textColor="@color/White"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/themeBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_corner_btn"
+                    android:drawableRight="@drawable/down_triangle"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="7dp"
+                    android:paddingBottom="3dp"
+                    android:text="테마"
+                    android:textColor="@color/White"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/levelBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_corner_btn"
+                    android:drawableRight="@drawable/down_triangle"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="7dp"
+                    android:paddingBottom="3dp"
+                    android:text="난이도"
+                    android:textColor="@color/White"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/peopleBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_corner_btn"
+                    android:drawableRight="@drawable/down_triangle"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="7dp"
+                    android:paddingBottom="3dp"
+                    android:text="인원 수"
+                    android:textColor="@color/White"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="14"
+                android:divider="@color/White"
+                android:dividerHeight="5dp"
+                android:listSelector="@android:color/transparent" />
+
 
         </LinearLayout>
-
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="14"
-            android:divider="@color/White"
-            android:dividerHeight="5dp"
-            android:listSelector="@android:color/transparent" />
-
-
     </LinearLayout>
-
 </FrameLayout>

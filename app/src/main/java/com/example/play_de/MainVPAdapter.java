@@ -22,7 +22,7 @@ public class MainVPAdapter extends FragmentPagerAdapter {
 
         itext = new ArrayList<>();
         itext.add("Home");
-        itext.add("Category");
+        itext.add("Game");
         itext.add("Person");
         itext.add("Chat");
         itext.add("Profile");
