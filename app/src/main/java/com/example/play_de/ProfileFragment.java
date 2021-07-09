@@ -13,8 +13,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +34,12 @@ public class ProfileFragment extends Fragment {
     private ImageButton store_btn;
 
     public static LinearLayout favorite_game;
+    private ListView favorite_game_list;
     public static LinearLayout favorite_store;
+    private ListView favorite_store_list;
+
+    private FavoriteListViewAdapter favorite_game_adapter;
+    private FavoriteListViewAdapter favorite_store_adapter;
 
     private Button recent_play_btnM;
     private LinearLayout recent_play01M;
@@ -148,6 +156,16 @@ public class ProfileFragment extends Fragment {
                 favorite_store.setVisibility(View.VISIBLE);
             }
         });
+
+        favorite_game_adapter = new FavoriteListViewAdapter();
+        favorite_game_list = view.findViewById(R.id.favorite_game_list);
+        favorite_game_list.setAdapter(favorite_game_adapter);
+        addGameListView();
+
+        favorite_store_adapter = new FavoriteListViewAdapter();
+        favorite_store_list = view.findViewById(R.id.favorite_store_list);
+        favorite_store_list.setAdapter(favorite_store_adapter);
+        addStoreListView();
 
         recent_play01M = view.findViewById(R.id.recent_play01M);
         recent_play01M.setOnClickListener(new View.OnClickListener() {
@@ -330,5 +348,32 @@ public class ProfileFragment extends Fragment {
         } else {
             return false;
         }
+    }
+
+    void addGameListView() {
+        int[] favorite_game = new int[4];
+        favorite_game[0] = R.drawable.game01;
+        favorite_game[1] = R.drawable.game02;
+        favorite_game[2] = R.drawable.game03;
+        favorite_game[3] = R.drawable.game04;
+
+        String[] name = new String[4];
+        name[0] = "다빈치 캐슬";
+        name[1] = "카탄";
+        name[2] = "FUGITIVE";
+        name[3] = "카르카손";
+        favorite_game_adapter.addItem(favorite_game, name);
+    }
+
+    void addStoreListView() {
+        int[] favorite_store = new int[4];
+        String[] name = new String[4];
+        for (int i = 0; i < 4; i++) {
+            favorite_store[i] = R.drawable.round_corner_gradient;
+            name[i] = "이름";
+        }
+
+        for (int i = 0; i < 9; i++)
+            favorite_store_adapter.addItem(favorite_store, name);
     }
 }

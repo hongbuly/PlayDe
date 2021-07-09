@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/MainYellow"
+        android:background="@color/AdventurerRed"
         android:orientation="vertical"
         tools:context=".MainActivity">
 
@@ -16,16 +16,15 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/MainYellow">
+            android:background="@drawable/vertical__gradient">
 
             <TextView
                 android:id="@+id/positionText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/MainYellow"
                 android:gravity="center"
                 android:text="마이페이지"
-                android:textColor="@color/Black"
+                android:textColor="@color/White"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -72,7 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/circle_yellow" />
+                        android:src="@drawable/circle_orange" />
 
                     <TextView
                         android:id="@+id/profile_name"
@@ -178,7 +177,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_yellow" />
+                            android:src="@drawable/circle_orange" />
 
                         <TextView
                             android:id="@+id/recent_play_name01M"
@@ -215,7 +214,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_yellow" />
+                            android:src="@drawable/circle_orange" />
 
                         <TextView
                             android:id="@+id/recent_play_name02M"
@@ -252,7 +251,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_yellow" />
+                            android:src="@drawable/circle_orange" />
 
                         <TextView
                             android:id="@+id/recent_play_name03M"
@@ -289,7 +288,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_yellow" />
+                            android:src="@drawable/circle_orange" />
 
                         <TextView
                             android:id="@+id/recent_play_name04M"
@@ -360,7 +359,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_yellow" />
+                            android:src="@drawable/circle_orange" />
 
                         <TextView
                             android:id="@+id/friend_name01"
@@ -397,7 +396,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_yellow" />
+                            android:src="@drawable/circle_orange" />
 
                         <TextView
                             android:id="@+id/friend_name02"
@@ -434,7 +433,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_yellow" />
+                            android:src="@drawable/circle_orange" />
 
                         <TextView
                             android:id="@+id/friend_name03"
@@ -471,7 +470,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_yellow" />
+                            android:src="@drawable/circle_orange" />
 
                         <TextView
                             android:id="@+id/friend_name04"
@@ -520,7 +519,12 @@
                 android:id="@+id/favorite_game_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="10" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="10"
+                android:divider="@color/White"
+                android:dividerHeight="10dp" />
 
         </LinearLayout>
 
@@ -537,20 +541,25 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:text="좋아하는 가게"
                 android:textColor="@color/Black"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="좋아하는 가게"
-                android:gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"/>
+                android:textStyle="bold" />
 
             <ListView
                 android:id="@+id/favorite_store_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="10" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="10"
+                android:divider="@color/White"
+                android:dividerHeight="10dp" />
 
         </LinearLayout>
 
@@ -606,7 +615,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_yellow" />
+                            android:src="@drawable/circle_orange" />
 
                         <TextView
                             android:id="@+id/recent_play_name01"
@@ -643,7 +652,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_yellow" />
+                            android:src="@drawable/circle_orange" />
 
                         <TextView
                             android:id="@+id/recent_play_name02"
@@ -680,7 +689,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_yellow" />
+                            android:src="@drawable/circle_orange" />
 
                         <TextView
                             android:id="@+id/recent_play_name03"
@@ -717,7 +726,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_yellow" />
+                            android:src="@drawable/circle_orange" />
 
                         <TextView
                             android:id="@+id/recent_play_name04"

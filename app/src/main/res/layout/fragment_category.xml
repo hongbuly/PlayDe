@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/MainYellow"
+        android:background="@color/AdventurerRed"
         android:orientation="vertical"
         tools:context=".MainActivity">
 
@@ -16,16 +16,15 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/MainYellow">
+            android:background="@drawable/vertical__gradient">
 
             <TextView
                 android:id="@+id/positionText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/MainYellow"
                 android:gravity="center"
                 android:text="게임 선택"
-                android:textColor="@color/Black"
+                android:textColor="@color/White"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -73,7 +72,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="8"
-                    android:background="@drawable/round_corner_yellow"
+                    android:background="@drawable/round_corner_gradient"
                     android:drawableRight="@drawable/reading_glasses"
                     android:paddingRight="7dp" />
 

@@ -3,5 +3,5 @@
     <item
         android:width="10dp"
         android:height="10dp"
-        android:drawable="@drawable/circle_yellow" />
+        android:drawable="@drawable/circle_orange" />
 </layer-list>
