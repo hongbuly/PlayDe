@@ -46,21 +46,15 @@ public class YoutubeActivity extends YouTubeBaseActivity {
         });
     }
 
-    public void playVideo(String videoId) {
-        if(player != null) {
-            if(player.isPlaying()) {
-                player.pause();
-            }
-            player.cueVideo(videoId);
-        }
-    }
-
     private void initPlayer() {
         playerView = findViewById(R.id.youtubeView);
         playerView.initialize(API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 player = youTubePlayer;
+
+                //보드게임 종류에 맞는 영상 재생하기.
+                player.loadVideo("37V2ajpMEic");
 
                 player.setPlayerStateChangeListener(new YouTubePlayer.PlayerStateChangeListener() {
                     @Override

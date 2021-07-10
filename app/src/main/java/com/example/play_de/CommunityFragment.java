@@ -1,6 +1,5 @@
 package com.example.play_de;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;

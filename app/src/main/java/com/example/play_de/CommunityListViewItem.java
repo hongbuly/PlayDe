@@ -1,7 +1,5 @@
 package com.example.play_de;
 
-import android.graphics.drawable.Drawable;
-
 public class CommunityListViewItem {
 
     private int profileImage;

@@ -63,13 +63,22 @@ public class CategoryFragment extends Fragment {
 
     void addCategoryListView() {
         //서버로부터 정보를 받아서 리스트 추가할 것.
-        String name = "게임 이름";
-        String theme = "게임 테마";
-        String people = "인원수";
-        String level = "난이도";
+        int image = R.drawable.game02;
+        String name = "카탄";
+        String theme = "협력";
+        String people = "3~4인";
+        String level = "중하";
 
-        for (int i = 1; i < 30; i++) {
-            category_adapter.addItem(name, theme, people, level);
+        category_adapter.addItem(image, name, theme, people, level);
+
+        image = R.drawable.round_corner_gradient;
+        name = "게임 이름";
+        theme = "게임 테마";
+        people = "인원수";
+        level = "난이도";
+
+        for (int i = 0; i < 10; i++) {
+            category_adapter.addItem(image, name, theme, people, level);
         }
         category_adapter.notifyDataSetChanged();
     }
