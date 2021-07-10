@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,7 +85,7 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         tab.setupWithViewPager(vp);
 
         ArrayList<Integer> images = new ArrayList<>();
-        images.add(R.drawable.tab_circle_yellow);
+        images.add(R.drawable.tab_circle_orange);
         images.add(R.drawable.tab_circle_grey);
 
         tab.getTabAt(0).setIcon(images.get(0));
@@ -155,10 +154,10 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View v) {
                 //결제하기.
-                reserve_view01.setVisibility(View.VISIBLE);
-                reserve_view04.setVisibility(View.GONE);
                 positionText.setText("지도");
                 Toast.makeText(ReserveActivity.this, "결제되었습니다.", Toast.LENGTH_SHORT).show();
+                reserve_view01.setVisibility(View.VISIBLE);
+                reserve_view04.setVisibility(View.GONE);
                 finish();
             }
         });

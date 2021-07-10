@@ -39,7 +39,7 @@ public class CommunityListViewAdapter extends BaseAdapter {
 
         CommunityListViewItem listViewItem = listViewItemsList.get(position);
 
-        profileImageView.setImageDrawable(listViewItem.getProfile()); //이미지 가져오는 형식에 따라 바꿔야됨
+        profileImageView.setImageResource(listViewItem.getProfile()); //이미지 가져오는 형식에 따라 바꿔야됨
         nameTextView.setText(listViewItem.getName());
         dongTextView.setText(listViewItem.getDong());
         heartTextView.setText(listViewItem.getHeart());
@@ -70,7 +70,7 @@ public class CommunityListViewAdapter extends BaseAdapter {
         return position;
     }
 
-    public void addItem(Drawable profile, String name, String dong, String heart, String place) {
+    public void addItem(int profile, String name, String dong, String heart, String place) {
         CommunityListViewItem item = new CommunityListViewItem();
 
         item.setProfile(profile);

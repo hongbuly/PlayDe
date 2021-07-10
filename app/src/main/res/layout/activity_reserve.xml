@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@drawable/vertical__gradient">
+        android:background="@drawable/vertical_gradient">
 
         <TextView
             android:id="@+id/positionText"
@@ -42,7 +42,7 @@
         android:layout_weight="10"
         android:background="@drawable/round_back_white"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <fragment
             android:id="@+id/map"
@@ -167,7 +167,6 @@
                     android:background="@drawable/round_corner_white" />
 
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -216,7 +215,7 @@
         android:layout_weight="10"
         android:background="@drawable/round_back_white"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -281,7 +280,6 @@
                     android:layout_width="10dp"
                     android:layout_height="10dp" />
             </com.google.android.material.tabs.TabLayout>
-
         </LinearLayout>
 
         <Button

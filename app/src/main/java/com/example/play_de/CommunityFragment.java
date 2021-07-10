@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 public class CommunityFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -18,8 +20,13 @@ public class CommunityFragment extends Fragment {
 
     private ListView community_listView;
     private CommunityListViewAdapter community_adapter;
+    private FrameLayout backLayout;
     private EditText filterEdit;
-    private Button filterBtn;
+    private Button filterBtn01;
+    private RelativeLayout filterBtn02;
+    private Button filterBtn02_1;
+    private Button filterBtn02_2;
+    private Button filterBtn02_3;
 
     public static CommunityFragment newInstance(String param1, String param2) {
         CommunityFragment fragment = new CommunityFragment();
@@ -45,16 +52,65 @@ public class CommunityFragment extends Fragment {
         community_listView.setAdapter(community_adapter);
         addCommunityListView();
 
+        backLayout = view.findViewById(R.id.backLayout);
         filterEdit = view.findViewById(R.id.filterEdit);
-        filterBtn = view.findViewById(R.id.filterBtn);
+        filterBtn01 = view.findViewById(R.id.filterBtn01);
+        filterBtn02 = view.findViewById(R.id.filterBtn02);
+        filterBtn02_1 = view.findViewById(R.id.filterBtn02_1);
+        filterBtn02_2 = view.findViewById(R.id.filterBtn02_2);
+        filterBtn02_3 = view.findViewById(R.id.filterBtn02_3);
+
+        backLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (filterBtn02.getVisibility() == View.VISIBLE) {
+                    filterBtn01.setVisibility(View.VISIBLE);
+                    filterBtn02.setVisibility(View.GONE);
+                }
+            }
+        });
 
         //버튼 누르면, 밑으로 늘어나서 필터링을 결정하는 것을 구현할 것.
+        filterBtn01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterBtn01.setVisibility(View.GONE);
+                filterBtn02.setVisibility(View.VISIBLE);
+            }
+        });
+
+        filterBtn02_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterBtn01.setText("위시리스트 순");
+                filterBtn01.setVisibility(View.VISIBLE);
+                filterBtn02.setVisibility(View.GONE);
+            }
+        });
+
+        filterBtn02_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterBtn01.setText("거리 순");
+                filterBtn01.setVisibility(View.VISIBLE);
+                filterBtn02.setVisibility(View.GONE);
+            }
+        });
+
+        filterBtn02_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterBtn01.setText("카페 좋아요 순");
+                filterBtn01.setVisibility(View.VISIBLE);
+                filterBtn02.setVisibility(View.GONE);
+            }
+        });
         return view;
     }
 
     void addCommunityListView() {
         //프로필 이미지 타입 결정하고 설정할 것.
-        Drawable profile = null;
+        int profile = R.drawable.circle_orange;
         String name = "이름";
         String dong = "OO동";
         String heart = "5개가 겹칩니다.";
