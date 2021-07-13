@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/AdventurerRed"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -44,8 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
-            android:background="@drawable/round_back_white"
-            tools:context=".P14_1">
+            android:background="@drawable/round_back_white">
 
             <EditText
                 android:id="@+id/filterEdit"
@@ -64,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/filterEdit"
-                android:background="@drawable/round_corner_btn"
+                android:background="@drawable/round_gradient_btn"
                 android:minHeight="0dp"
                 android:paddingLeft="15dp"
                 android:paddingTop="5dp"
@@ -75,26 +73,6 @@
                 android:textSize="13dp"
                 android:textStyle="bold"
                 android:visibility="invisible" />
-
-            <Button
-                android:id="@+id/filterBtn01"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/filterEdit"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/round_corner_btn"
-                android:drawableRight="@drawable/down_triangle"
-                android:minHeight="0dp"
-                android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                android:paddingRight="15dp"
-                android:paddingBottom="5dp"
-                android:text="위시리스트 순"
-                android:textColor="@color/White"
-                android:textSize="13dp"
-                android:textStyle="bold"
-                android:visibility="visible" />
 
             <ListView
                 android:id="@+id/listView"
@@ -115,52 +93,7 @@
                 android:layout_below="@+id/filterEdit"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/round_corner_btn"
                 android:visibility="gone">
-
-                <Button
-                    android:id="@+id/filterBtn02_1"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/up_triangle"
-                    android:gravity="left"
-                    android:minHeight="0dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:text="위시리스트 순"
-                    android:textColor="@color/White"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/filterBtn02_1"
-                    android:layout_centerHorizontal="true"
-                    android:background="@color/White" />
-
-                <Button
-                    android:id="@+id/filterBtn02_2"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/filterBtn02_1"
-                    android:gravity="left"
-                    android:minHeight="0dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:text="거리순"
-                    android:textColor="@color/White"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/filterBtn02_2"
-                    android:layout_centerHorizontal="true"
-                    android:background="@color/White" />
 
                 <Button
                     android:id="@+id/filterBtn02_3"
@@ -168,15 +101,106 @@
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/filterBtn02_2"
+                    android:background="@drawable/bottom_round_gradient"
                     android:gravity="left"
                     android:minHeight="0dp"
                     android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="15dp"
+                    android:paddingBottom="5dp"
                     android:text="카페 좋아요 순"
                     android:textColor="@color/White"
                     android:textSize="13dp"
                     android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/filterBtn02_2"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/filterBtn02_1"
+                    android:background="@drawable/horizon_gradient"
+                    android:gravity="left"
+                    android:minHeight="0dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp"
+                    android:text="거리순"
+                    android:textColor="@color/White"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/line01"
+                    android:layout_width="100dp"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/filterBtn02_1"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/White" />
+
+                <View
+                    android:id="@+id/line02"
+                    android:layout_width="100dp"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/filterBtn02_2"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/White" />
+
+                <Button
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/White"
+                    android:gravity="left"
+                    android:minHeight="0dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/White"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/filterBtn02_1"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/top_round_gradient"
+                    android:drawableRight="@drawable/up_triangle"
+                    android:gravity="left"
+                    android:minHeight="0dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp"
+                    android:text="위시리스트 순"
+                    android:textColor="@color/White"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
             </RelativeLayout>
+
+            <Button
+                android:id="@+id/filterBtn01"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/filterEdit"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/round_gradient_btn"
+                android:drawableRight="@drawable/down_triangle"
+                android:gravity="left"
+                android:minHeight="0dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="5dp"
+                android:text="위시리스트 순"
+                android:textColor="@color/White"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                android:visibility="visible" />
         </RelativeLayout>
     </LinearLayout>
 </FrameLayout>
