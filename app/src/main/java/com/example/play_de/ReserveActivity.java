@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.DatePickerDialog;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +26,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ReserveActivity extends AppCompatActivity implements OnMapReadyCallback {
-
     private TextView positionText;
     private ImageButton backBtn;
 
@@ -111,7 +109,6 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         });
 
         reserve_day_btn = findViewById(R.id.reserve_day_btn);
-        setDate();
         reserve_day_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,8 +170,6 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
                 reserve_view03.setVisibility(View.GONE);
                 reserve_view04.setVisibility(View.VISIBLE);
 
-                reserve_day.setText(year + "년\t\t\t\t\t" + month + "월\t\t\t\t\t" + day + "일");
-
                 String time = new String();
                 int howLong = 0;
                 for (int i = 9; i < 23; i++) {
@@ -202,6 +197,8 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
                 finish();
             }
         });
+
+        setDate();
     }
 
     @Override
@@ -221,6 +218,7 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 reserve_day_btn.setText(year + "년\t\t\t\t\t" + (month + 1) + "월\t\t\t\t\t" + dayOfMonth + "일");
+                reserve_day.setText(year + "년\t\t\t\t\t" + (month + 1) + "월\t\t\t\t\t" + dayOfMonth + "일");
             }
         }, year, month - 1, day);
         datePickerDialog.show();
@@ -236,5 +234,6 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         day = Integer.parseInt(simpleDate.format(date));
 
         reserve_day_btn.setText(year + "년\t\t\t\t\t" + month + "월\t\t\t\t\t" + day + "일");
+        reserve_day.setText(year + "년\t\t\t\t\t" + month + "월\t\t\t\t\t" + day + "일");
     }
 }
