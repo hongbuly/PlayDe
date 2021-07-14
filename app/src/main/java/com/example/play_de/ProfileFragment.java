@@ -17,8 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
 public class ProfileFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -272,7 +270,7 @@ public class ProfileFragment extends Fragment {
                     block_reason_btn01.setBackgroundResource(R.drawable.circle_corner_grey);
                     isChecked[0] = false;
                 } else {
-                    block_reason_btn01.setBackgroundResource(R.drawable.circle_corner_yellow);
+                    block_reason_btn01.setBackgroundResource(R.drawable.circle_corner_red);
                     isChecked[0] = true;
                 }
             }
@@ -286,7 +284,7 @@ public class ProfileFragment extends Fragment {
                     block_reason_btn02.setBackgroundResource(R.drawable.circle_corner_grey);
                     isChecked[1] = false;
                 } else {
-                    block_reason_btn02.setBackgroundResource(R.drawable.circle_corner_yellow);
+                    block_reason_btn02.setBackgroundResource(R.drawable.circle_corner_red);
                     isChecked[1] = true;
                 }
             }
@@ -300,7 +298,7 @@ public class ProfileFragment extends Fragment {
                     block_reason_btn03.setBackgroundResource(R.drawable.circle_corner_grey);
                     isChecked[2] = false;
                 } else {
-                    block_reason_btn03.setBackgroundResource(R.drawable.circle_corner_yellow);
+                    block_reason_btn03.setBackgroundResource(R.drawable.circle_corner_red);
                     isChecked[2] = true;
                 }
             }
@@ -314,7 +312,7 @@ public class ProfileFragment extends Fragment {
                     block_reason_btn04.setBackgroundResource(R.drawable.circle_corner_grey);
                     isChecked[3] = false;
                 } else {
-                    block_reason_btn04.setBackgroundResource(R.drawable.circle_corner_yellow);
+                    block_reason_btn04.setBackgroundResource(R.drawable.circle_corner_red);
                     isChecked[3] = true;
                 }
             }

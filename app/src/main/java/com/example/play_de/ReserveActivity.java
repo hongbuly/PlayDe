@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.DatePickerDialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,7 +21,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ReserveActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -35,7 +41,9 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
 
     private LinearLayout reserve_view03;
     private Button reserve_day_btn;
+    private int year, month, day;
     private Button reserve_time_btn[];
+    private boolean isChecked[];
     private Button next_btn02;
 
     private LinearLayout reserve_view04;
@@ -103,8 +111,15 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         });
 
         reserve_day_btn = findViewById(R.id.reserve_day_btn);
-        reserve_time_btn = new Button[14];
+        setDate();
+        reserve_day_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDate();
+            }
+        });
 
+        reserve_time_btn = new Button[14];
         reserve_time_btn[0] = findViewById(R.id.reserve_9btn);
         reserve_time_btn[1] = findViewById(R.id.reserve_10btn);
         reserve_time_btn[2] = findViewById(R.id.reserve_11btn);
@@ -120,25 +135,28 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         reserve_time_btn[12] = findViewById(R.id.reserve_21btn);
         reserve_time_btn[13] = findViewById(R.id.reserve_22btn);
 
+        isChecked = new boolean[14];
         for (int i = 0; i < 14; i++) {
+            isChecked[i] = false;
+        }
+
+        for (int i = 0; i < 14; i++) {
+            final int finalI = i;
             reserve_time_btn[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //선택이 되면 노랗게, 그 반대는 원래대로
+                    if (isChecked[finalI]) {
+                        reserve_time_btn[finalI].setBackgroundResource(R.drawable.circle_corner_grey);
+                        isChecked[finalI] = false;
+                    } else {
+                        reserve_time_btn[finalI].setBackgroundResource(R.drawable.circle_corner_red);
+                        isChecked[finalI] = true;
+                    }
                 }
             });
         }
 
-        next_btn02 = findViewById(R.id.next_btn02);
-        next_btn02.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //선택된 시간 저장하기.
-                reserve_view03.setVisibility(View.GONE);
-                reserve_view04.setVisibility(View.VISIBLE);
-            }
-        });
-
+        //이전 화면에서 정보를 넘겨받아 text 바꾸기.
         reserve_day = findViewById(R.id.reserve_day);
         reserve_time = findViewById(R.id.reserve_time);
         reserve_people = findViewById(R.id.reserve_people);
@@ -148,7 +166,30 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         reserve_bill = findViewById(R.id.reserve_bill);
         pay_btn = findViewById(R.id.pay_btn);
 
-        //이전 화면에서 정보를 넘겨받아 text 바꾸기.
+        next_btn02 = findViewById(R.id.next_btn02);
+        next_btn02.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reserve_view03.setVisibility(View.GONE);
+                reserve_view04.setVisibility(View.VISIBLE);
+
+                reserve_day.setText(year + "년\t\t\t\t\t" + month + "월\t\t\t\t\t" + day + "일");
+
+                String time = new String();
+                int howLong = 0;
+                for (int i = 9; i < 23; i++) {
+                    if (isChecked[i - 9]) {
+                        howLong++;
+                        if (time.isEmpty())
+                            time = Integer.toString(i);
+                        else {
+                            time += ", " + i;
+                        }
+                    }
+                }
+                reserve_time.setText(time);
+            }
+        });
 
         pay_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,5 +214,27 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         markerOptions.title("서울");
         markerOptions.snippet("한국의 수도");
         map.addMarker(markerOptions);
+    }
+
+    void showDate() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                reserve_day_btn.setText(year + "년\t\t\t\t\t" + (month + 1) + "월\t\t\t\t\t" + dayOfMonth + "일");
+            }
+        }, year, month - 1, day);
+        datePickerDialog.show();
+    }
+
+    void setDate() {
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat simpleYear = new SimpleDateFormat("yyyy");
+        SimpleDateFormat simpleMonth = new SimpleDateFormat("MM");
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd");
+        year = Integer.parseInt(simpleYear.format(date));
+        month = Integer.parseInt(simpleMonth.format(date));
+        day = Integer.parseInt(simpleDate.format(date));
+
+        reserve_day_btn.setText(year + "년\t\t\t\t\t" + month + "월\t\t\t\t\t" + day + "일");
     }
 }

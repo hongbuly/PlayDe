@@ -42,7 +42,7 @@
         android:layout_weight="10"
         android:background="@drawable/round_back_white"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <fragment
             android:id="@+id/map"
@@ -215,7 +215,7 @@
         android:layout_weight="10"
         android:background="@drawable/round_back_white"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -371,7 +371,7 @@
             android:layout_height="0dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="30dp"
             android:layout_weight="8"
             android:background="@drawable/circle_corner_grey"
             android:orientation="vertical">
@@ -439,7 +439,7 @@
                     android:id="@+id/reserve_9btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/circle_corner_grey"
                     android:text="9:00"
@@ -449,7 +449,7 @@
                     android:id="@+id/reserve_10btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/circle_corner_grey"
                     android:text="10:00"
@@ -459,7 +459,7 @@
                     android:id="@+id/reserve_11btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/circle_corner_grey"
                     android:text="11:00"
@@ -501,7 +501,7 @@
                     android:id="@+id/reserve_13btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/circle_corner_grey"
                     android:text="13:00"
@@ -511,7 +511,7 @@
                     android:id="@+id/reserve_14btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/circle_corner_grey"
                     android:text="14:00"
@@ -521,7 +521,7 @@
                     android:id="@+id/reserve_15btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/circle_corner_grey"
                     android:text="15:00"
@@ -551,7 +551,7 @@
                     android:id="@+id/reserve_17btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/circle_corner_grey"
                     android:text="17:00"
@@ -561,7 +561,7 @@
                     android:id="@+id/reserve_18btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/circle_corner_grey"
                     android:text="18:00"
@@ -571,7 +571,7 @@
                     android:id="@+id/reserve_19btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/circle_corner_grey"
                     android:text="19:00"
@@ -600,7 +600,7 @@
                     android:id="@+id/reserve_21btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/circle_corner_grey"
                     android:text="21:00"
@@ -610,7 +610,7 @@
                     android:id="@+id/reserve_22btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/circle_corner_grey"
                     android:text="22:00"
@@ -619,7 +619,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1" />
 
                 <View
@@ -912,7 +912,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
-            android:background="@drawable/circle_corner_yellow"
+            android:background="@drawable/circle_corner_red"
             android:gravity="center"
             android:text="게임"
             android:textColor="@color/Black"

@@ -165,8 +165,7 @@ public class CommunityFragment extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                filterBtn02.setVisibility(View.GONE);
-                filterBtn01.setVisibility(View.VISIBLE);
+                setFilterBtn02_Gone();
             }
 
             @Override
