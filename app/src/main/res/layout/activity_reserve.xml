@@ -688,7 +688,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="8dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/circle_corner_grey"
             android:orientation="horizontal">
 
@@ -732,7 +732,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="8dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/circle_corner_grey"
             android:orientation="horizontal">
 
@@ -776,7 +776,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="8dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/circle_corner_grey"
             android:orientation="horizontal">
 
@@ -821,7 +821,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="8dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/circle_corner_grey"
             android:orientation="horizontal">
 
@@ -866,7 +866,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="8dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/circle_corner_grey"
             android:orientation="horizontal">
 
@@ -911,7 +911,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="8dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/circle_corner_red"
             android:gravity="center"
             android:text="게임"
@@ -922,9 +922,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/underline_grey"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <TextView
@@ -948,8 +949,17 @@
                 android:text="4인 2시간 20,000원"
                 android:textColor="@color/Grey"
                 android:textSize="20dp" />
-
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/underline_grey"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="-25dp"
+            android:paddingBottom="23dp"/>
 
         <Button
             android:id="@+id/pay_btn"
@@ -959,7 +969,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="30dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/round_gradient_btn"
             android:gravity="center"
             android:stateListAnimator="@null"

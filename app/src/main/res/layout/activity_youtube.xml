@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/MainYellow"
+    android:background="@drawable/vertical_gradient"
     android:orientation="vertical">
 
     <Button
@@ -13,7 +13,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/round_gradient_btn"
+        android:background="@drawable/round_half_btn"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:text="전체 보기"

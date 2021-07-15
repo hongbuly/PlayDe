@@ -11,5 +11,10 @@
     <color name="BouncyOrange">#FF8C27</color>
     <color name="SplashTigerOrange">#FE7445</color>
     <color name="AdventurerRed">#FF6656</color>
+    <color name="BrightOrange">#FF8445</color>
+    <color name="Peach">#FFC09B</color>
+    <color name="Ivory">#FFEBD8</color>
+    <color name="DarkBrown">#644B40</color>
+    <color name="HalfWhite">#26F4F4F4</color>
     <color name="Glass">#00000000</color>
 </resources>

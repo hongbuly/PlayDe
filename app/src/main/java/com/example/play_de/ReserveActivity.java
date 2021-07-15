@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,11 +33,16 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
 
     private LinearLayout reserve_view01;
     private GoogleMap map;
+    private ImageButton map_callBtn;
+    private String tel = "tel:01012341234";
     private Button map_seat;
     private Button map_noSeat;
 
     private LinearLayout reserve_view02;
-    Button next_btn01;
+    private ViewPager vp;
+    private TabLayout tab;
+    private ArrayList<Integer> images;
+    private Button next_btn01;
 
     private LinearLayout reserve_view03;
     private Button reserve_day_btn;
@@ -70,6 +77,7 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View v) {
                 //뒤로가기 버튼.
+                goBack();
             }
         });
 
@@ -83,20 +91,57 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
-        ViewPager vp = findViewById(R.id.SelectGameVP);
+        map_callBtn = findViewById(R.id.map_callBtn);
+        map_callBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent("android.intent.action.DIAL", Uri.parse(tel)));
+            }
+        });
+
+        vp = findViewById(R.id.SelectGameVP);
         GameSelectVPAdapter adapter = new GameSelectVPAdapter(getSupportFragmentManager());
         vp.setAdapter(adapter);
 
-        TabLayout tab = findViewById(R.id.SelectGameTab);
+        tab = findViewById(R.id.SelectGameTab);
         tab.setupWithViewPager(vp);
 
-        ArrayList<Integer> images = new ArrayList<>();
+        images = new ArrayList<>();
         images.add(R.drawable.tab_circle_orange);
         images.add(R.drawable.tab_circle_grey);
 
         tab.getTabAt(0).setIcon(images.get(0));
         tab.getTabAt(1).setIcon(images.get(1));
         tab.getTabAt(2).setIcon(images.get(1));
+
+        vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    tab.getTabAt(0).setIcon(images.get(0));
+                    tab.getTabAt(1).setIcon(images.get(1));
+                    tab.getTabAt(2).setIcon(images.get(1));
+                } else if (position == 1) {
+                    tab.getTabAt(0).setIcon(images.get(1));
+                    tab.getTabAt(1).setIcon(images.get(0));
+                    tab.getTabAt(2).setIcon(images.get(1));
+                } else {
+                    tab.getTabAt(0).setIcon(images.get(1));
+                    tab.getTabAt(1).setIcon(images.get(1));
+                    tab.getTabAt(2).setIcon(images.get(0));
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         next_btn01 = findViewById(R.id.next_btn01);
         next_btn01.setOnClickListener(new View.OnClickListener() {
@@ -167,9 +212,6 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         next_btn02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reserve_view03.setVisibility(View.GONE);
-                reserve_view04.setVisibility(View.VISIBLE);
-
                 String time = new String();
                 int howLong = 0;
                 for (int i = 9; i < 23; i++) {
@@ -183,6 +225,13 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
                     }
                 }
                 reserve_time.setText(time);
+
+                if (howLong == 0) {
+                    Toast.makeText(ReserveActivity.this, "시간을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    reserve_view03.setVisibility(View.GONE);
+                    reserve_view04.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -214,7 +263,7 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     void showDate() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DatePickerDialog, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 reserve_day_btn.setText(year + "년\t\t\t\t\t" + (month + 1) + "월\t\t\t\t\t" + dayOfMonth + "일");
@@ -235,5 +284,26 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
 
         reserve_day_btn.setText(year + "년\t\t\t\t\t" + month + "월\t\t\t\t\t" + day + "일");
         reserve_day.setText(year + "년\t\t\t\t\t" + month + "월\t\t\t\t\t" + day + "일");
+    }
+
+    @Override
+    public void onBackPressed() {
+        goBack();
+    }
+
+    void goBack() {
+        if (reserve_view01.getVisibility() == View.VISIBLE) {
+            finish();
+        } else if (reserve_view02.getVisibility() == View.VISIBLE) {
+            reserve_view02.setVisibility(View.GONE);
+            reserve_view01.setVisibility(View.VISIBLE);
+            positionText.setText("지도");
+        } else if (reserve_view03.getVisibility() == View.VISIBLE) {
+            reserve_view03.setVisibility(View.GONE);
+            reserve_view02.setVisibility(View.VISIBLE);
+        } else {
+            reserve_view04.setVisibility(View.GONE);
+            reserve_view03.setVisibility(View.VISIBLE);
+        }
     }
 }
