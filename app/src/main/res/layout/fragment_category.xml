@@ -98,14 +98,13 @@
                     android:background="@drawable/round_gradient_btn"
                     android:drawableRight="@drawable/down_triangle"
                     android:minWidth="0dp"
-                    android:minHeight="0dp"
+                    android:minHeight="30dp"
                     android:paddingTop="3dp"
                     android:paddingRight="7dp"
                     android:paddingBottom="3dp"
                     android:text="인기순"
                     android:textColor="@color/White"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
+                    android:textSize="13dp" />
 
                 <Button
                     android:id="@+id/themeBtn"
@@ -117,14 +116,13 @@
                     android:background="@drawable/round_gradient_btn"
                     android:drawableRight="@drawable/down_triangle"
                     android:minWidth="0dp"
-                    android:minHeight="0dp"
+                    android:minHeight="30dp"
                     android:paddingTop="3dp"
                     android:paddingRight="7dp"
                     android:paddingBottom="3dp"
                     android:text="테마"
                     android:textColor="@color/White"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
+                    android:textSize="13dp" />
 
                 <Button
                     android:id="@+id/levelBtn"
@@ -136,14 +134,13 @@
                     android:background="@drawable/round_gradient_btn"
                     android:drawableRight="@drawable/down_triangle"
                     android:minWidth="0dp"
-                    android:minHeight="0dp"
+                    android:minHeight="30dp"
                     android:paddingTop="3dp"
                     android:paddingRight="7dp"
                     android:paddingBottom="3dp"
                     android:text="난이도"
                     android:textColor="@color/White"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
+                    android:textSize="13dp" />
 
                 <Button
                     android:id="@+id/peopleBtn"
@@ -154,14 +151,13 @@
                     android:background="@drawable/round_gradient_btn"
                     android:drawableRight="@drawable/down_triangle"
                     android:minWidth="0dp"
-                    android:minHeight="0dp"
+                    android:minHeight="30dp"
                     android:paddingTop="3dp"
                     android:paddingRight="7dp"
                     android:paddingBottom="3dp"
                     android:text="인원 수"
                     android:textColor="@color/White"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
+                    android:textSize="13dp" />
 
             </LinearLayout>
 
@@ -170,9 +166,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/buttonsLayout"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:divider="@color/White"
+                android:divider="@color/Glass"
                 android:dividerHeight="5dp"
                 android:listSelector="@android:color/transparent" />
         </RelativeLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -20,7 +21,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/White"
-        android:elevation="20dp"
+        android:elevation="10dp"
         app:tabIndicatorColor="@color/White"
         app:tabTextAppearance="@style/tab_text">
 

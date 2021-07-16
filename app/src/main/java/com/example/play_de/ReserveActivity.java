@@ -2,6 +2,7 @@ package com.example.play_de;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.DatePickerDialog;
@@ -182,6 +183,8 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
             isChecked[i] = false;
         }
 
+        final int blackColor = ContextCompat.getColor(getApplicationContext(), R.color.Black);
+        final int whiteColor = ContextCompat.getColor(getApplicationContext(), R.color.White);
         for (int i = 0; i < 14; i++) {
             final int finalI = i;
             reserve_time_btn[i].setOnClickListener(new View.OnClickListener() {
@@ -189,9 +192,11 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
                 public void onClick(View v) {
                     if (isChecked[finalI]) {
                         reserve_time_btn[finalI].setBackgroundResource(R.drawable.circle_corner_grey);
+                        reserve_time_btn[finalI].setTextColor(blackColor);
                         isChecked[finalI] = false;
                     } else {
-                        reserve_time_btn[finalI].setBackgroundResource(R.drawable.circle_corner_red);
+                        reserve_time_btn[finalI].setBackgroundResource(R.drawable.circle_corner_gradient);
+                        reserve_time_btn[finalI].setTextColor(whiteColor);
                         isChecked[finalI] = true;
                     }
                 }

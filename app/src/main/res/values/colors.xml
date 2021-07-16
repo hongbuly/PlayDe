@@ -8,6 +8,7 @@
     <color name="MainGrey">#353535</color>
     <color name="LineGrey">#BDBDBD</color>
     <color name="LightGrey">#C2C2C2</color>
+    <color name="WhiteGrey">#DDDDDD</color>
     <color name="BouncyOrange">#FF8C27</color>
     <color name="SplashTigerOrange">#FE7445</color>
     <color name="AdventurerRed">#FF6656</color>

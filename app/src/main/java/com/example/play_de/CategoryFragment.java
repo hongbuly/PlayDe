@@ -71,7 +71,7 @@ public class CategoryFragment extends Fragment {
 
         category_adapter.addItem(image, name, theme, people, level);
 
-        image = R.drawable.round_corner_gradient;
+        image = R.drawable.round_white_shadow;
         name = "게임 이름";
         theme = "게임 테마";
         people = "인원수";
