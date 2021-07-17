@@ -367,7 +367,7 @@ public class ProfileFragment extends Fragment {
         int[] favorite_store = new int[4];
         String[] name = new String[4];
         for (int i = 0; i < 4; i++) {
-            favorite_store[i] = R.drawable.round_corner_gradient;
+            favorite_store[i] = R.drawable.round_grey;
             name[i] = "이름";
         }
 

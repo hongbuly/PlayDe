@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,8 +42,10 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
 
     private LinearLayout reserve_view02;
     private ViewPager vp;
-    private TabLayout tab;
+    private ImageView tab01, tab02, tab03;
     private ArrayList<Integer> images;
+    public static int checkedGame = 0;
+    public static String gameList = "";
     private Button next_btn01;
 
     private LinearLayout reserve_view03;
@@ -92,6 +95,9 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
+        //자리가 없을 시 버튼 색깔을 바꿔주어야 함.
+        map_noSeat = findViewById(R.id.map_noSeat);
+
         map_callBtn = findViewById(R.id.map_callBtn);
         map_callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,16 +110,9 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         GameSelectVPAdapter adapter = new GameSelectVPAdapter(getSupportFragmentManager());
         vp.setAdapter(adapter);
 
-        tab = findViewById(R.id.SelectGameTab);
-        tab.setupWithViewPager(vp);
-
-        images = new ArrayList<>();
-        images.add(R.drawable.tab_circle_orange);
-        images.add(R.drawable.tab_circle_grey);
-
-        tab.getTabAt(0).setIcon(images.get(0));
-        tab.getTabAt(1).setIcon(images.get(1));
-        tab.getTabAt(2).setIcon(images.get(1));
+        tab01 = findViewById(R.id.tab01);
+        tab02 = findViewById(R.id.tab02);
+        tab03 = findViewById(R.id.tab03);
 
         vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -124,17 +123,17 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onPageSelected(int position) {
                 if (position == 0) {
-                    tab.getTabAt(0).setIcon(images.get(0));
-                    tab.getTabAt(1).setIcon(images.get(1));
-                    tab.getTabAt(2).setIcon(images.get(1));
+                    tab01.setImageResource(R.drawable.tab_circle_orange);
+                    tab02.setImageResource(R.drawable.tab_circle_grey);
+                    tab03.setImageResource(R.drawable.tab_circle_grey);
                 } else if (position == 1) {
-                    tab.getTabAt(0).setIcon(images.get(1));
-                    tab.getTabAt(1).setIcon(images.get(0));
-                    tab.getTabAt(2).setIcon(images.get(1));
+                    tab01.setImageResource(R.drawable.tab_circle_grey);
+                    tab02.setImageResource(R.drawable.tab_circle_orange);
+                    tab03.setImageResource(R.drawable.tab_circle_grey);
                 } else {
-                    tab.getTabAt(0).setIcon(images.get(1));
-                    tab.getTabAt(1).setIcon(images.get(1));
-                    tab.getTabAt(2).setIcon(images.get(0));
+                    tab01.setImageResource(R.drawable.tab_circle_grey);
+                    tab02.setImageResource(R.drawable.tab_circle_grey);
+                    tab03.setImageResource(R.drawable.tab_circle_orange);
                 }
             }
 
@@ -210,7 +209,6 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         reserve_name = findViewById(R.id.reserve_name);
         reserve_number = findViewById(R.id.reserve_number);
         reserve_game = findViewById(R.id.reserve_game);
-        reserve_bill = findViewById(R.id.reserve_bill);
         pay_btn = findViewById(R.id.pay_btn);
 
         next_btn02 = findViewById(R.id.next_btn02);
@@ -237,6 +235,13 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
                     reserve_view03.setVisibility(View.GONE);
                     reserve_view04.setVisibility(View.VISIBLE);
                 }
+
+                gameList = "";
+                GameSelectFirstFragment.setGameName();
+                GameSelectSecondFragment.setGameName();
+                GameSelectThirdFragment.setGameName();
+
+                reserve_game.setText(gameList);
             }
         });
 
@@ -271,8 +276,8 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DatePickerDialog, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                reserve_day_btn.setText(year + "년\t\t\t\t\t" + (month + 1) + "월\t\t\t\t\t" + dayOfMonth + "일");
-                reserve_day.setText(year + "년\t\t\t\t\t" + (month + 1) + "월\t\t\t\t\t" + dayOfMonth + "일");
+                reserve_day_btn.setText(year + "년 " + (month + 1) + "월 " + dayOfMonth + "일");
+                reserve_day.setText(year + "년 " + (month + 1) + "월 " + dayOfMonth + "일");
             }
         }, year, month - 1, day);
         datePickerDialog.show();
@@ -287,8 +292,8 @@ public class ReserveActivity extends AppCompatActivity implements OnMapReadyCall
         month = Integer.parseInt(simpleMonth.format(date));
         day = Integer.parseInt(simpleDate.format(date));
 
-        reserve_day_btn.setText(year + "년\t\t\t\t\t" + month + "월\t\t\t\t\t" + day + "일");
-        reserve_day.setText(year + "년\t\t\t\t\t" + month + "월\t\t\t\t\t" + day + "일");
+        reserve_day_btn.setText(year + "년 " + month + "월 " + day + "일");
+        reserve_day.setText(year + "년 " + month + "월 " + day + "일");
     }
 
     @Override

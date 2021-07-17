@@ -22,11 +22,11 @@
                 android:id="@+id/positionText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/apple_b"
                 android:gravity="center"
                 android:text="커뮤니티"
                 android:textColor="@color/White"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textSize="20dp" />
 
             <ImageButton
                 android:id="@+id/backBtn"
@@ -53,8 +53,9 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/round_corner_gradient"
+                android:background="@drawable/round_corner_red"
                 android:drawableRight="@drawable/reading_glasses"
+                android:fontFamily="@font/apple_l"
                 android:padding="7dp" />
 
             <Button
@@ -62,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/filterEdit"
-                android:background="@drawable/round_gradient_btn"
+                android:background="@drawable/round_red_btn"
                 android:minHeight="0dp"
                 android:paddingLeft="15dp"
                 android:paddingTop="5dp"
@@ -101,7 +102,8 @@
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/filterBtn02_2"
-                    android:background="@drawable/bottom_round_gradient"
+                    android:background="@drawable/bottom_round_red"
+                    android:fontFamily="@font/apple_l"
                     android:gravity="left"
                     android:minHeight="0dp"
                     android:paddingLeft="15dp"
@@ -109,9 +111,8 @@
                     android:paddingRight="15dp"
                     android:paddingBottom="5dp"
                     android:text="카페 좋아요 순"
-                    android:textColor="@color/White"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/MainRed"
+                    android:textSize="13dp" />
 
                 <Button
                     android:id="@+id/filterBtn02_2"
@@ -119,7 +120,8 @@
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/filterBtn02_1"
-                    android:background="@drawable/horizon_gradient"
+                    android:background="@drawable/rectangle_corner_red"
+                    android:fontFamily="@font/apple_l"
                     android:gravity="left"
                     android:minHeight="0dp"
                     android:paddingLeft="15dp"
@@ -127,48 +129,27 @@
                     android:paddingRight="15dp"
                     android:paddingBottom="5dp"
                     android:text="거리순"
-                    android:textColor="@color/White"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:id="@+id/line01"
-                    android:layout_width="100dp"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/filterBtn02_1"
-                    android:layout_centerHorizontal="true"
-                    android:background="@color/White" />
-
-                <View
-                    android:id="@+id/line02"
-                    android:layout_width="100dp"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/filterBtn02_2"
-                    android:layout_centerHorizontal="true"
-                    android:background="@color/White" />
+                    android:textColor="@color/MainRed"
+                    android:textSize="13dp" />
 
                 <Button
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:background="@color/White"
-                    android:gravity="left"
                     android:minHeight="0dp"
                     android:paddingLeft="15dp"
-                    android:paddingTop="5dp"
                     android:paddingRight="15dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="@color/White"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
+                    android:paddingBottom="5dp" />
 
                 <Button
                     android:id="@+id/filterBtn02_1"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/top_round_gradient"
+                    android:background="@drawable/top_round_red"
                     android:drawableRight="@drawable/up_triangle"
+                    android:fontFamily="@font/apple_l"
                     android:gravity="left"
                     android:minHeight="0dp"
                     android:paddingLeft="15dp"
@@ -177,8 +158,7 @@
                     android:paddingBottom="5dp"
                     android:text="위시리스트 순"
                     android:textColor="@color/White"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
+                    android:textSize="13dp" />
             </RelativeLayout>
 
             <Button
@@ -188,8 +168,9 @@
                 android:layout_below="@+id/filterEdit"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/round_gradient_btn"
+                android:background="@drawable/round_red_btn"
                 android:drawableRight="@drawable/down_triangle"
+                android:fontFamily="@font/apple_l"
                 android:gravity="left"
                 android:minHeight="0dp"
                 android:paddingLeft="15dp"
@@ -199,7 +180,6 @@
                 android:text="위시리스트 순"
                 android:textColor="@color/White"
                 android:textSize="13dp"
-                android:textStyle="bold"
                 android:visibility="visible" />
         </RelativeLayout>
     </LinearLayout>

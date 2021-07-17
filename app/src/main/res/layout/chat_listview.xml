@@ -19,12 +19,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="-5dp"
         android:layout_weight="2"
-        android:background="@drawable/round_corner_white"
+        android:background="@drawable/round_corner_red"
         android:padding="10dp"
         android:text="안녕하세요~ 보드게임 아직 하시나요?? 저랑 보드게임하지 않으실래요?? 언제 시간되시나요??"
         android:textColor="@color/Black"
         android:textSize="13dp"
-        android:textStyle="bold"
+        android:fontFamily="@font/apple_l"
         android:visibility="gone" />
 
     <View
@@ -47,12 +47,12 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="-5dp"
         android:layout_weight="2"
-        android:background="@drawable/round_corner_white"
+        android:background="@drawable/round_corner_red"
         android:padding="10dp"
         android:text="안녕하세요~ 보드게임 아직 하시나요?? 저랑 보드게임하지 않으실래요?? 언제 시간되시나요??"
         android:textColor="@color/Black"
         android:textSize="13dp"
-        android:textStyle="bold"
+        android:fontFamily="@font/apple_l"
         android:visibility="visible" />
 
     <ImageView
@@ -61,7 +61,7 @@
         android:layout_height="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/right_triangle"
+        android:background="@drawable/left_triangle"
+        android:rotation="180"
         android:visibility="visible" />
-
 </LinearLayout>

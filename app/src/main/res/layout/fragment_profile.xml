@@ -22,11 +22,11 @@
                 android:id="@+id/positionText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/apple_b"
                 android:gravity="center"
                 android:text="마이페이지"
                 android:textColor="@color/White"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textSize="20dp" />
 
             <ImageButton
                 android:id="@+id/backBtn"
@@ -71,24 +71,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/circle_orange" />
+                        android:src="@drawable/circle_grey" />
 
                     <TextView
                         android:id="@+id/profile_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
+                        android:fontFamily="@font/apple_b"
                         android:text="이름"
                         android:textColor="@color/Black"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/apple_l"
                         android:text="보드게임러버"
                         android:textColor="@color/Black"
-                        android:textSize="15dp" />
+                        android:textSize="13dp" />
 
                 </LinearLayout>
 
@@ -140,7 +141,7 @@
                     android:layout_height="2dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@color/Grey" />
+                    android:background="@color/LineGrey" />
 
                 <Button
                     android:id="@+id/recent_play_btnM"
@@ -148,10 +149,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/apple_b"
                     android:text="최근 함께한 > "
                     android:textColor="@color/Black"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textSize="15dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -172,18 +173,19 @@
                             android:id="@+id/recent_play_image01M"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@drawable/circle_grey" />
 
                         <TextView
                             android:id="@+id/recent_play_name01M"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="이름"
                             android:textColor="@color/Black"
                             android:textSize="13dp" />
@@ -192,9 +194,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="보드게임러버"
                             android:textColor="@color/Black"
-                            android:textSize="13dp" />
+                            android:textSize="11dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -209,18 +212,19 @@
                             android:id="@+id/recent_play_image02M"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@drawable/circle_grey" />
 
                         <TextView
                             android:id="@+id/recent_play_name02M"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="이름"
                             android:textColor="@color/Black"
                             android:textSize="13dp" />
@@ -229,9 +233,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="보드게임러버"
                             android:textColor="@color/Black"
-                            android:textSize="13dp" />
+                            android:textSize="11dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -246,18 +251,19 @@
                             android:id="@+id/recent_play_image03M"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@drawable/circle_grey" />
 
                         <TextView
                             android:id="@+id/recent_play_name03M"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="이름"
                             android:textColor="@color/Black"
                             android:textSize="13dp" />
@@ -266,9 +272,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="보드게임러버"
                             android:textColor="@color/Black"
-                            android:textSize="13dp" />
+                            android:textSize="11dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -283,18 +290,19 @@
                             android:id="@+id/recent_play_image04M"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@drawable/circle_grey" />
 
                         <TextView
                             android:id="@+id/recent_play_name04M"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="이름"
                             android:textColor="@color/Black"
                             android:textSize="13dp" />
@@ -303,9 +311,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="보드게임러버"
                             android:textColor="@color/Black"
-                            android:textSize="13dp" />
+                            android:textSize="11dp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -322,7 +331,7 @@
                     android:layout_height="2dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@color/Grey" />
+                    android:background="@color/LineGrey" />
 
                 <Button
                     android:id="@+id/friend_btn"
@@ -330,10 +339,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/apple_b"
                     android:text="친구목록 > "
                     android:textColor="@color/Black"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textSize="15dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -354,18 +363,19 @@
                             android:id="@+id/friend_image01"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@drawable/circle_grey" />
 
                         <TextView
                             android:id="@+id/friend_name01"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="이름"
                             android:textColor="@color/Black"
                             android:textSize="13dp" />
@@ -374,9 +384,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="보드게임러버"
                             android:textColor="@color/Black"
-                            android:textSize="13dp" />
+                            android:textSize="11dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -391,18 +402,19 @@
                             android:id="@+id/friend_image02"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@drawable/circle_grey" />
 
                         <TextView
                             android:id="@+id/friend_name02"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="이름"
                             android:textColor="@color/Black"
                             android:textSize="13dp" />
@@ -411,9 +423,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="보드게임러버"
                             android:textColor="@color/Black"
-                            android:textSize="13dp" />
+                            android:textSize="11dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -428,18 +441,19 @@
                             android:id="@+id/friend_image03"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@drawable/circle_grey" />
 
                         <TextView
                             android:id="@+id/friend_name03"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="이름"
                             android:textColor="@color/Black"
                             android:textSize="13dp" />
@@ -448,9 +462,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="보드게임러버"
                             android:textColor="@color/Black"
-                            android:textSize="13dp" />
+                            android:textSize="11dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -465,18 +480,19 @@
                             android:id="@+id/friend_image04"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@drawable/circle_grey" />
 
                         <TextView
                             android:id="@+id/friend_name04"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="이름"
                             android:textColor="@color/Black"
                             android:textSize="13dp" />
@@ -485,9 +501,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="보드게임러버"
                             android:textColor="@color/Black"
-                            android:textSize="13dp" />
+                            android:textSize="11dp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -524,8 +541,8 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="10"
                 android:divider="@color/White"
-                android:dividerHeight="10dp" />
-
+                android:dividerHeight="10dp"
+                android:listSelector="@android:color/transparent" />
         </LinearLayout>
 
 
@@ -559,8 +576,8 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="10"
                 android:divider="@color/White"
-                android:dividerHeight="10dp" />
-
+                android:dividerHeight="10dp"
+                android:listSelector="@android:color/transparent" />
         </LinearLayout>
 
 
@@ -586,10 +603,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/apple_b"
                     android:text="최근 함께한 > "
                     android:textColor="@color/Black"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textSize="15dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -610,18 +627,19 @@
                             android:id="@+id/recent_play_image01"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@drawable/circle_grey" />
 
                         <TextView
                             android:id="@+id/recent_play_name01"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="이름"
                             android:textColor="@color/Black"
                             android:textSize="13dp" />
@@ -630,9 +648,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="보드게임러버"
                             android:textColor="@color/Black"
-                            android:textSize="13dp" />
+                            android:textSize="11dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -647,18 +666,19 @@
                             android:id="@+id/recent_play_image02"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@drawable/circle_grey" />
 
                         <TextView
                             android:id="@+id/recent_play_name02"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="이름"
                             android:textColor="@color/Black"
                             android:textSize="13dp" />
@@ -667,9 +687,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="보드게임러버"
                             android:textColor="@color/Black"
-                            android:textSize="13dp" />
+                            android:textSize="11dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -684,18 +705,19 @@
                             android:id="@+id/recent_play_image03"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@drawable/circle_grey" />
 
                         <TextView
                             android:id="@+id/recent_play_name03"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="이름"
                             android:textColor="@color/Black"
                             android:textSize="13dp" />
@@ -704,9 +726,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="보드게임러버"
                             android:textColor="@color/Black"
-                            android:textSize="13dp" />
+                            android:textSize="11dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -721,18 +744,19 @@
                             android:id="@+id/recent_play_image04"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@drawable/circle_grey" />
 
                         <TextView
                             android:id="@+id/recent_play_name04"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="이름"
                             android:textColor="@color/Black"
                             android:textSize="13dp" />
@@ -741,9 +765,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
                             android:text="보드게임러버"
                             android:textColor="@color/Black"
-                            android:textSize="13dp" />
+                            android:textSize="11dp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -755,86 +780,51 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
                 android:layout_weight="6"
                 android:background="@drawable/word_balloon01"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
+                    android:layout_height="0dp"
                     android:layout_marginTop="40dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
                         android:layout_marginTop="5dp"
+                        android:fontFamily="@font/apple_b"
                         android:text="후기"
                         android:textColor="@color/Black"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
+                        android:textSize="16dp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <View
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="right">
+                        android:layout_weight="1" />
 
-                        <ImageView
-                            android:id="@+id/star01"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:src="@drawable/unchecked_star" />
-
-                        <ImageView
-                            android:id="@+id/star02"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:src="@drawable/unchecked_star" />
-
-                        <ImageView
-                            android:id="@+id/star03"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:src="@drawable/unchecked_star" />
-
-                        <ImageView
-                            android:id="@+id/star04"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:src="@drawable/unchecked_star" />
-
-                        <ImageView
-                            android:id="@+id/star05"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/unchecked_star" />
-
-                    </LinearLayout>
+                    <Button
+                        android:id="@+id/block_review_btn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="30dp"
+                        android:background="@drawable/round_red_btn"
+                        android:fontFamily="@font/apple_l"
+                        android:minHeight="30dp"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="5dp"
+                        android:text="차단하기"
+                        android:textColor="@color/White"
+                        android:textSize="12dp" />
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/block_review_btn"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/round_black_btn"
-                    android:minHeight="0dp"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="5dp"
-                    android:text="차단하기"
-                    android:textColor="@color/White"
-                    android:textSize="10dp" />
 
                 <EditText
                     android:id="@+id/review_editText"
@@ -842,10 +832,20 @@
                     android:layout_height="0dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_weight="6"
-                    android:background="@drawable/round_corner_white"
+                    android:layout_weight="5"
+                    android:background="@drawable/round_grey"
                     android:gravity="left|top"
                     android:padding="20dp" />
+
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:numStars="5"
+                    android:rating="2.5"
+                    android:stepSize="0.5"
+                    android:theme="@style/CustomRatingBar" />
 
                 <Button
                     android:id="@+id/register_review_btn"
@@ -856,13 +856,12 @@
                     android:layout_marginBottom="20dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_gradient_btn"
+                    android:fontFamily="@font/apple_b"
                     android:paddingLeft="50dp"
                     android:paddingRight="50dp"
                     android:text="등록하기"
                     android:textColor="@color/White"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-
+                    android:textSize="15dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -883,75 +882,90 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/apple_b"
                 android:gravity="center"
                 android:text="차단하는 이유를 알려주세요"
                 android:textColor="@color/Black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textSize="20dp" />
 
             <Button
                 android:id="@+id/block_reason_btn01"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/circle_corner_grey"
+                android:fontFamily="@font/apple_l"
+                android:gravity="left|center"
+                android:paddingLeft="20dp"
                 android:text="약속을 제대로 이해하지 않습니다."
                 android:textColor="@color/Black"
-                android:textSize="17dp" />
+                android:textSize="15dp" />
 
             <Button
                 android:id="@+id/block_reason_btn02"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/circle_corner_grey"
+                android:fontFamily="@font/apple_l"
+                android:gravity="left|center"
+                android:paddingLeft="20dp"
                 android:text="의심스럽거나 스팸입니다."
                 android:textColor="@color/Black"
-                android:textSize="17dp" />
+                android:textSize="15dp" />
 
             <Button
                 android:id="@+id/block_reason_btn03"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/circle_corner_grey"
+                android:fontFamily="@font/apple_l"
+                android:gravity="left|center"
+                android:paddingLeft="20dp"
                 android:text="타인을 사칭하고 있습니다."
                 android:textColor="@color/Black"
-                android:textSize="17dp" />
+                android:textSize="15dp" />
 
             <Button
                 android:id="@+id/block_reason_btn04"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/circle_corner_grey"
+                android:fontFamily="@font/apple_l"
+                android:gravity="left|center"
+                android:paddingLeft="20dp"
                 android:text="가학적인 내용의 채팅을 하고 있습니다."
                 android:textColor="@color/Black"
-                android:textSize="17dp" />
+                android:textSize="15dp" />
 
             <EditText
                 android:id="@+id/block_review_editText"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_weight="4"
                 android:background="@drawable/circle_corner_grey"
+                android:fontFamily="@font/apple_l"
                 android:gravity="left|top"
                 android:hint="기타의견을 적어주세요."
-                android:padding="20dp" />
+                android:padding="20dp"
+                android:textSize="15dp" />
 
             <Button
                 android:id="@+id/block_review_btn2"
@@ -963,10 +977,10 @@
                 android:layout_marginBottom="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_gradient_btn"
+                android:fontFamily="@font/apple_b"
                 android:text="차단하기"
                 android:textColor="@color/White"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textSize="17dp" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

@@ -17,10 +17,10 @@
 
         <ImageView
             android:id="@+id/imageList"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="7dp"
             android:src="@drawable/round_white_shadow" />
@@ -36,6 +36,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="게임 이름"
+                android:fontFamily="@font/apple_b"
+                android:textSize="15dp"
                 android:textColor="@color/Black" />
 
             <LinearLayout
@@ -49,12 +51,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="게임 테마"
+                    android:textSize="13dp"
+                    android:fontFamily="@font/apple_l"
                     android:textColor="@color/Black" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" / "
+                    android:textSize="13dp"
+                    android:fontFamily="@font/apple_l"
                     android:textColor="@color/Black" />
 
                 <TextView
@@ -62,12 +68,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="인원수"
+                    android:textSize="13dp"
+                    android:fontFamily="@font/apple_l"
                     android:textColor="@color/Black" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" / "
+                    android:textSize="13dp"
+                    android:fontFamily="@font/apple_l"
                     android:textColor="@color/Black" />
 
                 <TextView
@@ -75,6 +85,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="난이도"
+                    android:textSize="13dp"
+                    android:fontFamily="@font/apple_l"
                     android:textColor="@color/Black" />
 
             </LinearLayout>

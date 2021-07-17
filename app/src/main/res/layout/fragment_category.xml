@@ -22,11 +22,11 @@
                 android:id="@+id/positionText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/apple_b"
                 android:gravity="center"
                 android:text="게임 선택"
                 android:textColor="@color/White"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textSize="20dp" />
 
             <ImageButton
                 android:id="@+id/backBtn"
@@ -50,9 +50,9 @@
                 android:id="@+id/editLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="30dp"
                 android:orientation="horizontal">
 
@@ -61,20 +61,26 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/apple_l"
+                    android:gravity="left"
                     android:text="전체\n12,395"
                     android:textColor="@color/Black"
-                    android:textSize="10dp" />
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/filterEdit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:background="@drawable/round_corner_gradient"
+                    android:layout_gravity="center"
+                    android:layout_weight="9"
+                    android:background="@drawable/round_corner_red"
                     android:drawableRight="@drawable/reading_glasses"
-                    android:padding="7dp" />
+                    android:fontFamily="@font/apple_l"
+                    android:paddingLeft="7dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="7dp" />
 
             </LinearLayout>
 
@@ -83,8 +89,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editLayout"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
@@ -95,16 +101,16 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/round_gradient_btn"
+                    android:background="@drawable/round_red_btn"
                     android:drawableRight="@drawable/down_triangle"
+                    android:fontFamily="@font/apple_l"
                     android:minWidth="0dp"
                     android:minHeight="30dp"
-                    android:paddingTop="3dp"
                     android:paddingRight="7dp"
                     android:paddingBottom="3dp"
                     android:text="인기순"
                     android:textColor="@color/White"
-                    android:textSize="13dp" />
+                    android:textSize="15dp" />
 
                 <Button
                     android:id="@+id/themeBtn"
@@ -113,16 +119,16 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/round_gradient_btn"
+                    android:background="@drawable/round_red_btn"
                     android:drawableRight="@drawable/down_triangle"
+                    android:fontFamily="@font/apple_l"
                     android:minWidth="0dp"
                     android:minHeight="30dp"
-                    android:paddingTop="3dp"
                     android:paddingRight="7dp"
                     android:paddingBottom="3dp"
                     android:text="테마"
                     android:textColor="@color/White"
-                    android:textSize="13dp" />
+                    android:textSize="15dp" />
 
                 <Button
                     android:id="@+id/levelBtn"
@@ -131,16 +137,16 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/round_gradient_btn"
+                    android:background="@drawable/round_red_btn"
                     android:drawableRight="@drawable/down_triangle"
+                    android:fontFamily="@font/apple_l"
                     android:minWidth="0dp"
                     android:minHeight="30dp"
-                    android:paddingTop="3dp"
                     android:paddingRight="7dp"
                     android:paddingBottom="3dp"
                     android:text="난이도"
                     android:textColor="@color/White"
-                    android:textSize="13dp" />
+                    android:textSize="15dp" />
 
                 <Button
                     android:id="@+id/peopleBtn"
@@ -148,17 +154,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:background="@drawable/round_gradient_btn"
+                    android:background="@drawable/round_red_btn"
                     android:drawableRight="@drawable/down_triangle"
+                    android:fontFamily="@font/apple_l"
                     android:minWidth="0dp"
                     android:minHeight="30dp"
-                    android:paddingTop="3dp"
                     android:paddingRight="7dp"
                     android:paddingBottom="3dp"
                     android:text="인원 수"
                     android:textColor="@color/White"
-                    android:textSize="13dp" />
-
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <ListView

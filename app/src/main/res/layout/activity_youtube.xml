@@ -17,6 +17,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:text="전체 보기"
+        android:fontFamily="@font/apple_l"
         android:textColor="@color/White"
         android:textSize="13dp"
         android:textStyle="bold" />

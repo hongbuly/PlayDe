@@ -16,8 +16,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 public class CommunityFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     private ListView community_listView;
     private CommunityListViewAdapter community_adapter;
@@ -28,17 +26,6 @@ public class CommunityFragment extends Fragment {
     private Button filterBtn02_1;
     private Button filterBtn02_2;
     private Button filterBtn02_3;
-    private View line01;
-    private View line02;
-
-    public static CommunityFragment newInstance(String param1, String param2) {
-        CommunityFragment fragment = new CommunityFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,8 +49,6 @@ public class CommunityFragment extends Fragment {
         filterBtn02_1 = view.findViewById(R.id.filterBtn02_1);
         filterBtn02_2 = view.findViewById(R.id.filterBtn02_2);
         filterBtn02_3 = view.findViewById(R.id.filterBtn02_3);
-        line01 = view.findViewById(R.id.line01);
-        line02 = view.findViewById(R.id.line02);
 
         backLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +96,7 @@ public class CommunityFragment extends Fragment {
 
     void addCommunityListView() {
         //프로필 이미지 타입 결정하고 설정할 것.
-        int profile = R.drawable.circle_orange;
+        int profile = R.drawable.circle_grey;
         String name = "이름";
         String dong = "OO동";
         String heart = "5개가 겹칩니다.";
@@ -128,8 +113,6 @@ public class CommunityFragment extends Fragment {
         filterBtn02_1.setVisibility(View.GONE);
         filterBtn02_2.setVisibility(View.GONE);
         filterBtn02_3.setVisibility(View.GONE);
-        line01.setVisibility(View.GONE);
-        line02.setVisibility(View.GONE);
 
         filterBtn01.setVisibility(View.VISIBLE);
     }
@@ -140,22 +123,16 @@ public class CommunityFragment extends Fragment {
         filterBtn02_1.setVisibility(View.VISIBLE);
         filterBtn02_2.setVisibility(View.VISIBLE);
         filterBtn02_3.setVisibility(View.VISIBLE);
-        line01.setVisibility(View.VISIBLE);
-        line02.setVisibility(View.VISIBLE);
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.up_down100);
-        line01.startAnimation(animation);
         filterBtn02_2.startAnimation(animation);
         animation = AnimationUtils.loadAnimation(getContext(), R.anim.up_down200);
-        line02.startAnimation(animation);
         filterBtn02_3.startAnimation(animation);
     }
 
     void goToUp() {
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.down_up100);
-        line01.startAnimation(animation);
         filterBtn02_2.startAnimation(animation);
         animation = AnimationUtils.loadAnimation(getContext(), R.anim.down_up200);
-        line02.startAnimation(animation);
         filterBtn02_3.startAnimation(animation);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override

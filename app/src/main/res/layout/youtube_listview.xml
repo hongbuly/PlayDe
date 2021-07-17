@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="01. 가이드 1번"
+        android:fontFamily="@font/apple_l"
         android:textColor="@color/White"/>
 
     <LinearLayout
@@ -29,6 +30,7 @@
             android:paddingBottom="30dp"
             android:paddingLeft="15dp"
             android:text="간단한 설명"
+            android:fontFamily="@font/apple_l"
             android:textColor="@color/Black"/>
 
     </LinearLayout>

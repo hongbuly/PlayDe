@@ -9,24 +9,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/first_select01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/first_select_btn01"
-            android:layout_alignTop="@+id/first_select_btn01"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/game01" />
-
-        <Button
+        <ImageButton
             android:id="@+id/first_select_btn01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="7dp"
-            android:layout_marginBottom="7dp"
+            android:background="@drawable/unchecked_game" />
+
+        <ImageView
+            android:id="@+id/first_select01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/first_select_btn01"
+            android:layout_alignTop="@+id/first_select_btn01"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/game01" />
+
+        <ImageButton
+            android:id="@+id/first_select_btn02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
             android:background="@drawable/unchecked_game" />
 
         <ImageView
@@ -35,19 +44,16 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/first_select_btn02"
             android:layout_alignTop="@+id/first_select_btn02"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/game02" />
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/game02" />
 
-        <Button
-            android:id="@+id/first_select_btn02"
+        <ImageButton
+            android:id="@+id/first_select_btn03"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="7dp"
+            android:layout_below="@+id/first_select_btn01"
+            android:layout_marginLeft="15dp"
             android:background="@drawable/unchecked_game" />
 
         <ImageView
@@ -56,19 +62,17 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/first_select_btn03"
             android:layout_alignTop="@+id/first_select_btn03"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/game03" />
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/game03" />
 
-        <Button
-            android:id="@+id/first_select_btn03"
+        <ImageButton
+            android:id="@+id/first_select_btn04"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="7dp"
-            android:layout_marginBottom="25dp"
+            android:layout_below="@+id/first_select_btn02"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
             android:background="@drawable/unchecked_game" />
 
         <ImageView
@@ -77,20 +81,8 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/first_select_btn04"
             android:layout_alignTop="@+id/first_select_btn04"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/game04" />
-
-        <Button
-            android:id="@+id/first_select_btn04"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="25dp"
-            android:background="@drawable/unchecked_game" />
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/game04" />
     </RelativeLayout>
 </FrameLayout>

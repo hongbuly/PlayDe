@@ -7,28 +7,25 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class ChatFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import com.github.mmin18.widget.RealtimeBlurView;
 
+public class ChatFragment extends Fragment {
     private ListView chat_listView;
     private ChatListViewAdapter chat_adapter;
     private ImageView chat_profile;
     private TextView chat_name;
     private TextView chat_dong;
-
-    public static ChatFragment newInstance(String param1, String param2) {
-        ChatFragment fragment = new ChatFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private View back_layout;
+    private LinearLayout overlap;
+    private LinearLayout overlap2;
+    private RealtimeBlurView blurView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +45,30 @@ public class ChatFragment extends Fragment {
         chat_profile = view.findViewById(R.id.chat_profile);
         chat_name = view.findViewById(R.id.chat_name);
         chat_dong = view.findViewById(R.id.chat_dong);
+
+        back_layout = view.findViewById(R.id.backLayout);
+        blurView = view.findViewById(R.id.blurView);
+        overlap2 = view.findViewById(R.id.overlap2);
+        overlap = view.findViewById(R.id.overlap);
+        overlap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                blurView.setVisibility(View.VISIBLE);
+                overlap2.setVisibility(View.VISIBLE);
+                back_layout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        back_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (overlap2.getVisibility() == View.VISIBLE) {
+                    blurView.setVisibility(View.GONE);
+                    overlap2.setVisibility(View.GONE);
+                    back_layout.setVisibility(View.GONE);
+                }
+            }
+        });
 
         //여기서 프로필 이미지, 이름, 동을 설정할 것.
 

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="Black">#000000</color>
-    <color name="Grey">#808080</color>
     <color name="White">#ffffff</color>
     <color name="MainYellow">#FAC400</color>
     <color name="MainRed">#EF6139</color>
     <color name="MainGrey">#353535</color>
+    <color name="Grey">#808080</color>
     <color name="LineGrey">#BDBDBD</color>
     <color name="LightGrey">#C2C2C2</color>
     <color name="WhiteGrey">#DDDDDD</color>
+    <color name="PolarGrey">#F5F5F5</color>
     <color name="BouncyOrange">#FF8C27</color>
     <color name="SplashTigerOrange">#FE7445</color>
     <color name="AdventurerRed">#FF6656</color>
@@ -17,5 +18,6 @@
     <color name="Ivory">#FFEBD8</color>
     <color name="DarkBrown">#644B40</color>
     <color name="HalfWhite">#26F4F4F4</color>
+    <color name="Blur">#26808080</color>
     <color name="Glass">#00000000</color>
 </resources>
