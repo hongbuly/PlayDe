@@ -9,6 +9,1037 @@
         android:id="@+id/cafe_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="카페"/>
+        android:text="카페" />
+
+    <LinearLayout
+        android:id="@+id/reserve_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/AdventurerRed"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/vertical_gradient">
+
+            <TextView
+                android:id="@+id/positionText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/apple_b"
+                android:gravity="center"
+                android:text="지도"
+                android:textColor="@color/White"
+                android:textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/backBtn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:minWidth="0dp"
+                android:src="@drawable/back" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/reserve_view01"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/round_back_white"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="7"
+                tools:context=".MapsActivity" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="15dp"
+                android:layout_weight="4"
+                android:background="@drawable/round_corner_white"
+                android:elevation="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/apple_b"
+                            android:text="카페이름"
+                            android:textColor="@color/Black"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
+                            android:text="서울특별시 성북구 정릉동 정릉로 77"
+                            android:textColor="@color/Black"
+                            android:textSize="12dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="3"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
+                            android:gravity="bottom"
+                            android:text="테이블 수 8개"
+                            android:textColor="@color/Black"
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/apple_l"
+                            android:text="9:00AM ~ 22:00PM"
+                            android:textColor="@color/Black"
+                            android:textSize="12dp" />
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/map_callBtn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:src="@drawable/call" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/round_corner_grey" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/round_corner_grey" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/round_corner_grey" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/round_corner_grey" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="30dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/map_seat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_gradient_btn"
+                    android:fontFamily="@font/apple_b"
+                    android:gravity="center"
+                    android:text="자리 있어요"
+                    android:textColor="@color/White"
+                    android:textSize="17dp" />
+
+                <Button
+                    android:id="@+id/map_noSeat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_grey_btn"
+                    android:fontFamily="@font/apple_b"
+                    android:gravity="center"
+                    android:text="자리 없어요"
+                    android:textColor="@color/White"
+                    android:textSize="17dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/reserve_view02"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/round_back_white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/round_corner_white"
+                android:elevation="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/apple_b"
+                    android:gravity="center"
+                    android:text="하고싶은 게임을 선택해주세요"
+                    android:textColor="@color/Black"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/apple_l"
+                    android:gravity="center"
+                    android:text="남아있는 게임이 있을 시 미리 준비해 드립니다."
+                    android:textColor="@color/Grey"
+                    android:textSize="11dp" />
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/SelectGameVP"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="8" />
+
+                <LinearLayout
+                    android:id="@+id/SelectGameTab"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/tab01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:layout_marginRight="7dp"
+                        android:src="@drawable/tab_circle_orange" />
+
+                    <ImageView
+                        android:id="@+id/tab02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:layout_marginRight="7dp"
+                        android:src="@drawable/tab_circle_grey" />
+
+                    <ImageView
+                        android:id="@+id/tab03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:layout_marginRight="7dp"
+                        android:src="@drawable/tab_circle_grey" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/next_btn01"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_gradient_btn"
+                    android:fontFamily="@font/apple_b"
+                    android:gravity="center"
+                    android:stateListAnimator="@null"
+                    android:text="다음"
+                    android:textColor="@color/White"
+                    android:textSize="17dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/reserve_view03"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/round_back_white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/apple_b"
+                android:gravity="center"
+                android:text="예약하기"
+                android:textColor="@color/Black"
+                android:textSize="23dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle_corner_white"
+                android:elevation="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="@font/apple_b"
+                    android:gravity="center"
+                    android:text="날짜"
+                    android:textColor="@color/Black"
+                    android:textSize="17dp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/WhiteGrey" />
+
+                <Button
+                    android:id="@+id/reserve_day_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/White"
+                    android:fontFamily="@font/apple_l"
+                    android:gravity="center"
+                    android:stateListAnimator="@null"
+                    android:text="2021년 5월 21일"
+                    android:textColor="@color/Black"
+                    android:textSize="17dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="40dp"
+                android:layout_weight="8"
+                android:background="@drawable/circle_corner_white"
+                android:elevation="5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30dp"
+                        android:fontFamily="@font/apple_b"
+                        android:gravity="center"
+                        android:text="시간선택"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/apple_l"
+                        android:gravity="right|center"
+                        android:text="시간은 1시간 단위입니다."
+                        android:textColor="@color/Black"
+                        android:textSize="13dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/underline_white_grey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/apple_l"
+                    android:gravity="bottom"
+                    android:text="오전"
+                    android:textColor="@color/Black"
+                    android:textSize="17dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/reserve_9btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="9:00"
+                        android:textSize="17dp" />
+
+                    <Button
+                        android:id="@+id/reserve_10btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="10:00"
+                        android:textSize="17dp" />
+
+                    <Button
+                        android:id="@+id/reserve_11btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="11:00"
+                        android:textSize="17dp" />
+
+                    <Button
+                        android:id="@+id/reserve_12btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="12:00"
+                        android:textSize="17dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="3"
+                    android:fontFamily="@font/apple_l"
+                    android:gravity="bottom"
+                    android:text="오후"
+                    android:textColor="@color/Black"
+                    android:textSize="17dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/reserve_13btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="13:00"
+                        android:textSize="17dp" />
+
+                    <Button
+                        android:id="@+id/reserve_14btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="14:00"
+                        android:textSize="17dp" />
+
+                    <Button
+                        android:id="@+id/reserve_15btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="15:00"
+                        android:textSize="17dp" />
+
+                    <Button
+                        android:id="@+id/reserve_16btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="16:00"
+                        android:textSize="17dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/reserve_17btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="17:00"
+                        android:textSize="17dp" />
+
+                    <Button
+                        android:id="@+id/reserve_18btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="18:00"
+                        android:textSize="17dp" />
+
+                    <Button
+                        android:id="@+id/reserve_19btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="19:00"
+                        android:textSize="17dp" />
+
+                    <Button
+                        android:id="@+id/reserve_20btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="20:00"
+                        android:textSize="17dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/reserve_21btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="21:00"
+                        android:textSize="17dp" />
+
+                    <Button
+                        android:id="@+id/reserve_22btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/circle_corner_grey"
+                        android:fontFamily="@font/apple_l"
+                        android:text="22:00"
+                        android:textSize="17dp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/next_btn02"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_gradient_btn"
+                android:fontFamily="@font/apple_b"
+                android:gravity="center"
+                android:stateListAnimator="@null"
+                android:text="다음"
+                android:textColor="@color/White"
+                android:textSize="17dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/reserve_view04"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/round_back_white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/apple_b"
+                android:gravity="center"
+                android:text="예약하기"
+                android:textColor="@color/Black"
+                android:textSize="23dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="9"
+                android:background="@drawable/round_corner_white"
+                android:elevation="10dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:fontFamily="@font/apple_b"
+                        android:gravity="center"
+                        android:text="날짜"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+
+                    <View
+                        android:id="@+id/dayText"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="90dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/WhiteGrey" />
+
+                    <TextView
+                        android:id="@+id/reserve_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/dayText"
+                        android:fontFamily="@font/apple_l"
+                        android:gravity="center"
+                        android:text="2021년 05월 21일"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/WhiteGrey" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:fontFamily="@font/apple_b"
+                        android:gravity="center"
+                        android:text="시간"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+
+                    <View
+                        android:id="@+id/timeText"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="90dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/WhiteGrey" />
+
+                    <TextView
+                        android:id="@+id/reserve_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/timeText"
+                        android:fontFamily="@font/apple_l"
+                        android:gravity="center"
+                        android:text="시간선택"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/WhiteGrey" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:fontFamily="@font/apple_b"
+                        android:gravity="center"
+                        android:text="인원"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+
+                    <View
+                        android:id="@+id/peopleText"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="90dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/WhiteGrey" />
+
+                    <TextView
+                        android:id="@+id/reserve_people"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/peopleText"
+                        android:fontFamily="@font/apple_l"
+                        android:gravity="center"
+                        android:text="4"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/WhiteGrey" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/apple_b"
+                        android:gravity="center"
+                        android:text="예약자 정보"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+
+                    <View
+                        android:id="@+id/nameText"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="90dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/WhiteGrey" />
+
+                    <TextView
+                        android:id="@+id/reserve_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/nameText"
+                        android:fontFamily="@font/apple_l"
+                        android:gravity="center"
+                        android:text="김OO"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/WhiteGrey" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:fontFamily="@font/apple_b"
+                        android:gravity="center"
+                        android:text="연락처"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+
+                    <View
+                        android:id="@+id/numberText"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="90dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/WhiteGrey" />
+
+                    <TextView
+                        android:id="@+id/reserve_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/numberText"
+                        android:fontFamily="@font/apple_l"
+                        android:gravity="center"
+                        android:text="010-1234-5678"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/WhiteGrey" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:fontFamily="@font/apple_b"
+                        android:gravity="center"
+                        android:text="게임"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+
+                    <View
+                        android:id="@+id/gameLine"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="90dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/WhiteGrey" />
+
+                    <TextView
+                        android:id="@+id/reserve_game"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/gameLine"
+                        android:fontFamily="@font/apple_l"
+                        android:gravity="center"
+                        android:text="게임선택"
+                        android:textColor="@color/Black"
+                        android:textSize="17dp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="30dp"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/pay_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/round_gradient_btn"
+                    android:fontFamily="@font/apple_b"
+                    android:gravity="center|right"
+                    android:paddingRight="20dp"
+                    android:stateListAnimator="@null"
+                    android:text="결제하기"
+                    android:textColor="@color/White"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:id="@+id/pay_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/apple_b"
+                    android:gravity="left|center"
+                    android:paddingLeft="20dp"
+                    android:text="총"
+                    android:textColor="@color/White"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/apple_l"
+                    android:gravity="left|center"
+                    android:paddingLeft="45dp"
+                    android:text="4인/2시간/20,000원"
+                    android:textColor="@color/White"
+                    android:textSize="17dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>

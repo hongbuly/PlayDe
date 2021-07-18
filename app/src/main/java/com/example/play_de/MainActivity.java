@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (ProfileFragment.is_review_view()) {
             ProfileFragment.back_view();
+        } else if (HomeFragment.reserve_layout.getVisibility() == View.VISIBLE) {
+            HomeFragment.goBack();
         } else {
             if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
                 backKeyPressedTime = System.currentTimeMillis();

@@ -14,7 +14,6 @@
         android:roundIcon="@drawable/main_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReserveActivity" />
         <activity
             android:name=".YoutubeActivity"
             android:windowSoftInputMode="adjustNothing" />

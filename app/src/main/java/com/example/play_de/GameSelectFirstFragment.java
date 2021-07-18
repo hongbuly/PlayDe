@@ -56,20 +56,20 @@ public class GameSelectFirstFragment extends Fragment {
                     if (isChecked[finalInt]) {
                         btn[finalInt].setBackgroundResource(R.drawable.unchecked_game);
                         isChecked[finalInt] = false;
-                        if (ReserveActivity.checkedGame == 2) {
+                        if (HomeFragment.checkedGame == 2) {
                             changeChecked();
                             changeCheckedAnother();
                         }
-                        ReserveActivity.checkedGame--;
+                        HomeFragment.checkedGame--;
                     } else {
-                        if (ReserveActivity.checkedGame == 0) {
+                        if (HomeFragment.checkedGame == 0) {
                             btn[finalInt].setBackgroundResource(R.drawable.checked_game01);
                             isChecked[finalInt] = true;
-                            ReserveActivity.checkedGame++;
-                        } else if (ReserveActivity.checkedGame == 1) {
+                            HomeFragment.checkedGame++;
+                        } else if (HomeFragment.checkedGame == 1) {
                             btn[finalInt].setBackgroundResource(R.drawable.checked_game02);
                             isChecked[finalInt] = true;
-                            ReserveActivity.checkedGame++;
+                            HomeFragment.checkedGame++;
                         } else
                             Toast.makeText(getActivity(), "게임은 2개까지만 선택가능합니다.", Toast.LENGTH_SHORT).show();
                     }
@@ -95,10 +95,10 @@ public class GameSelectFirstFragment extends Fragment {
     public static void setGameName() {
         for (int j = 0; j < 4; j++) {
             if (isChecked[j]) {
-                if (ReserveActivity.gameList.isEmpty())
-                    ReserveActivity.gameList = gameName[j];
+                if (HomeFragment.gameList.isEmpty())
+                    HomeFragment.gameList = gameName[j];
                 else {
-                    ReserveActivity.gameList += ", " + gameName[j];
+                    HomeFragment.gameList += ", " + gameName[j];
                 }
             }
         }

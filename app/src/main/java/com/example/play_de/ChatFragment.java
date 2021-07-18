@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,20 +55,14 @@ public class ChatFragment extends Fragment {
         overlap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                blurView.setVisibility(View.VISIBLE);
-                overlap2.setVisibility(View.VISIBLE);
-                back_layout.setVisibility(View.VISIBLE);
+                goToUp();
             }
         });
 
         back_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (overlap2.getVisibility() == View.VISIBLE) {
-                    blurView.setVisibility(View.GONE);
-                    overlap2.setVisibility(View.GONE);
-                    back_layout.setVisibility(View.GONE);
-                }
+                goToDown();
             }
         });
 
@@ -86,5 +82,36 @@ public class ChatFragment extends Fragment {
         }
 
         chat_adapter.notifyDataSetChanged();
+    }
+
+    void goToDown() {
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.up_down);
+        overlap2.startAnimation(animation);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                blurView.setVisibility(View.GONE);
+                overlap2.setVisibility(View.GONE);
+                back_layout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+    }
+
+    void goToUp() {
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.down_up);
+        blurView.setVisibility(View.VISIBLE);
+        overlap2.setVisibility(View.VISIBLE);
+        back_layout.setVisibility(View.VISIBLE);
+        overlap2.startAnimation(animation);
     }
 }

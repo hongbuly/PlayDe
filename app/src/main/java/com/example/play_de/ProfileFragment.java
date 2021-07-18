@@ -18,8 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProfileFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    public static View view;
     private Context context;
 
     private ImageButton backBtn;
@@ -97,15 +96,6 @@ public class ProfileFragment extends Fragment {
     private EditText block_review_editText;
     private Button block_review_btn2;
 
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,7 +105,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //프로필 화면 자바 코드 작성을 여기에.
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
         context = container.getContext();
 
         main_profile = view.findViewById(R.id.main_profile);
@@ -341,9 +331,13 @@ public class ProfileFragment extends Fragment {
     }
 
     public static boolean is_review_view() {
-        if (main_profile.getVisibility() == View.GONE) {
-            return true;
-        } else {
+        try {
+            if (main_profile.getVisibility() == View.GONE) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
             return false;
         }
     }
