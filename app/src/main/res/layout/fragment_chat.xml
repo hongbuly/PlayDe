@@ -13,14 +13,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/AdventurerRed"
+            android:background="@drawable/horizon_gradient"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/vertical_gradient">
+                android:background="@drawable/horizon_gradient">
 
                 <TextView
                     android:id="@+id/positionText"
@@ -39,7 +39,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:minWidth="0dp"
-                    android:src="@drawable/back" />
+                    app:srcCompat="@drawable/back" />
 
             </RelativeLayout>
 
@@ -117,13 +117,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="-20dp"
                             android:layout_weight="1"
-                            android:src="@drawable/heart" />
+                            app:srcCompat="@drawable/small_heart" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:src="@drawable/store" />
+                            app:srcCompat="@drawable/small_store" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -184,7 +184,7 @@
                     android:paddingRight="10dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/biggest_heart" />
+                    app:srcCompat="@drawable/heart" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -299,7 +299,7 @@
                     android:paddingRight="10dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/biggest_store" />
+                    app:srcCompat="@drawable/store" />
 
                 <LinearLayout
                     android:layout_width="0dp"

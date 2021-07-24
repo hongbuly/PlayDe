@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/p11_FullScreenBtn"
+        android:id="@+id/fullScreenBtn"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_gravity="right"
@@ -22,19 +22,23 @@
         android:textSize="13dp"
         android:textStyle="bold" />
 
-    <com.google.android.youtube.player.YouTubePlayerView
-        android:id="@+id/youtubeView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="2">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        <WebView
+            android:id="@+id/youtubeView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
     <ListView
-        android:id="@+id/P11_1_listView"
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:layout_marginTop="30dp"
         android:divider="@color/MainYellow"
         android:dividerHeight="0dp"
         android:listSelector="@android:color/transparent" />

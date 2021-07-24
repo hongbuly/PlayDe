@@ -4,64 +4,29 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/left_chat_image"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/left_triangle"
-        android:visibility="gone" />
-
     <TextView
-        android:id="@+id/left_chat_text"
+        android:id="@+id/left_chat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="-5dp"
         android:layout_weight="2"
-        android:background="@drawable/round_corner_red"
-        android:padding="10dp"
-        android:text="안녕하세요~ 보드게임 아직 하시나요?? 저랑 보드게임하지 않으실래요?? 언제 시간되시나요??"
+        android:background="@drawable/left_chat"
+        android:fontFamily="@font/apple_l"
         android:textColor="@color/Black"
         android:textSize="13dp"
-        android:fontFamily="@font/apple_l"
         android:visibility="gone" />
 
     <View
-        android:id="@+id/left_chat_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:visibility="gone" />
-
-    <View
-        android:id="@+id/right_chat_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:visibility="visible" />
+        android:layout_weight="1" />
 
     <TextView
-        android:id="@+id/right_chat_text"
+        android:id="@+id/right_chat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="-5dp"
         android:layout_weight="2"
-        android:background="@drawable/round_corner_red"
-        android:padding="10dp"
-        android:text="안녕하세요~ 보드게임 아직 하시나요?? 저랑 보드게임하지 않으실래요?? 언제 시간되시나요??"
-        android:textColor="@color/Black"
-        android:textSize="13dp"
+        android:background="@drawable/right_chat"
         android:fontFamily="@font/apple_l"
-        android:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/right_chat_image"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/left_triangle"
-        android:rotation="180"
-        android:visibility="visible" />
+        android:textColor="@color/Black"
+        android:textSize="13dp" />
 </LinearLayout>

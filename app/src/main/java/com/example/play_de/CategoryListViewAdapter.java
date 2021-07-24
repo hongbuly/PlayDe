@@ -42,7 +42,7 @@ public class CategoryListViewAdapter extends BaseAdapter {
 
         final CategoryListViewItem listViewItem = listViewItemsList.get(position);
 
-        imageView.setImageResource(listViewItem.getImage());
+        imageView.setBackgroundResource(listViewItem.getImage());
         nameTextView.setText(listViewItem.getName());
         themeTextView.setText(listViewItem.getTheme());
         peopleTextView.setText(listViewItem.getPeople());

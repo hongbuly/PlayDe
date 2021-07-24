@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CategoryFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/AdventurerRed"
+        android:background="@drawable/horizon_gradient"
         android:orientation="vertical"
         tools:context=".MainActivity">
 
@@ -16,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/vertical_gradient">
+            android:background="@drawable/horizon_gradient">
 
             <TextView
                 android:id="@+id/positionText"
@@ -35,7 +36,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:minWidth="0dp"
-                android:src="@drawable/back" />
+                app:srcCompat="@drawable/back" />
 
         </RelativeLayout>
 
@@ -102,7 +103,7 @@
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_red_btn"
-                    android:drawableRight="@drawable/down_triangle"
+                    android:drawableRight="@drawable/triangle_small"
                     android:fontFamily="@font/apple_l"
                     android:minWidth="0dp"
                     android:minHeight="30dp"
@@ -110,7 +111,7 @@
                     android:paddingBottom="3dp"
                     android:text="인기순"
                     android:textColor="@color/White"
-                    android:textSize="15dp" />
+                    android:textSize="13dp" />
 
                 <Button
                     android:id="@+id/themeBtn"
@@ -120,7 +121,7 @@
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_red_btn"
-                    android:drawableRight="@drawable/down_triangle"
+                    android:drawableRight="@drawable/triangle_small"
                     android:fontFamily="@font/apple_l"
                     android:minWidth="0dp"
                     android:minHeight="30dp"
@@ -128,7 +129,7 @@
                     android:paddingBottom="3dp"
                     android:text="테마"
                     android:textColor="@color/White"
-                    android:textSize="15dp" />
+                    android:textSize="13dp" />
 
                 <Button
                     android:id="@+id/levelBtn"
@@ -138,7 +139,7 @@
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_red_btn"
-                    android:drawableRight="@drawable/down_triangle"
+                    android:drawableRight="@drawable/triangle_small"
                     android:fontFamily="@font/apple_l"
                     android:minWidth="0dp"
                     android:minHeight="30dp"
@@ -146,7 +147,7 @@
                     android:paddingBottom="3dp"
                     android:text="난이도"
                     android:textColor="@color/White"
-                    android:textSize="15dp" />
+                    android:textSize="13dp" />
 
                 <Button
                     android:id="@+id/peopleBtn"
@@ -155,7 +156,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:background="@drawable/round_red_btn"
-                    android:drawableRight="@drawable/down_triangle"
+                    android:drawableRight="@drawable/triangle_small"
                     android:fontFamily="@font/apple_l"
                     android:minWidth="0dp"
                     android:minHeight="30dp"
@@ -163,7 +164,7 @@
                     android:paddingBottom="3dp"
                     android:text="인원 수"
                     android:textColor="@color/White"
-                    android:textSize="15dp" />
+                    android:textSize="13dp" />
             </LinearLayout>
 
             <ListView
