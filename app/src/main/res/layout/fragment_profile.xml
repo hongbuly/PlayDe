@@ -1,985 +1,977 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ProfileFragment">
+    android:background="@drawable/horizon_gradient"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/horizon_gradient">
+
+        <TextView
+            android:id="@+id/positionText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/apple_b"
+            android:gravity="center"
+            android:text="마이페이지"
+            android:textColor="@color/White"
+            android:textSize="20dp" />
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:minWidth="0dp"
+            app:srcCompat="@drawable/back" />
+
+    </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/main_profile"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/horizon_gradient"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="@drawable/round_back_white"
         android:orientation="vertical"
-        tools:context=".MainActivity">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/horizon_gradient">
-
-            <TextView
-                android:id="@+id/positionText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/apple_b"
-                android:gravity="center"
-                android:text="마이페이지"
-                android:textColor="@color/White"
-                android:textSize="20dp" />
-
-            <ImageButton
-                android:id="@+id/backBtn"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:minWidth="0dp"
-                app:srcCompat="@drawable/back" />
-
-        </RelativeLayout>
+        android:visibility="visible">
 
         <LinearLayout
-            android:id="@+id/main_profile"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
-            android:background="@drawable/round_back_white"
-            android:orientation="vertical"
-            android:visibility="visible">
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/circle_grey" />
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/apple_b"
+                    android:text="이름"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/apple_l"
+                    android:text="보드게임러버"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/heart_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/medium_heart" />
+
+                <ImageButton
+                    android:id="@+id/store_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/medium_store" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="23dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/LineGrey" />
+
+            <Button
+                android:id="@+id/recent_play_btnM"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/apple_b"
+                android:text="최근 함께한 > "
+                android:textColor="@color/Black"
+                android:textSize="15dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
                 android:orientation="horizontal">
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2" />
-
                 <LinearLayout
+                    android:id="@+id/recent_play01M"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/profile_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/recent_play_image01M"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
                         android:adjustViewBounds="true"
                         android:src="@drawable/circle_grey" />
 
                     <TextView
-                        android:id="@+id/profile_name"
+                        android:id="@+id/recent_play_name01M"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/apple_b"
-                        android:text="이름"
-                        android:textColor="@color/Black"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
                         android:fontFamily="@font/apple_l"
-                        android:text="보드게임러버"
+                        android:text="이름"
                         android:textColor="@color/Black"
                         android:textSize="13dp" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="보드게임러버"
+                        android:textColor="@color/Black"
+                        android:textSize="11dp" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
                 <LinearLayout
+                    android:id="@+id/recent_play02M"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="end"
+                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/heart_btn"
-                        style="?android:attr/borderlessButtonStyle"
+                    <ImageView
+                        android:id="@+id/recent_play_image02M"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
                         android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/medium_heart" />
+                        android:src="@drawable/circle_grey" />
 
-                    <ImageButton
-                        android:id="@+id/store_btn"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/medium_store" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginBottom="23dp"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@color/LineGrey" />
-
-                <Button
-                    android:id="@+id/recent_play_btnM"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/apple_b"
-                    android:text="최근 함께한 > "
-                    android:textColor="@color/Black"
-                    android:textSize="15dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="23dp"
-                    android:layout_marginRight="23dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/recent_play01M"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                    <TextView
+                        android:id="@+id/recent_play_name02M"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/recent_play_image01M"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="3"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/circle_grey" />
-
-                        <TextView
-                            android:id="@+id/recent_play_name01M"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="이름"
-                            android:textColor="@color/Black"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="보드게임러버"
-                            android:textColor="@color/Black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/recent_play02M"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/recent_play_image02M"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="3"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/circle_grey" />
-
-                        <TextView
-                            android:id="@+id/recent_play_name02M"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="이름"
-                            android:textColor="@color/Black"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="보드게임러버"
-                            android:textColor="@color/Black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/recent_play03M"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/recent_play_image03M"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="3"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/circle_grey" />
-
-                        <TextView
-                            android:id="@+id/recent_play_name03M"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="이름"
-                            android:textColor="@color/Black"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="보드게임러버"
-                            android:textColor="@color/Black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/recent_play04M"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/recent_play_image04M"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="3"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/circle_grey" />
-
-                        <TextView
-                            android:id="@+id/recent_play_name04M"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="이름"
-                            android:textColor="@color/Black"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="보드게임러버"
-                            android:textColor="@color/Black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginBottom="23dp"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@color/LineGrey" />
-
-                <Button
-                    android:id="@+id/friend_btn"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/apple_b"
-                    android:text="친구목록 > "
-                    android:textColor="@color/Black"
-                    android:textSize="15dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="23dp"
-                    android:layout_marginRight="23dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/friend01"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/friend_image01"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="3"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/circle_grey" />
-
-                        <TextView
-                            android:id="@+id/friend_name01"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="이름"
-                            android:textColor="@color/Black"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="보드게임러버"
-                            android:textColor="@color/Black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/friend02"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/friend_image02"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="3"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/circle_grey" />
-
-                        <TextView
-                            android:id="@+id/friend_name02"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="이름"
-                            android:textColor="@color/Black"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="보드게임러버"
-                            android:textColor="@color/Black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/friend03"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/friend_image03"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="3"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/circle_grey" />
-
-                        <TextView
-                            android:id="@+id/friend_name03"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="이름"
-                            android:textColor="@color/Black"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="보드게임러버"
-                            android:textColor="@color/Black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/friend04"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/friend_image04"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="3"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/circle_grey" />
-
-                        <TextView
-                            android:id="@+id/friend_name04"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="이름"
-                            android:textColor="@color/Black"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="보드게임러버"
-                            android:textColor="@color/Black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/favorite_game"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
-            android:background="@drawable/round_back_white"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="좋아하는 게임"
-                android:textColor="@color/Black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <ListView
-                android:id="@+id/favorite_game_list"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="10"
-                android:divider="@color/White"
-                android:dividerHeight="10dp"
-                android:listSelector="@android:color/transparent" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/favorite_store"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
-            android:background="@drawable/round_back_white"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="좋아하는 가게"
-                android:textColor="@color/Black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <ListView
-                android:id="@+id/favorite_store_list"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="10"
-                android:divider="@color/White"
-                android:dividerHeight="10dp"
-                android:listSelector="@android:color/transparent" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/review_profile"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
-            android:background="@drawable/round_back_white"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="15dp"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/recent_play_btn"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/apple_b"
-                    android:text="최근 함께한 > "
-                    android:textColor="@color/Black"
-                    android:textSize="15dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="23dp"
-                    android:layout_marginRight="23dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/recent_play01"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/recent_play_image01"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="3"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/circle_grey" />
-
-                        <TextView
-                            android:id="@+id/recent_play_name01"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="이름"
-                            android:textColor="@color/Black"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="보드게임러버"
-                            android:textColor="@color/Black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/recent_play02"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/recent_play_image02"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="3"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/circle_grey" />
-
-                        <TextView
-                            android:id="@+id/recent_play_name02"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="이름"
-                            android:textColor="@color/Black"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="보드게임러버"
-                            android:textColor="@color/Black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/recent_play03"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/recent_play_image03"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="3"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/circle_grey" />
-
-                        <TextView
-                            android:id="@+id/recent_play_name03"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="이름"
-                            android:textColor="@color/Black"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="보드게임러버"
-                            android:textColor="@color/Black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/recent_play04"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/recent_play_image04"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="3"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/circle_grey" />
-
-                        <TextView
-                            android:id="@+id/recent_play_name04"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="이름"
-                            android:textColor="@color/Black"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/apple_l"
-                            android:text="보드게임러버"
-                            android:textColor="@color/Black"
-                            android:textSize="11dp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/review_background"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_weight="6"
-                android:background="@drawable/word_balloon01"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                        android:fontFamily="@font/apple_l"
+                        android:text="이름"
+                        android:textColor="@color/Black"
+                        android:textSize="13dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/apple_b"
-                        android:text="후기"
-                        android:textColor="@color/Black"
-                        android:textSize="16dp" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <Button
-                        android:id="@+id/block_review_btn"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginRight="30dp"
-                        android:background="@drawable/round_red_btn"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
                         android:fontFamily="@font/apple_l"
-                        android:minHeight="30dp"
-                        android:paddingLeft="15dp"
-                        android:paddingTop="5dp"
-                        android:paddingRight="15dp"
-                        android:paddingBottom="5dp"
-                        android:text="차단하기"
-                        android:textColor="@color/White"
-                        android:textSize="12dp" />
+                        android:text="보드게임러버"
+                        android:textColor="@color/Black"
+                        android:textSize="11dp" />
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/review_editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_weight="5"
-                    android:background="@drawable/round_grey"
-                    android:gravity="left|top"
-                    android:padding="20dp" />
-
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center"
+                <LinearLayout
+                    android:id="@+id/recent_play03M"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:numStars="5"
-                    android:rating="2.5"
-                    android:stepSize="0.5"
-                    android:theme="@style/CustomRatingBar" />
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/register_review_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
+                    <ImageView
+                        android:id="@+id/recent_play_image03M"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/circle_grey" />
+
+                    <TextView
+                        android:id="@+id/recent_play_name03M"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="이름"
+                        android:textColor="@color/Black"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="보드게임러버"
+                        android:textColor="@color/Black"
+                        android:textSize="11dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/recent_play04M"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/round_gradient_btn"
-                    android:fontFamily="@font/apple_b"
-                    android:paddingLeft="50dp"
-                    android:paddingRight="50dp"
-                    android:text="등록하기"
-                    android:textColor="@color/White"
-                    android:textSize="15dp" />
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/recent_play_image04M"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/circle_grey" />
+
+                    <TextView
+                        android:id="@+id/recent_play_name04M"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="이름"
+                        android:textColor="@color/Black"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="보드게임러버"
+                        android:textColor="@color/Black"
+                        android:textSize="11dp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
-
         <LinearLayout
-            android:id="@+id/block_reason"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
-            android:background="@drawable/round_back_white"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:layout_marginBottom="23dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
 
-            <TextView
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
+                android:layout_height="2dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/LineGrey" />
+
+            <Button
+                android:id="@+id/friend_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/apple_b"
-                android:gravity="center"
-                android:text="차단하는 이유를 알려주세요"
-                android:textColor="@color/Black"
-                android:textSize="20dp" />
-
-            <Button
-                android:id="@+id/block_reason_btn01"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/circle_corner_grey"
-                android:fontFamily="@font/apple_l"
-                android:gravity="left|center"
-                android:paddingLeft="20dp"
-                android:text="약속을 제대로 이해하지 않습니다."
+                android:text="친구목록 > "
                 android:textColor="@color/Black"
                 android:textSize="15dp" />
 
-            <Button
-                android:id="@+id/block_reason_btn02"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/circle_corner_grey"
-                android:fontFamily="@font/apple_l"
-                android:gravity="left|center"
-                android:paddingLeft="20dp"
-                android:text="의심스럽거나 스팸입니다."
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/friend01"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/friend_image01"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/circle_grey" />
+
+                    <TextView
+                        android:id="@+id/friend_name01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="이름"
+                        android:textColor="@color/Black"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="보드게임러버"
+                        android:textColor="@color/Black"
+                        android:textSize="11dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/friend02"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/friend_image02"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/circle_grey" />
+
+                    <TextView
+                        android:id="@+id/friend_name02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="이름"
+                        android:textColor="@color/Black"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="보드게임러버"
+                        android:textColor="@color/Black"
+                        android:textSize="11dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/friend03"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/friend_image03"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/circle_grey" />
+
+                    <TextView
+                        android:id="@+id/friend_name03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="이름"
+                        android:textColor="@color/Black"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="보드게임러버"
+                        android:textColor="@color/Black"
+                        android:textSize="11dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/friend04"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/friend_image04"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/circle_grey" />
+
+                    <TextView
+                        android:id="@+id/friend_name04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="이름"
+                        android:textColor="@color/Black"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="보드게임러버"
+                        android:textColor="@color/Black"
+                        android:textSize="11dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/favorite_game"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="@drawable/round_back_white"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="좋아하는 게임"
+            android:textColor="@color/Black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/favorite_game_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="10"
+            android:divider="@color/White"
+            android:dividerHeight="10dp"
+            android:listSelector="@android:color/transparent" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/favorite_store"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="@drawable/round_back_white"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="좋아하는 가게"
+            android:textColor="@color/Black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/favorite_store_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="10"
+            android:divider="@color/White"
+            android:dividerHeight="10dp"
+            android:listSelector="@android:color/transparent" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/review_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="@drawable/round_back_white"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/recent_play_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/apple_b"
+                android:text="최근 함께한 > "
                 android:textColor="@color/Black"
                 android:textSize="15dp" />
 
-            <Button
-                android:id="@+id/block_reason_btn03"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/circle_corner_grey"
-                android:fontFamily="@font/apple_l"
-                android:gravity="left|center"
-                android:paddingLeft="20dp"
-                android:text="타인을 사칭하고 있습니다."
-                android:textColor="@color/Black"
-                android:textSize="15dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/block_reason_btn04"
+                <LinearLayout
+                    android:id="@+id/recent_play01"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/recent_play_image01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/circle_grey" />
+
+                    <TextView
+                        android:id="@+id/recent_play_name01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="이름"
+                        android:textColor="@color/Black"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="보드게임러버"
+                        android:textColor="@color/Black"
+                        android:textSize="11dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/recent_play02"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/recent_play_image02"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/circle_grey" />
+
+                    <TextView
+                        android:id="@+id/recent_play_name02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="이름"
+                        android:textColor="@color/Black"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="보드게임러버"
+                        android:textColor="@color/Black"
+                        android:textSize="11dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/recent_play03"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/recent_play_image03"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/circle_grey" />
+
+                    <TextView
+                        android:id="@+id/recent_play_name03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="이름"
+                        android:textColor="@color/Black"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="보드게임러버"
+                        android:textColor="@color/Black"
+                        android:textSize="11dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/recent_play04"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/recent_play_image04"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/circle_grey" />
+
+                    <TextView
+                        android:id="@+id/recent_play_name04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="이름"
+                        android:textColor="@color/Black"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/apple_l"
+                        android:text="보드게임러버"
+                        android:textColor="@color/Black"
+                        android:textSize="11dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/review_background"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="6"
+            android:background="@drawable/word_balloon01"
+            android:orientation="vertical">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginTop="40dp"
                 android:layout_weight="1"
-                android:background="@drawable/circle_corner_grey"
-                android:fontFamily="@font/apple_l"
-                android:gravity="left|center"
-                android:paddingLeft="20dp"
-                android:text="가학적인 내용의 채팅을 하고 있습니다."
-                android:textColor="@color/Black"
-                android:textSize="15dp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/apple_b"
+                    android:text="후기"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/block_review_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/round_red_btn"
+                    android:fontFamily="@font/apple_l"
+                    android:minHeight="30dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp"
+                    android:text="차단하기"
+                    android:textColor="@color/White"
+                    android:textSize="12dp" />
+            </LinearLayout>
 
             <EditText
-                android:id="@+id/block_review_editText"
+                android:id="@+id/review_editText"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_weight="4"
-                android:background="@drawable/circle_corner_grey"
-                android:fontFamily="@font/apple_l"
+                android:layout_weight="5"
+                android:background="@drawable/round_grey"
                 android:gravity="left|top"
-                android:hint="기타의견을 적어주세요."
-                android:padding="20dp"
-                android:textSize="15dp" />
+                android:padding="20dp" />
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:numStars="5"
+                android:rating="2.5"
+                android:stepSize="0.5"
+                android:theme="@style/CustomRatingBar" />
 
             <Button
-                android:id="@+id/block_review_btn2"
-                android:layout_width="match_parent"
+                android:id="@+id/register_review_btn"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginLeft="15dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginBottom="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_gradient_btn"
                 android:fontFamily="@font/apple_b"
-                android:text="차단하기"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:text="등록하기"
                 android:textColor="@color/White"
-                android:textSize="17dp" />
+                android:textSize="15dp" />
         </LinearLayout>
     </LinearLayout>
-</FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/block_reason"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="@drawable/round_back_white"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/apple_b"
+            android:gravity="center"
+            android:text="차단하는 이유를 알려주세요"
+            android:textColor="@color/Black"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/block_reason_btn01"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/circle_corner_grey"
+            android:fontFamily="@font/apple_l"
+            android:gravity="left|center"
+            android:paddingLeft="20dp"
+            android:text="약속을 제대로 이해하지 않습니다."
+            android:textColor="@color/Black"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/block_reason_btn02"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/circle_corner_grey"
+            android:fontFamily="@font/apple_l"
+            android:gravity="left|center"
+            android:paddingLeft="20dp"
+            android:text="의심스럽거나 스팸입니다."
+            android:textColor="@color/Black"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/block_reason_btn03"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/circle_corner_grey"
+            android:fontFamily="@font/apple_l"
+            android:gravity="left|center"
+            android:paddingLeft="20dp"
+            android:text="타인을 사칭하고 있습니다."
+            android:textColor="@color/Black"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/block_reason_btn04"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/circle_corner_grey"
+            android:fontFamily="@font/apple_l"
+            android:gravity="left|center"
+            android:paddingLeft="20dp"
+            android:text="가학적인 내용의 채팅을 하고 있습니다."
+            android:textColor="@color/Black"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/block_review_editText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="4"
+            android:background="@drawable/circle_corner_grey"
+            android:fontFamily="@font/apple_l"
+            android:gravity="left|top"
+            android:hint="기타의견을 적어주세요."
+            android:padding="20dp"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/block_review_btn2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_gradient_btn"
+            android:fontFamily="@font/apple_b"
+            android:text="차단하기"
+            android:textColor="@color/White"
+            android:textSize="17dp" />
+    </LinearLayout>
+</LinearLayout>

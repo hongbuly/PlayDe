@@ -4,8 +4,11 @@
     <color name="White">#ffffff</color>
     <color name="MainYellow">#FAC400</color>
     <color name="MainRed">#FF8563</color>
+    <color name="gradient01">#FF796B</color>
+    <color name="gradient02">#C7FF9F4A</color>
     <color name="MainGrey">#353535</color>
     <color name="Grey">#808080</color>
+    <color name="PlusGrey">#A9A9A9</color>
     <color name="LineGrey">#BDBDBD</color>
     <color name="LightGrey">#C2C2C2</color>
     <color name="WhiteGrey">#DDDDDD</color>

@@ -9,29 +9,29 @@ import java.util.ArrayList;
 
 public class MainVPAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> items;
-    private ArrayList<String> itext;
+    private ArrayList<String> text;
 
     public MainVPAdapter(FragmentManager fm) {
         super(fm);
         items = new ArrayList<>();
-        items.add(new HomeFragment());
-        items.add(new CategoryFragment());
+        items.add(new GameFragment());
+        items.add(new CafeFragment());
         items.add(new CommunityFragment());
+        items.add(new FundingFragment());
         items.add(new ChatFragment());
-        items.add(new ProfileFragment());
 
-        itext = new ArrayList<>();
-        itext.add("Home");
-        itext.add("Game");
-        itext.add("Person");
-        itext.add("Chat");
-        itext.add("Profile");
+        text = new ArrayList<>();
+        text.add("Game");
+        text.add("Cafe");
+        text.add("Community");
+        text.add("Funding");
+        text.add("Chat");
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return itext.get(position);
+        return text.get(position);
     }
 
     @Override

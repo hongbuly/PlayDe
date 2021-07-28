@@ -12,14 +12,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 public class CommunityFragment extends Fragment {
-
+    private View view;
+    private LinearLayout backLayout;
     private ListView community_listView;
     private CommunityListViewAdapter community_adapter;
-    private FrameLayout backLayout;
     private EditText filterEdit;
     private Button filterBtn01;
     private RelativeLayout filterBtn02;
@@ -35,14 +36,13 @@ public class CommunityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_community, container, false);
+        view = inflater.inflate(R.layout.fragment_community, container, false);
 
         community_adapter = new CommunityListViewAdapter();
         community_listView = view.findViewById(R.id.listView);
         community_listView.setAdapter(community_adapter);
         addCommunityListView();
 
-        backLayout = view.findViewById(R.id.backLayout);
         filterEdit = view.findViewById(R.id.filterEdit);
         filterBtn01 = view.findViewById(R.id.filterBtn01);
         filterBtn02 = view.findViewById(R.id.filterBtn02);
@@ -50,6 +50,7 @@ public class CommunityFragment extends Fragment {
         filterBtn02_2 = view.findViewById(R.id.filterBtn02_2);
         filterBtn02_3 = view.findViewById(R.id.filterBtn02_3);
 
+        backLayout = view.findViewById(R.id.backLayout);
         backLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

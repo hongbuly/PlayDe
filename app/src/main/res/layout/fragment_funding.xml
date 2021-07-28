@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/horizon_gradient"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/horizon_gradient">
+
+        <TextView
+            android:id="@+id/positionText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/apple_b"
+            android:gravity="center"
+            android:text="펀딩"
+            android:textColor="@color/White"
+            android:textSize="20dp" />
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:minWidth="0dp"
+            app:srcCompat="@drawable/back" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/funding_view01"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="@drawable/round_back_white"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/funding_tab01"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:background="@color/White"
+            app:tabIndicator="@drawable/tab_indicator"
+            app:tabIndicatorColor="@color/MainRed"
+            app:tabTextAppearance="@style/tab_text02">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_funding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="펀딩" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_talk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="소식&amp;톡" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_schedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일정표" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/funding_vp01"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@color/White" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/funding_view02"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="@drawable/round_back_white"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/funding_tab02"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:background="@color/White"
+            app:tabIndicator="@drawable/tab_indicator_short"
+            app:tabIndicatorColor="@color/MainRed"
+            app:tabPaddingEnd="5dp"
+            app:tabPaddingStart="5dp"
+            app:tabTextAppearance="@style/tab_text02">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="상세" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_doing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="펀딩하기" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="소식" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_community"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="커뮤니티" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_supporter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="서포터" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/funding_vp02"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@color/White" />
+    </LinearLayout>
+</LinearLayout>

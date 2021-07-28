@@ -344,16 +344,16 @@ public class ProfileFragment extends Fragment {
 
     void addGameListView() {
         int[] favorite_game = new int[4];
-        favorite_game[0] = R.drawable.game01;
-        favorite_game[1] = R.drawable.game02;
-        favorite_game[2] = R.drawable.game03;
-        favorite_game[3] = R.drawable.game04;
+        favorite_game[0] = R.drawable.rumicube;
+        favorite_game[1] = R.drawable.catan;
+        favorite_game[2] = R.drawable.monopoly;
+        favorite_game[3] = R.drawable.qwixx;
 
         String[] name = new String[4];
-        name[0] = "다빈치 캐슬";
+        name[0] = "루미큐브";
         name[1] = "카탄";
-        name[2] = "FUGITIVE";
-        name[3] = "카르카손";
+        name[2] = "모노폴리";
+        name[3] = "Qwixx";
         favorite_game_adapter.addItem(favorite_game, name);
     }
 

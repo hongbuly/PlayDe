@@ -26,33 +26,28 @@
         app:tabTextAppearance="@style/tab_text">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_home"
+            android:id="@+id/tab_game"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home" />
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_category"
+            android:id="@+id/tab_cafe"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category" />
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_community"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Person" />
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_funding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_chat"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chat" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Profile" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.tabs.TabLayout>
 </LinearLayout>
