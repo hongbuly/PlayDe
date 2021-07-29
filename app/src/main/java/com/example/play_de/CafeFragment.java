@@ -35,33 +35,35 @@ import java.util.Date;
 import java.util.Objects;
 
 public class CafeFragment extends Fragment implements OnMapReadyCallback {
-    public static TextView positionText;
+    static TextView positionText;
     private ImageButton backBtn;
 
-    public static LinearLayout reserve_view01;
+    static LinearLayout reserve_view01;
     private GoogleMap map;
     private ImageButton map_callBtn;
     private String tel = "tel:01012341234";
     private Button map_seat;
     private Button map_noSeat;
 
-    public static LinearLayout reserve_view02;
+    static LinearLayout reserve_view02;
     private ViewPager vp;
     private ImageView tab01, tab02, tab03;
     private ArrayList<Integer> images;
-    public static int checkedGame = 0;
-    public static String gameList = "";
+    static boolean[] checkedGame = new boolean[12];
+    static int countChecked = 0;
+    static int firstChecked = 0;
+    static String gameList = "";
     private Button next_btn01;
 
-    public static LinearLayout reserve_view03;
+    static LinearLayout reserve_view03;
     private Button reserve_day_btn;
     private int year, month, day;
     private Button reserve_time_btn[];
-    private boolean isChecked[];
+    static boolean[] isChecked = new boolean[14];
     private int blackColor, whiteColor;
     private Button next_btn02;
 
-    public static LinearLayout reserve_view04;
+    static LinearLayout reserve_view04;
     private TextView reserve_day;
     private TextView reserve_time;
     private TextView reserve_people;
@@ -80,6 +82,8 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cafe, container, false);
+
+        initialization();
 
         reserve_view01 = view.findViewById(R.id.reserve_view01);
         reserve_view02 = view.findViewById(R.id.reserve_view02);
@@ -194,11 +198,6 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback {
         reserve_time_btn[11] = view.findViewById(R.id.reserve_20btn);
         reserve_time_btn[12] = view.findViewById(R.id.reserve_21btn);
         reserve_time_btn[13] = view.findViewById(R.id.reserve_22btn);
-
-        isChecked = new boolean[14];
-        for (int i = 0; i < 14; i++) {
-            isChecked[i] = false;
-        }
 
         blackColor = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.Black);
         whiteColor = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.White);
@@ -335,8 +334,14 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private static void initialization() {
+    static void initialization() {
         //초기화 해야할 것들.
-        checkedGame = 0;
+        for (int i = 0; i < 12; i++){
+            checkedGame[i] = false;
+        }
+
+        for (int i = 0; i < 14; i++) {
+            isChecked[i] = false;
+        }
     }
 }

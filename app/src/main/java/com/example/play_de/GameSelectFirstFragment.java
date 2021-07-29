@@ -14,7 +14,6 @@ import android.widget.Toast;
 public class GameSelectFirstFragment extends Fragment {
     static ImageButton[] btn = new ImageButton[4];
     private ImageView[] game = new ImageView[4];
-    static boolean[] isChecked = new boolean[4];
     static String[] gameName = new String[4];
 
     @Override
@@ -47,28 +46,38 @@ public class GameSelectFirstFragment extends Fragment {
 
         //어떤 게임이 선택되었는지 이미지를 바꿔주고 정보를 저장해야함.
         for (int i = 0; i < 4; i++) {
-            isChecked[i] = false;
             final int finalInt = i;
+            if (CafeFragment.checkedGame[finalInt]) {
+                if (CafeFragment.countChecked == 1) {
+                    btn[finalInt].setBackgroundResource(R.drawable.checked_game01);
+                } else if (CafeFragment.countChecked == 2) {
+                    if (CafeFragment.firstChecked == finalInt)
+                        btn[finalInt].setBackgroundResource(R.drawable.checked_game01);
+                    else
+                        btn[finalInt].setBackgroundResource(R.drawable.checked_game02);
+                }
+            }
             btn[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isChecked[finalInt]) {
+                    if (CafeFragment.checkedGame[finalInt]) {
                         btn[finalInt].setBackgroundResource(R.drawable.unchecked_game);
-                        isChecked[finalInt] = false;
-                        if (CafeFragment.checkedGame == 2) {
+                        CafeFragment.checkedGame[finalInt] = false;
+                        if (CafeFragment.countChecked == 2) {
                             changeChecked();
                             changeCheckedAnother();
                         }
-                        CafeFragment.checkedGame--;
+                        CafeFragment.countChecked--;
                     } else {
-                        if (CafeFragment.checkedGame == 0) {
+                        if (CafeFragment.countChecked == 0) {
                             btn[finalInt].setBackgroundResource(R.drawable.checked_game01);
-                            isChecked[finalInt] = true;
-                            CafeFragment.checkedGame++;
-                        } else if (CafeFragment.checkedGame == 1) {
+                            CafeFragment.checkedGame[finalInt] = true;
+                            CafeFragment.countChecked++;
+                            CafeFragment.firstChecked = finalInt;
+                        } else if (CafeFragment.countChecked == 1) {
                             btn[finalInt].setBackgroundResource(R.drawable.checked_game02);
-                            isChecked[finalInt] = true;
-                            CafeFragment.checkedGame++;
+                            CafeFragment.checkedGame[finalInt] = true;
+                            CafeFragment.countChecked++;
                         } else
                             Toast.makeText(getActivity(), "게임은 2개까지만 선택가능합니다.", Toast.LENGTH_SHORT).show();
                     }
@@ -78,10 +87,11 @@ public class GameSelectFirstFragment extends Fragment {
         return view;
     }
 
-    public static void changeChecked() {
+    static void changeChecked() {
         for (int j = 0; j < 4; j++) {
-            if (isChecked[j]) {
+            if (CafeFragment.checkedGame[j]) {
                 btn[j].setBackgroundResource(R.drawable.checked_game01);
+                CafeFragment.firstChecked = j;
             }
         }
     }
@@ -93,7 +103,7 @@ public class GameSelectFirstFragment extends Fragment {
 
     public static void setGameName() {
         for (int j = 0; j < 4; j++) {
-            if (isChecked[j]) {
+            if (CafeFragment.checkedGame[j]) {
                 if (CafeFragment.gameList.isEmpty())
                     CafeFragment.gameList = gameName[j];
                 else {
