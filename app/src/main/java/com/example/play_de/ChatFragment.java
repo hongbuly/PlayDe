@@ -1,5 +1,6 @@
 package com.example.play_de;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,16 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.mmin18.widget.RealtimeBlurView;
 
-public class ChatFragment extends Fragment {
+public class ChatFragment extends Fragment implements OnBackPressedListener{
+    private MainActivity main;
     private ListView chat_listView;
     private ChatListViewAdapter chat_adapter;
     private ImageView chat_profile;
@@ -37,6 +37,7 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        main = (MainActivity) getActivity();
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
         chat_adapter = new ChatListViewAdapter();
@@ -71,7 +72,7 @@ public class ChatFragment extends Fragment {
         return view;
     }
 
-    void addChatListView() {
+    private void addChatListView() {
         //여기서 메시지 내용과 누가 보낸 것인지 설정하면 됨.
         String text = "안녕하세요~ 보드게임 아직 하시나요?? 저랑 보드게임하지 않으실래요?? 언제 시간되시나요?? ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
         boolean isISend = true;
@@ -84,7 +85,7 @@ public class ChatFragment extends Fragment {
         chat_adapter.notifyDataSetChanged();
     }
 
-    void goToDown() {
+    private void goToDown() {
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.up_down);
         overlap2.startAnimation(animation);
         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -107,11 +108,25 @@ public class ChatFragment extends Fragment {
         });
     }
 
-    void goToUp() {
+    private void goToUp() {
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.down_up);
         blurView.setVisibility(View.VISIBLE);
         overlap2.setVisibility(View.VISIBLE);
         back_layout.setVisibility(View.VISIBLE);
         overlap2.startAnimation(animation);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (back_layout.getVisibility() == View.VISIBLE)
+            goToDown();
+        else
+            main.onBackTime();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MainActivity)context).setOnBackPressedListener(this);
     }
 }

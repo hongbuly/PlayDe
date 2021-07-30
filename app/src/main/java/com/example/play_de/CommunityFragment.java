@@ -1,5 +1,6 @@
 package com.example.play_de;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,7 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-public class CommunityFragment extends Fragment {
+public class CommunityFragment extends Fragment implements OnBackPressedListener{
+    private MainActivity main;
     private View view;
     private LinearLayout backLayout;
     private ListView community_listView;
@@ -36,6 +38,7 @@ public class CommunityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        main = (MainActivity) getActivity();
         view = inflater.inflate(R.layout.fragment_community, container, false);
 
         community_adapter = new CommunityListViewAdapter();
@@ -95,7 +98,7 @@ public class CommunityFragment extends Fragment {
         return view;
     }
 
-    void addCommunityListView() {
+    private void addCommunityListView() {
         //프로필 이미지 타입 결정하고 설정할 것.
         int profile = R.drawable.circle_grey;
         String name = "이름";
@@ -109,16 +112,15 @@ public class CommunityFragment extends Fragment {
         community_adapter.notifyDataSetChanged();
     }
 
-    void setFilterBtn02_Gone() {
+    private void setFilterBtn02_Gone() {
         filterBtn02.setVisibility(View.GONE);
         filterBtn02_1.setVisibility(View.GONE);
         filterBtn02_2.setVisibility(View.GONE);
         filterBtn02_3.setVisibility(View.GONE);
-
         filterBtn01.setVisibility(View.VISIBLE);
     }
 
-    void goToDown() {
+    private void goToDown() {
         filterBtn01.setVisibility(View.GONE);
         filterBtn02.setVisibility(View.VISIBLE);
         filterBtn02_1.setVisibility(View.VISIBLE);
@@ -130,7 +132,7 @@ public class CommunityFragment extends Fragment {
         filterBtn02_3.startAnimation(animation);
     }
 
-    void goToUp() {
+    private void goToUp() {
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.down_up100);
         filterBtn02_2.startAnimation(animation);
         animation = AnimationUtils.loadAnimation(getContext(), R.anim.down_up200);
@@ -151,5 +153,21 @@ public class CommunityFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (filterBtn02.getVisibility() == View.VISIBLE) {
+            filterBtn01.setVisibility(View.VISIBLE);
+            setFilterBtn02_Gone();
+        } else {
+            main.onBackTime();
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MainActivity)context).setOnBackPressedListener(this);
     }
 }

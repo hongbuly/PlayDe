@@ -57,6 +57,7 @@ public class GameSelectSecondFragment extends Fragment {
                         btn[finalInt - 4].setBackgroundResource(R.drawable.checked_game02);
                 }
             }
+
             btn[i - 4].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -111,5 +112,10 @@ public class GameSelectSecondFragment extends Fragment {
                 }
             }
         }
+    }
+
+    public static void initialization() {
+        for (int i = 0; i < 4; i++)
+            btn[i].setBackgroundResource(R.drawable.unchecked_game);
     }
 }

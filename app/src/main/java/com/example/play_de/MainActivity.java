@@ -1,7 +1,7 @@
 package com.example.play_de;
 
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -13,11 +13,12 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private long backKeyPressedTime = 0;
     private ViewPager vp;
     private MainVPAdapter adapter;
     private TabLayout tab;
     private ArrayList<Integer> images;
+    private OnBackPressedListener listener;
+    private long backKeyPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +48,24 @@ public class MainActivity extends AppCompatActivity {
             tab.getTabAt(i).setIcon(images.get(i));
     }
 
+    public void setOnBackPressedListener(OnBackPressedListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public void onBackPressed() {
-        if (ProfileFragment.is_review_view()) {
-            ProfileFragment.back_view();
-        } else if (CafeFragment.reserve_view01.getVisibility() == View.GONE) {
-            CafeFragment.goBack();
-        } else {
-            if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
-                backKeyPressedTime = System.currentTimeMillis();
-                Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG).show();
-            } else if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
-                finish();
-            }
+        if (listener != null)
+            listener.onBackPressed();
+        else
+            onBackTime();
+    }
+
+    public void onBackTime() {
+        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+            backKeyPressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG).show();
+        } else if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+            finish();
         }
     }
 }

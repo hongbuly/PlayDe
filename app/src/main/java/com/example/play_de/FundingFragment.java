@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
@@ -14,10 +13,10 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 public class FundingFragment extends Fragment {
-    ImageButton backBtn;
-
-    static LinearLayout funding_view01;
-    static LinearLayout funding_view02;
+    private MainActivity main;
+    private ImageButton backBtn;
+    private LinearLayout funding_view01;
+    private LinearLayout funding_view02;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,14 +26,14 @@ public class FundingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //홈화면에 대한 자바 코드 작성을 여기에.
+        main = (MainActivity) getActivity();
         View view = inflater.inflate(R.layout.fragment_funding, container, false);
 
         backBtn = view.findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                change_view(false);
+                onChangeFunding(false);
             }
         });
 
@@ -59,13 +58,20 @@ public class FundingFragment extends Fragment {
         return view;
     }
 
-    static void change_view(boolean detail) {
-        if (detail){
+    public void onChangeFunding(boolean detail) {
+        if (detail) {
             funding_view01.setVisibility(View.GONE);
             funding_view02.setVisibility(View.VISIBLE);
         } else {
             funding_view01.setVisibility(View.VISIBLE);
             funding_view02.setVisibility(View.GONE);
         }
+    }
+
+    public boolean getVisibility() {
+        if (funding_view01.getVisibility() == View.VISIBLE)
+            return true;
+        else
+            return false;
     }
 }

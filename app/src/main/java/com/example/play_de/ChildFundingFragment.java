@@ -1,5 +1,6 @@
 package com.example.play_de;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,10 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-public class ChildFundingFragment extends Fragment {
+public class ChildFundingFragment extends Fragment implements OnBackPressedListener {
+    private MainActivity main;
+    private FundingFragment fundingFragment;
+    private View view;
     private TextView plusBtn;
     private RelativeLayout[] game;
     private ImageView[] image;
@@ -26,16 +30,30 @@ public class ChildFundingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //홈화면에 대한 자바 코드 작성을 여기에.
-        View view = inflater.inflate(R.layout.child_fragment_funding, container, false);
-
-        plusBtn = view.findViewById(R.id.plusBtn);
+        view = inflater.inflate(R.layout.child_fragment_funding, container, false);
+        initialSetup();
         plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //더보기 버튼
             }
         });
+        game[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //펀딩 게임 상세 화면으로 전환.
+                fundingFragment.onChangeFunding(true);
+            }
+        });
+
+        return view;
+    }
+
+    private void initialSetup() {
+        main = (MainActivity) getActivity();
+        fundingFragment = (FundingFragment) getParentFragment();
+
+        plusBtn = view.findViewById(R.id.plusBtn);
 
         game = new RelativeLayout[4];
         image = new ImageView[4];
@@ -67,15 +85,19 @@ public class ChildFundingFragment extends Fragment {
         tag[3] = view.findViewById(R.id.tag02);
         tag[3] = view.findViewById(R.id.tag03);
         tag[3] = view.findViewById(R.id.tag04);
+    }
 
-        game[0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //펀딩 게임 상세 화면으로 전환.
-                FundingFragment.change_view(true);
-            }
-        });
+    @Override
+    public void onBackPressed() {
+        if (fundingFragment.getVisibility())
+            main.onBackTime();
+        else
+            fundingFragment.onChangeFunding(false);
+    }
 
-        return view;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MainActivity)context).setOnBackPressedListener(this);
     }
 }
