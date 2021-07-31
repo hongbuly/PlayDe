@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import android.widget.TextView;
 
 import com.github.mmin18.widget.RealtimeBlurView;
 
-public class ChatFragment extends Fragment implements OnBackPressedListener{
+public class ChatFragment extends Fragment implements OnBackPressedListener {
     private MainActivity main;
     private ListView chat_listView;
     private ChatListViewAdapter chat_adapter;
@@ -125,8 +126,8 @@ public class ChatFragment extends Fragment implements OnBackPressedListener{
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        ((MainActivity)context).setOnBackPressedListener(this);
+    public void onResume() {
+        super.onResume();
+        main.setOnBackPressedListener(this, 4);
     }
 }

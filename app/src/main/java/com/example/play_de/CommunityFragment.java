@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-public class CommunityFragment extends Fragment implements OnBackPressedListener{
+public class CommunityFragment extends Fragment implements OnBackPressedListener {
     private MainActivity main;
     private View view;
     private LinearLayout backLayout;
@@ -166,8 +167,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        ((MainActivity)context).setOnBackPressedListener(this);
+    public void onResume() {
+        super.onResume();
+        main.setOnBackPressedListener(this, 2);
     }
 }

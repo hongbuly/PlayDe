@@ -2,6 +2,7 @@ package com.example.play_de;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,8 +97,8 @@ public class ChildFundingFragment extends Fragment implements OnBackPressedListe
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        ((MainActivity)context).setOnBackPressedListener(this);
+    public void onResume() {
+        super.onResume();
+        main.setOnBackPressedListener(this, 3);
     }
 }

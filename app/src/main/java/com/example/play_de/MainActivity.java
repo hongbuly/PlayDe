@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private MainVPAdapter adapter;
     private TabLayout tab;
     private ArrayList<Integer> images;
-    private OnBackPressedListener listener;
+    private OnBackPressedListener[] listener = new OnBackPressedListener[5];
     private long backKeyPressedTime = 0;
 
     @Override
@@ -48,14 +48,14 @@ public class MainActivity extends AppCompatActivity {
             tab.getTabAt(i).setIcon(images.get(i));
     }
 
-    public void setOnBackPressedListener(OnBackPressedListener listener) {
-        this.listener = listener;
+    public void setOnBackPressedListener(OnBackPressedListener listener, int num) {
+        this.listener[num] = listener;
     }
 
     @Override
     public void onBackPressed() {
         if (listener != null)
-            listener.onBackPressed();
+            listener[vp.getCurrentItem()].onBackPressed();
         else
             onBackTime();
     }

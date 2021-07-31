@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -378,8 +379,8 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        ((MainActivity)context).setOnBackPressedListener(this);
+    public void onResume() {
+        super.onResume();
+        main.setOnBackPressedListener(this, 1);
     }
 }
