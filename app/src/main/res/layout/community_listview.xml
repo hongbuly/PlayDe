@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/p14_profileList"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
         android:layout_gravity="center"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
@@ -40,24 +40,29 @@
             android:layout_weight="1"
             android:fontFamily="@font/apple_l"
             android:gravity="top"
-            android:text="OO동"
+            android:text="보드게임러버"
             android:textColor="@color/MainGrey"
-            android:textSize="15dp" />
+            android:textSize="13dp" />
 
     </LinearLayout>
 
     <View
-        android:layout_width="2dp"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="30dp"
+        android:layout_gravity="right|center"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
         android:background="@color/LineGrey" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
@@ -75,7 +80,7 @@
             android:gravity="center"
             android:text="5개가 겹칩니다"
             android:textColor="@color/Black"
-            android:textSize="15dp" />
+            android:textSize="13dp" />
 
         <TextView
             android:id="@+id/p14_placeList"
@@ -88,8 +93,6 @@
             android:gravity="center"
             android:text="2개가 겹칩니다"
             android:textColor="@color/Black"
-            android:textSize="15dp" />
-
+            android:textSize="13dp" />
     </LinearLayout>
-
 </LinearLayout>

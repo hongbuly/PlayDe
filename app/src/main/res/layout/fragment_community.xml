@@ -50,7 +50,7 @@
             android:background="@drawable/round_corner_red"
             android:drawableRight="@drawable/reading_glasses"
             android:fontFamily="@font/apple_l"
-            android:padding="7dp" />
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/glassBtn"
