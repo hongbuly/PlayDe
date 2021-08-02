@@ -23,4 +23,6 @@
     <color name="HalfWhite">#26F4F4F4</color>
     <color name="Blur">#26808080</color>
     <color name="Glass">#00000000</color>
+    <color name="naver_green">#F01EC800</color>
+    <color name="kakao_yellow">#FEE500</color>
 </resources>
