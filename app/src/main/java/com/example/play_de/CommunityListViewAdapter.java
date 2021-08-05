@@ -31,11 +31,11 @@ public class CommunityListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.community_listview, parent, false);
         }
 
-        profileImageView = convertView.findViewById(R.id.p14_profileList);
-        nameTextView = convertView.findViewById(R.id.p14_nameList);
-        dongTextView = convertView.findViewById(R.id.p14_dongList);
-        heartTextView = convertView.findViewById(R.id.p14_heartList);
-        placeTextView = convertView.findViewById(R.id.p14_placeList);
+        profileImageView = convertView.findViewById(R.id.profile);
+        nameTextView = convertView.findViewById(R.id.name);
+        dongTextView = convertView.findViewById(R.id.dong);
+        heartTextView = convertView.findViewById(R.id.heart);
+        placeTextView = convertView.findViewById(R.id.place);
 
         CommunityListViewItem listViewItem = listViewItemsList.get(position);
 

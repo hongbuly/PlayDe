@@ -103,7 +103,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //프로필 이미지 타입 결정하고 설정할 것.
         int profile = R.drawable.circle_grey;
         String name = "이름";
-        String dong = "OO동";
+        String dong = "보드게임러버";
         String heart = "5개가 겹칩니다.";
         String place = "2개가 겹칩니다.";
 
