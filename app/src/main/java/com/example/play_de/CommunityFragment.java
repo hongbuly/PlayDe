@@ -32,6 +32,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private Button filterBtn02_1;
     private Button filterBtn02_2;
     private Button filterBtn02_3;
+    private Button filterBtn01_fake;
 
     private HorizontalScrollView[] heart_list;
     private ImageView[] profile;
@@ -146,6 +147,12 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         if (filterBtn02.getVisibility() == View.VISIBLE) {
             filterBtn01.setVisibility(View.VISIBLE);
             setFilterBtn02_Gone();
+        } else if (blurView.getVisibility() == View.VISIBLE) {
+            heart_list[clickNum].setVisibility(View.GONE);
+            blurView.setVisibility(View.GONE);
+            filterBtn01.setVisibility(View.VISIBLE);
+            filterBtn01_fake.setVisibility(View.GONE);
+            clickNum = -1;
         } else {
             main.onBackTime();
         }
@@ -164,6 +171,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         filterBtn02_1 = view.findViewById(R.id.filterBtn02_1);
         filterBtn02_2 = view.findViewById(R.id.filterBtn02_2);
         filterBtn02_3 = view.findViewById(R.id.filterBtn02_3);
+        filterBtn01_fake = view.findViewById(R.id.filterBtn01_fake);
 
         backLayout = view.findViewById(R.id.backLayout);
 
@@ -215,6 +223,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                         heart_list[finalI1].setVisibility(View.VISIBLE);
                         blurView.setVisibility(View.VISIBLE);
                         filterBtn01.setVisibility(View.GONE);
+                        filterBtn01_fake.setVisibility(View.VISIBLE);
                     } else {
                         heart_list[clickNum].setVisibility(View.GONE);
                         clickNum = finalI1;
@@ -234,6 +243,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 heart_list[clickNum].setVisibility(View.GONE);
                 blurView.setVisibility(View.GONE);
                 filterBtn01.setVisibility(View.VISIBLE);
+                filterBtn01_fake.setVisibility(View.GONE);
                 clickNum = -1;
             }
         });
