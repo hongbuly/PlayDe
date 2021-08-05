@@ -48,7 +48,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:background="@color/Glass"
+            android:background="@color/White"
             app:tabIndicator="@drawable/tab_indicator"
             app:tabIndicatorColor="@color/MainRed"
             app:tabTextAppearance="@style/tab_text02">

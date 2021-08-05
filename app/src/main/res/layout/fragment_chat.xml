@@ -52,8 +52,8 @@
 
                 <ImageView
                     android:id="@+id/chat_profile"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
@@ -86,9 +86,9 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/apple_l"
                         android:gravity="top"
-                        android:text="보드게임러버"
+                        android:text="OO동"
                         android:textColor="@color/MainGrey"
-                        android:textSize="13dp" />
+                        android:textSize="15dp" />
                 </LinearLayout>
 
                 <View
@@ -201,7 +201,7 @@
                     android:gravity="center"
                     android:text="게임 이름"
                     android:textColor="@color/Black"
-                    android:textSize="13dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -225,7 +225,7 @@
                     android:gravity="center"
                     android:text="게임 이름"
                     android:textColor="@color/Black"
-                    android:textSize="13dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -249,7 +249,7 @@
                     android:gravity="center"
                     android:text="게임 이름"
                     android:textColor="@color/Black"
-                    android:textSize="13dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -273,7 +273,7 @@
                     android:gravity="center"
                     android:text="게임 이름"
                     android:textColor="@color/Black"
-                    android:textSize="13dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -314,9 +314,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/apple_l"
                     android:gravity="center"
-                    android:text="카페 이름"
+                    android:text="게임 이름"
                     android:textColor="@color/Black"
-                    android:textSize="13dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -338,9 +338,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/apple_l"
                     android:gravity="center"
-                    android:text="카페 이름"
+                    android:text="게임 이름"
                     android:textColor="@color/Black"
-                    android:textSize="13dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -362,9 +362,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/apple_l"
                     android:gravity="center"
-                    android:text="카페 이름"
+                    android:text="게임 이름"
                     android:textColor="@color/Black"
-                    android:textSize="13dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -386,9 +386,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/apple_l"
                     android:gravity="center"
-                    android:text="카페 이름"
+                    android:text="게임 이름"
                     android:textColor="@color/Black"
-                    android:textSize="13dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
