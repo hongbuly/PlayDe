@@ -12,17 +12,21 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class CommunityListViewAdapter extends BaseAdapter {
-
     private ImageView profileImageView;
     private TextView nameTextView;
     private TextView dongTextView;
     private TextView heartTextView;
     private TextView placeTextView;
+    private CommunityFragment communityFragment;
 
     private ArrayList<CommunityListViewItem> listViewItemsList = new ArrayList<CommunityListViewItem>();
 
+    CommunityListViewAdapter(CommunityFragment communityFragment) {
+        this.communityFragment = communityFragment;
+    }
+
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final int pos = position;
         final Context context = parent.getContext();
 
@@ -37,7 +41,7 @@ public class CommunityListViewAdapter extends BaseAdapter {
         heartTextView = convertView.findViewById(R.id.heart);
         placeTextView = convertView.findViewById(R.id.place);
 
-        CommunityListViewItem listViewItem = listViewItemsList.get(position);
+        final CommunityListViewItem listViewItem = listViewItemsList.get(position);
 
         profileImageView.setImageResource(listViewItem.getProfile()); //이미지 가져오는 형식에 따라 바꿔야됨
         nameTextView.setText(listViewItem.getName());
@@ -45,14 +49,27 @@ public class CommunityListViewAdapter extends BaseAdapter {
         heartTextView.setText(listViewItem.getHeart());
         placeTextView.setText(listViewItem.getPlace());
 
+        profileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listViewItem.setIsHeart(false);
+                communityFragment.onListClick(position);
+            }
+        });
+
         heartTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //겹치는 보드게임들을 보여줘야함. overlapGame 이 하다 만것.
+                listViewItem.setIsHeart(true);
+                communityFragment.onListClick(position);
             }
         });
 
         return convertView;
+    }
+
+    public ArrayList<CommunityListViewItem> getListViewItemsList() {
+        return listViewItemsList;
     }
 
     @Override
@@ -73,6 +90,7 @@ public class CommunityListViewAdapter extends BaseAdapter {
     public void addItem(int profile, String name, String dong, String heart, String place) {
         CommunityListViewItem item = new CommunityListViewItem();
 
+        item.setIsHeart(false);
         item.setProfile(profile);
         item.setName(name);
         item.setDong(dong);

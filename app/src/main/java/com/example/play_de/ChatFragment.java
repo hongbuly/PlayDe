@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.github.mmin18.widget.RealtimeBlurView;
 
-public class ChatFragment extends Fragment implements OnBackPressedListener {
+public class ChatFragment extends Fragment implements OnBackPressedListener, GoUP{
     private MainActivity main;
     private ListView chat_listView;
     private ChatListViewAdapter chat_adapter;
@@ -107,7 +107,7 @@ public class ChatFragment extends Fragment implements OnBackPressedListener {
         });
     }
 
-    private void goToUp() {
+    public void goToUp() {
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.down_up);
         blurView.setVisibility(View.VISIBLE);
         overlap2.setVisibility(View.VISIBLE);
@@ -127,5 +127,6 @@ public class ChatFragment extends Fragment implements OnBackPressedListener {
     public void onResume() {
         super.onResume();
         main.setOnBackPressedListener(this, 4);
+        main.setGoUP(this);
     }
 }

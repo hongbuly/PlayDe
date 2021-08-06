@@ -2,6 +2,7 @@ package com.example.play_de;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tab;
     private ArrayList<Integer> images;
     private OnBackPressedListener[] listener = new OnBackPressedListener[5];
+    private GoUP goUp;
     private long backKeyPressedTime = 0;
 
     @Override
@@ -52,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
         this.listener[num] = listener;
     }
 
+    public void setGoUP(GoUP goUp) {
+        this.goUp = goUp;
+    }
+
     @Override
     public void onBackPressed() {
         if (listener != null)
@@ -67,5 +73,12 @@ public class MainActivity extends AppCompatActivity {
         } else if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
             finish();
         }
+    }
+
+    public void setCurrentItem(boolean isHeart, int num) {
+        vp.setCurrentItem(num);
+        //chat
+        if (isHeart)
+            goUp.goToUp();
     }
 }

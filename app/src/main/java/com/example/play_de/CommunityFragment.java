@@ -1,22 +1,22 @@
 package com.example.play_de;
 
-import android.content.Context;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class CommunityFragment extends Fragment implements OnBackPressedListener {
     private MainActivity main;
@@ -30,6 +30,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private Button filterBtn02_1;
     private Button filterBtn02_2;
     private Button filterBtn02_3;
+    private Button meetBtn;
+    private Button recommendBtn;
+    private View bar01, bar02;
+    private int blackColor, greyColor;
+    private RelativeLayout meetLayout, recommendLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +47,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         main = (MainActivity) getActivity();
         view = inflater.inflate(R.layout.fragment_community, container, false);
 
-        community_adapter = new CommunityListViewAdapter();
+        community_adapter = new CommunityListViewAdapter(this);
         community_listView = view.findViewById(R.id.listView);
         community_listView.setAdapter(community_adapter);
         addCommunityListView();
@@ -53,6 +58,12 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         filterBtn02_1 = view.findViewById(R.id.filterBtn02_1);
         filterBtn02_2 = view.findViewById(R.id.filterBtn02_2);
         filterBtn02_3 = view.findViewById(R.id.filterBtn02_3);
+        meetBtn = view.findViewById(R.id.meetBtn);
+        recommendBtn = view.findViewById(R.id.recommendBtn);
+        bar01 = view.findViewById(R.id.bar01);
+        bar02 = view.findViewById(R.id.bar02);
+        meetLayout = view.findViewById(R.id.meetLayout);
+        recommendLayout = view.findViewById(R.id.recommendLayout);
 
         backLayout = view.findViewById(R.id.backLayout);
         backLayout.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +105,32 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             public void onClick(View v) {
                 goToUp();
                 filterBtn01.setText("카페 좋아요 순");
+            }
+        });
+
+        blackColor = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.Black);
+        greyColor = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.Grey);
+        meetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                meetBtn.setTextColor(blackColor);
+                recommendBtn.setTextColor(greyColor);
+                bar01.setVisibility(View.VISIBLE);
+                bar02.setVisibility(View.INVISIBLE);
+                recommendLayout.setVisibility(View.GONE);
+                meetLayout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        recommendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                meetBtn.setTextColor(greyColor);
+                recommendBtn.setTextColor(blackColor);
+                bar01.setVisibility(View.INVISIBLE);
+                bar02.setVisibility(View.VISIBLE);
+                recommendLayout.setVisibility(View.VISIBLE);
+                meetLayout.setVisibility(View.GONE);
             }
         });
         return view;
@@ -170,5 +207,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     public void onResume() {
         super.onResume();
         main.setOnBackPressedListener(this, 2);
+    }
+
+    public void onListClick(int position) {
+        main.setCurrentItem(community_adapter.getListViewItemsList().get(position).getIsHeart(), 4);
     }
 }
