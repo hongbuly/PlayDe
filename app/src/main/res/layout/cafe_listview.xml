@@ -77,17 +77,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cafe_address"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/medium_heart"
-                android:fontFamily="@font/apple_b"
+                android:background="@drawable/small_medium_heart"
+                android:fontFamily="@font/apple_l"
                 android:gravity="center|top"
                 android:paddingTop="3dp"
                 android:text="35"
                 android:textColor="@color/Black"
-                android:textSize="13dp" />
-
+                android:textSize="10dp" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

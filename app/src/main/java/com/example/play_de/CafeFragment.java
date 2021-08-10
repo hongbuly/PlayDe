@@ -153,11 +153,12 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         priceBtn = view.findViewById(R.id.priceBtn);;
         registerBtn = view.findViewById(R.id.registerBtn);;
 
-        cafe_adapter = new CafeRecyclerAdapter(addCafeRecyclerView());
+        cafe_adapter = new CafeRecyclerAdapter();
         cafe_recyclerView = view.findViewById(R.id.recycler);
         layoutManager = new LinearLayoutManager(getActivity());
         cafe_recyclerView.setLayoutManager(layoutManager);
         cafe_recyclerView.setAdapter(cafe_adapter);
+        addCafeRecyclerView();
 
         //자리가 없을 시 버튼 색깔을 바꿔주어야 함.
         map_seat = view.findViewById(R.id.map_seat);
@@ -321,9 +322,8 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         });
     }
 
-    private ArrayList<CafeRecyclerItem> addCafeRecyclerView() {
+    private void addCafeRecyclerView() {
         //서버로부터 데이터 가져와서 추가하기.
-        ArrayList<CafeRecyclerItem> list = new ArrayList<>();
         CafeRecyclerItem item = new CafeRecyclerItem();
         int image = R.drawable.cafe01;
         String name = "정릉 플레이";
@@ -332,21 +332,23 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         String time = "9:00AM~22:00PM";
         String heart = "35";
         item.setData(image, name, address, table, time, heart);
-        list.add(item);
+        cafe_adapter.addItem(item);
 
+        item = new CafeRecyclerItem();
         name = "렛츠 플레이";
         item.setData(image, name, address, table, time, heart);
-        list.add(item);
+        cafe_adapter.addItem(item);
 
+        item = new CafeRecyclerItem();
         name = "고 플레이";
         item.setData(image, name, address, table, time, heart);
-        list.add(item);
+        cafe_adapter.addItem(item);
 
+        item = new CafeRecyclerItem();
         name = "스톱 플레이";
         item.setData(image, name, address, table, time, heart);
-        list.add(item);
-
-        return list;
+        cafe_adapter.addItem(item);
+        cafe_adapter.notifyDataSetChanged();
     }
 
     private void initialization() {

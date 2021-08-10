@@ -1,6 +1,5 @@
 package com.example.play_de;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class CafeRecyclerAdapter extends RecyclerView.Adapter<CafeRecyclerAdapter.ViewHolder> {
-    private ArrayList<CafeRecyclerItem> mData;
+    private ArrayList<CafeRecyclerItem> mData = new ArrayList<>();
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
@@ -51,36 +50,31 @@ public class CafeRecyclerAdapter extends RecyclerView.Adapter<CafeRecyclerAdapte
                 }
             });
         }
+
+        void onBind(CafeRecyclerItem item) {
+            image.setImageResource(item.getImage());
+            name.setText(item.getName());
+            address.setText(item.getAddress());
+            table.setText(item.getTable());
+            time.setText(item.getTime());
+            heart.setText(item.getHeart());
+        }
     }
 
-    CafeRecyclerAdapter(ArrayList<CafeRecyclerItem> list) {
-        mData = list;
+    void addItem(CafeRecyclerItem item) {
+        mData.add(item);
     }
 
     @NonNull
     @Override
     public CafeRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View view = inflater.inflate(R.layout.cafe_listview, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cafe_listview, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CafeRecyclerAdapter.ViewHolder holder, int position) {
-        int imageNum = mData.get(position).getImage();
-        holder.image.setImageResource(imageNum);
-        String nameText = mData.get(position).getName();
-        holder.name.setText(nameText);
-        String addressText = mData.get(position).getAddress();
-        holder.address.setText(addressText);
-        String tableText = mData.get(position).getTable();
-        holder.table.setText(tableText);
-        String timeText = mData.get(position).getTime();
-        holder.time.setText(timeText);
-        String heartText = mData.get(position).getHeart();
-        holder.heart.setText(heartText);
+        holder.onBind(mData.get(position));
     }
 
     @Override

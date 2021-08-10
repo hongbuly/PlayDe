@@ -1,5 +1,6 @@
 package com.example.play_de;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -20,18 +21,14 @@ public class CategoryListViewAdapter extends BaseAdapter {
     private TextView themeTextView;
     private TextView peopleTextView;
     private TextView levelTextView;
+    private CategoryListViewItem listViewItem;
 
-    private ArrayList<CategoryListViewItem> listViewItemsList = new ArrayList<CategoryListViewItem>();
+    private ArrayList<CategoryListViewItem> listViewItemsList = new ArrayList<>();
 
+    @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final int pos = position;
-        final Context context = parent.getContext();
-
-        if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.category_listview, parent, false);
-        }
+        convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_listview, parent, false);
 
         category_list = convertView.findViewById(R.id.category_list);
         imageView = convertView.findViewById(R.id.imageList);
@@ -40,7 +37,7 @@ public class CategoryListViewAdapter extends BaseAdapter {
         peopleTextView = convertView.findViewById(R.id.peopleList);
         levelTextView = convertView.findViewById(R.id.levelList);
 
-        final CategoryListViewItem listViewItem = listViewItemsList.get(position);
+        listViewItem = listViewItemsList.get(position);
 
         imageView.setBackgroundResource(listViewItem.getImage());
         nameTextView.setText(listViewItem.getName());
@@ -48,15 +45,12 @@ public class CategoryListViewAdapter extends BaseAdapter {
         peopleTextView.setText(listViewItem.getPeople());
         levelTextView.setText(listViewItem.getLevel());
 
-        category_list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이름을 인자로 넘겨서 그에 맞는 유튜브 재생.
-                if (listViewItem.getName() == "카탄") {
-                    Intent intent = new Intent(v.getContext(), YoutubeActivity.class);
-                    intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-                    v.getContext().startActivity(intent);
-                }
+        category_list.setOnClickListener(v -> {
+            //이름을 인자로 넘겨서 그에 맞는 유튜브 재생.
+            if (listViewItem.getName() == "카탄") {
+                Intent intent = new Intent(v.getContext(), YoutubeActivity.class);
+                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+                v.getContext().startActivity(intent);
             }
         });
 
