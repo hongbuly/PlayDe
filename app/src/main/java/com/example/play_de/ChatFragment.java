@@ -51,12 +51,7 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getParentFragmentManager().setFragmentResultListener("key", this, new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
-                String result = bundle.getString("bundleKey");
-            }
-        });
+        getParentFragmentManager().setFragmentResultListener("key", this, (key, bundle) -> nick = bundle.getString("bundleKey"));
     }
 
     @Override

@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/apple_b"
             android:gravity="center"
-            android:text="지도"
+            android:text="카페 검색"
             android:textColor="@color/White"
             android:textSize="20dp" />
 
@@ -35,13 +35,151 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/reserve_view01"
+        android:id="@+id/search_cafe"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
         android:background="@drawable/round_back_white"
         android:orientation="vertical"
         android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/editLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/countText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:fontFamily="@font/apple_l"
+                android:gravity="left"
+                android:text="전체\n12,395"
+                android:textColor="@color/Black"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/filterEdit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="9"
+                android:background="@drawable/round_corner_red"
+                android:drawableRight="@drawable/reading_glasses"
+                android:fontFamily="@font/apple_l"
+                android:paddingLeft="7dp"
+                android:paddingTop="7dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="7dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/popularBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_red_btn"
+                android:drawableRight="@drawable/triangle_small"
+                android:fontFamily="@font/apple_l"
+                android:minWidth="0dp"
+                android:minHeight="30dp"
+                android:paddingRight="7dp"
+                android:paddingBottom="3dp"
+                android:text="인기순"
+                android:textColor="@color/White"
+                android:textSize="13dp" />
+
+            <Button
+                android:id="@+id/distanceBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_red_btn"
+                android:drawableRight="@drawable/triangle_small"
+                android:fontFamily="@font/apple_l"
+                android:minWidth="0dp"
+                android:minHeight="30dp"
+                android:paddingRight="7dp"
+                android:paddingBottom="3dp"
+                android:text="거리순"
+                android:textColor="@color/White"
+                android:textSize="13dp" />
+
+            <Button
+                android:id="@+id/priceBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_red_btn"
+                android:drawableRight="@drawable/triangle_small"
+                android:fontFamily="@font/apple_l"
+                android:minWidth="0dp"
+                android:minHeight="30dp"
+                android:paddingRight="7dp"
+                android:paddingBottom="3dp"
+                android:text="가격순"
+                android:textColor="@color/White"
+                android:textSize="13dp" />
+
+            <Button
+                android:id="@+id/registerBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/round_red_btn"
+                android:drawableRight="@drawable/triangle_small"
+                android:fontFamily="@font/apple_l"
+                android:minWidth="0dp"
+                android:minHeight="30dp"
+                android:paddingRight="7dp"
+                android:paddingBottom="3dp"
+                android:text="등록순"
+                android:textColor="@color/White"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/Glass"
+            android:dividerHeight="5dp"
+            android:listSelector="@android:color/transparent" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/reserve_view01"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="@drawable/round_back_white"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <fragment
             android:id="@+id/map"

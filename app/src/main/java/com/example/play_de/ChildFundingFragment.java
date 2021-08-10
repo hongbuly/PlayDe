@@ -33,18 +33,12 @@ public class ChildFundingFragment extends Fragment implements OnBackPressedListe
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.child_fragment_funding, container, false);
         initialSetup();
-        plusBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //더보기 버튼
-            }
+        plusBtn.setOnClickListener(v -> {
+            //더보기 버튼
         });
-        game[0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //펀딩 게임 상세 화면으로 전환.
-                fundingFragment.onChangeFunding(true);
-            }
+        game[0].setOnClickListener(v -> {
+            //펀딩 게임 상세 화면으로 전환.
+            fundingFragment.onChangeFunding(true);
         });
 
         return view;

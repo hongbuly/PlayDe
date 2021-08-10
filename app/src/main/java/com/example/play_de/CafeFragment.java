@@ -1,16 +1,13 @@
 package com.example.play_de;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,6 +39,15 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private View view;
     private TextView positionText;
     private ImageButton backBtn;
+
+    private LinearLayout search_cafe;
+    private Button popularBtn;
+    private Button distanceBtn;
+    private Button priceBtn;
+    private Button registerBtn;
+    private RecyclerView cafe_recyclerView;
+    private CafeRecyclerAdapter cafe_adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     private LinearLayout reserve_view01;
     private GoogleMap map;
@@ -106,13 +114,10 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     }
 
     private void showDate() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.DatePickerDialog, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String text = year + "년 " + (month + 1) + "월 " + dayOfMonth + "일";
-                reserve_day_btn.setText(text);
-                reserve_day.setText(text);
-            }
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.DatePickerDialog, (view, year, month, dayOfMonth) -> {
+            String text = year + "년 " + (month + 1) + "월 " + dayOfMonth + "일";
+            reserve_day_btn.setText(text);
+            reserve_day.setText(text);
         }, year, month - 1, day);
         datePickerDialog.show();
     }
@@ -131,24 +136,10 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         reserve_day.setText(text);
     }
 
-    private void goBack() {
-        if (reserve_view02.getVisibility() == View.VISIBLE) {
-            reserve_view02.setVisibility(View.GONE);
-            reserve_view01.setVisibility(View.VISIBLE);
-            positionText.setText("지도");
-            initialization();
-        } else if (reserve_view03.getVisibility() == View.VISIBLE) {
-            reserve_view03.setVisibility(View.GONE);
-            reserve_view02.setVisibility(View.VISIBLE);
-        } else {
-            reserve_view04.setVisibility(View.GONE);
-            reserve_view03.setVisibility(View.VISIBLE);
-        }
-    }
-
     private void initialSetup() {
         main = (MainActivity) getActivity();
 
+        search_cafe = view.findViewById(R.id.search_cafe);
         reserve_view01 = view.findViewById(R.id.reserve_view01);
         reserve_view02 = view.findViewById(R.id.reserve_view02);
         reserve_view03 = view.findViewById(R.id.reserve_view03);
@@ -156,6 +147,17 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
 
         positionText = view.findViewById(R.id.positionText);
         backBtn = view.findViewById(R.id.backBtn);
+
+        popularBtn = view.findViewById(R.id.popularBtn);;
+        distanceBtn = view.findViewById(R.id.distanceBtn);;
+        priceBtn = view.findViewById(R.id.priceBtn);;
+        registerBtn = view.findViewById(R.id.registerBtn);;
+
+        cafe_adapter = new CafeRecyclerAdapter(addCafeRecyclerView());
+        cafe_recyclerView = view.findViewById(R.id.recycler);
+        layoutManager = new LinearLayoutManager(getActivity());
+        cafe_recyclerView.setLayoutManager(layoutManager);
+        cafe_recyclerView.setAdapter(cafe_adapter);
 
         //자리가 없을 시 버튼 색깔을 바꿔주어야 함.
         map_seat = view.findViewById(R.id.map_seat);
@@ -202,11 +204,12 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     }
 
     private void eventListener() {
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goBack();
-            }
+        backBtn.setOnClickListener(v -> goBack());
+
+        cafe_adapter.setOnItemClickListener((view, position) -> {
+            search_cafe.setVisibility(View.GONE);
+            reserve_view01.setVisibility(View.VISIBLE);
+            positionText.setText("지도");
         });
 
         FragmentManager fm = getChildFragmentManager();
@@ -217,21 +220,13 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         }
         mapFragment.getMapAsync(this);
 
-        map_seat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reserve_view01.setVisibility(View.GONE);
-                reserve_view02.setVisibility(View.VISIBLE);
-                positionText.setText("카페 이름");
-            }
+        map_seat.setOnClickListener(v -> {
+            reserve_view01.setVisibility(View.GONE);
+            reserve_view02.setVisibility(View.VISIBLE);
+            positionText.setText("카페 이름");
         });
 
-        map_callBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent("android.intent.action.DIAL", Uri.parse(tel)));
-            }
-        });
+        map_callBtn.setOnClickListener(v -> startActivity(new Intent("android.intent.action.DIAL", Uri.parse(tel))));
 
         vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -262,85 +257,96 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             }
         });
 
-        next_btn01.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //선택된 게임 저장하기.
-                reserve_view02.setVisibility(View.GONE);
-                reserve_view03.setVisibility(View.VISIBLE);
-            }
+        next_btn01.setOnClickListener(v -> {
+            //선택된 게임 저장하기.
+            reserve_view02.setVisibility(View.GONE);
+            reserve_view03.setVisibility(View.VISIBLE);
         });
 
-        reserve_day_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDate();
-            }
-        });
+        reserve_day_btn.setOnClickListener(v -> showDate());
 
         for (int i = 0; i < 14; i++) {
             final int finalI = i;
-            reserve_time_btn[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isChecked[finalI]) {
-                        reserve_time_btn[finalI].setBackgroundResource(R.drawable.circle_corner_grey);
-                        reserve_time_btn[finalI].setTextColor(blackColor);
-                        isChecked[finalI] = false;
-                    } else {
-                        reserve_time_btn[finalI].setBackgroundResource(R.drawable.circle_corner_gradient);
-                        reserve_time_btn[finalI].setTextColor(whiteColor);
-                        isChecked[finalI] = true;
-                    }
+            reserve_time_btn[i].setOnClickListener(v -> {
+                if (isChecked[finalI]) {
+                    reserve_time_btn[finalI].setBackgroundResource(R.drawable.circle_corner_grey);
+                    reserve_time_btn[finalI].setTextColor(blackColor);
+                    isChecked[finalI] = false;
+                } else {
+                    reserve_time_btn[finalI].setBackgroundResource(R.drawable.circle_corner_gradient);
+                    reserve_time_btn[finalI].setTextColor(whiteColor);
+                    isChecked[finalI] = true;
                 }
             });
         }
 
-        next_btn02.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StringBuilder time = new StringBuilder();
-                int howLong = 0;
-                for (int i = 9; i < 23; i++) {
-                    if (isChecked[i - 9]) {
-                        howLong++;
-                        if (time.length() == 0)
-                            time = new StringBuilder(Integer.toString(i));
-                        else {
-                            time.append(", ").append(i);
-                        }
+        next_btn02.setOnClickListener(v -> {
+            StringBuilder time = new StringBuilder();
+            int howLong = 0;
+            for (int i = 9; i < 23; i++) {
+                if (isChecked[i - 9]) {
+                    howLong++;
+                    if (time.length() == 0)
+                        time = new StringBuilder(Integer.toString(i));
+                    else {
+                        time.append(", ").append(i);
                     }
                 }
-                reserve_time.setText(time.toString());
+            }
+            reserve_time.setText(time.toString());
 
-                if (howLong == 0) {
-                    Toast.makeText(getActivity(), "시간을 선택해주세요.", Toast.LENGTH_SHORT).show();
-                } else {
-                    reserve_view03.setVisibility(View.GONE);
-                    reserve_view04.setVisibility(View.VISIBLE);
-                    gameList = "";
-                    GameSelectFirstFragment.setGameName();
-                    GameSelectSecondFragment.setGameName();
-                    GameSelectThirdFragment.setGameName();
+            if (howLong == 0) {
+                Toast.makeText(getActivity(), "시간을 선택해주세요.", Toast.LENGTH_SHORT).show();
+            } else {
+                reserve_view03.setVisibility(View.GONE);
+                reserve_view04.setVisibility(View.VISIBLE);
+                gameList = "";
+                GameSelectFirstFragment.setGameName();
+                GameSelectSecondFragment.setGameName();
+                GameSelectThirdFragment.setGameName();
 
-                    reserve_game.setText(gameList);
-                    String bill = reserve_people.getText() + "인/" + howLong + "시간/" + "20,000원";
-                    pay_bill.setText(bill);
-                }
+                reserve_game.setText(gameList);
+                String bill = reserve_people.getText() + "인/" + howLong + "시간/" + "20,000원";
+                pay_bill.setText(bill);
             }
         });
 
-        pay_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //결제하기.
-                positionText.setText("지도");
-                Toast.makeText(getActivity(), "결제되었습니다.", Toast.LENGTH_SHORT).show();
-                reserve_view01.setVisibility(View.VISIBLE);
-                reserve_view04.setVisibility(View.GONE);
-                initialization();
-            }
+        pay_btn.setOnClickListener(v -> {
+            //결제하기.
+            positionText.setText("지도");
+            Toast.makeText(getActivity(), "결제되었습니다.", Toast.LENGTH_SHORT).show();
+            reserve_view01.setVisibility(View.VISIBLE);
+            reserve_view04.setVisibility(View.GONE);
+            initialization();
         });
+    }
+
+    private ArrayList<CafeRecyclerItem> addCafeRecyclerView() {
+        //서버로부터 데이터 가져와서 추가하기.
+        ArrayList<CafeRecyclerItem> list = new ArrayList<>();
+        CafeRecyclerItem item = new CafeRecyclerItem();
+        int image = R.drawable.cafe01;
+        String name = "정릉 플레이";
+        String address = "서울특별시 성북구 정릉동 정릉로 77";
+        String table = "테이블 수 8개";
+        String time = "9:00AM~22:00PM";
+        String heart = "35";
+        item.setData(image, name, address, table, time, heart);
+        list.add(item);
+
+        name = "렛츠 플레이";
+        item.setData(image, name, address, table, time, heart);
+        list.add(item);
+
+        name = "고 플레이";
+        item.setData(image, name, address, table, time, heart);
+        list.add(item);
+
+        name = "스톱 플레이";
+        item.setData(image, name, address, table, time, heart);
+        list.add(item);
+
+        return list;
     }
 
     private void initialization() {
@@ -366,13 +372,32 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             GameSelectSecondFragment.initialization();
             GameSelectThirdFragment.initialization();
         } catch (Exception e) {
+            //ThirdFragment 가 OnCreate 안되서 문제가 발생함.
+        }
+    }
 
+    private void goBack() {
+        if (reserve_view01.getVisibility() == View.VISIBLE) {
+            search_cafe.setVisibility(View.VISIBLE);
+            reserve_view01.setVisibility(View.GONE);
+            initialization();
+        } else if (reserve_view02.getVisibility() == View.VISIBLE) {
+            reserve_view02.setVisibility(View.GONE);
+            reserve_view01.setVisibility(View.VISIBLE);
+            positionText.setText("지도");
+            initialization();
+        } else if (reserve_view03.getVisibility() == View.VISIBLE) {
+            reserve_view03.setVisibility(View.GONE);
+            reserve_view02.setVisibility(View.VISIBLE);
+        } else {
+            reserve_view04.setVisibility(View.GONE);
+            reserve_view03.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (reserve_view01.getVisibility() == View.GONE)
+        if (search_cafe.getVisibility() == View.GONE)
             goBack();
         else
             main.onBackTime();
