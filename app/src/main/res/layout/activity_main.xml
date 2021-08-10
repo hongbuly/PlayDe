@@ -23,6 +23,10 @@
         android:background="@color/White"
         android:elevation="10dp"
         app:tabIndicatorColor="@color/White"
+        app:tabPaddingBottom="-2dp"
+        app:tabPaddingEnd="-4dp"
+        app:tabPaddingStart="-4dp"
+        app:tabPaddingTop="-2dp"
         app:tabTextAppearance="@style/tab_text">
 
         <com.google.android.material.tabs.TabItem
