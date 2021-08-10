@@ -1,36 +1,62 @@
 package com.example.play_de;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.mmin18.widget.RealtimeBlurView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class ChatFragment extends Fragment implements OnBackPressedListener, GoUP{
+import java.util.Objects;
+
+public class ChatFragment extends Fragment implements OnBackPressedListener, GoUP {
     private MainActivity main;
+    private Context mContext;
+
     private ListView chat_listView;
     private ChatListViewAdapter chat_adapter;
     private ImageView chat_profile;
     private TextView chat_name;
     private TextView chat_dong;
+    private EditText sending_message;
+    private Button sending_btn;
     private View back_layout;
     private LinearLayout overlap;
     private LinearLayout overlap2;
     private RealtimeBlurView blurView;
+    private String nick;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getParentFragmentManager().setFragmentResultListener("key", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
+                String result = bundle.getString("bundleKey");
+            }
+        });
     }
 
     @Override
@@ -39,49 +65,69 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
         main = (MainActivity) getActivity();
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        chat_adapter = new ChatListViewAdapter();
+        chat_adapter = new ChatListViewAdapter(nick);
         chat_listView = view.findViewById(R.id.chat_list);
         chat_listView.setAdapter(chat_adapter);
-        addChatListView();
 
         chat_profile = view.findViewById(R.id.chat_profile);
         chat_name = view.findViewById(R.id.chat_name);
         chat_dong = view.findViewById(R.id.chat_dong);
 
+        sending_message = view.findViewById(R.id.sending_message);
+        sending_btn = view.findViewById(R.id.sending_btn);
+
         back_layout = view.findViewById(R.id.backLayout);
         blurView = view.findViewById(R.id.blurView);
         overlap2 = view.findViewById(R.id.overlap2);
         overlap = view.findViewById(R.id.overlap);
-        overlap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToUp();
-            }
-        });
+        overlap.setOnClickListener(v -> goToUp());
 
-        back_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToDown();
-            }
-        });
+        back_layout.setOnClickListener(v -> goToDown());
 
         //여기서 프로필 이미지, 이름, 동을 설정할 것.
 
+        FirebaseApp.initializeApp(mContext);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        sending_btn.setOnClickListener(v -> {
+            if (sending_message.getText() != null) {
+                ChatListViewItem chat = new ChatListViewItem();
+                chat.setNickName(nick);
+                chat.setText(String.valueOf(sending_message.getText()));
+                myRef.push().setValue(chat);
+            }
+        });
+
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                ChatListViewItem chat = snapshot.getValue(ChatListViewItem.class);
+                chat_adapter.addChat(chat);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         return view;
-    }
-
-    private void addChatListView() {
-        //여기서 메시지 내용과 누가 보낸 것인지 설정하면 됨.
-        String text = "안녕하세요~ 보드게임 아직 하시나요?? 저랑 보드게임하지 않으실래요?? 언제 시간되시나요?? ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
-        boolean isISend = true;
-
-        for (int i = 0; i < 10; i++) {
-            chat_adapter.addItem(text, isISend);
-            isISend = !isISend;
-        }
-
-        chat_adapter.notifyDataSetChanged();
     }
 
     private void goToDown() {
@@ -128,5 +174,11 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
         super.onResume();
         main.setOnBackPressedListener(this, 4);
         main.setGoUP(this);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mContext = context;
     }
 }

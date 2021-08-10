@@ -136,6 +136,36 @@
                 android:listSelector="@android:color/transparent"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/White"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/sending_message"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="5"
+                    android:fontFamily="@font/apple_l" />
+
+                <Button
+                    android:id="@+id/sending_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_red_btn"
+                    android:fontFamily="@font/apple_m"
+                    android:minWidth="30dp"
+                    android:minHeight="30dp"
+                    android:text="전송"
+                    android:textColor="@color/White"
+                    android:textSize="15dp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

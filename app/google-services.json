@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "232638155191",
+    "firebase_url": "https://play-de-default-rtdb.firebaseio.com",
     "project_id": "play-de",
     "storage_bucket": "play-de.appspot.com"
   },

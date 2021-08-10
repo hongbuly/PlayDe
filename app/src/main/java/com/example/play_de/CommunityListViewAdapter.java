@@ -49,20 +49,14 @@ public class CommunityListViewAdapter extends BaseAdapter {
         heartTextView.setText(listViewItem.getHeart());
         placeTextView.setText(listViewItem.getPlace());
 
-        profileImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listViewItem.setIsHeart(false);
-                communityFragment.onListClick(position);
-            }
+        profileImageView.setOnClickListener(v -> {
+            listViewItem.setIsHeart(false);
+            communityFragment.onListClick(position);
         });
 
-        heartTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listViewItem.setIsHeart(true);
-                communityFragment.onListClick(position);
-            }
+        heartTextView.setOnClickListener(v -> {
+            listViewItem.setIsHeart(true);
+            communityFragment.onListClick(position);
         });
 
         return convertView;

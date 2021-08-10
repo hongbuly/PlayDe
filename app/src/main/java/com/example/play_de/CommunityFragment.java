@@ -10,13 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 public class CommunityFragment extends Fragment implements OnBackPressedListener {
     private MainActivity main;
@@ -66,72 +64,49 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         recommendLayout = view.findViewById(R.id.recommendLayout);
 
         backLayout = view.findViewById(R.id.backLayout);
-        backLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (filterBtn02.getVisibility() == View.VISIBLE) {
-                    filterBtn01.setVisibility(View.VISIBLE);
-                    setFilterBtn02_Gone();
-                }
+        backLayout.setOnClickListener(v -> {
+            if (filterBtn02.getVisibility() == View.VISIBLE) {
+                filterBtn01.setVisibility(View.VISIBLE);
+                setFilterBtn02_Gone();
             }
         });
 
         //버튼 누르면, 밑으로 늘어나서 필터링을 결정하는 것을 구현할 것.
-        filterBtn01.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToDown();
-            }
+        filterBtn01.setOnClickListener(v -> goToDown());
+
+        filterBtn02_1.setOnClickListener(v -> {
+            goToUp();
+            filterBtn01.setText("위시리스트 순");
         });
 
-        filterBtn02_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToUp();
-                filterBtn01.setText("위시리스트 순");
-            }
+        filterBtn02_2.setOnClickListener(v -> {
+            goToUp();
+            filterBtn01.setText("거리 순");
         });
 
-        filterBtn02_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToUp();
-                filterBtn01.setText("거리 순");
-            }
-        });
-
-        filterBtn02_3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToUp();
-                filterBtn01.setText("카페 좋아요 순");
-            }
+        filterBtn02_3.setOnClickListener(v -> {
+            goToUp();
+            filterBtn01.setText("카페 좋아요 순");
         });
 
         blackColor = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.Black);
         greyColor = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.Grey);
-        meetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                meetBtn.setTextColor(blackColor);
-                recommendBtn.setTextColor(greyColor);
-                bar01.setVisibility(View.VISIBLE);
-                bar02.setVisibility(View.INVISIBLE);
-                recommendLayout.setVisibility(View.GONE);
-                meetLayout.setVisibility(View.VISIBLE);
-            }
+        meetBtn.setOnClickListener(v -> {
+            meetBtn.setTextColor(blackColor);
+            recommendBtn.setTextColor(greyColor);
+            bar01.setVisibility(View.VISIBLE);
+            bar02.setVisibility(View.INVISIBLE);
+            recommendLayout.setVisibility(View.GONE);
+            meetLayout.setVisibility(View.VISIBLE);
         });
 
-        recommendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                meetBtn.setTextColor(greyColor);
-                recommendBtn.setTextColor(blackColor);
-                bar01.setVisibility(View.INVISIBLE);
-                bar02.setVisibility(View.VISIBLE);
-                recommendLayout.setVisibility(View.VISIBLE);
-                meetLayout.setVisibility(View.GONE);
-            }
+        recommendBtn.setOnClickListener(v -> {
+            meetBtn.setTextColor(greyColor);
+            recommendBtn.setTextColor(blackColor);
+            bar01.setVisibility(View.INVISIBLE);
+            bar02.setVisibility(View.VISIBLE);
+            recommendLayout.setVisibility(View.VISIBLE);
+            meetLayout.setVisibility(View.GONE);
         });
         return view;
     }

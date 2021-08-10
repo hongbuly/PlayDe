@@ -2,17 +2,22 @@ package com.example.play_de;
 
 public class ChatListViewItem {
     private String textStr;
+    private String nickName;
     private boolean isISendBool;
+
     public void setText(String text) {
         textStr = text;
     }
-    public void setWhoSend(boolean isISend) {
-        isISendBool = isISend;
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
+
     public String getText() {
-        return this.textStr;
+        return textStr;
     }
-    public Boolean getWhoSend() {
-        return this.isISendBool;
+
+    public String getNickName() {
+        return nickName;
     }
 }
