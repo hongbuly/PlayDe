@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 public class ChatFragment extends Fragment implements OnBackPressedListener, GoUP {
     private MainActivity main;
@@ -25,8 +24,6 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //game 탭에서 입력한 이름을 넘겨받는 코드.
-        getParentFragmentManager().setFragmentResultListener("key", this, (key, bundle) -> name = bundle.getString("bundleKey"));
     }
 
     @Override
@@ -40,6 +37,8 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
 
     private void initialSetUp() {
         main = (MainActivity) getActivity();
+        if (main.getName() != null)
+            name = main.getName();
 
         chat_adapter = new ChatHistoryAdapter();
         chat_historyView = view.findViewById(R.id.chat_history);
@@ -61,11 +60,14 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
         //서버로부터 데이터 가져와서 추가하기.
         ChatRecyclerItem item = new ChatRecyclerItem();
         int image = R.drawable.cafe01;
-        String name = "윤홍현";
-        String text = "안녕하세요";
 
-        item.setData(image, name, text);
+        item.setData(image, name, "안녕하세요");
         chat_adapter.addItem(item);
+
+        item = new ChatRecyclerItem();
+        item.setData(image, "신채이", "누구세요");
+        chat_adapter.addItem(item);
+
         chat_adapter.notifyDataSetChanged();
     }
 
@@ -84,5 +86,7 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
     @Override
     public void goToUp() {
         //chat Activity 를 intent 해서, 하트를 띄어주거나 해야함.
+        Intent intent = new Intent(getActivity(), ChatActivity.class);
+        startActivity(intent);
     }
 }

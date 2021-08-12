@@ -5,7 +5,7 @@ public class ChatRecyclerItem {
     private String text;
     private String name;
 
-    public void setData(int image, String text, String name) {
+    public void setData(int image, String name, String text) {
         this.image = image;
         this.text = text;
         this.name = name;

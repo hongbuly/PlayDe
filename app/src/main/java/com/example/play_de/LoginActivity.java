@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(v -> {
             //main 띄우기
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("name", id_edit.getText().toString());
             startActivity(intent);
             finish();
         });

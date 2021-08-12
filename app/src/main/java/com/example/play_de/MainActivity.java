@@ -1,7 +1,10 @@
 package com.example.play_de;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
     private OnBackPressedListener[] listener = new OnBackPressedListener[5];
     private GoUP goUp;
     private long backKeyPressedTime = 0;
+    private String name;
+
+    private View blur;
+    private LinearLayout finish_reserve;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
         //키보드가 레이아웃에 영향을 안주게
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+
+        Intent intent = getIntent();
+        if (intent.getExtras().getString("name") != null)
+            name = intent.getExtras().getString("name");
 
         vp = findViewById(R.id.MainVP);
         adapter = new MainVPAdapter(getSupportFragmentManager());
@@ -46,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < 5; i++)
             tab.getTabAt(i).setIcon(images.get(i));
+
+        blur = findViewById(R.id.blur);
+        finish_reserve = findViewById(R.id.finish_reserve);
     }
 
     public void setOnBackPressedListener(OnBackPressedListener listener, int num) {
@@ -78,5 +92,19 @@ public class MainActivity extends AppCompatActivity {
         //chat
         if (isHeart)
             goUp.goToUp();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void showBlur(boolean show) {
+        if (show) {
+            blur.setVisibility(View.VISIBLE);
+            finish_reserve.setVisibility(View.VISIBLE);
+        } else {
+            blur.setVisibility(View.GONE);
+            finish_reserve.setVisibility(View.GONE);
+        }
     }
 }

@@ -13,8 +13,6 @@ import android.widget.EditText;
 
 public class GameFragment extends Fragment implements OnBackPressedListener {
     private MainActivity main;
-    private EditText edit;
-    private Button btn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,16 +24,6 @@ public class GameFragment extends Fragment implements OnBackPressedListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
         main = (MainActivity) getActivity();
-
-        edit = view.findViewById(R.id.edit);
-        btn = view.findViewById(R.id.btn);
-        btn.setOnClickListener(v -> {
-            //chat nick 설정.
-            Bundle result = new Bundle();
-            result.putString("bundleKey", "result");
-
-            getParentFragmentManager().setFragmentResult("requestKey", result);
-        });
         return view;
     }
 

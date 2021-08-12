@@ -1,57 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/White"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/MainVP"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9"
-        android:background="@color/BouncyOrange" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/MainTab"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/MainVP"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            android:background="@color/BouncyOrange" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/MainTab"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/White"
+            android:elevation="10dp"
+            app:tabIndicatorColor="@color/White"
+            app:tabPaddingBottom="-2dp"
+            app:tabPaddingEnd="-4dp"
+            app:tabPaddingStart="-4dp"
+            app:tabPaddingTop="-2dp"
+            app:tabTextAppearance="@style/tab_text">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_cafe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_community"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_funding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.tabs.TabLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/blur"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/White"
-        android:elevation="10dp"
-        app:tabIndicatorColor="@color/White"
-        app:tabPaddingBottom="-2dp"
-        app:tabPaddingEnd="-4dp"
-        app:tabPaddingStart="-4dp"
-        app:tabPaddingTop="-2dp"
-        app:tabTextAppearance="@style/tab_text">
+        android:layout_height="match_parent"
+        android:background="@color/Black_Blur"
+        android:visibility="gone" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_game"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/finish_reserve"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_cafe"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/apple_b"
+            android:text="예약이 완료되었습니다!"
+            android:textColor="@color/White"
+            android:textSize="24dp" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_community"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_funding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.tabs.TabLayout>
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/apple_b"
+            android:text="결제는 현장 결제로 진행됩니다."
+            android:textColor="@color/White"
+            android:textSize="18dp" />
+    </LinearLayout>
+</RelativeLayout>

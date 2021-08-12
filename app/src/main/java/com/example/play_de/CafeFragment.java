@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.github.mmin18.widget.RealtimeBlurView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -68,6 +70,9 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
 
     private LinearLayout reserve_view03;
     private Button reserve_day_btn;
+    private TextView reserve_people_txt;
+    private int people = 4;
+    private ImageButton minus, plus;
     private int year, month, day;
     private Button reserve_time_btn[];
     static boolean[] isChecked = new boolean[14];
@@ -115,7 +120,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
 
     private void showDate() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.DatePickerDialog, (view, year, month, dayOfMonth) -> {
-            String text = year + "년 " + (month + 1) + "월 " + dayOfMonth + "일";
+            String text = year + "년  " + (month + 1) + "월  " + dayOfMonth + "일";
             reserve_day_btn.setText(text);
             reserve_day.setText(text);
         }, year, month - 1, day);
@@ -131,7 +136,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         month = Integer.parseInt(simpleMonth.format(date));
         day = Integer.parseInt(simpleDate.format(date));
 
-        String text = year + "년 " + month + "월 " + day + "일";
+        String text = year + "년  " + month + "월  " + day + "일";
         reserve_day_btn.setText(text);
         reserve_day.setText(text);
     }
@@ -148,10 +153,14 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         positionText = view.findViewById(R.id.positionText);
         backBtn = view.findViewById(R.id.backBtn);
 
-        popularBtn = view.findViewById(R.id.popularBtn);;
-        distanceBtn = view.findViewById(R.id.distanceBtn);;
-        priceBtn = view.findViewById(R.id.priceBtn);;
-        registerBtn = view.findViewById(R.id.registerBtn);;
+        popularBtn = view.findViewById(R.id.popularBtn);
+        ;
+        distanceBtn = view.findViewById(R.id.distanceBtn);
+        ;
+        priceBtn = view.findViewById(R.id.priceBtn);
+        ;
+        registerBtn = view.findViewById(R.id.registerBtn);
+        ;
 
         cafe_adapter = new CafeRecyclerAdapter();
         cafe_recyclerView = view.findViewById(R.id.recycler);
@@ -174,6 +183,9 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         next_btn01 = view.findViewById(R.id.next_btn01);
 
         reserve_day_btn = view.findViewById(R.id.reserve_day_btn);
+        reserve_people_txt = view.findViewById(R.id.reserve_people_txt);
+        minus = view.findViewById(R.id.minus);
+        plus = view.findViewById(R.id.plus);
         reserve_time_btn = new Button[14];
         reserve_time_btn[0] = view.findViewById(R.id.reserve_9btn);
         reserve_time_btn[1] = view.findViewById(R.id.reserve_10btn);
@@ -265,6 +277,17 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         });
 
         reserve_day_btn.setOnClickListener(v -> showDate());
+        minus.setOnClickListener(v -> {
+            if (people > 1) {
+                reserve_people_txt.setText(Integer.toString(--people));
+            }
+        });
+
+        plus.setOnClickListener(v -> {
+            if (people < 8) {
+                reserve_people_txt.setText(Integer.toString(++people));
+            }
+        });
 
         for (int i = 0; i < 14; i++) {
             final int finalI = i;
@@ -295,6 +318,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
                 }
             }
             reserve_time.setText(time.toString());
+            reserve_people.setText(reserve_people_txt.getText().toString());
 
             if (howLong == 0) {
                 Toast.makeText(getActivity(), "시간을 선택해주세요.", Toast.LENGTH_SHORT).show();
@@ -314,11 +338,16 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
 
         pay_btn.setOnClickListener(v -> {
             //결제하기.
-            positionText.setText("지도");
-            Toast.makeText(getActivity(), "결제되었습니다.", Toast.LENGTH_SHORT).show();
-            reserve_view01.setVisibility(View.VISIBLE);
-            reserve_view04.setVisibility(View.GONE);
-            initialization();
+            main.showBlur(true);
+
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                positionText.setText("카페");
+                main.showBlur(false);
+                search_cafe.setVisibility(View.VISIBLE);
+                reserve_view04.setVisibility(View.GONE);
+                initialization();
+            }, 3000);
         });
     }
 
@@ -361,7 +390,9 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         vp.setCurrentItem(0);
 
         setDate();
+        reserve_people_txt.setText("4");
         reserve_people.setText("4");
+        people = 4;
 
         for (int i = 0; i < 14; i++) {
             isChecked[i] = false;

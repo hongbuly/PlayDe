@@ -7,6 +7,7 @@
     <color name="gradient01">#FF796B</color>
     <color name="gradient02">#C7FF9F4A</color>
     <color name="MainGrey">#353535</color>
+    <color name="GlassGrey">#2E3C3C43</color>
     <color name="Grey">#808080</color>
     <color name="PlusGrey">#A9A9A9</color>
     <color name="LineGrey">#BDBDBD</color>
@@ -22,6 +23,7 @@
     <color name="DarkBrown">#644B40</color>
     <color name="HalfWhite">#26F4F4F4</color>
     <color name="Blur">#26808080</color>
+    <color name="Black_Blur">#B3353535</color>
     <color name="Glass">#00000000</color>
     <color name="naver_green">#F01EC800</color>
     <color name="kakao_yellow">#FEE500</color>
