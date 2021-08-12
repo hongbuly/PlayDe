@@ -20,7 +20,7 @@
                 android:id="@+id/imageView12"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                app:srcCompat="@drawable/color_background" />
+                app:srcCompat="@drawable/splash_background" />
 
             <LinearLayout
                 android:layout_width="match_parent"

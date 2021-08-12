@@ -2,18 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/circular" />
 
     <TextView
         android:id="@+id/left_chat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:layout_weight="2"
-        android:background="@drawable/left_chat"
+        android:background="@drawable/round_corner_grey"
         android:fontFamily="@font/apple_l"
         android:textColor="@color/Black"
-        android:textSize="13dp"
-        android:visibility="gone" />
+        android:textSize="10dp"
+        android:visibility="visible" />
 
     <View
         android:layout_width="0dp"
@@ -25,8 +35,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:background="@drawable/right_chat"
+        android:background="@drawable/round_corner_red"
         android:fontFamily="@font/apple_l"
         android:textColor="@color/Black"
-        android:textSize="13dp" />
+        android:textSize="10dp"
+        android:visibility="gone" />
 </LinearLayout>

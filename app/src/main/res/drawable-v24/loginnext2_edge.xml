@@ -2,15 +2,11 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="10dp"
     android:shape="rectangle" >
-
     <solid android:color="#FFFFFFFF" />
-
-    <corners android:radius="20dp"></corners>
-
+    <corners android:radius="20dp" />
     <gradient
         android:startColor="@color/BouncyOrange"
         android:centerColor="@color/SplashTigerOrange"
         android:endColor="@color/AdventurerRed"
         android:angle="0"/>
-
 </shape>

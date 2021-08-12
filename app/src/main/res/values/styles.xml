@@ -31,6 +31,10 @@
         <item name="cornerSize">18dp</item>
     </style>
 
+    <style name="circular">
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="DatePickerDialog" parent="ThemeOverlay.AppCompat.Dialog">
         <item name="android:background">@color/White</item>
         <item name="android:textColorPrimaryInverse">@color/Black</item>

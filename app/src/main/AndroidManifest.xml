@@ -10,11 +10,15 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/main_icon"
+        android:icon="@drawable/play_de"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/main_icon"
+        android:roundIcon="@drawable/play_de"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ChatActivity" />
+
         <activity
             android:name=".YoutubeActivity"
             android:screenOrientation="portrait"
@@ -25,7 +29,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDRjLjbuX8A63rHcw1DpJvnWla-rI67diY" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,4 +37,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
