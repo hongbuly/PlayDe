@@ -154,13 +154,9 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         backBtn = view.findViewById(R.id.backBtn);
 
         popularBtn = view.findViewById(R.id.popularBtn);
-        ;
         distanceBtn = view.findViewById(R.id.distanceBtn);
-        ;
         priceBtn = view.findViewById(R.id.priceBtn);
-        ;
         registerBtn = view.findViewById(R.id.registerBtn);
-        ;
 
         cafe_adapter = new CafeRecyclerAdapter();
         cafe_recyclerView = view.findViewById(R.id.recycler);

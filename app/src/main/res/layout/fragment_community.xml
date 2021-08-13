@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/apple_b"
             android:gravity="center"
-            android:text="커뮤니티"
+            android:text="플레이드 커뮤니티"
             android:textColor="@color/White"
             android:textSize="20dp" />
 
@@ -33,210 +33,38 @@
             app:srcCompat="@drawable/back" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:background="@drawable/round_back_white">
+        android:background="@drawable/round_back_white"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/meetBtn"
-            style="?android:attr/borderlessButtonStyle"
+        <EditText
+            android:id="@+id/filterEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/round_corner_red"
+            android:drawableRight="@drawable/reading_glasses"
+            android:fontFamily="@font/apple_l"
+            android:padding="7dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tag_recycler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/apple_m"
-            android:text="만나요"
-            android:textColor="@color/Black"
-            android:textSize="17dp" />
+            android:layout_marginStart="15dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:scrollbars="horizontal" />
 
-        <Button
-            android:id="@+id/recommendBtn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="50dp"
-            android:fontFamily="@font/apple_m"
-            android:text="추천해요"
-            android:textColor="@color/Grey"
-            android:textSize="17dp" />
-
-        <View
-            android:id="@+id/bar01"
-            android:layout_width="110dp"
-            android:layout_height="3dp"
-            android:layout_below="@+id/meetBtn"
-            android:layout_marginLeft="40dp"
-            android:background="@color/MainRed" />
-
-        <View
-            android:id="@+id/bar02"
-            android:layout_width="110dp"
-            android:layout_height="3dp"
-            android:layout_below="@+id/meetBtn"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="40dp"
-            android:background="@color/MainRed"
-            android:visibility="invisible" />
-
-        <RelativeLayout
-            android:id="@+id/meetLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/community_recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/meetBtn">
-
-            <EditText
-                android:id="@+id/filterEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/round_corner_red"
-                android:drawableRight="@drawable/reading_glasses"
-                android:fontFamily="@font/apple_l"
-                android:padding="7dp" />
-
-            <Button
-                android:id="@+id/glassBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/filterEdit"
-                android:background="@drawable/round_red_btn"
-                android:minHeight="0dp"
-                android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                android:paddingRight="15dp"
-                android:paddingBottom="5dp"
-                android:text="투명 버튼"
-                android:textColor="@color/White"
-                android:textSize="13dp"
-                android:textStyle="bold"
-                android:visibility="invisible" />
-
-            <ListView
-                android:id="@+id/listView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/glassBtn"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:divider="@color/Glass"
-                android:dividerHeight="5dp"
-                android:listSelector="@android:color/transparent" />
-
-            <RelativeLayout
-                android:id="@+id/filterBtn02"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/filterEdit"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:visibility="gone">
-
-                <Button
-                    android:id="@+id/filterBtn02_3"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/filterBtn02_2"
-                    android:background="@drawable/bottom_round_red"
-                    android:fontFamily="@font/apple_l"
-                    android:gravity="left"
-                    android:minHeight="0dp"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="5dp"
-                    android:text="카페 좋아요 순"
-                    android:textColor="@color/MainRed"
-                    android:textSize="13dp" />
-
-                <Button
-                    android:id="@+id/filterBtn02_2"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/filterBtn02_1"
-                    android:background="@drawable/rectangle_corner_red"
-                    android:fontFamily="@font/apple_l"
-                    android:gravity="left"
-                    android:minHeight="0dp"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="5dp"
-                    android:text="거리순"
-                    android:textColor="@color/MainRed"
-                    android:textSize="13dp" />
-
-                <Button
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/White"
-                    android:minHeight="0dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="5dp" />
-
-                <Button
-                    android:id="@+id/filterBtn02_1"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/top_round_red"
-                    android:drawableRight="@drawable/triangle_up"
-                    android:fontFamily="@font/apple_l"
-                    android:gravity="left"
-                    android:minHeight="0dp"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="5dp"
-                    android:text="위시리스트 순"
-                    android:textColor="@color/White"
-                    android:textSize="13dp" />
-            </RelativeLayout>
-
-            <Button
-                android:id="@+id/filterBtn01"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/filterEdit"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/round_red_btn"
-                android:drawableRight="@drawable/triangle_down"
-                android:fontFamily="@font/apple_l"
-                android:gravity="left"
-                android:minHeight="0dp"
-                android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                android:paddingRight="15dp"
-                android:paddingBottom="5dp"
-                android:text="위시리스트 순"
-                android:textColor="@color/White"
-                android:textSize="13dp"
-                android:visibility="visible" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/recommendLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/meetBtn"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="추천해요 화면" />
-        </RelativeLayout>
-    </RelativeLayout>
+            android:layout_height="match_parent" />
+    </LinearLayout>
 </LinearLayout>
