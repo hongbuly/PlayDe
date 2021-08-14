@@ -81,6 +81,7 @@
             android:fontFamily="@font/apple_l"
             android:gravity="center"
             android:hint="비밀번호"
+            android:inputType="textPassword"
             android:textColor="@color/Black"
             android:textColorHint="@color/Black"
             android:textSize="15dp"
@@ -255,6 +256,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/round_corner_grey_edit"
                 android:fontFamily="@font/apple_l"
+                android:inputType="textPassword"
                 android:padding="15dp"
                 android:textSize="15sp" />
 
