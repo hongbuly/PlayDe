@@ -28,6 +28,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private CommunityRecyclerAdapter communityRecyclerAdapter;
     private RecyclerView.LayoutManager communityLayoutManager;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         communityLayoutManager = new LinearLayoutManager(getActivity());
         community_recyclerView.setLayoutManager(communityLayoutManager);
         community_recyclerView.setAdapter(communityRecyclerAdapter);
-        addCommunityRecyclerView();
     }
 
     private void addTagRecyclerView() {
@@ -76,31 +76,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         item = "#수다";
         communityTagAdapter.addItem(item);
         communityTagAdapter.notifyDataSetChanged();
-    }
-
-    private void addCommunityRecyclerView() {
-        //서버로부터 데이터 가져와서 추가하기.
-        CommunityRecycler item = new CommunityRecycler();
-        int image = R.drawable.diamond;
-        String name = "방한슬";
-        String level = "보드게임러버";
-        String content = "클루 보드게임 최근 들어서 인기가 많은데, 요번주 주말에 만나서 같이 하실 분들 없으신가요?";
-
-        item.setData(image, name, level, content);
-        communityRecyclerAdapter.addItem(item);
-
-        item = new CommunityRecycler();
-        name = "박혜원";
-        content = "루미큐브 앱으로도 잘 되어 있던데, 혹시 비대면으로 지금 4인으로 보드 게임하실 분들 계신가요?";
-        item.setData(image, name, level, content);
-        communityRecyclerAdapter.addItem(item);
-
-        item = new CommunityRecycler();
-        name = "이지상";
-        content = "Ticket To Ride 모바일 앱이 있던데, 같이 하실 분 있나요??";
-        item.setData(image, name, level, content);
-        communityRecyclerAdapter.addItem(item);
-        communityRecyclerAdapter.notifyDataSetChanged();
     }
 
     @Override
