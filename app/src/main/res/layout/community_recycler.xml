@@ -7,12 +7,12 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/circular" />
 
@@ -25,7 +25,7 @@
         android:fontFamily="@font/apple_b"
         android:text="이름"
         android:textColor="@color/Black"
-        android:textSize="15sp" />
+        android:textSize="17sp" />
 
     <TextView
         android:id="@+id/level"
@@ -37,7 +37,7 @@
         android:fontFamily="@font/apple_l"
         android:text="보드게임러버"
         android:textColor="@color/Black"
-        android:textSize="13sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/content"
@@ -45,12 +45,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/image"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginEnd="40dp"
+        android:layout_marginBottom="30dp"
         android:fontFamily="@font/apple_l"
         android:text="내용 내용\n내용 내용"
         android:textColor="@color/Black"
-        android:textSize="13sp" />
+        android:textSize="14sp" />
 
     <View
         android:layout_width="match_parent"
@@ -62,30 +62,36 @@
         android:id="@+id/heart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:drawableStart="@drawable/small_heart"
         android:drawablePadding="10dp"
         android:fontFamily="@font/apple_ul"
-        android:textColor="@color/Black"
-        android:layout_below="@+id/content"
         android:text="공감하기"
-        android:textSize="10dp" />
+        android:textColor="@color/Black"
+        android:textSize="11sp" />
 
     <TextView
         android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@+id/heart"
         android:drawableStart="@drawable/comment"
         android:drawablePadding="10dp"
         android:fontFamily="@font/apple_ul"
-        android:textColor="@color/Black"
-        android:layout_below="@+id/content"
-        android:layout_toEndOf="@+id/heart"
         android:text="공감하기"
-        android:textSize="10dp" />
+        android:textColor="@color/Black"
+        android:textSize="11sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/heart"
+        android:background="@color/White" />
 </RelativeLayout>
