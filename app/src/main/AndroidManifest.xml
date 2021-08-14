@@ -15,12 +15,12 @@
         android:roundIcon="@drawable/play_de"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".ChatActivity" />
+        <activity android:name=".main.MainActivity" />
+        <activity android:name=".main.LoginActivity" />
+        <activity android:name=".chat.ChatActivity" />
 
         <activity
-            android:name=".YoutubeActivity"
+            android:name=".youtube.YoutubeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
@@ -29,7 +29,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDRjLjbuX8A63rHcw1DpJvnWla-rI67diY" />
 
-        <activity android:name=".SplashActivity">
+        <activity android:name=".main.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
