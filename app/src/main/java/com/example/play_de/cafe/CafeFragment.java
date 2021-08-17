@@ -1,5 +1,6 @@
 package com.example.play_de.cafe;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -42,13 +43,11 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private MainActivity main;
     private View view;
     private TextView positionText;
-    private ImageButton backBtn;
+    private ImageButton backBtn, userBtn;
 
     private LinearLayout search_cafe;
-    private Button popularBtn;
-    private Button distanceBtn;
-    private Button priceBtn;
-    private Button registerBtn;
+    private int setBtn = 0;
+    private Button popularBtn, distanceBtn, priceBtn, registerBtn;
     private RecyclerView cafe_recyclerView;
     private CafeRecyclerAdapter cafe_adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -65,8 +64,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private ImageView tab01, tab02, tab03;
     private ArrayList<Integer> images;
     static boolean[] checkedGame = new boolean[12];
-    static int countChecked = 0;
-    static int firstChecked = 0;
+    static int countChecked = 0, firstChecked = 0;
     static String gameList = "";
     private Button next_btn01;
 
@@ -76,19 +74,13 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private int people = 4;
     private ImageButton minus, plus;
     private int year, month, day;
-    private Button reserve_time_btn[];
+    private Button[] reserve_time_btn;
     private static boolean[] isChecked = new boolean[14];
     private int blackColor, whiteColor;
     private Button next_btn02;
 
     private LinearLayout reserve_view04;
-    private TextView reserve_day;
-    private TextView reserve_time;
-    private TextView reserve_people;
-    private TextView reserve_name;
-    private TextView reserve_number;
-    private TextView reserve_game;
-    private TextView pay_bill;
+    private TextView reserve_day, reserve_time, reserve_people, reserve_name, reserve_number, reserve_game, pay_bill;
     private Button pay_btn;
 
     @Override
@@ -154,6 +146,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
 
         positionText = view.findViewById(R.id.positionText);
         backBtn = view.findViewById(R.id.backBtn);
+        userBtn = view.findViewById(R.id.userBtn);
 
         popularBtn = view.findViewById(R.id.popularBtn);
         distanceBtn = view.findViewById(R.id.distanceBtn);
@@ -216,6 +209,25 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
 
     private void eventListener() {
         backBtn.setOnClickListener(v -> goBack());
+        userBtn.setOnClickListener(v -> {
+            //마이페이지
+        });
+
+        popularBtn.setOnClickListener(v -> {
+            changeBtn(0);
+        });
+
+        distanceBtn.setOnClickListener(v -> {
+            changeBtn(1);
+        });
+
+        priceBtn.setOnClickListener(v -> {
+            changeBtn(2);
+        });
+
+        registerBtn.setOnClickListener(v -> {
+            changeBtn(3);
+        });
 
         cafe_adapter.setOnItemClickListener((view, position) -> {
             search_cafe.setVisibility(View.GONE);
@@ -347,6 +359,39 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
                 initialization();
             }, 3000);
         });
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private void changeBtn(int setBtn) {
+        if (setBtn == 0) {
+            popularBtn.setTextColor(R.color.White);
+            popularBtn.setBackgroundResource(R.drawable.round_red_btn);
+        } else if (setBtn == 1) {
+            distanceBtn.setTextColor(R.color.White);
+            distanceBtn.setBackgroundResource(R.drawable.round_red_btn);
+        } else if (setBtn == 2) {
+            priceBtn.setTextColor(R.color.White);
+            priceBtn.setBackgroundResource(R.drawable.round_red_btn);
+        } else if (setBtn == 3) {
+            registerBtn.setTextColor(R.color.White);
+            registerBtn.setBackgroundResource(R.drawable.round_red_btn);
+        }
+
+        if (this.setBtn == 0) {
+            popularBtn.setTextColor(R.color.LineGrey);
+            popularBtn.setBackgroundResource(R.drawable.round_corner_grey_btn);
+        } else if (this.setBtn == 1) {
+            distanceBtn.setTextColor(R.color.LineGrey);
+            distanceBtn.setBackgroundResource(R.drawable.round_corner_grey_btn);
+        } else if (this.setBtn == 2) {
+            priceBtn.setTextColor(R.color.LineGrey);
+            priceBtn.setBackgroundResource(R.drawable.round_corner_grey_btn);
+        } else if (this.setBtn == 3) {
+            registerBtn.setTextColor(R.color.LineGrey);
+            registerBtn.setBackgroundResource(R.drawable.round_corner_grey_btn);
+        }
+
+        this.setBtn = setBtn;
     }
 
     private void addCafeRecyclerView() {

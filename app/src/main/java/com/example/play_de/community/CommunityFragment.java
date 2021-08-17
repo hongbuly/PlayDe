@@ -29,7 +29,7 @@ import com.hedgehog.ratingbar.RatingBar;
 public class CommunityFragment extends Fragment implements OnBackPressedListener {
     private MainActivity main;
     private View view;
-    private ImageButton back;
+    private ImageButton back, userBtn;
     private EditText filterEdit;
 
     private LinearLayout community_view01;
@@ -43,7 +43,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
     private RelativeLayout community_view02;
     private ImageView image;
-    private TextView name, level, content, answer;
+    private TextView name, level, content, heart;
 
     private RecyclerView comment_recyclerView;
     private CommunityCommentAdapter comment_adapter;
@@ -90,13 +90,21 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             onBackPressed();
         });
 
+        userBtn = view.findViewById(R.id.userBtn);
+        userBtn.setOnClickListener(v -> {
+            //마이페이지 띄우기
+        });
+
         filterEdit = view.findViewById(R.id.filterEdit);
 
         image = view.findViewById(R.id.image);
         name = view.findViewById(R.id.name);
         level = view.findViewById(R.id.level);
         content = view.findViewById(R.id.content);
-        answer = view.findViewById(R.id.answer);
+        heart = view.findViewById(R.id.heart);
+        heart.setOnClickListener(v -> {
+            //공감하기 갯수 올리기
+        });
 
         communityTagAdapter = new CommunityTagAdapter();
         tag_recyclerView = view.findViewById(R.id.tag_recycler);
@@ -157,12 +165,19 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         comment_recyclerView.setAdapter(comment_adapter);
         addCommentRecyclerView();
 
-        comment_adapter.setOnItemClickListener(position -> {
-            community_view02.setVisibility(View.GONE);
-            profile_view.setVisibility(View.VISIBLE);
-            profile_image.setImageResource(comment_adapter.getData(position).image);
-            profile_name.setText(comment_adapter.getData(position).name);
-            profile_level.setText(comment_adapter.getData(position).level);
+        comment_adapter.setOnItemClickListener((component, position) -> {
+            if (component == 0) {
+                community_view02.setVisibility(View.GONE);
+                profile_view.setVisibility(View.VISIBLE);
+                profile_image.setImageResource(comment_adapter.getData(position).image);
+                profile_name.setText(comment_adapter.getData(position).name);
+                profile_level.setText(comment_adapter.getData(position).level);
+            } else if (component == 1) {
+                //답글쓰기
+            } else if (component == 2) {
+                //신고하기
+                main.showBlur_report(true);
+            }
         });
 
         heart_adapter = new CommunityProfileFavoriteAdapter();

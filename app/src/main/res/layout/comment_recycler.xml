@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/White">
@@ -12,7 +14,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/circle_grey" />
+        android:src="@drawable/circle_grey"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/name"
@@ -23,7 +26,8 @@
         android:fontFamily="@font/apple_b"
         android:text="이름"
         android:textColor="@color/Black"
-        android:textSize="13sp" />
+        android:textSize="13sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/level"
@@ -35,7 +39,19 @@
         android:fontFamily="@font/apple_l"
         android:text="보드게임러버"
         android:textColor="@color/Grey"
-        android:textSize="9sp" />
+        android:textSize="9sp"
+        tools:ignore="HardcodedText,SmallSp" />
+
+    <ImageView
+        android:id="@+id/three_dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="10dp"
+        app:srcCompat="@drawable/three_dot"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/content"
@@ -47,7 +63,8 @@
         android:fontFamily="@font/apple_l"
         android:text="내용 내용\n내용 내용"
         android:textColor="@color/Black"
-        android:textSize="13sp" />
+        android:textSize="13sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/answer"
@@ -60,5 +77,6 @@
         android:fontFamily="@font/apple_l"
         android:text="답글쓰기"
         android:textColor="@color/Grey"
-        android:textSize="9sp" />
+        android:textSize="9sp"
+        tools:ignore="HardcodedText,SmallSp" />
 </RelativeLayout>

@@ -25,7 +25,7 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int component, int position);
     }
 
     void setOnItemClickListener(OnItemClickListener listener) {
@@ -39,6 +39,7 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
         TextView content;
 
         TextView answer;
+        ImageView three_dot;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -49,12 +50,13 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
             content = itemView.findViewById(R.id.content);
 
             answer = itemView.findViewById(R.id.answer);
+            three_dot = itemView.findViewById(R.id.three_dot);
 
             image.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
                     if (mListener != null) {
-                        mListener.onItemClick(pos);
+                        mListener.onItemClick(0, pos);
                     }
                 }
             });
@@ -63,7 +65,16 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
                 int pos = getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
                     if (mListener != null) {
-                        mListener.onItemClick(pos);
+                        mListener.onItemClick(1, pos);
+                    }
+                }
+            });
+
+            three_dot.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    if (mListener != null) {
+                        mListener.onItemClick(2, pos);
                     }
                 }
             });

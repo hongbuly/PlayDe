@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#F6F6F6">
@@ -12,7 +13,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/circle_grey" />
+        android:src="@drawable/circle_grey"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/name"
@@ -23,19 +25,21 @@
         android:fontFamily="@font/apple_b"
         android:text="이름"
         android:textColor="@color/Black"
-        android:textSize="17sp" />
+        android:textSize="17sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="1dp"
         android:layout_toEndOf="@+id/image"
         android:fontFamily="@font/apple_l"
         android:text="보드게임러버"
         android:textColor="@color/Black"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/content"
@@ -48,7 +52,8 @@
         android:fontFamily="@font/apple_l"
         android:text="내용 내용\n내용 내용"
         android:textColor="@color/Black"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        tools:ignore="HardcodedText" />
 
     <View
         android:layout_width="match_parent"
@@ -69,7 +74,8 @@
         android:fontFamily="@font/apple_ul"
         android:text="공감하기"
         android:textColor="@color/Black"
-        android:textSize="11sp" />
+        android:textSize="11sp"
+        tools:ignore="HardcodedText,SmallSp" />
 
     <TextView
         android:id="@+id/comment"
@@ -83,9 +89,10 @@
         android:drawableStart="@drawable/comment"
         android:drawablePadding="10dp"
         android:fontFamily="@font/apple_ul"
-        android:text="공감하기"
+        android:text="댓글"
         android:textColor="@color/Black"
-        android:textSize="11sp" />
+        android:textSize="11sp"
+        tools:ignore="HardcodedText,SmallSp" />
 
     <View
         android:layout_width="match_parent"

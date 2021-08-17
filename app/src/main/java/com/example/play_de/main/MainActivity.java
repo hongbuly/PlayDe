@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private View blur;
     private LinearLayout finish_reserve;
+    private TextView reportBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,16 @@ public class MainActivity extends AppCompatActivity {
             tab.getTabAt(i).setIcon(images.get(i));
 
         blur = findViewById(R.id.blur);
+        blur.setOnClickListener(v -> {
+            if (reportBtn.getVisibility() == View.VISIBLE)
+                showBlur_report(false);
+        });
+
         finish_reserve = findViewById(R.id.finish_reserve);
+        reportBtn = findViewById(R.id.reportBtn);
+        reportBtn.setOnClickListener(v -> {
+            //댓글 신고
+        });
     }
 
     public void setOnBackPressedListener(OnBackPressedListener listener, int num) {
@@ -101,12 +114,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showBlur(boolean show) {
+        //카페 결제
         if (show) {
             blur.setVisibility(View.VISIBLE);
             finish_reserve.setVisibility(View.VISIBLE);
         } else {
             blur.setVisibility(View.GONE);
             finish_reserve.setVisibility(View.GONE);
+        }
+    }
+
+    public void showBlur_report(boolean show) {
+        //커뮤니티 신고하기 버튼
+        if (show) {
+            Animation down_up = AnimationUtils.loadAnimation(this, R.anim.down_up);
+            blur.setVisibility(View.VISIBLE);
+            reportBtn.setVisibility(View.VISIBLE);
+            reportBtn.startAnimation(down_up);
+        } else {
+            Animation up_down = AnimationUtils.loadAnimation(this, R.anim.up_down);
+            reportBtn.startAnimation(up_down);
+            up_down.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    blur.setVisibility(View.GONE);
+                    reportBtn.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
         }
     }
 }

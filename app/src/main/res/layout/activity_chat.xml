@@ -26,36 +26,40 @@
                 android:gravity="center"
                 android:text="이름"
                 android:textColor="@color/White"
-                android:textSize="20dp" />
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
 
             <ImageButton
                 android:id="@+id/backBtn"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:minWidth="0dp"
-                app:srcCompat="@drawable/back" />
+                app:srcCompat="@drawable/back"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:id="@+id/overlap"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    app:srcCompat="@drawable/white_heart" />
+                    android:layout_marginEnd="10dp"
+                    app:srcCompat="@drawable/white_heart"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/white_store" />
+                    app:srcCompat="@drawable/white_store"
+                    tools:ignore="ContentDescription" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -79,13 +83,12 @@
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="@color/White"
-                android:elevation="5dp"
-                android:orientation="horizontal">
+                android:elevation="5dp">
 
                 <ImageView
                     android:id="@+id/pictureBtn"
@@ -93,26 +96,35 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="10dp"
-                    app:srcCompat="@drawable/picture" />
+                    app:srcCompat="@drawable/picture"
+                    tools:ignore="ContentDescription" />
 
                 <EditText
                     android:id="@+id/msg_edit"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
+                    android:layout_toEndOf="@+id/pictureBtn"
                     android:background="@drawable/round_grey_edit"
-                    android:padding="10dp" />
+                    android:padding="5dp"
+                    tools:ignore="Autofill,LabelFor,TextFields" />
 
                 <ImageView
                     android:id="@+id/sendBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
-                    android:padding="10dp"
-                    app:srcCompat="@drawable/paperplane" />
-            </LinearLayout>
+                    android:paddingStart="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp"
+                    app:srcCompat="@drawable/paper_plane"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
 
@@ -129,7 +141,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/overlap2"
         android:src="@color/Glass"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:id="@+id/overlap2"
@@ -143,18 +156,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:adjustViewBounds="true"
-                app:srcCompat="@drawable/heart" />
+                app:srcCompat="@drawable/heart"
+                tools:ignore="ContentDescription" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/heart_recycler"
@@ -169,9 +183,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginBottom="40dp"
             android:orientation="horizontal">
 
@@ -181,8 +195,9 @@
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:paddingRight="10dp"
-                app:srcCompat="@drawable/store" />
+                android:paddingEnd="10dp"
+                app:srcCompat="@drawable/store"
+                tools:ignore="ContentDescription,RtlSymmetry" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/store_recycler"

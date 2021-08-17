@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/backLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,16 +23,29 @@
             android:gravity="center"
             android:text="플레이드 커뮤니티"
             android:textColor="@color/White"
-            android:textSize="20dp" />
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
 
         <ImageButton
             android:id="@+id/backBtn"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:minWidth="0dp"
-            app:srcCompat="@drawable/back" />
+            app:srcCompat="@drawable/back"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/userBtn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:minWidth="0dp"
+            app:srcCompat="@drawable/user"
+            tools:ignore="ContentDescription" />
     </RelativeLayout>
 
     <LinearLayout
@@ -52,14 +66,15 @@
             android:layout_marginRight="15dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/round_corner_red"
-            android:drawableRight="@drawable/reading_glasses"
+            android:drawableEnd="@drawable/reading_glasses"
             android:fontFamily="@font/apple_l"
             android:hint="전체 12,395"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:paddingStart="15dp"
+            android:paddingTop="10dp"
             android:paddingEnd="15dp"
-            android:textSize="12sp" />
+            android:paddingBottom="10dp"
+            android:textSize="12sp"
+            tools:ignore="Autofill,HardcodedText,TextFields" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tag_recycler"
@@ -76,6 +91,7 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
+
     <RelativeLayout
         android:id="@+id/community_view02"
         android:layout_width="match_parent"
@@ -89,7 +105,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:src="@drawable/circle_grey" />
+            android:src="@drawable/circle_grey"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/name"
@@ -100,19 +117,21 @@
             android:fontFamily="@font/apple_b"
             android:text="이름"
             android:textColor="@color/Black"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="1dp"
             android:layout_toEndOf="@+id/image"
             android:fontFamily="@font/apple_l"
             android:text="보드게임러버"
             android:textColor="@color/Black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:ignore="HardcodedText" />
 
         <View
             android:layout_width="match_parent"
@@ -134,7 +153,8 @@
             android:fontFamily="@font/apple_l"
             android:text="내용 내용\n내용 내용"
             android:textColor="@color/Black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:ignore="HardcodedText" />
 
         <View
             android:layout_width="match_parent"
@@ -155,7 +175,8 @@
             android:fontFamily="@font/apple_ul"
             android:text="공감하기"
             android:textColor="@color/Black"
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            tools:ignore="HardcodedText,SmallSp" />
 
         <TextView
             android:id="@+id/comment"
@@ -171,7 +192,8 @@
             android:fontFamily="@font/apple_ul"
             android:text="댓글"
             android:textColor="@color/Black"
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            tools:ignore="HardcodedText,SmallSp" />
 
         <View
             android:layout_width="match_parent"
@@ -186,13 +208,12 @@
             android:layout_below="@+id/heart"
             android:layout_marginTop="15dp" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/White"
-            android:elevation="5dp"
-            android:orientation="horizontal">
+            android:elevation="5dp">
 
             <ImageView
                 android:id="@+id/pictureBtn"
@@ -200,27 +221,37 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="10dp"
-                app:srcCompat="@drawable/picture" />
+                app:srcCompat="@drawable/picture"
+                tools:ignore="ContentDescription" />
 
             <EditText
                 android:id="@+id/msg_edit"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
-                android:layout_weight="1"
+                android:layout_toEndOf="@+id/pictureBtn"
                 android:background="@drawable/round_grey_edit"
-                android:padding="10dp" />
+                android:padding="5dp"
+                tools:ignore="Autofill,LabelFor,TextFields" />
 
             <ImageView
                 android:id="@+id/sendBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_gravity="center"
-                android:padding="10dp"
-                app:srcCompat="@drawable/paperplane" />
-        </LinearLayout>
+                android:paddingStart="10dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                app:srcCompat="@drawable/paper_plane"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
     </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/profile_view"
@@ -237,7 +268,8 @@
             android:layout_height="110dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:src="@drawable/circle_grey" />
+            android:src="@drawable/circle_grey"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/profile_name"
@@ -248,7 +280,8 @@
             android:fontFamily="@font/apple_b"
             android:text="이름"
             android:textColor="@color/Black"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/profile_level"
@@ -259,7 +292,8 @@
             android:fontFamily="@font/apple_l"
             android:text="보드게임러버"
             android:textColor="@color/Black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:ignore="HardcodedText" />
 
         <View
             android:layout_width="match_parent"
@@ -304,7 +338,8 @@
                 android:fontFamily="@font/apple_l"
                 android:text="채팅보내기"
                 android:textColor="@color/Black"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <View
@@ -326,7 +361,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:adjustViewBounds="true"
-                app:srcCompat="@drawable/heart" />
+                app:srcCompat="@drawable/heart"
+                tools:ignore="ContentDescription" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/heart_recycler"
@@ -349,7 +385,8 @@
                 android:layout_height="33dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
-                app:srcCompat="@drawable/store" />
+                app:srcCompat="@drawable/store"
+                tools:ignore="ContentDescription" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/store_recycler"
@@ -371,6 +408,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            app:srcCompat="@drawable/block_btn" />
+            app:srcCompat="@drawable/block_btn"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 </LinearLayout>

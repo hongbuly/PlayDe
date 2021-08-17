@@ -81,7 +81,8 @@
             android:fontFamily="@font/apple_b"
             android:text="예약이 완료되었습니다!"
             android:textColor="@color/White"
-            android:textSize="24dp" />
+            android:textSize="24sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -90,6 +91,23 @@
             android:fontFamily="@font/apple_b"
             android:text="결제는 현장 결제로 진행됩니다."
             android:textColor="@color/White"
-            android:textSize="18dp" />
+            android:textSize="18sp"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/reportBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/White"
+        android:fontFamily="@font/apple_m"
+        android:paddingStart="15dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="25dp"
+        android:text="신고하기"
+        android:textColor="@color/Black"
+        android:textSize="15sp"
+        android:visibility="gone"
+        tools:ignore="HardcodedText,RtlSymmetry" />
 </RelativeLayout>
