@@ -20,8 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecyclerAdapter.ViewHolder> {
-    private ArrayList<UserModel> mData = new ArrayList<>();
+public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityCommentAdapter.ViewHolder> {
+    private ArrayList<CommunityComment> mData = new ArrayList<>();
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
@@ -32,36 +32,13 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
         mListener = listener;
     }
 
-    CommunityRecyclerAdapter() {
-        FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mData.clear();
-                for (DataSnapshot snap : snapshot.getChildren()) {
-                    mData.add(snap.getValue(UserModel.class));
-                }
-                notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    UserModel getData(int position) {
-        return mData.get(position);
-    }
-
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name;
         TextView level;
         TextView content;
 
-        TextView heart;
-        TextView comment;
+        TextView answer;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,10 +48,18 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
             level = itemView.findViewById(R.id.level);
             content = itemView.findViewById(R.id.content);
 
-            heart = itemView.findViewById(R.id.heart);
-            comment = itemView.findViewById(R.id.comment);
+            answer = itemView.findViewById(R.id.answer);
 
-            comment.setOnClickListener(v -> {
+            image.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    if (mListener != null) {
+                        mListener.onItemClick(pos);
+                    }
+                }
+            });
+
+            answer.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
                     if (mListener != null) {
@@ -85,22 +70,27 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
         }
     }
 
+    CommunityComment getData(int position) {
+        return mData.get(position);
+    }
+
+    void addItem(CommunityComment item) {
+        mData.add(item);
+    }
+
     @NonNull
     @Override
-    public CommunityRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.community_recycler, parent, false);
+    public CommunityCommentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_recycler, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CommunityRecyclerAdapter.ViewHolder holder, int position) {
-        Glide.with(holder.itemView.getContext())
-                .load(mData.get(position).image)
-                .apply(new RequestOptions().circleCrop())
-                .into(holder.image);
+    public void onBindViewHolder(@NonNull CommunityCommentAdapter.ViewHolder holder, int position) {
+        holder.image.setImageResource(mData.get(position).image);
         holder.name.setText(mData.get(position).name);
         holder.level.setText(mData.get(position).level);
-        holder.content.setText(mData.get(position).pushToken);
+        holder.content.setText(mData.get(position).comment);
     }
 
     @Override

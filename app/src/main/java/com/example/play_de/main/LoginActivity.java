@@ -104,16 +104,18 @@ public class LoginActivity extends AppCompatActivity {
                             String uid = task.getResult().getUser().getUid();
                             Uri uri = Uri.parse("android.resource://com.example.play_de/drawable/cafe01");
                             FirebaseStorage.getInstance().getReference().child("userImages").child(uid).putFile(uri).addOnCompleteListener(task1 -> {
-                                String imageUrl = task1.getResult().getUploadSessionUri().toString();
+                                FirebaseStorage.getInstance().getReference().child("userImages").child(uid).getDownloadUrl().addOnSuccessListener(uri1 -> {
+                                    String imageUrl = uri1.toString();
 
-                                UserModel userModel = new UserModel();
-                                userModel.name = name.getText().toString();
-                                userModel.image = imageUrl;
-                                userModel.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                userModel.level = "보드게임러버";
-                                userModel.pushToken = "보드게임 같이 하실분?";
+                                    UserModel userModel = new UserModel();
+                                    userModel.name = name.getText().toString();
+                                    userModel.image = imageUrl;
+                                    userModel.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    userModel.level = "보드게임러버";
+                                    userModel.pushToken = "보드게임 같이 하실분?";
 
-                                FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
+                                    FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
+                                });
                             });
                         });
 

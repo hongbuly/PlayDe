@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="5dp"
+    android:layout_marginEnd="11dp"
     android:orientation="horizontal">
 
     <Button
@@ -11,12 +11,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/apple_m"
         android:textColor="@color/Black"
-        android:background="@drawable/round_grey_tag"
         android:minHeight="0dp"
         android:minWidth="0dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:textSize="15sp" />
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="12sp" />
 </LinearLayout>

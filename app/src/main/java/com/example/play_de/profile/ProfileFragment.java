@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,9 +38,6 @@ public class ProfileFragment extends Fragment {
     private ListView favorite_game_list;
     public static LinearLayout favorite_store;
     private ListView favorite_store_list;
-
-    private FavoriteListViewAdapter favorite_game_adapter;
-    private FavoriteListViewAdapter favorite_store_adapter;
 
     private Button recent_play_btnM;
     private LinearLayout recent_play01M;
@@ -118,134 +117,75 @@ public class ProfileFragment extends Fragment {
         favorite_store = view.findViewById(R.id.favorite_store);
 
         backBtn = view.findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                back_view();
-            }
-        });
+        backBtn.setOnClickListener(v -> back_view());
 
         //main profile
         profile_image = view.findViewById(R.id.profile_image);
         profile_name = view.findViewById(R.id.profile_name);
 
         heart_btn = view.findViewById(R.id.heart_btn);
-        heart_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main_profile.setVisibility(View.GONE);
-                favorite_game.setVisibility(View.VISIBLE);
-            }
+        heart_btn.setOnClickListener(v -> {
+            main_profile.setVisibility(View.GONE);
+            favorite_game.setVisibility(View.VISIBLE);
         });
 
         store_btn = view.findViewById(R.id.store_btn);
-        store_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main_profile.setVisibility(View.GONE);
-                favorite_store.setVisibility(View.VISIBLE);
-            }
+        store_btn.setOnClickListener(v -> {
+            main_profile.setVisibility(View.GONE);
+            favorite_store.setVisibility(View.VISIBLE);
         });
 
-        favorite_game_adapter = new FavoriteListViewAdapter();
-        favorite_game_list = view.findViewById(R.id.favorite_game_list);
-        favorite_game_list.setAdapter(favorite_game_adapter);
-        addGameListView();
-
-        favorite_store_adapter = new FavoriteListViewAdapter();
-        favorite_store_list = view.findViewById(R.id.favorite_store_list);
-        favorite_store_list.setAdapter(favorite_store_adapter);
-        addStoreListView();
-
         recent_play01M = view.findViewById(R.id.recent_play01M);
-        recent_play01M.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main_profile.setVisibility(View.GONE);
-                review_profile.setVisibility(View.VISIBLE);
-                review_background.setBackgroundResource(R.drawable.word_balloon01);
-            }
+        recent_play01M.setOnClickListener(v -> {
+            main_profile.setVisibility(View.GONE);
+            review_profile.setVisibility(View.VISIBLE);
+            review_background.setBackgroundResource(R.drawable.word_balloon01);
         });
 
         recent_play02M = view.findViewById(R.id.recent_play02M);
-        recent_play02M.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main_profile.setVisibility(View.GONE);
-                review_profile.setVisibility(View.VISIBLE);
-                review_background.setBackgroundResource(R.drawable.word_balloon02);
-            }
+        recent_play02M.setOnClickListener(v -> {
+            main_profile.setVisibility(View.GONE);
+            review_profile.setVisibility(View.VISIBLE);
+            review_background.setBackgroundResource(R.drawable.word_balloon02);
         });
 
         recent_play03M = view.findViewById(R.id.recent_play03M);
-        recent_play03M.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main_profile.setVisibility(View.GONE);
-                review_profile.setVisibility(View.VISIBLE);
-                review_background.setBackgroundResource(R.drawable.word_balloon03);
-            }
+        recent_play03M.setOnClickListener(v -> {
+            main_profile.setVisibility(View.GONE);
+            review_profile.setVisibility(View.VISIBLE);
+            review_background.setBackgroundResource(R.drawable.word_balloon03);
         });
 
         recent_play04M = view.findViewById(R.id.recent_play04M);
-        recent_play04M.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main_profile.setVisibility(View.GONE);
-                review_profile.setVisibility(View.VISIBLE);
-                review_background.setBackgroundResource(R.drawable.word_balloon04);
-            }
+        recent_play04M.setOnClickListener(v -> {
+            main_profile.setVisibility(View.GONE);
+            review_profile.setVisibility(View.VISIBLE);
+            review_background.setBackgroundResource(R.drawable.word_balloon04);
         });
 
         //review
         recent_play01 = view.findViewById(R.id.recent_play01);
-        recent_play01.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                review_background.setBackgroundResource(R.drawable.word_balloon01);
-            }
-        });
+        recent_play01.setOnClickListener(v -> review_background.setBackgroundResource(R.drawable.word_balloon01));
 
         recent_play02 = view.findViewById(R.id.recent_play02);
-        recent_play02.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                review_background.setBackgroundResource(R.drawable.word_balloon02);
-            }
-        });
+        recent_play02.setOnClickListener(v -> review_background.setBackgroundResource(R.drawable.word_balloon02));
 
         recent_play03 = view.findViewById(R.id.recent_play03);
-        recent_play03.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                review_background.setBackgroundResource(R.drawable.word_balloon03);
-            }
-        });
+        recent_play03.setOnClickListener(v -> review_background.setBackgroundResource(R.drawable.word_balloon03));
 
         recent_play04 = view.findViewById(R.id.recent_play04);
-        recent_play04.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                review_background.setBackgroundResource(R.drawable.word_balloon04);
-            }
-        });
+        recent_play04.setOnClickListener(v -> review_background.setBackgroundResource(R.drawable.word_balloon04));
 
         block_review_btn = view.findViewById(R.id.block_review_btn);
-        block_review_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                review_profile.setVisibility(View.GONE);
-                block_reason.setVisibility(View.VISIBLE);
-            }
+        block_review_btn.setOnClickListener(v -> {
+            review_profile.setVisibility(View.GONE);
+            block_reason.setVisibility(View.VISIBLE);
         });
 
         register_review_btn = view.findViewById(R.id.register_review_btn);
-        register_review_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "등록되었습니다.", Toast.LENGTH_SHORT).show();
-                back_view();
-            }
+        register_review_btn.setOnClickListener(v -> {
+            Toast.makeText(context, "등록되었습니다.", Toast.LENGTH_SHORT).show();
+            back_view();
         });
 
         //block reason
@@ -255,70 +195,55 @@ public class ProfileFragment extends Fragment {
         }
 
         block_reason_btn01 = view.findViewById(R.id.block_reason_btn01);
-        block_reason_btn01.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isChecked[0]) {
-                    block_reason_btn01.setBackgroundResource(R.drawable.circle_corner_grey);
-                    isChecked[0] = false;
-                } else {
-                    block_reason_btn01.setBackgroundResource(R.drawable.circle_corner_red);
-                    isChecked[0] = true;
-                }
+        block_reason_btn01.setOnClickListener(v -> {
+            if (isChecked[0]) {
+                block_reason_btn01.setBackgroundResource(R.drawable.circle_corner_grey);
+                isChecked[0] = false;
+            } else {
+                block_reason_btn01.setBackgroundResource(R.drawable.circle_corner_red);
+                isChecked[0] = true;
             }
         });
 
         block_reason_btn02 = view.findViewById(R.id.block_reason_btn02);
-        block_reason_btn02.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isChecked[1]) {
-                    block_reason_btn02.setBackgroundResource(R.drawable.circle_corner_grey);
-                    isChecked[1] = false;
-                } else {
-                    block_reason_btn02.setBackgroundResource(R.drawable.circle_corner_red);
-                    isChecked[1] = true;
-                }
+        block_reason_btn02.setOnClickListener(v -> {
+            if (isChecked[1]) {
+                block_reason_btn02.setBackgroundResource(R.drawable.circle_corner_grey);
+                isChecked[1] = false;
+            } else {
+                block_reason_btn02.setBackgroundResource(R.drawable.circle_corner_red);
+                isChecked[1] = true;
             }
         });
 
         block_reason_btn03 = view.findViewById(R.id.block_reason_btn03);
-        block_reason_btn03.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isChecked[2]) {
-                    block_reason_btn03.setBackgroundResource(R.drawable.circle_corner_grey);
-                    isChecked[2] = false;
-                } else {
-                    block_reason_btn03.setBackgroundResource(R.drawable.circle_corner_red);
-                    isChecked[2] = true;
-                }
+        block_reason_btn03.setOnClickListener(v -> {
+            if (isChecked[2]) {
+                block_reason_btn03.setBackgroundResource(R.drawable.circle_corner_grey);
+                isChecked[2] = false;
+            } else {
+                block_reason_btn03.setBackgroundResource(R.drawable.circle_corner_red);
+                isChecked[2] = true;
             }
         });
 
         block_reason_btn04 = view.findViewById(R.id.block_reason_btn04);
-        block_reason_btn04.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isChecked[3]) {
-                    block_reason_btn04.setBackgroundResource(R.drawable.circle_corner_grey);
-                    isChecked[3] = false;
-                } else {
-                    block_reason_btn04.setBackgroundResource(R.drawable.circle_corner_red);
-                    isChecked[3] = true;
-                }
+        block_reason_btn04.setOnClickListener(v -> {
+            if (isChecked[3]) {
+                block_reason_btn04.setBackgroundResource(R.drawable.circle_corner_grey);
+                isChecked[3] = false;
+            } else {
+                block_reason_btn04.setBackgroundResource(R.drawable.circle_corner_red);
+                isChecked[3] = true;
             }
         });
 
         block_review_editText = view.findViewById(R.id.block_review_editText);
 
         block_review_btn2 = view.findViewById(R.id.block_review_btn2);
-        block_review_btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "차단되었습니다.", Toast.LENGTH_SHORT).show();
-                back_view();
-            }
+        block_review_btn2.setOnClickListener(v -> {
+            Toast.makeText(context, "차단되었습니다.", Toast.LENGTH_SHORT).show();
+            back_view();
         });
 
         return view;
@@ -342,32 +267,5 @@ public class ProfileFragment extends Fragment {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    void addGameListView() {
-        int[] favorite_game = new int[4];
-        favorite_game[0] = R.drawable.rumicube;
-        favorite_game[1] = R.drawable.catan;
-        favorite_game[2] = R.drawable.monopoly;
-        favorite_game[3] = R.drawable.qwixx;
-
-        String[] name = new String[4];
-        name[0] = "루미큐브";
-        name[1] = "카탄";
-        name[2] = "모노폴리";
-        name[3] = "Qwixx";
-        favorite_game_adapter.addItem(favorite_game, name);
-    }
-
-    void addStoreListView() {
-        int[] favorite_store = new int[4];
-        String[] name = new String[4];
-        for (int i = 0; i < 4; i++) {
-            favorite_store[i] = R.drawable.round_grey;
-            name[i] = "이름";
-        }
-
-        for (int i = 0; i < 9; i++)
-            favorite_store_adapter.addItem(favorite_store, name);
     }
 }
