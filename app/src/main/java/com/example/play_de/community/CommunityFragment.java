@@ -1,5 +1,6 @@
 package com.example.play_de.community;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.play_de.chat.ChatActivity;
 import com.example.play_de.main.MainActivity;
 import com.example.play_de.main.OnBackPressedListener;
 import com.example.play_de.R;
@@ -108,16 +110,27 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         communityLayoutManager = new LinearLayoutManager(getActivity());
         community_recyclerView.setLayoutManager(communityLayoutManager);
         community_recyclerView.setAdapter(communityRecyclerAdapter);
-        communityRecyclerAdapter.setOnItemClickListener(position -> {
-            community_view01.setVisibility(View.GONE);
-            community_view02.setVisibility(View.VISIBLE);
-            Glide.with(requireContext())
-                    .load(communityRecyclerAdapter.getData(position).image)
-                    .apply(new RequestOptions().circleCrop())
-                    .into(image);
-            name.setText(communityRecyclerAdapter.getData(position).name);
-            level.setText(communityRecyclerAdapter.getData(position).level);
-            content.setText(communityRecyclerAdapter.getData(position).pushToken);
+        communityRecyclerAdapter.setOnItemClickListener((component, position) -> {
+            if (component == 1) {
+                //image 클릭, chat 만들기
+                Intent intent = new Intent(requireContext(), ChatActivity.class);
+                intent.putExtra("destinationName", communityRecyclerAdapter.getData(position).name);
+                intent.putExtra("destinationUid", communityRecyclerAdapter.getData(position).uid);
+                startActivity(intent);
+            } else if (component == 2) {
+                //공감하기 버튼 클릭
+            } else if (component == 3) {
+                // 댓글 달기
+                community_view01.setVisibility(View.GONE);
+                community_view02.setVisibility(View.VISIBLE);
+                Glide.with(requireContext())
+                        .load(communityRecyclerAdapter.getData(position).image)
+                        .apply(new RequestOptions().circleCrop())
+                        .into(image);
+                name.setText(communityRecyclerAdapter.getData(position).name);
+                level.setText(communityRecyclerAdapter.getData(position).level);
+                content.setText(communityRecyclerAdapter.getData(position).pushToken);
+            }
         });
 
         profile_image = view.findViewById(R.id.profile_image);

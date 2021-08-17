@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.play_de.GameFragment;
+import com.example.play_de.game.GameFragment;
 import com.example.play_de.cafe.CafeFragment;
 import com.example.play_de.chat.ChatFragment;
 import com.example.play_de.community.CommunityFragment;
@@ -27,11 +27,11 @@ public class MainVPAdapter extends FragmentPagerAdapter {
         items.add(new ChatFragment());
 
         text = new ArrayList<>();
-        text.add("Game");
-        text.add("Cafe");
-        text.add("Community");
-        text.add("Funding");
-        text.add("Chat");
+        text.add("게임");
+        text.add("카페");
+        text.add("커뮤니티");
+        text.add("펀딩");
+        text.add("채팅");
     }
 
     @Nullable

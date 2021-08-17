@@ -30,7 +30,7 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 public class ChatActivity extends AppCompatActivity {
-    private String chatRoomUid; //채팅방 하나 id
+    private String chatRoomUid; //채팅방 id
     private String myUid;       //나의 id
     private String destUid;     //상대방 uid
 
@@ -40,7 +40,7 @@ public class ChatActivity extends AppCompatActivity {
     private TextView nameText;
     private ImageButton backBtn;
 
-    private ImageView plusBtn;
+    private ImageView pictureBtn;
     private EditText msg_edit;
     private ImageView sendBtn;
 
@@ -62,19 +62,17 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     void initialSetUp() {
-        Intent intent = getIntent();
-        if (intent.getExtras().getString("name") != null)
-            name = intent.getExtras().getString("name");
+        name = getIntent().getStringExtra("destinationName");
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        destUid = getIntent().getStringExtra("destUid"); //채팅 상대
+        destUid = getIntent().getStringExtra("destinationUid"); //채팅 상대
 
         nameText = findViewById(R.id.nameText);
         nameText.setText(name);
         backBtn = findViewById(R.id.backBtn);
 
-        plusBtn = findViewById(R.id.plusBtn);
+        pictureBtn = findViewById(R.id.pictureBtn);
         msg_edit = findViewById(R.id.msg_edit);
         sendBtn = findViewById(R.id.sendBtn);
 
@@ -85,26 +83,13 @@ public class ChatActivity extends AppCompatActivity {
 
         chat_view = findViewById(R.id.chat_recycler);
         layoutManager = new LinearLayoutManager(this);
-        //addChatRecyclerView();
         checkChatRoom();
     }
-
-//    private void addChatRecyclerView() {
-//        //서버로부터 데이터 가져와서 추가하기.
-//        ChatRecyclerItem item = new ChatRecyclerItem();
-//        int image = R.drawable.cafe01;
-//        String name = "윤홍현";
-//        String text = "안녕하세요";
-//
-//        item.setData(image, name, text);
-//        chat_adapter.addItem(item);
-//        chat_adapter.notifyDataSetChanged();
-//    }
 
     void eventListener() {
         backBtn.setOnClickListener(v -> finish());
 
-        plusBtn.setOnClickListener(v -> {
+        pictureBtn.setOnClickListener(v -> {
             //사진, 동영상 등등.
         });
 
@@ -132,11 +117,10 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void checkChatRoom() {
-        //자신 key == true 일때 chatModel 가져온다.
-        /* chatModel
-        public Map<String,Boolean> users = new HashMap<>(); //채팅방 유저
-        public Map<String, ChatModel.Comment> comments = new HashMap<>(); //채팅 메시지
-        */
+//        chatModel
+//        public Map<String,Boolean> users = new HashMap<>(); //채팅방 유저
+//        public Map<String, ChatModel.Comment> comments = new HashMap<>(); //채팅 메시지
+
         firebaseDatabase.getReference().child("chatRooms").orderByChild("users/" + myUid).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -169,7 +153,7 @@ public class ChatActivity extends AppCompatActivity {
             comment.uid = myUid;
             comment.message = msg_edit.getText().toString();
             comment.timestamp = ServerValue.TIMESTAMP;
-            firebaseDatabase.getReference().child("chatrooms").child(chatRoomUid).child("comments").push().setValue(comment).addOnSuccessListener((OnSuccessListener<Void>) aVoid -> msg_edit.setText(""));
+            firebaseDatabase.getReference().child("chatRooms").child(chatRoomUid).child("comments").push().setValue(comment).addOnSuccessListener(aVoid -> msg_edit.setText(""));
         }
     }
 

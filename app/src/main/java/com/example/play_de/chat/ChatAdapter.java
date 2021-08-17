@@ -27,8 +27,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private RecyclerView chat_view;
 
     private List<ChatModel.Comment> comments;
-    private ArrayList<ChatRecyclerItem> mData = new ArrayList<>();
-    private String nameStr;
+
     private TextView left_text;
     private TextView right_text;
 
@@ -61,6 +60,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     //채팅 내용 읽어들임
     private void getMessageList() {
+
         FirebaseDatabase.getInstance().getReference().child("chatRooms").child(chatRoomUid).child("comments").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -88,38 +88,25 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             super(itemView);
 
             image = itemView.findViewById(R.id.image);
-            text = itemView.findViewById(R.id.text);
-
             left_text = itemView.findViewById(R.id.left_chat);
             right_text = itemView.findViewById(R.id.right_chat);
         }
 
-        void onBind(ChatRecyclerItem item, int position) {
-            image.setImageResource(item.getImage());
+        void onBind(ChatModel.Comment item) {
+            image.setImageResource(R.drawable.cafe01);
 
-            if (comments.get(position).uid.equals(myUid)) {
-                ComponentSetVisibility(item.getName().equals(nameStr));
+            if (item.uid.equals(myUid)) {
+                image.setVisibility(View.GONE);
+                left_text.setVisibility(View.GONE);
+                right_text.setVisibility(View.VISIBLE);
                 text = right_text;
             } else {
-                ComponentSetVisibility(item.getName().equals(nameStr));
+                left_text.setVisibility(View.VISIBLE);
+                right_text.setVisibility(View.GONE);
                 text = left_text;
             }
-            text.setText(item.getText());
+            text.setText(item.message);
         }
-    }
-
-    private void ComponentSetVisibility(boolean visible) {
-        if (visible) {
-            left_text.setVisibility(View.GONE);
-            right_text.setVisibility(View.VISIBLE);
-        } else {
-            left_text.setVisibility(View.VISIBLE);
-            right_text.setVisibility(View.GONE);
-        }
-    }
-
-    void addItem(ChatRecyclerItem item) {
-        mData.add(item);
     }
 
     @NonNull
@@ -131,11 +118,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.onBind(mData.get(position), position);
+        holder.onBind(comments.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return comments.size();
     }
 }

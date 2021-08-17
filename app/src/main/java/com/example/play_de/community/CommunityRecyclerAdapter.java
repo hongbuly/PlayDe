@@ -25,7 +25,7 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int component, int position);
     }
 
     void setOnItemClickListener(OnItemClickListener listener) {
@@ -74,11 +74,29 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
             heart = itemView.findViewById(R.id.heart);
             comment = itemView.findViewById(R.id.comment);
 
+            image.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    if (mListener != null) {
+                        mListener.onItemClick(1, pos);
+                    }
+                }
+            });
+
+            heart.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    if (mListener != null) {
+                        mListener.onItemClick(2, pos);
+                    }
+                }
+            });
+
             comment.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
                     if (mListener != null) {
-                        mListener.onItemClick(pos);
+                        mListener.onItemClick(3, pos);
                     }
                 }
             });

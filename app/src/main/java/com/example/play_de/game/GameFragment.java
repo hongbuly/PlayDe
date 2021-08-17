@@ -1,4 +1,4 @@
-package com.example.play_de;
+package com.example.play_de.game;
 
 import android.os.Bundle;
 
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.play_de.R;
 import com.example.play_de.main.MainActivity;
 import com.example.play_de.main.OnBackPressedListener;
 
