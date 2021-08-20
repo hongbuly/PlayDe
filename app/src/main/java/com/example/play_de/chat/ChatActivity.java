@@ -1,11 +1,9 @@
 package com.example.play_de.chat;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -15,27 +13,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.play_de.R;
 import com.github.mmin18.widget.RealtimeBlurView;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.ValueEventListener;
 
 public class ChatActivity extends AppCompatActivity {
     private String chatRoomUid; //채팅방 id
     private String myUid;       //나의 id
     private String destUid;     //상대방 uid
-
-    private FirebaseDatabase firebaseDatabase;
-    private UserModel destUser;
 
     private TextView nameText;
     private ImageButton backBtn;
@@ -63,9 +48,6 @@ public class ChatActivity extends AppCompatActivity {
 
     void initialSetUp() {
         name = getIntent().getStringExtra("destinationName");
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         destUid = getIntent().getStringExtra("destinationUid"); //채팅 상대
 
         nameText = findViewById(R.id.nameText);
@@ -93,23 +75,8 @@ public class ChatActivity extends AppCompatActivity {
             //사진, 동영상 등등.
         });
 
-        FirebaseApp.initializeApp(this);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
         sendBtn.setOnClickListener(v -> {
-            ChatModel chatModel = new ChatModel();
-            chatModel.users.put(myUid, true);
-            chatModel.users.put(destUid, true);
 
-            //push() 데이터가 쌓이기 위해 채팅방 key가 생성
-            if (chatRoomUid == null) {
-                Toast.makeText(this, "채팅방 생성", Toast.LENGTH_SHORT).show();
-                sendBtn.setEnabled(false);
-                firebaseDatabase.getReference().child("chatRooms").push().setValue(chatModel).addOnSuccessListener(aVoid -> checkChatRoom());
-            } else {
-                sendMsgToDataBase();
-            }
         });
 
         overlap.setOnClickListener(v -> goToUp());
@@ -117,44 +84,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void checkChatRoom() {
-//        chatModel
-//        public Map<String,Boolean> users = new HashMap<>(); //채팅방 유저
-//        public Map<String, ChatModel.Comment> comments = new HashMap<>(); //채팅 메시지
 
-        firebaseDatabase.getReference().child("chatRooms").orderByChild("users/" + myUid).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) //나, 상대방 id 가져온다.
-                {
-                    ChatModel chatModel = dataSnapshot.getValue(ChatModel.class);
-                    if (chatModel.users.containsKey(destUid)) { //상대방 id 포함돼 있을때 채팅방 key 가져옴
-                        chatRoomUid = dataSnapshot.getKey();
-                        sendBtn.setEnabled(true);
-
-                        //동기화
-                        chat_view.setLayoutManager(layoutManager);
-                        chat_view.setAdapter(new ChatAdapter(firebaseDatabase, destUid, destUser, chatRoomUid, chat_view, myUid));
-
-                        //메시지 보내기
-                        sendMsgToDataBase();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-    }
-
-    private void sendMsgToDataBase() {
-        if (!msg_edit.getText().toString().equals("")) {
-            ChatModel.Comment comment = new ChatModel.Comment();
-            comment.uid = myUid;
-            comment.message = msg_edit.getText().toString();
-            comment.timestamp = ServerValue.TIMESTAMP;
-            firebaseDatabase.getReference().child("chatRooms").child(chatRoomUid).child("comments").push().setValue(comment).addOnSuccessListener(aVoid -> msg_edit.setText(""));
-        }
     }
 
     private void goToDown() {

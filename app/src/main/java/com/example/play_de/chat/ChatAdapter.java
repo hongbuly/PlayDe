@@ -10,75 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.play_de.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
-    private FirebaseDatabase firebaseDatabase;
-    private String destUid, chatRoomUid, myUid;
-    private UserModel destUser;
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy.MM.dd HH:mm");
-    private RecyclerView chat_view;
-
-    private List<ChatModel.Comment> comments;
-
     private TextView left_text;
     private TextView right_text;
-
-    ChatAdapter(FirebaseDatabase firebaseDatabase, String destUid, UserModel destUser, String chatRoomUid, RecyclerView chat_view, String myUid) {
-        comments = new ArrayList<>();
-        this.firebaseDatabase = firebaseDatabase;
-        this.destUid = destUid;
-        this.destUser = destUser;
-        this.chatRoomUid = chatRoomUid;
-        this.chat_view = chat_view;
-        this.myUid = myUid;
-        getDestUid();
-    }
-
-    private void getDestUid() {
-        firebaseDatabase.getReference().child("users").child(destUid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                destUser = snapshot.getValue(UserModel.class);
-
-                //채팅 내용 읽어들임
-                getMessageList();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-            }
-        });
-    }
-
-    //채팅 내용 읽어들임
-    private void getMessageList() {
-
-        FirebaseDatabase.getInstance().getReference().child("chatRooms").child(chatRoomUid).child("comments").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                comments.clear();
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    comments.add(dataSnapshot.getValue(ChatModel.Comment.class));
-                }
-                notifyDataSetChanged();
-
-                chat_view.scrollToPosition(comments.size() - 1);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
@@ -92,20 +27,20 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             right_text = itemView.findViewById(R.id.right_chat);
         }
 
-        void onBind(ChatModel.Comment item) {
+        void onBind() {
             image.setImageResource(R.drawable.cafe01);
 
-            if (item.uid.equals(myUid)) {
-                image.setVisibility(View.GONE);
-                left_text.setVisibility(View.GONE);
-                right_text.setVisibility(View.VISIBLE);
-                text = right_text;
-            } else {
-                left_text.setVisibility(View.VISIBLE);
-                right_text.setVisibility(View.GONE);
-                text = left_text;
-            }
-            text.setText(item.message);
+//            if (item.uid.equals(myUid)) {
+//                image.setVisibility(View.GONE);
+//                left_text.setVisibility(View.GONE);
+//                right_text.setVisibility(View.VISIBLE);
+//                text = right_text;
+//            } else {
+//                left_text.setVisibility(View.VISIBLE);
+//                right_text.setVisibility(View.GONE);
+//                text = left_text;
+//            }
+//            text.setText(item.message);
         }
     }
 
@@ -118,11 +53,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.onBind(comments.get(position));
+//        holder.onBind(comments.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return comments.size();
+        return 0;
     }
 }
