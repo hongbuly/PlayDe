@@ -18,6 +18,7 @@ import com.example.play_de.chat.GoUP;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager vp;
@@ -38,12 +39,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toast.makeText(getApplicationContext(), "로그인 되었습니다.", Toast.LENGTH_SHORT).show();
+
         //키보드가 레이아웃에 영향을 안주게
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         Intent intent = getIntent();
-        if (intent.getExtras().getString("name") != null)
-            name = intent.getExtras().getString("name");
+        if (Objects.requireNonNull(intent.getExtras()).getString("userId") != null)
+            name = intent.getExtras().getString("userId");
 
         vp = findViewById(R.id.MainVP);
         adapter = new MainVPAdapter(getSupportFragmentManager());

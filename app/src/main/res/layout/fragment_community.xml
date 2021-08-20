@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/backLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/horizon_gradient"
@@ -55,7 +54,7 @@
         android:layout_weight="10"
         android:background="@drawable/round_back_white"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/filterEdit"
@@ -65,7 +64,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/round_corner_red"
+            android:background="@drawable/round_corner_red15"
             android:drawableEnd="@drawable/reading_glasses"
             android:fontFamily="@font/apple_l"
             android:hint="전체 12,395"
@@ -233,7 +232,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
                 android:layout_toEndOf="@+id/pictureBtn"
-                android:background="@drawable/round_grey_edit"
+                android:background="@drawable/round_polar25"
                 android:padding="5dp"
                 tools:ignore="Autofill,LabelFor,TextFields" />
 
@@ -410,5 +409,212 @@
             android:layout_marginBottom="20dp"
             app:srcCompat="@drawable/block_btn"
             tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/block_layout01"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="@drawable/round_back_white"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="25dp"
+            android:fontFamily="@font/apple_b"
+            android:text="신고하는 이유를 선택해주세요."
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/block_reason01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/apple_l"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="연애 대상을 구하는 댓글이에요"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/block_reason02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/apple_l"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="광고 / 홍보 댓글이에요"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/block_reason03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/apple_l"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="술모임을 모집하는 댓글이에요"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/block_reason04"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/apple_l"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="음란성 댓글이에요"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/block_reason05"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/apple_l"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="중복 / 도배 댓글이에요"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/block_reason06"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/apple_l"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="개인정보가 포함된 댓글이에요"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/block_reason07"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/apple_l"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="불쾌감을 주는 댓글이에요"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/block_reason08"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/right_clamp"
+            android:fontFamily="@font/apple_l"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="기타"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/block_layout02"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="@drawable/round_back_white"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="25dp"
+            android:fontFamily="@font/apple_b"
+            android:text="신고하는 이유"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/no_see"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/apple_l"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="해당 댓글 및 작성자의 댓글을 보지 않겠습니다."
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/PolarGrey" />
     </LinearLayout>
 </LinearLayout>

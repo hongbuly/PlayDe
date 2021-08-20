@@ -9,7 +9,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_centerVertical="true"
-        android:src="@drawable/round_grey"
+        android:src="@drawable/round_polar12"
         tools:ignore="ContentDescription" />
 
     <TextView

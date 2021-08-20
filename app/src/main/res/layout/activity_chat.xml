@@ -108,7 +108,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:layout_toEndOf="@+id/pictureBtn"
-                    android:background="@drawable/round_grey_edit"
+                    android:background="@drawable/round_polar25"
                     android:padding="5dp"
                     tools:ignore="Autofill,LabelFor,TextFields" />
 

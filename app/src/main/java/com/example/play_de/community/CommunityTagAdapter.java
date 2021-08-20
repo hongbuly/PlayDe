@@ -46,10 +46,10 @@ public class CommunityTagAdapter extends RecyclerView.Adapter<CommunityTagAdapte
         holder.tag.setText(mData.get(position));
         if (selectedPosition.get(position)) {
             holder.tag.setTextColor(ContextCompat.getColor(mContext, R.color.White));
-            holder.tag.setBackgroundResource(R.drawable.round_red_btn);
+            holder.tag.setBackgroundResource(R.drawable.round_red20);
         } else {
             holder.tag.setTextColor(ContextCompat.getColor(mContext, R.color.LineGrey));
-            holder.tag.setBackgroundResource(R.drawable.round_corner_grey_btn);
+            holder.tag.setBackgroundResource(R.drawable.round_corner_line20);
         }
 
         holder.tag.setOnClickListener(v -> {

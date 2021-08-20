@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/horizon_gradient"
@@ -20,17 +21,18 @@
             android:gravity="center"
             android:text="펀딩"
             android:textColor="@color/White"
-            android:textSize="20dp" />
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
 
         <ImageButton
             android:id="@+id/backBtn"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:minWidth="0dp"
-            app:srcCompat="@drawable/back" />
-
+            app:srcCompat="@drawable/back"
+            tools:ignore="ContentDescription" />
     </RelativeLayout>
 
     <LinearLayout
@@ -45,10 +47,8 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/funding_tab01"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_weight="1"
-            android:background="@color/White"
             app:tabIndicator="@drawable/tab_indicator"
             app:tabIndicatorColor="@color/MainRed"
             app:tabTextAppearance="@style/tab_text02">
@@ -57,26 +57,28 @@
                 android:id="@+id/tab_funding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="펀딩" />
+                android:text="펀딩"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_talk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="소식&amp;톡" />
+                android:text="소식&amp;톡"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_schedule"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="일정표" />
+                android:text="일정표"
+                tools:ignore="HardcodedText" />
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/funding_vp01"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_height="match_parent"
             android:background="@color/White" />
     </LinearLayout>
 
@@ -92,9 +94,8 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/funding_tab02"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_weight="1"
             android:background="@color/White"
             app:tabIndicator="@drawable/tab_indicator_short"
             app:tabIndicatorColor="@color/MainRed"
@@ -106,38 +107,42 @@
                 android:id="@+id/tab_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="상세" />
+                android:text="상세"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_doing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="펀딩하기" />
+                android:text="펀딩하기"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_news"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="소식" />
+                android:text="소식"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_community"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="커뮤니티" />
+                android:text="커뮤니티"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_supporter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서포터" />
+                android:text="서포터"
+                tools:ignore="HardcodedText" />
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/funding_vp02"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_height="match_parent"
             android:background="@color/White" />
     </LinearLayout>
 </LinearLayout>

@@ -303,11 +303,11 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             final int finalI = i;
             reserve_time_btn[i].setOnClickListener(v -> {
                 if (isChecked[finalI]) {
-                    reserve_time_btn[finalI].setBackgroundResource(R.drawable.circle_corner_grey);
+                    reserve_time_btn[finalI].setBackgroundResource(R.drawable.round_corner_whitegrey30);
                     reserve_time_btn[finalI].setTextColor(blackColor);
                     isChecked[finalI] = false;
                 } else {
-                    reserve_time_btn[finalI].setBackgroundResource(R.drawable.circle_corner_gradient);
+                    reserve_time_btn[finalI].setBackgroundResource(R.drawable.round_gradient30);
                     reserve_time_btn[finalI].setTextColor(whiteColor);
                     isChecked[finalI] = true;
                 }
@@ -365,30 +365,30 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private void changeBtn(int setBtn) {
         if (setBtn == 0) {
             popularBtn.setTextColor(R.color.White);
-            popularBtn.setBackgroundResource(R.drawable.round_red_btn);
+            popularBtn.setBackgroundResource(R.drawable.round_red20);
         } else if (setBtn == 1) {
             distanceBtn.setTextColor(R.color.White);
-            distanceBtn.setBackgroundResource(R.drawable.round_red_btn);
+            distanceBtn.setBackgroundResource(R.drawable.round_red20);
         } else if (setBtn == 2) {
             priceBtn.setTextColor(R.color.White);
-            priceBtn.setBackgroundResource(R.drawable.round_red_btn);
+            priceBtn.setBackgroundResource(R.drawable.round_red20);
         } else if (setBtn == 3) {
             registerBtn.setTextColor(R.color.White);
-            registerBtn.setBackgroundResource(R.drawable.round_red_btn);
+            registerBtn.setBackgroundResource(R.drawable.round_red20);
         }
 
         if (this.setBtn == 0) {
             popularBtn.setTextColor(R.color.LineGrey);
-            popularBtn.setBackgroundResource(R.drawable.round_corner_grey_btn);
+            popularBtn.setBackgroundResource(R.drawable.round_corner_line20);
         } else if (this.setBtn == 1) {
             distanceBtn.setTextColor(R.color.LineGrey);
-            distanceBtn.setBackgroundResource(R.drawable.round_corner_grey_btn);
+            distanceBtn.setBackgroundResource(R.drawable.round_corner_line20);
         } else if (this.setBtn == 2) {
             priceBtn.setTextColor(R.color.LineGrey);
-            priceBtn.setBackgroundResource(R.drawable.round_corner_grey_btn);
+            priceBtn.setBackgroundResource(R.drawable.round_corner_line20);
         } else if (this.setBtn == 3) {
             registerBtn.setTextColor(R.color.LineGrey);
-            registerBtn.setBackgroundResource(R.drawable.round_corner_grey_btn);
+            registerBtn.setBackgroundResource(R.drawable.round_corner_line20);
         }
 
         this.setBtn = setBtn;
@@ -439,7 +439,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
 
         for (int i = 0; i < 14; i++) {
             isChecked[i] = false;
-            reserve_time_btn[i].setBackgroundResource(R.drawable.circle_corner_grey);
+            reserve_time_btn[i].setBackgroundResource(R.drawable.round_corner_whitegrey30);
             reserve_time_btn[i].setTextColor(blackColor);
         }
 

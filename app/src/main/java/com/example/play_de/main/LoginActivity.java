@@ -1,6 +1,9 @@
 package com.example.play_de.main;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,9 +13,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.play_de.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
+    private StringBuilder urlStr;
+    private String userId;
+
     private LinearLayout login_layout, register_layout;
 
     private Button mail, kakao, naver;
@@ -22,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText name, mail_id, password;
     private Button finish_register;
+
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +86,95 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         finish_register.setOnClickListener(v -> {
-            login_layout.setVisibility(View.VISIBLE);
-            register_layout.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), "회원가입되었습니다.", Toast.LENGTH_SHORT).show();
+            urlStr = new StringBuilder();
+            urlStr.append("https://playde-server-pzovl.run.goorm.io/user/join?platform=0&email=");
+            urlStr.append(mail_id.getText().toString());
+            urlStr.append("&password=");
+            urlStr.append(password.getText().toString());
+            urlStr.append("&name=");
+            urlStr.append(name.getText().toString());
+            StringRequest request = new StringRequest(
+                    Request.Method.POST,
+                    urlStr.toString(),
+                    response -> {
+                        if (response.equals("SUCCESS")) {
+                            login_layout.setVisibility(View.VISIBLE);
+                            register_layout.setVisibility(View.GONE);
+                            Toast.makeText(getApplicationContext(), "회원가입되었습니다.", Toast.LENGTH_SHORT).show();
+                        } else if (response.equals("ALREADY USER")) {
+                            Toast.makeText(getApplicationContext(), "이미 존재하는 계정입니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    },
+                    error -> {
+                        Toast.makeText(getApplicationContext(), "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                        Log.e("Register", "Error");
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    return params;
+                }
+            };
+
+            request.setShouldCache(false);
+            AppHelper.requestQueue = Volley.newRequestQueue(this);
+            AppHelper.requestQueue.add(request);
         });
     }
 
     private void loginEvent() {
         //로그인 버튼
+        urlStr = new StringBuilder();
+        urlStr.append("https://playde-server-pzovl.run.goorm.io/login?platform=0&email=");
+        urlStr.append(id_edit.getText().toString());
+        urlStr.append("&password=");
+        urlStr.append(password_edit.getText().toString());
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    if (response.equals("FAIL")) {
+                        Toast.makeText(getApplicationContext(), "아이디 혹은 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        userId = response;
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("userId", userId);
+                        startActivity(intent);
+                        finish();
+                    }
+                },
+                error -> {
+                    Toast.makeText(getApplicationContext(), "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("Login", "Error");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(this);
+        AppHelper.requestQueue.add(request);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (register_layout.getVisibility() == View.VISIBLE) {
+            register_layout.setVisibility(View.GONE);
+            login_layout.setVisibility(View.VISIBLE);
+        } else if(login.getVisibility() == View.VISIBLE){
+            mail.setVisibility(View.VISIBLE);
+            kakao.setVisibility(View.VISIBLE);
+            naver.setVisibility(View.VISIBLE);
+
+            id_edit.setVisibility(View.GONE);
+            password_edit.setVisibility(View.GONE);
+            login.setVisibility(View.GONE);
+        }
     }
 }
