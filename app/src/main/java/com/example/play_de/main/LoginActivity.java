@@ -36,8 +36,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText name, mail_id, password;
     private Button finish_register;
 
-    private Handler handler = new Handler();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
         if (register_layout.getVisibility() == View.VISIBLE) {
             register_layout.setVisibility(View.GONE);
             login_layout.setVisibility(View.VISIBLE);
-        } else if(login.getVisibility() == View.VISIBLE){
+        } else if (login.getVisibility() == View.VISIBLE) {
             mail.setVisibility(View.VISIBLE);
             kakao.setVisibility(View.VISIBLE);
             naver.setVisibility(View.VISIBLE);

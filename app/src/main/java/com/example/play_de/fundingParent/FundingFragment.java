@@ -1,5 +1,6 @@
 package com.example.play_de.fundingParent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.play_de.main.MainActivity;
 import com.example.play_de.R;
+import com.example.play_de.profile.ProfileActivity;
 import com.google.android.material.tabs.TabLayout;
 
 public class FundingFragment extends Fragment {
     private MainActivity main;
-    private ImageButton backBtn;
+    private ImageButton backBtn, userBtn;
     private LinearLayout funding_view01;
     private LinearLayout funding_view02;
 
@@ -32,11 +34,12 @@ public class FundingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_funding, container, false);
 
         backBtn = view.findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onChangeFunding(false);
-            }
+        backBtn.setOnClickListener(v -> onChangeFunding(false));
+
+        userBtn = view.findViewById(R.id.userBtn);
+        userBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), ProfileActivity.class);
+            startActivity(intent);
         });
 
         funding_view01 = view.findViewById(R.id.funding_view01);

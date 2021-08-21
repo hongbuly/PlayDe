@@ -10,14 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.play_de.main.MainActivity;
 import com.example.play_de.main.OnBackPressedListener;
 import com.example.play_de.R;
+import com.example.play_de.profile.ProfileActivity;
 
 public class ChatFragment extends Fragment implements OnBackPressedListener, GoUP {
     private MainActivity main;
     private View view;
+    private ImageButton back, userBtn;
 
     private RecyclerView chat_historyView;
     private ChatHistoryAdapter chat_adapter;
@@ -44,6 +47,9 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
         if (main.getName() != null)
             name = main.getName();
 
+        back = view.findViewById(R.id.backBtn);
+        userBtn = view.findViewById(R.id.userBtn);
+
         chat_adapter = new ChatHistoryAdapter();
         chat_historyView = view.findViewById(R.id.chat_history);
         layoutManager = new LinearLayoutManager(getActivity());
@@ -53,6 +59,15 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
     }
 
     private void eventListener() {
+        back.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
+        userBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), ProfileActivity.class);
+            startActivity(intent);
+        });
+
         chat_adapter.setOnItemClickListener((view, position) -> {
             Intent intent = new Intent(getActivity(), ChatActivity.class);
             intent.putExtra("name", chat_adapter.getName(position));

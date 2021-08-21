@@ -27,6 +27,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.play_de.main.MainActivity;
 import com.example.play_de.main.OnBackPressedListener;
 import com.example.play_de.R;
+import com.example.play_de.profile.ProfileActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -209,8 +210,10 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
 
     private void eventListener() {
         backBtn.setOnClickListener(v -> goBack());
+        userBtn = view.findViewById(R.id.userBtn);
         userBtn.setOnClickListener(v -> {
-            //마이페이지
+            Intent intent = new Intent(requireContext(), ProfileActivity.class);
+            startActivity(intent);
         });
 
         popularBtn.setOnClickListener(v -> {
