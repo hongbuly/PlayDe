@@ -6,23 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".main.MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/MainVP"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="9"
+            android:layout_height="match_parent"
             android:background="@color/BouncyOrange" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/MainTab"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
             android:background="@color/White"
             android:elevation="10dp"
             app:tabIndicatorColor="@color/White"
@@ -57,8 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </com.google.android.material.tabs.TabLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:id="@+id/blur"

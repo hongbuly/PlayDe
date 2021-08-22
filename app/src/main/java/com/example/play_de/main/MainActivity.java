@@ -21,6 +21,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     static ViewPager vp;
     private OnBackPressedListener[] listener = new OnBackPressedListener[5];
+    private OnClickReportListener reportListener;
     private long backKeyPressedTime = 0;
     public static String userId;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //키보드가 레이아웃에 영향을 안주게
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         Intent intent = getIntent();
         userId = intent.getExtras().getString("userId");
@@ -68,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setOnBackPressedListener(OnBackPressedListener listener, int num) {
         this.listener[num] = listener;
+    }
+
+    public void setOnClickReportListener(OnClickReportListener listener){
+        this.reportListener = listener;
     }
 
     @Override
@@ -126,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onAnimationEnd(Animation animation) {
                     blur.setVisibility(View.GONE);
                     reportBtn.setVisibility(View.GONE);
+                    reportListener.onClickReport();
                 }
 
                 @Override

@@ -33,6 +33,7 @@ import com.example.play_de.main.AppHelper;
 import com.example.play_de.main.MainActivity;
 import com.example.play_de.main.OnBackPressedListener;
 import com.example.play_de.R;
+import com.example.play_de.main.OnClickReportListener;
 import com.example.play_de.profile.ProfileActivity;
 import com.hedgehog.ratingbar.RatingBar;
 
@@ -42,7 +43,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommunityFragment extends Fragment implements OnBackPressedListener {
+public class CommunityFragment extends Fragment implements OnBackPressedListener, OnClickReportListener {
     private Context context;
     private StringBuilder urlStr;
     private MainActivity main;
@@ -78,6 +79,17 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private CommunityProfileFavoriteAdapter heart_adapter;
     private CommunityProfileFavoriteAdapter store_adapter;
 
+    private LinearLayout report_layout01;
+    private TextView[] _report_reason = new TextView[8];
+
+    private RelativeLayout report_layout02;
+    private boolean is_no_see = false;
+    private TextView report_reason, report_no_see;
+    private Button report_btn01;
+
+    private RelativeLayout report_layout03;
+    private EditText report_edit;
+    private Button report_btn02;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -102,6 +114,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         write_view = view.findViewById(R.id.write_view);
         community_view02 = view.findViewById(R.id.community_view02);
         profile_view = view.findViewById(R.id.profile_view);
+        report_layout01 = view.findViewById(R.id.report_layout01);
+        report_layout02 = view.findViewById(R.id.report_layout02);
+        report_layout03 = view.findViewById(R.id.report_layout03);
 
         back = view.findViewById(R.id.backBtn);
         plusBtn = view.findViewById(R.id.plusBtn);
@@ -162,6 +177,22 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         store_recyclerView.setLayoutManager(storeLayoutManager);
         store_recyclerView.setAdapter(store_adapter);
         addStoreRecyclerView();
+
+        _report_reason[0] = view.findViewById(R.id.report_reason01);
+        _report_reason[1] = view.findViewById(R.id.report_reason02);
+        _report_reason[2] = view.findViewById(R.id.report_reason03);
+        _report_reason[3] = view.findViewById(R.id.report_reason04);
+        _report_reason[4] = view.findViewById(R.id.report_reason05);
+        _report_reason[5] = view.findViewById(R.id.report_reason06);
+        _report_reason[6] = view.findViewById(R.id.report_reason07);
+        _report_reason[7] = view.findViewById(R.id.report_reason08);
+
+        report_reason = view.findViewById(R.id.report_reason);
+        report_no_see = view.findViewById(R.id.report_no_see);
+        report_btn01 = view.findViewById(R.id.report_btn01);
+
+        report_edit = view.findViewById(R.id.report_edit);
+        report_btn02 = view.findViewById(R.id.report_btn02);
     }
 
     private void eventListener() {
@@ -264,6 +295,40 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 //신고하기
                 main.showBlur_report(true);
             }
+        });
+
+        for (int i = 0; i < 7; i++) {
+            int finalI = i;
+            _report_reason[i].setOnClickListener(v -> {
+                report_layout01.setVisibility(View.GONE);
+                report_layout02.setVisibility(View.VISIBLE);
+                report_reason.setText(_report_reason[finalI].getText().toString());
+            });
+        }
+
+        _report_reason[7].setOnClickListener(v -> {
+            report_layout01.setVisibility(View.GONE);
+            report_layout03.setVisibility(View.VISIBLE);
+        });
+
+        report_no_see.setOnClickListener(v -> {
+            if (is_no_see) {
+                report_no_see.setCompoundDrawablesWithIntrinsicBounds(R.drawable.circle_corner_grey, 0, 0, 0);
+                is_no_see = false;
+            } else {
+                report_no_see.setCompoundDrawablesWithIntrinsicBounds(R.drawable.circle_gradient, 0, 0, 0);
+                is_no_see = true;
+            }
+        });
+
+        report_btn01.setOnClickListener(v -> {
+            Toast.makeText(context, "신고되었습니다.", Toast.LENGTH_SHORT).show();
+            backView();
+        });
+
+        report_btn02.setOnClickListener(v -> {
+            Toast.makeText(context, "신고되었습니다.", Toast.LENGTH_SHORT).show();
+            backView();
         });
     }
 
@@ -405,7 +470,10 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private void addCommunityRecyclerView(int write_id, String image, String name, String comment, int uid) {
         CommunityItem item = new CommunityItem();
         item.write_id = write_id;
-        item.image = Integer.toString(R.drawable.circle_grey);
+        if (image.equals(""))
+            item.image = Integer.toString(R.drawable.circle_grey);
+        else
+            item.image = image;
         item.name = name;
         item.level = "보드게임러버";
         item.comment = comment;
@@ -543,7 +611,12 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     }
 
     private void backView() {
-        if (profile_view.getVisibility() == View.VISIBLE) {
+        if (report_layout03.getVisibility() == View.VISIBLE || report_layout02.getVisibility() == View.VISIBLE || report_layout01.getVisibility() == View.VISIBLE) {
+            report_layout03.setVisibility(View.GONE);
+            report_layout02.setVisibility(View.GONE);
+            report_layout01.setVisibility(View.GONE);
+            profile_view.setVisibility(View.VISIBLE);
+        } else if (profile_view.getVisibility() == View.VISIBLE) {
             profile_view.setVisibility(View.GONE);
             community_view02.setVisibility(View.VISIBLE);
         } else if (community_view02.getVisibility() == View.VISIBLE) {
@@ -560,5 +633,13 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     public void onResume() {
         super.onResume();
         main.setOnBackPressedListener(this, 2);
+        main.setOnClickReportListener(this);
+    }
+
+    @Override
+    public void onClickReport() {
+        //신고하기 버튼
+        profile_view.setVisibility(View.GONE);
+        report_layout01.setVisibility(View.VISIBLE);
     }
 }

@@ -19,6 +19,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.play_de.R;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,13 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                 Request.Method.POST,
                 urlStr.toString(),
                 response -> {
-                    if (response.equals("SUCCESS")) {
-                        login_layout.setVisibility(View.VISIBLE);
-                        register_layout.setVisibility(View.GONE);
-                        Toast.makeText(getApplicationContext(), "회원가입되었습니다.", Toast.LENGTH_SHORT).show();
-                    } else if (response.equals("ALREADY USER")) {
-                        Toast.makeText(getApplicationContext(), "이미 존재하는 계정입니다.", Toast.LENGTH_SHORT).show();
-                    }
+                    registerJSONParse(response);
                 },
                 error -> {
                     Toast.makeText(getApplicationContext(), "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
@@ -130,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
     private void loginEvent() {
         //로그인 버튼
         urlStr = new StringBuilder();
-        urlStr.append("https://playde-server-pzovl.run.goorm.io/login?platform=0&email=");
+        urlStr.append("https://playde-server-pzovl.run.goorm.io/user/login?platform=0&email=");
         urlStr.append(id_edit.getText().toString());
         urlStr.append("&password=");
         urlStr.append(password_edit.getText().toString());
@@ -138,15 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                 Request.Method.POST,
                 urlStr.toString(),
                 response -> {
-                    if (response.equals("FAIL")) {
-                        Toast.makeText(getApplicationContext(), "아이디 혹은 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        userId = response;
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.putExtra("userId", userId);
-                        startActivity(intent);
-                        finish();
-                    }
+                    loginJSONParse(response);
                 },
                 error -> {
                     Toast.makeText(getApplicationContext(), "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
@@ -163,6 +152,36 @@ public class LoginActivity extends AppCompatActivity {
         request.setShouldCache(false);
         AppHelper.requestQueue = Volley.newRequestQueue(this);
         AppHelper.requestQueue.add(request);
+    }
+
+    private void registerJSONParse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            if (jsonObject.getBoolean("access")) {
+                login_layout.setVisibility(View.VISIBLE);
+                register_layout.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "회원가입되었습니다.", Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(getApplicationContext(), "이미 존재하는 계정입니다.", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.e("registerJSONParse", "예외 발생");
+        }
+    }
+
+    private void loginJSONParse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            if (jsonObject.getBoolean("access")) {
+                userId = Integer.toString(jsonObject.getInt("id"));
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+                finish();
+            } else
+                Toast.makeText(getApplicationContext(), "아이디 혹은 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.e("loginJSONParse", "예외 발생");
+        }
     }
 
     @Override
