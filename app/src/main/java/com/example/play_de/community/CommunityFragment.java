@@ -615,7 +615,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             report_layout03.setVisibility(View.GONE);
             report_layout02.setVisibility(View.GONE);
             report_layout01.setVisibility(View.GONE);
-            profile_view.setVisibility(View.VISIBLE);
+            community_view02.setVisibility(View.VISIBLE);
         } else if (profile_view.getVisibility() == View.VISIBLE) {
             profile_view.setVisibility(View.GONE);
             community_view02.setVisibility(View.VISIBLE);
@@ -639,7 +639,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     @Override
     public void onClickReport() {
         //신고하기 버튼
-        profile_view.setVisibility(View.GONE);
+        community_view02.setVisibility(View.GONE);
         report_layout01.setVisibility(View.VISIBLE);
     }
 }

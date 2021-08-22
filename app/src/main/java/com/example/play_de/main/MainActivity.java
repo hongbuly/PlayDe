@@ -2,8 +2,8 @@ package com.example.play_de.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
@@ -20,6 +20,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     static ViewPager vp;
+    public TabLayout mTab;
     private OnBackPressedListener[] listener = new OnBackPressedListener[5];
     private OnClickReportListener reportListener;
     private long backKeyPressedTime = 0;
@@ -45,14 +46,14 @@ public class MainActivity extends AppCompatActivity {
         vp.setAdapter(adapter);
 
         //탭과 뷰 연동
-        TabLayout tab = findViewById(R.id.MainTab);
-        tab.setupWithViewPager(vp);
+        mTab = findViewById(R.id.MainTab);
+        mTab.setupWithViewPager(vp);
 
         //탭 이미지 추가
         int[] images = {R.drawable.game, R.drawable.cafe, R.drawable.community, R.drawable.funding, R.drawable.chat};
 
         for (int i = 0; i < 5; i++)
-            Objects.requireNonNull(tab.getTabAt(i)).setIcon(images[i]);
+            Objects.requireNonNull(mTab.getTabAt(i)).setIcon(images[i]);
 
         blur = findViewById(R.id.blur);
         blur.setOnClickListener(v -> {
@@ -62,16 +63,20 @@ public class MainActivity extends AppCompatActivity {
 
         finish_reserve = findViewById(R.id.finish_reserve);
         reportBtn = findViewById(R.id.reportBtn);
-        reportBtn.setOnClickListener(v -> {
-            //댓글 신고
-        });
+        if (reportBtn.getVisibility() == View.VISIBLE) {
+            reportBtn.setOnClickListener(v -> {
+                //댓글 신고
+                showBlur_report(false);
+                reportListener.onClickReport();
+            });
+        }
     }
 
     public void setOnBackPressedListener(OnBackPressedListener listener, int num) {
         this.listener[num] = listener;
     }
 
-    public void setOnClickReportListener(OnClickReportListener listener){
+    public void setOnClickReportListener(OnClickReportListener listener) {
         this.reportListener = listener;
     }
 
@@ -131,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onAnimationEnd(Animation animation) {
                     blur.setVisibility(View.GONE);
                     reportBtn.setVisibility(View.GONE);
-                    reportListener.onClickReport();
                 }
 
                 @Override
