@@ -14,19 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.play_de.R;
-import com.example.play_de.chat.GoUP;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     static ViewPager vp;
-    private MainVPAdapter adapter;
-    private TabLayout tab;
-    private ArrayList<Integer> images;
     private OnBackPressedListener[] listener = new OnBackPressedListener[5];
-    private GoUP goUp;
     private long backKeyPressedTime = 0;
     public static String userId;
 
@@ -46,23 +40,18 @@ public class MainActivity extends AppCompatActivity {
         userId = intent.getExtras().getString("userId");
 
         vp = findViewById(R.id.MainVP);
-        adapter = new MainVPAdapter(getSupportFragmentManager());
+        MainVPAdapter adapter = new MainVPAdapter(getSupportFragmentManager());
         vp.setAdapter(adapter);
 
         //탭과 뷰 연동
-        tab = findViewById(R.id.MainTab);
+        TabLayout tab = findViewById(R.id.MainTab);
         tab.setupWithViewPager(vp);
 
         //탭 이미지 추가
-        images = new ArrayList<>();
-        images.add(R.drawable.game);
-        images.add(R.drawable.cafe);
-        images.add(R.drawable.community);
-        images.add(R.drawable.funding);
-        images.add(R.drawable.chat);
+        int[] images = {R.drawable.game, R.drawable.cafe, R.drawable.community, R.drawable.funding, R.drawable.chat};
 
         for (int i = 0; i < 5; i++)
-            tab.getTabAt(i).setIcon(images.get(i));
+            Objects.requireNonNull(tab.getTabAt(i)).setIcon(images[i]);
 
         blur = findViewById(R.id.blur);
         blur.setOnClickListener(v -> {
@@ -79,10 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void setOnBackPressedListener(OnBackPressedListener listener, int num) {
         this.listener[num] = listener;
-    }
-
-    public void setGoUP(GoUP goUp) {
-        this.goUp = goUp;
     }
 
     @Override
@@ -107,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getName() {
-        return "이름가져";
+        return "이름";
     }
 
     public void showBlur(boolean show) {

@@ -9,16 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.play_de.R;
-import com.example.play_de.chat.UserModel;
 
 import java.util.ArrayList;
 
 public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecyclerAdapter.ViewHolder> {
-    private ArrayList<UserModel> mData = new ArrayList<>();
+    private ArrayList<CommunityItem> mData;
     private OnItemClickListener mListener;
+
+    void initialSetUp() {
+        mData = new ArrayList<>();
+    }
 
     public interface OnItemClickListener {
         void onItemClick(int component, int position);
@@ -28,7 +29,7 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
         mListener = listener;
     }
 
-    UserModel getData(int position) {
+    CommunityItem getData(int position) {
         return mData.get(position);
     }
 
@@ -81,6 +82,10 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
         }
     }
 
+    void addItem(CommunityItem item) {
+        mData.add(item);
+    }
+
     @NonNull
     @Override
     public CommunityRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -90,13 +95,14 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
 
     @Override
     public void onBindViewHolder(@NonNull CommunityRecyclerAdapter.ViewHolder holder, int position) {
-        Glide.with(holder.itemView.getContext())
-                .load(mData.get(position).image)
-                .apply(new RequestOptions().circleCrop())
-                .into(holder.image);
+//        Glide.with(holder.itemView.getContext())
+//                .load(mData.get(position).image)
+//                .apply(new RequestOptions().circleCrop())
+//                .into(holder.image);
+        holder.image.setImageResource(Integer.parseInt(mData.get(position).image));
         holder.name.setText(mData.get(position).name);
         holder.level.setText(mData.get(position).level);
-        holder.content.setText(mData.get(position).pushToken);
+        holder.content.setText(mData.get(position).comment);
     }
 
     @Override

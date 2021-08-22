@@ -14,8 +14,12 @@ import com.example.play_de.R;
 import java.util.ArrayList;
 
 public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityCommentAdapter.ViewHolder> {
-    private ArrayList<CommunityComment> mData = new ArrayList<>();
+    private ArrayList<CommunityItem> mData = new ArrayList<>();
     private OnItemClickListener mListener;
+
+    void initialSetUp() {
+        mData = new ArrayList<>();
+    }
 
     public interface OnItemClickListener {
         void onItemClick(int component, int position);
@@ -74,11 +78,11 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
         }
     }
 
-    CommunityComment getData(int position) {
+    CommunityItem getData(int position) {
         return mData.get(position);
     }
 
-    void addItem(CommunityComment item) {
+    void addItem(CommunityItem item) {
         mData.add(item);
     }
 
@@ -91,7 +95,7 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
 
     @Override
     public void onBindViewHolder(@NonNull CommunityCommentAdapter.ViewHolder holder, int position) {
-        holder.image.setImageResource(mData.get(position).image);
+        holder.image.setImageResource(Integer.parseInt(mData.get(position).image));
         holder.name.setText(mData.get(position).name);
         holder.level.setText(mData.get(position).level);
         holder.content.setText(mData.get(position).comment);

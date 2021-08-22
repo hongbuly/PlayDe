@@ -99,7 +99,6 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
     public void onResume() {
         super.onResume();
         main.setOnBackPressedListener(this, 4);
-        main.setGoUP(this);
     }
 
     @Override
