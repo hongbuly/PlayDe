@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/horizon_gradient"
     android:orientation="vertical">
 
@@ -45,12 +45,11 @@
             tools:ignore="ContentDescription" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:background="@drawable/round_back_white"
-        android:orientation="vertical">
+        android:background="@drawable/round_back_white">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chat_history"
@@ -63,6 +62,19 @@
             android:dividerHeight="15dp"
             android:elevation="5dp"
             android:listSelector="@android:color/transparent"
-            android:padding="15dp" />
-    </LinearLayout>
+            android:padding="15dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="150dp"
+            android:fontFamily="@font/apple_b"
+            android:gravity="center|top"
+            android:text="커뮤니티에서 채팅을 시작해보세요!"
+            android:textColor="@color/LineGrey"
+            android:textSize="20sp"
+            android:visibility="visible"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
 </LinearLayout>

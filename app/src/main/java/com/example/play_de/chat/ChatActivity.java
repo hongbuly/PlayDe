@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.play_de.R;
+import com.example.play_de.community.CommunityProfileFavorite;
+import com.example.play_de.community.CommunityProfileFavoriteAdapter;
 import com.github.mmin18.widget.RealtimeBlurView;
 
 public class ChatActivity extends AppCompatActivity {
@@ -33,6 +35,9 @@ public class ChatActivity extends AppCompatActivity {
     private LinearLayout overlap;
     private LinearLayout overlap2;
     private RealtimeBlurView blurView;
+
+    private CommunityProfileFavoriteAdapter heart_adapter;
+    private CommunityProfileFavoriteAdapter store_adapter;
 
     private String name;
     private RecyclerView chat_view;
@@ -63,6 +68,20 @@ public class ChatActivity extends AppCompatActivity {
         overlap2 = findViewById(R.id.overlap2);
         overlap = findViewById(R.id.overlap);
 
+        heart_adapter = new CommunityProfileFavoriteAdapter();
+        RecyclerView heart_recyclerView = findViewById(R.id.heart_recycler);
+        RecyclerView.LayoutManager heartLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        heart_recyclerView.setLayoutManager(heartLayoutManager);
+        heart_recyclerView.setAdapter(heart_adapter);
+        addHeartRecyclerView();
+
+        store_adapter = new CommunityProfileFavoriteAdapter();
+        RecyclerView store_recyclerView = findViewById(R.id.store_recycler);
+        RecyclerView.LayoutManager storeLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        store_recyclerView.setLayoutManager(storeLayoutManager);
+        store_recyclerView.setAdapter(store_adapter);
+        addStoreRecyclerView();
+
         chat_view = findViewById(R.id.chat_recycler);
         layoutManager = new LinearLayoutManager(this);
         checkChatRoom();
@@ -85,6 +104,56 @@ public class ChatActivity extends AppCompatActivity {
 
     private void checkChatRoom() {
 
+    }
+
+    private void addHeartRecyclerView() {
+        CommunityProfileFavorite item = new CommunityProfileFavorite();
+        item.image = R.drawable.rumicube;
+        item.name = "루미큐브";
+        heart_adapter.addItem(item);
+
+        item.image = R.drawable.cluedo;
+        item.name = "클루";
+        heart_adapter.addItem(item);
+
+        item.image = R.drawable.ticket_to_ride;
+        item.name = "티켓투라이드";
+        heart_adapter.addItem(item);
+
+        item.image = R.drawable.uno;
+        item.name = "우노";
+        heart_adapter.addItem(item);
+
+        item.image = R.drawable.diamond;
+        item.name = "다이아몬드";
+        heart_adapter.addItem(item);
+
+        heart_adapter.notifyDataSetChanged();
+    }
+
+    private void addStoreRecyclerView() {
+        CommunityProfileFavorite item = new CommunityProfileFavorite();
+        item.image = R.drawable.rumicube;
+        item.name = "루미큐브";
+        store_adapter.addItem(item);
+
+        item.image = R.drawable.cluedo;
+        item.name = "클루";
+        store_adapter.addItem(item);
+
+        item.image = R.drawable.ticket_to_ride;
+        item.name = "티켓투라이드";
+        store_adapter.addItem(item);
+
+        item.image = R.drawable.uno;
+        item.name = "우노";
+        store_adapter.addItem(item);
+
+        item.image = R.drawable.diamond;
+        item.name = "다이아몬드";
+        store_adapter.addItem(item);
+
+        store_adapter.notifyDataSetChanged();
     }
 
     private void goToDown() {

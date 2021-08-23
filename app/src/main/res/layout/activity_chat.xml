@@ -151,7 +151,7 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/round_back_white"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -177,7 +177,7 @@
                 android:divider="@color/Glass"
                 android:dividerHeight="15dp"
                 android:listSelector="@android:color/transparent"
-                android:scrollbars="horizontal" />
+                android:scrollbars="none" />
         </LinearLayout>
 
         <LinearLayout
@@ -206,7 +206,7 @@
                 android:divider="@color/Glass"
                 android:dividerHeight="15dp"
                 android:listSelector="@android:color/transparent"
-                android:scrollbars="horizontal" />
+                android:scrollbars="none" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

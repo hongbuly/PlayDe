@@ -22,9 +22,7 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
     private View view;
     private ImageButton back, userBtn;
 
-    private RecyclerView chat_historyView;
     private ChatHistoryAdapter chat_adapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     private String name;
 
@@ -44,15 +42,14 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
 
     private void initialSetUp() {
         main = (MainActivity) getActivity();
-        if (main.getName() != null)
-            name = main.getName();
+        name = main.getName();
 
         back = view.findViewById(R.id.backBtn);
         userBtn = view.findViewById(R.id.userBtn);
 
         chat_adapter = new ChatHistoryAdapter();
-        chat_historyView = view.findViewById(R.id.chat_history);
-        layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView chat_historyView = view.findViewById(R.id.chat_history);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         chat_historyView.setLayoutManager(layoutManager);
         chat_historyView.setAdapter(chat_adapter);
         addChatHistoryView();
@@ -77,17 +74,11 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
 
     private void addChatHistoryView() {
         //서버로부터 데이터 가져와서 추가하기.
-        ChatRecyclerItem item = new ChatRecyclerItem();
-        int image = R.drawable.cafe01;
-
-        item.setData(image, name, "안녕하세요");
-        chat_adapter.addItem(item);
-
-        item = new ChatRecyclerItem();
-        item.setData(image, "신채이", "누구세요");
-        chat_adapter.addItem(item);
-
-        chat_adapter.notifyDataSetChanged();
+//        ChatRecyclerItem item = new ChatRecyclerItem();
+//        int image = R.drawable.cafe01;
+//        item.setData(image, "신채이", "누구세요");
+//        chat_adapter.addItem(item);
+        //chat_adapter.notifyDataSetChanged();
     }
 
     @Override

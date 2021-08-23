@@ -238,6 +238,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 startActivity(intent);
             } else if (component == 2) {
                 //공감하기 버튼 클릭
+                board_id = communityRecyclerAdapter.getData(position).write_id;
+                clickHeart();
             } else if (component == 3) {
                 // 댓글 달기
                 community_view01.setVisibility(View.GONE);
@@ -343,10 +345,15 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 Request.Method.POST,
                 urlStr.toString(),
                 response -> {
-                    if (response.equals("SUCCESS")) {
-                        Toast.makeText(context, "업로드 완료", Toast.LENGTH_SHORT).show();
-                    } else if (response.equals("FAIL")) {
-                        Toast.makeText(context, "업로드 실패", Toast.LENGTH_SHORT).show();
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean act = jsonObject.getBoolean("act");
+                        if (act) {
+                            Toast.makeText(context, "업로드되었습니다.", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(context, "업로드를 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Log.e("write_community", "예외 발생");
                     }
                 },
                 error -> {
@@ -367,6 +374,43 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         backView();
     }
 
+    private void clickHeart() {
+        //공감하기 버튼
+        urlStr = new StringBuilder();
+        urlStr.append("https://playde-server-pzovl.run.goorm.io/community/like?user_id=");
+        urlStr.append(MainActivity.userId);
+        urlStr.append("&board_id=");
+        urlStr.append(Integer.toString(board_id));
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean act = jsonObject.getBoolean("act");
+                        // 눌루면 true, 취소하면 false
+                    } catch (Exception e) {
+                        Log.e("clickHeart", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("clickHeart", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
+        AppHelper.requestQueue.add(request);
+        refreshCommunityWrite();
+    }
+
     private void write_comment() {
         //댓글 쓰기
         urlStr = new StringBuilder();
@@ -381,10 +425,15 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 Request.Method.POST,
                 urlStr.toString(),
                 response -> {
-                    if (response.equals("SUCCESS")) {
-                        Toast.makeText(context, "업로드 완료", Toast.LENGTH_SHORT).show();
-                    } else if (response.equals("FAIL")) {
-                        Toast.makeText(context, "업로드 실패", Toast.LENGTH_SHORT).show();
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean act = jsonObject.getBoolean("act");
+                        if (act) {
+                            Toast.makeText(context, "업로드되었습니다.", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(context, "업로드를 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Log.e("write_community", "예외 발생");
                     }
                 },
                 error -> {
@@ -467,7 +516,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         AppHelper.requestQueue.add(request);
     }
 
-    private void addCommunityRecyclerView(int write_id, String image, String name, String comment, int uid) {
+    private void addCommunityRecyclerView(int write_id, String image, String name, String comment, int uid, int like, int comment_cnt) {
         CommunityItem item = new CommunityItem();
         item.write_id = write_id;
         if (image.equals(""))
@@ -478,6 +527,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         item.level = "보드게임러버";
         item.comment = comment;
         item.uid = uid;
+        item.like = like;
+        item.comment_cnt = comment_cnt;
         communityRecyclerAdapter.addItem(item);
         communityRecyclerAdapter.notifyDataSetChanged();
     }
@@ -571,13 +622,15 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 JSONObject subJsonObject2 = new JSONObject(board);
                 int write_id = subJsonObject2.getInt("id");
                 String content = subJsonObject2.getString("content");
+                int like = subJsonObject2.getInt("like");
+                int comment_cnt = subJsonObject2.getInt("comment_cnt");
 
                 String writer = subJsonObject.getString("writer");
                 JSONObject subJsonObject3 = new JSONObject(writer);
                 String nickname = subJsonObject3.getString("nickname");
                 String profile = subJsonObject3.getString("profile");
                 int id = subJsonObject3.getInt("id");
-                addCommunityRecyclerView(write_id, profile, nickname, content, id);
+                addCommunityRecyclerView(write_id, profile, nickname, content, id, like, comment_cnt);
             }
         } catch (Exception e) {
             Log.e("communityJSONParse", "예외 발생");

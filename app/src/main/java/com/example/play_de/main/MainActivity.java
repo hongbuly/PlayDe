@@ -2,7 +2,7 @@ package com.example.play_de.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,18 +13,28 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.play_de.R;
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+    private StringBuilder urlStr;
     static ViewPager vp;
     public TabLayout mTab;
     private OnBackPressedListener[] listener = new OnBackPressedListener[5];
     private OnClickReportListener reportListener;
     private long backKeyPressedTime = 0;
     public static String userId;
+    private String name;
 
     private View blur;
     private LinearLayout finish_reserve;
@@ -70,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
                 reportListener.onClickReport();
             });
         }
+
+        setName();
     }
 
     public void setOnBackPressedListener(OnBackPressedListener listener, int num) {
@@ -101,8 +113,46 @@ public class MainActivity extends AppCompatActivity {
         vp.setCurrentItem(num);
     }
 
+    private void setName() {
+        //사용자 프로필 가져오기
+        urlStr = new StringBuilder();
+        urlStr.append("https://playde-server-pzovl.run.goorm.io/user/profile?user_id=");
+        urlStr.append(MainActivity.userId);
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    nameJSONParse(response);
+                },
+                error -> {
+                    Toast.makeText(this, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("setName", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(this);
+        AppHelper.requestQueue.add(request);
+    }
+
+    private void nameJSONParse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            name = jsonObject.getString("nickname");
+            //profile, score 도 가져올 수 있음.
+        } catch (Exception e) {
+            Log.e("commentJSONParse", "예외 발생");
+        }
+    }
+
     public String getName() {
-        return "이름";
+        return name;
     }
 
     public void showBlur(boolean show) {

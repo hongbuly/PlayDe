@@ -99,10 +99,13 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
 //                .load(mData.get(position).image)
 //                .apply(new RequestOptions().circleCrop())
 //                .into(holder.image);
+
         holder.image.setImageResource(Integer.parseInt(mData.get(position).image));
         holder.name.setText(mData.get(position).name);
         holder.level.setText(mData.get(position).level);
         holder.content.setText(mData.get(position).comment);
+        holder.heart.setText(Integer.toString(mData.get(position).like));
+        holder.comment.setText("댓글" + Integer.toString(mData.get(position).comment_cnt));
     }
 
     @Override

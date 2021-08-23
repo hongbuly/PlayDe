@@ -28,7 +28,7 @@ public class CommunityProfileFavoriteAdapter extends RecyclerView.Adapter<Commun
         }
     }
 
-    void addItem(CommunityProfileFavorite item) {
+    public void addItem(CommunityProfileFavorite item) {
         mData.add(item);
     }
 

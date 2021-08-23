@@ -7,4 +7,6 @@ public class CommunityItem {
     public String name;
     public String level;
     public String comment;
+    public int like = 0;
+    public int comment_cnt = 0;
 }
