@@ -35,17 +35,6 @@
             tools:ignore="ContentDescription" />
 
         <ImageButton
-            android:id="@+id/plusBtn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="5dp"
-            android:layout_toStartOf="@+id/userBtn"
-            android:minWidth="0dp"
-            app:srcCompat="@drawable/plus_black"
-            tools:ignore="ContentDescription" />
-
-        <ImageButton
             android:id="@+id/userBtn"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
@@ -57,13 +46,12 @@
             tools:ignore="ContentDescription" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/community_view01"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
         android:background="@drawable/round_back_white"
-        android:orientation="vertical"
         android:visibility="visible">
 
         <EditText
@@ -89,6 +77,7 @@
             android:id="@+id/tag_recycler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/filterEdit"
             android:layout_marginStart="15dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
@@ -97,16 +86,27 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_community"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tag_recycler">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/community_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </LinearLayout>
 
-    <LinearLayout
+        <ImageButton
+            android:id="@+id/plusBtn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            app:srcCompat="@drawable/plus_community"
+            tools:ignore="ContentDescription" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/write_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -115,33 +115,67 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <EditText
-            android:id="@+id/write_editText"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/round_polar12"
-            android:gravity="top"
-            android:padding="20dp"
-            tools:ignore="Autofill,LabelFor,TextFields" />
-
         <Button
             android:id="@+id/write_btn"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="137dp"
-            android:layout_height="41dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/round_gradient30"
-            android:fontFamily="@font/apple_b"
-            android:text="등록하기"
+            android:layout_width="68dp"
+            android:layout_height="33dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_red20"
+            android:fontFamily="@font/apple_l"
+            android:text="등록"
             android:textColor="@color/White"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-    </LinearLayout>
+            android:textSize="13sp"
+            tools:ignore="HardcodedText,SmallSp" />
+
+        <EditText
+            android:id="@+id/writeTitle_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/write_btn"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/White"
+            android:fontFamily="@font/apple_b"
+            android:gravity="top"
+            android:hint="제목을 입력해주세요."
+            android:padding="10dp"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/Black"
+            android:textSize="20sp"
+            tools:ignore="Autofill,HardcodedText,LabelFor,TextFields" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/writeTitle_editText"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/PolarGrey" />
+
+        <EditText
+            android:id="@+id/write_editText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/writeTitle_editText"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/White"
+            android:fontFamily="@font/apple_l"
+            android:gravity="top"
+            android:hint="내용을 입력해주세요."
+            android:padding="10dp"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/Black"
+            android:textSize="17sp"
+            tools:ignore="Autofill,HardcodedText,LabelFor,TextFields" />
+    </RelativeLayout>
 
 
     <RelativeLayout
@@ -228,7 +262,7 @@
             android:drawableStart="@drawable/small_heart"
             android:drawablePadding="10dp"
             android:fontFamily="@font/apple_ul"
-            android:text="0"
+            android:text="공감 0"
             android:textColor="@color/Black"
             android:textSize="11sp"
             tools:ignore="HardcodedText,SmallSp" />
@@ -245,7 +279,7 @@
             android:drawableStart="@drawable/comment"
             android:drawablePadding="10dp"
             android:fontFamily="@font/apple_ul"
-            android:text="댓글"
+            android:text="댓글 0"
             android:textColor="@color/Black"
             android:textSize="11sp"
             tools:ignore="HardcodedText,SmallSp" />
@@ -260,8 +294,8 @@
             android:id="@+id/comment_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/heart"
             android:layout_above="@+id/send"
+            android:layout_below="@+id/heart"
             android:layout_marginTop="15dp" />
 
         <RelativeLayout

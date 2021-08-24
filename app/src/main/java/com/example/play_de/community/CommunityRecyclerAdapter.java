@@ -1,5 +1,6 @@
 package com.example.play_de.community;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,6 +94,7 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CommunityRecyclerAdapter.ViewHolder holder, int position) {
 //        Glide.with(holder.itemView.getContext())
@@ -104,8 +106,8 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
         holder.name.setText(mData.get(position).name);
         holder.level.setText(mData.get(position).level);
         holder.content.setText(mData.get(position).comment);
-        holder.heart.setText(Integer.toString(mData.get(position).like));
-        holder.comment.setText("댓글" + Integer.toString(mData.get(position).comment_cnt));
+        holder.heart.setText("공감 " + mData.get(position).like);
+        holder.comment.setText("댓글 " + mData.get(position).comment_cnt);
     }
 
     @Override

@@ -52,10 +52,10 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private ImageButton back, plusBtn, userBtn;
     private EditText filterEdit;
 
-    private LinearLayout community_view01;
+    private RelativeLayout community_view01;
     private CommunityTagAdapter communityTagAdapter;
 
-    private LinearLayout write_view;
+    private RelativeLayout write_view;
     private EditText write_editText;
     private Button write_btn;
 
@@ -242,7 +242,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             } else if (component == 2) {
                 //공감하기 버튼 클릭
                 board_id = communityRecyclerAdapter.getData(position).write_id;
-                clickHeart(position);
+                clickHeart();
             } else if (component == 3) {
                 // 댓글 달기
                 community_view01.setVisibility(View.GONE);
@@ -374,21 +374,23 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         request.setShouldCache(false);
         AppHelper.requestQueue = Volley.newRequestQueue(context);
         AppHelper.requestQueue.add(request);
+        refreshCommunityWrite();
         backView();
     }
 
-    private void clickHeart(int position) {
+    private void clickHeart() {
         //공감하기 버튼
-        urlStr = new StringBuilder();
-        urlStr.append("https://playde-server-pzovl.run.goorm.io/community/board/like?user_id=");
-        urlStr.append(MainActivity.userId);
-        urlStr.append("&board_id=");
-        urlStr.append(board_id);
+        StringBuilder urlStrHeart = new StringBuilder();
+        urlStrHeart.append("https://playde-server-pzovl.run.goorm.io/community/board/like?user_id=");
+        urlStrHeart.append(MainActivity.userId);
+        urlStrHeart.append("&board_id=");
+        urlStrHeart.append(board_id);
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                urlStr.toString(),
+                urlStrHeart.toString(),
                 response -> {
                     try {
+                        Log.e("heart", urlStrHeart.toString());
                         JSONObject jsonObject = new JSONObject(response);
                         boolean act = jsonObject.getBoolean("act");
                     } catch (Exception e) {
@@ -462,7 +464,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         urlStr = new StringBuilder();
         urlStr.append("https://playde-server-pzovl.run.goorm.io/community/get?user_id=");
         urlStr.append(MainActivity.userId);
-        urlStr.append("&range=1,10&top_id=1");
+        urlStr.append("&range=1,10");
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 urlStr.toString(),
@@ -635,9 +637,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 int id = subJsonObject3.getInt("id");
                 addCommunityRecyclerView(write_id, profile, nickname, content, id, like, comment_cnt);
 
-                if (board_id == write_id) {
-                    heart.setText(Integer.toString(like));
-                }
+//                if (board_id == write_id) {
+//                    heart.setText(Integer.toString(like));
+//                }
             }
         } catch (Exception e) {
             Log.e("communityJSONParse", "예외 발생");
