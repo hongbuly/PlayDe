@@ -1,5 +1,6 @@
 package com.example.play_de.community;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -227,6 +228,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
         heart.setOnClickListener(v -> {
             //공감하기 갯수 올리기
+//            clickHeart();
+//            refreshComment(board_id);
         });
 
         communityRecyclerAdapter.setOnItemClickListener((component, position) -> {
@@ -239,7 +242,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             } else if (component == 2) {
                 //공감하기 버튼 클릭
                 board_id = communityRecyclerAdapter.getData(position).write_id;
-                clickHeart();
+                clickHeart(position);
             } else if (component == 3) {
                 // 댓글 달기
                 community_view01.setVisibility(View.GONE);
@@ -374,13 +377,13 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         backView();
     }
 
-    private void clickHeart() {
+    private void clickHeart(int position) {
         //공감하기 버튼
         urlStr = new StringBuilder();
-        urlStr.append("https://playde-server-pzovl.run.goorm.io/community/like?user_id=");
+        urlStr.append("https://playde-server-pzovl.run.goorm.io/community/board/like?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&board_id=");
-        urlStr.append(Integer.toString(board_id));
+        urlStr.append(board_id);
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 urlStr.toString(),
@@ -388,7 +391,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         boolean act = jsonObject.getBoolean("act");
-                        // 눌루면 true, 취소하면 false
                     } catch (Exception e) {
                         Log.e("clickHeart", "예외 발생");
                     }
@@ -417,7 +419,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         urlStr.append("https://playde-server-pzovl.run.goorm.io/community/comment/upload?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&board_id=");
-        urlStr.append(Integer.toString(board_id));
+        urlStr.append(board_id);
         urlStr.append("&content=");
         urlStr.append(msg_edit.getText().toString());
         msg_edit.setText("");
@@ -490,7 +492,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         comment_adapter.initialSetUp();
         urlStr = new StringBuilder();
         urlStr.append("https://playde-server-pzovl.run.goorm.io/community/board/");
-        urlStr.append(Integer.toString(write_id));
+        urlStr.append(write_id);
         urlStr.append("?user_id=");
         urlStr.append(MainActivity.userId);
         StringRequest request = new StringRequest(
@@ -611,6 +613,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         communityTagAdapter.notifyDataSetChanged();
     }
 
+    @SuppressLint("SetTextI18n")
     private void communityJSONParse(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
@@ -631,15 +634,24 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 String profile = subJsonObject3.getString("profile");
                 int id = subJsonObject3.getInt("id");
                 addCommunityRecyclerView(write_id, profile, nickname, content, id, like, comment_cnt);
+
+                if (board_id == write_id) {
+                    heart.setText(Integer.toString(like));
+                }
             }
         } catch (Exception e) {
             Log.e("communityJSONParse", "예외 발생");
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void commentJSONParse(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
+            JSONObject subJsonObject01 = new JSONObject(jsonObject.getString("board"));
+            int like = subJsonObject01.getInt("like");
+            heart.setText(Integer.toString(like));
+
             String comment = jsonObject.getString("comment");
             JSONArray jsonArray = new JSONArray(comment);
             for (int i = 0; i < jsonArray.length(); i++) {
