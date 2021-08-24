@@ -1,789 +1,910 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/horizon_gradient"
-    android:orientation="vertical">
+    android:background="@drawable/horizon_gradient">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/positionText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/apple_b"
-            android:gravity="center"
-            android:text="플레이드 커뮤니티"
-            android:textColor="@color/White"
-            android:textSize="20sp"
-            tools:ignore="HardcodedText" />
-
-        <ImageButton
-            android:id="@+id/backBtn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:minWidth="0dp"
-            app:srcCompat="@drawable/back"
-            tools:ignore="ContentDescription" />
-
-        <ImageButton
-            android:id="@+id/userBtn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:minWidth="0dp"
-            app:srcCompat="@drawable/user"
-            tools:ignore="ContentDescription" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/community_view01"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:background="@drawable/round_back_white"
-        android:visibility="visible">
-
-        <EditText
-            android:id="@+id/filterEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/round_corner_red15"
-            android:drawableEnd="@drawable/reading_glasses"
-            android:fontFamily="@font/apple_l"
-            android:hint="전체 12,395"
-            android:paddingStart="15dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="15dp"
-            android:paddingBottom="10dp"
-            android:textSize="12sp"
-            tools:ignore="Autofill,HardcodedText,TextFields" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tag_recycler"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/filterEdit"
-            android:layout_marginStart="15dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:scrollbars="none" />
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_community"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tag_recycler">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/community_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        <ImageButton
-            android:id="@+id/plusBtn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            app:srcCompat="@drawable/plus_community"
-            tools:ignore="ContentDescription" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/write_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:background="@drawable/round_back_white"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <Button
-            android:id="@+id/write_btn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="68dp"
-            android:layout_height="33dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/round_red20"
-            android:fontFamily="@font/apple_l"
-            android:text="등록"
-            android:textColor="@color/White"
-            android:textSize="13sp"
-            tools:ignore="HardcodedText,SmallSp" />
-
-        <EditText
-            android:id="@+id/writeTitle_editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/write_btn"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/White"
-            android:fontFamily="@font/apple_b"
-            android:gravity="top"
-            android:hint="제목을 입력해주세요."
-            android:padding="10dp"
-            android:textColor="@color/Black"
-            android:textColorHint="@color/Black"
-            android:textSize="20sp"
-            tools:ignore="Autofill,HardcodedText,LabelFor,TextFields" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/writeTitle_editText"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@color/PolarGrey" />
-
-        <EditText
-            android:id="@+id/write_editText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/writeTitle_editText"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@color/White"
-            android:fontFamily="@font/apple_l"
-            android:gravity="top"
-            android:hint="내용을 입력해주세요."
-            android:padding="10dp"
-            android:textColor="@color/Black"
-            android:textColorHint="@color/Black"
-            android:textSize="17sp"
-            tools:ignore="Autofill,HardcodedText,LabelFor,TextFields" />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/community_view02"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:background="@drawable/round_back_white"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/circle_grey"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_toEndOf="@+id/image"
-            android:fontFamily="@font/apple_b"
-            android:text="이름"
-            android:textColor="@color/Black"
-            android:textSize="17sp"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/name"
-            android:layout_marginTop="1dp"
-            android:layout_toEndOf="@+id/image"
-            android:fontFamily="@font/apple_l"
-            android:text="보드게임러버"
-            android:textColor="@color/Black"
-            android:textSize="14sp"
-            tools:ignore="HardcodedText" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/image"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#B3DDDDDD" />
-
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/image"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="30dp"
-            android:fontFamily="@font/apple_l"
-            android:text="내용 내용\n내용 내용"
-            android:textColor="@color/Black"
-            android:textSize="14sp"
-            tools:ignore="HardcodedText" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/content"
-            android:background="#B3DDDDDD" />
-
-        <TextView
-            android:id="@+id/heart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:drawableStart="@drawable/small_heart"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/apple_ul"
-            android:text="공감 0"
-            android:textColor="@color/Black"
-            android:textSize="11sp"
-            tools:ignore="HardcodedText,SmallSp" />
-
-        <TextView
-            android:id="@+id/comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@+id/heart"
-            android:drawableStart="@drawable/comment"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/apple_ul"
-            android:text="댓글 0"
-            android:textColor="@color/Black"
-            android:textSize="11sp"
-            tools:ignore="HardcodedText,SmallSp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/heart"
-            android:background="#B3DDDDDD" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/comment_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/send"
-            android:layout_below="@+id/heart"
-            android:layout_marginTop="15dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/send"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/White"
-            android:elevation="5dp">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/pictureBtn"
+            <TextView
+                android:id="@+id/positionText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/apple_b"
+                android:gravity="center"
+                android:text="플레이드 커뮤니티"
+                android:textColor="@color/White"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+            <ImageButton
+                android:id="@+id/backBtn"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="10dp"
-                app:srcCompat="@drawable/picture"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:minWidth="0dp"
+                app:srcCompat="@drawable/back"
                 tools:ignore="ContentDescription" />
 
+            <ImageButton
+                android:id="@+id/userBtn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:minWidth="0dp"
+                app:srcCompat="@drawable/user"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/community_view01"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/round_back_white"
+            android:visibility="visible">
+
             <EditText
-                android:id="@+id/msg_edit"
+                android:id="@+id/filterEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginBottom="5dp"
-                android:layout_toEndOf="@+id/pictureBtn"
-                android:background="@drawable/round_polar25"
-                android:padding="5dp"
-                tools:ignore="Autofill,LabelFor,TextFields" />
+                android:background="@drawable/round_corner_red15"
+                android:drawableEnd="@drawable/reading_glasses"
+                android:fontFamily="@font/apple_l"
+                android:hint="전체 12,395"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="10dp"
+                android:textSize="12sp"
+                tools:ignore="Autofill,HardcodedText,TextFields" />
 
-            <ImageView
-                android:id="@+id/sendBtn"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tag_recycler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/filterEdit"
+                android:layout_marginStart="15dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:scrollbars="none" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_community"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tag_recycler">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/community_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <ImageButton
+                android:id="@+id/plusBtn"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_gravity="center"
-                android:paddingStart="10dp"
-                android:paddingTop="6dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="10dp"
-                app:srcCompat="@drawable/paper_plane"
+                android:layout_alignParentBottom="true"
+                app:srcCompat="@drawable/plus_community"
                 tools:ignore="ContentDescription" />
         </RelativeLayout>
-    </RelativeLayout>
 
-
-    <LinearLayout
-        android:id="@+id/profile_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:background="@drawable/round_back_white"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/profile_image"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/circle_grey"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/apple_b"
-            android:text="이름"
-            android:textColor="@color/Black"
-            android:textSize="17sp"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/profile_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="3dp"
-            android:fontFamily="@font/apple_l"
-            android:text="보드게임러버"
-            android:textColor="@color/Black"
-            android:textSize="14sp"
-            tools:ignore="HardcodedText" />
-
-        <View
+        <RelativeLayout
+            android:id="@+id/write_view"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="20dp"
-            android:background="#B3DDDDDD" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
-
-            <com.hedgehog.ratingbar.RatingBar
-                android:id="@+id/heart_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:starImageHeight="20dp"
-                app:starImageWidth="23dp"
-                hedgehog:clickable="false"
-                hedgehog:halfstart="true"
-                hedgehog:starCount="5"
-                hedgehog:starEmpty="@drawable/rating_false"
-                hedgehog:starFill="@drawable/rating_true"
-                hedgehog:starHalf="@drawable/half_heart" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="3dp"
-                android:layout_weight="1" />
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/round_back_white"
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
-                android:id="@+id/send_message"
+                android:id="@+id/bulletin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:drawableStart="@drawable/chat_grey"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:drawableEnd="@drawable/down_clamp"
                 android:drawablePadding="5dp"
-                android:fontFamily="@font/apple_l"
-                android:text="채팅보내기"
+                android:text="게시판 선택"
                 android:textColor="@color/Black"
                 android:textSize="13sp"
                 tools:ignore="HardcodedText" />
-        </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#B3DDDDDD" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="77dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="15dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="39dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:adjustViewBounds="true"
-                app:srcCompat="@drawable/heart"
-                tools:ignore="ContentDescription" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/heart_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="77dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="38dp"
+            <Button
+                android:id="@+id/write_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="68dp"
                 android:layout_height="33dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                app:srcCompat="@drawable/store"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/round_red20"
+                android:fontFamily="@font/apple_l"
+                android:text="등록"
+                android:textColor="@color/White"
+                android:textSize="13sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/write_btn"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/PolarGrey" />
+
+            <EditText
+                android:id="@+id/write_editText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/write_btn"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/White"
+                android:fontFamily="@font/apple_l"
+                android:gravity="top"
+                android:hint="내용을 입력해주세요."
+                android:textColor="@color/Black"
+                android:textColorHint="@color/Black"
+                android:textSize="17sp"
+                tools:ignore="Autofill,HardcodedText,LabelFor,TextFields" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/community_view02"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/round_back_white"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/circle_grey"
                 tools:ignore="ContentDescription" />
 
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/image"
+                android:fontFamily="@font/apple_b"
+                android:text="이름"
+                android:textColor="@color/Black"
+                android:textSize="17sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:layout_marginTop="1dp"
+                android:layout_toEndOf="@+id/image"
+                android:fontFamily="@font/apple_l"
+                android:text="보드게임러버"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/image"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#B3DDDDDD" />
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/apple_l"
+                android:text="내용 내용\n내용 내용"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/content"
+                android:background="#B3DDDDDD" />
+
+            <TextView
+                android:id="@+id/heart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:drawableStart="@drawable/small_heart"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/apple_ul"
+                android:text="공감 0"
+                android:textColor="@color/Black"
+                android:textSize="11sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <TextView
+                android:id="@+id/comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@+id/heart"
+                android:drawableStart="@drawable/comment"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/apple_ul"
+                android:text="댓글 0"
+                android:textColor="@color/Black"
+                android:textSize="11sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/heart"
+                android:background="#B3DDDDDD" />
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/store_recycler"
+                android:id="@+id/comment_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/send"
+                android:layout_below="@+id/heart"
+                android:layout_marginTop="15dp" />
+
+            <RelativeLayout
+                android:id="@+id/send"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none" />
+                android:layout_alignParentBottom="true"
+                android:background="@color/White"
+                android:elevation="5dp">
+
+                <ImageView
+                    android:id="@+id/pictureBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/picture"
+                    tools:ignore="ContentDescription" />
+
+                <EditText
+                    android:id="@+id/msg_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toEndOf="@+id/pictureBtn"
+                    android:background="@drawable/round_polar25"
+                    android:padding="5dp"
+                    tools:ignore="Autofill,LabelFor,TextFields" />
+
+                <ImageView
+                    android:id="@+id/sendBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp"
+                    app:srcCompat="@drawable/paper_plane"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/profile_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/round_back_white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/circle_grey"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/apple_b"
+                android:text="이름"
+                android:textColor="@color/Black"
+                android:textSize="17sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/profile_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/apple_l"
+                android:text="보드게임러버"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#B3DDDDDD" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <com.hedgehog.ratingbar.RatingBar
+                    android:id="@+id/heart_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:starImageHeight="20dp"
+                    app:starImageWidth="23dp"
+                    hedgehog:clickable="false"
+                    hedgehog:halfstart="true"
+                    hedgehog:starCount="5"
+                    hedgehog:starEmpty="@drawable/rating_false"
+                    hedgehog:starFill="@drawable/rating_true"
+                    hedgehog:starHalf="@drawable/half_heart" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="3dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/send_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:drawableStart="@drawable/chat_grey"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/apple_l"
+                    android:text="채팅보내기"
+                    android:textColor="@color/Black"
+                    android:textSize="13sp"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#B3DDDDDD" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="39dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/heart"
+                    tools:ignore="ContentDescription" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/heart_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="38dp"
+                    android:layout_height="33dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    app:srcCompat="@drawable/store"
+                    tools:ignore="ContentDescription" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/store_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#B3DDDDDD" />
+
+            <ImageButton
+                android:id="@+id/blockBtn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:srcCompat="@drawable/block_btn"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#B3DDDDDD" />
 
-        <ImageButton
-            android:id="@+id/blockBtn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/report_layout01"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/round_back_white"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="25dp"
+                android:fontFamily="@font/apple_b"
+                android:text="신고하는 이유를 선택해주세요."
+                android:textColor="@color/Black"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/PolarGrey" />
+
+            <TextView
+                android:id="@+id/report_reason01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/apple_l"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="연애 대상을 구하는 댓글이에요"
+                android:textColor="@color/Black"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/PolarGrey" />
+
+            <TextView
+                android:id="@+id/report_reason02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/apple_l"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="광고 / 홍보 댓글이에요"
+                android:textColor="@color/Black"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/PolarGrey" />
+
+            <TextView
+                android:id="@+id/report_reason03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/apple_l"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="술모임을 모집하는 댓글이에요"
+                android:textColor="@color/Black"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/PolarGrey" />
+
+            <TextView
+                android:id="@+id/report_reason04"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/apple_l"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="음란성 댓글이에요"
+                android:textColor="@color/Black"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/PolarGrey" />
+
+            <TextView
+                android:id="@+id/report_reason05"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/apple_l"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="중복 / 도배 댓글이에요"
+                android:textColor="@color/Black"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/PolarGrey" />
+
+            <TextView
+                android:id="@+id/report_reason06"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/apple_l"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="개인정보가 포함된 댓글이에요"
+                android:textColor="@color/Black"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/PolarGrey" />
+
+            <TextView
+                android:id="@+id/report_reason07"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/apple_l"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="불쾌감을 주는 댓글이에요"
+                android:textColor="@color/Black"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/PolarGrey" />
+
+            <TextView
+                android:id="@+id/report_reason08"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/right_clamp"
+                android:fontFamily="@font/apple_l"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="기타"
+                android:textColor="@color/Black"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/report_layout02"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/round_back_white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/report_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="25dp"
+                android:fontFamily="@font/apple_b"
+                android:text="신고하는 이유"
+                android:textColor="@color/Black"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/report_reason"
+                android:background="@color/PolarGrey" />
+
+            <TextView
+                android:id="@+id/report_no_see"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/report_reason"
+                android:drawableStart="@drawable/circle_corner_grey"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/apple_l"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="해당 댓글 및 작성자의 댓글을 보지 않겠습니다."
+                android:textColor="@color/Black"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/report_no_see"
+                android:background="@color/PolarGrey" />
+
+            <Button
+                android:id="@+id/report_btn01"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="210dp"
+                android:background="@drawable/round_gradient100"
+                android:fontFamily="@font/apple_b"
+                android:text="신고하기"
+                android:textColor="@color/White"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/report_layout03"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@drawable/round_back_white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/apple_b"
+                android:text="신고하는 이유를 알려주세요"
+                android:textColor="@color/Black"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="53dp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/apple_l"
+                android:text="기타"
+                android:textColor="@color/LineGrey"
+                android:textSize="11sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <EditText
+                android:id="@+id/report_edit"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="75dp"
+                android:background="@drawable/round_corner_polar10"
+                android:fontFamily="@font/apple_l"
+                android:gravity="top"
+                android:hint="신고하는 내용을 입력해주세요"
+                android:padding="10dp"
+                android:textColor="@color/Black"
+                android:textSize="13sp"
+                tools:ignore="Autofill,HardcodedText,TextFields" />
+
+            <Button
+                android:id="@+id/report_btn02"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="210dp"
+                android:background="@drawable/round_gradient100"
+                android:fontFamily="@font/apple_b"
+                android:text="신고하기"
+                android:textColor="@color/White"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/Black_Blur"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/bulletin_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/round_white30"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            app:srcCompat="@drawable/block_btn"
-            tools:ignore="ContentDescription" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/report_layout01"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:background="@drawable/round_back_white"
-        android:orientation="vertical"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="25dp"
             android:fontFamily="@font/apple_b"
-            android:text="신고하는 이유를 선택해주세요."
+            android:gravity="center"
+            android:text="게시판 선택"
             android:textColor="@color/Black"
-            android:textSize="15sp"
+            android:textSize="20sp"
             tools:ignore="HardcodedText" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/PolarGrey" />
-
-        <TextView
-            android:id="@+id/report_reason01"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/apple_l"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:text="연애 대상을 구하는 댓글이에요"
-            android:textColor="@color/Black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/PolarGrey" />
-
-        <TextView
-            android:id="@+id/report_reason02"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/apple_l"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:text="광고 / 홍보 댓글이에요"
-            android:textColor="@color/Black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/PolarGrey" />
-
-        <TextView
-            android:id="@+id/report_reason03"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/apple_l"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:text="술모임을 모집하는 댓글이에요"
-            android:textColor="@color/Black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/PolarGrey" />
-
-        <TextView
-            android:id="@+id/report_reason04"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/apple_l"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:text="음란성 댓글이에요"
-            android:textColor="@color/Black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/PolarGrey" />
-
-        <TextView
-            android:id="@+id/report_reason05"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/apple_l"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:text="중복 / 도배 댓글이에요"
-            android:textColor="@color/Black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/PolarGrey" />
-
-        <TextView
-            android:id="@+id/report_reason06"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/apple_l"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:text="개인정보가 포함된 댓글이에요"
-            android:textColor="@color/Black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/PolarGrey" />
-
-        <TextView
-            android:id="@+id/report_reason07"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/apple_l"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:text="불쾌감을 주는 댓글이에요"
-            android:textColor="@color/Black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/PolarGrey" />
-
-        <TextView
-            android:id="@+id/report_reason08"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/right_clamp"
-            android:fontFamily="@font/apple_l"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:text="기타"
-            android:textColor="@color/Black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-    </LinearLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/report_layout02"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:background="@drawable/round_back_white"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/report_reason"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="25dp"
-            android:fontFamily="@font/apple_b"
-            android:text="신고하는 이유"
-            android:textColor="@color/Black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/report_reason"
-            android:background="@color/PolarGrey" />
-
-        <TextView
-            android:id="@+id/report_no_see"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/report_reason"
-            android:drawableStart="@drawable/circle_corner_grey"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/apple_l"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:text="해당 댓글 및 작성자의 댓글을 보지 않겠습니다."
-            android:textColor="@color/Black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/report_no_see"
-            android:background="@color/PolarGrey" />
-
-        <Button
-            android:id="@+id/report_btn01"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="210dp"
-            android:background="@drawable/round_gradient100"
-            android:fontFamily="@font/apple_b"
-            android:text="신고하기"
-            android:textColor="@color/White"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/report_layout03"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:background="@drawable/round_back_white"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/apple_b"
-            android:text="신고하는 이유를 알려주세요"
-            android:textColor="@color/Black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
-
-        <TextView
+        <ImageView
+            android:id="@+id/x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="53dp"
-            android:layout_marginBottom="15dp"
-            android:fontFamily="@font/apple_l"
-            android:text="기타"
-            android:textColor="@color/LineGrey"
-            android:textSize="11sp"
-            tools:ignore="HardcodedText,SmallSp" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="20dp"
+            app:srcCompat="@drawable/x"
+            tools:ignore="ContentDescription" />
 
-        <EditText
-            android:id="@+id/report_edit"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="75dp"
-            android:background="@drawable/round_corner_polar10"
+            android:layout_height="1dp"
+            android:layout_below="@+id/x"
+            android:layout_marginTop="20dp"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/x"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/apple_l"
-            android:gravity="top"
-            android:hint="신고하는 내용을 입력해주세요"
-            android:padding="10dp"
+            android:paddingStart="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="#추천해요"
             android:textColor="@color/Black"
             android:textSize="13sp"
-            tools:ignore="Autofill,HardcodedText,TextFields" />
+            tools:ignore="HardcodedText,RtlSymmetry" />
 
-        <Button
-            android:id="@+id/report_btn02"
-            style="?android:attr/borderlessButtonStyle"
+        <View
             android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/recommend"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/meet"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="210dp"
-            android:background="@drawable/round_gradient100"
-            android:fontFamily="@font/apple_b"
-            android:text="신고하기"
-            android:textColor="@color/White"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText" />
+            android:layout_below="@+id/recommend"
+            android:fontFamily="@font/apple_l"
+            android:paddingStart="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="#만나요"
+            android:textColor="@color/Black"
+            android:textSize="13sp"
+            tools:ignore="HardcodedText,RtlSymmetry" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/meet"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/meet"
+            android:fontFamily="@font/apple_l"
+            android:paddingStart="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="#질문있어요"
+            android:textColor="@color/Black"
+            android:textSize="13sp"
+            tools:ignore="HardcodedText,RtlSymmetry" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/question"
+            android:background="@color/PolarGrey" />
+
+        <TextView
+            android:id="@+id/news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/question"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/apple_l"
+            android:paddingStart="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="#최신 소식"
+            android:textColor="@color/Black"
+            android:textSize="13sp"
+            tools:ignore="HardcodedText,RtlSymmetry" />
+
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

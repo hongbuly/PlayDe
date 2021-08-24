@@ -34,6 +34,16 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
         return mData.get(position);
     }
 
+    void setHeart(int position) {
+        if (mData.get(position).my_like) {
+            mData.get(position).like--;
+            mData.get(position).my_like = false;
+        } else {
+            mData.get(position).like++;
+            mData.get(position).my_like = true;
+        }
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name;

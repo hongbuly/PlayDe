@@ -8,5 +8,6 @@ public class CommunityItem {
     public String level;
     public String comment;
     public int like = 0;
+    public boolean my_like = false;
     public int comment_cnt = 0;
 }
