@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/login_layout"
@@ -289,7 +289,8 @@
                 android:fontFamily="@font/apple_l"
                 android:text="인증번호 입력"
                 android:textColor="@color/Black"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -321,7 +322,21 @@
                 android:padding="15dp"
                 android:text="가입하기"
                 android:textColor="@color/White"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/Black_Blur"
+        android:fontFamily="@font/apple_b"
+        android:gravity="center"
+        android:text="로딩중"
+        android:textColor="@color/White"
+        android:textSize="20sp"
+        android:visibility="gone"
+        tools:ignore="HardcodedText" />
+</RelativeLayout>

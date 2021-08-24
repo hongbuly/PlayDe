@@ -39,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText name, mail_id, password;
     private Button finish_register;
 
+    private TextView blur;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,8 @@ public class LoginActivity extends AppCompatActivity {
         mail_id = findViewById(R.id.mail_id);
         password = findViewById(R.id.password);
         finish_register = findViewById(R.id.finish_register);
+
+        blur = findViewById(R.id.blur);
     }
 
     private void eventListener() {
@@ -104,9 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 urlStr.toString(),
-                response -> {
-                    registerJSONParse(response);
-                },
+                this::registerJSONParse,
                 error -> {
                     Toast.makeText(getApplicationContext(), "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
                     Log.e("Register", "Error");
@@ -134,9 +136,7 @@ public class LoginActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 urlStr.toString(),
-                response -> {
-                    loginJSONParse(response);
-                },
+                this::loginJSONParse,
                 error -> {
                     Toast.makeText(getApplicationContext(), "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
                     Log.e("Login", "에러 발생");
@@ -161,8 +161,13 @@ public class LoginActivity extends AppCompatActivity {
                 login_layout.setVisibility(View.VISIBLE);
                 register_layout.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), "회원가입되었습니다.", Toast.LENGTH_SHORT).show();
-            } else
-                Toast.makeText(getApplicationContext(), "이미 존재하는 계정입니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                if (jsonObject.getString("message").equals("ALREADY USER")) {
+                    Toast.makeText(getApplicationContext(), "이미 존재하는 계정입니다.", Toast.LENGTH_SHORT).show();
+                } else if (jsonObject.getString("message").equals("ALREADY NICKNAME")) {
+                    Toast.makeText(getApplicationContext(), "이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
         } catch (Exception e) {
             Log.e("registerJSONParse", "예외 발생");
         }
@@ -173,6 +178,7 @@ public class LoginActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(response);
             if (jsonObject.getBoolean("access")) {
                 userId = Integer.toString(jsonObject.getInt("id"));
+                blur.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("userId", userId);
                 startActivity(intent);
@@ -186,7 +192,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         if (register_layout.getVisibility() == View.VISIBLE) {
             register_layout.setVisibility(View.GONE);
             login_layout.setVisibility(View.VISIBLE);
@@ -198,6 +203,7 @@ public class LoginActivity extends AppCompatActivity {
             id_edit.setVisibility(View.GONE);
             password_edit.setVisibility(View.GONE);
             login.setVisibility(View.GONE);
-        }
+        } else
+            finish();
     }
 }
