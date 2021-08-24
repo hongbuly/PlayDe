@@ -96,6 +96,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void registerEvent() {
+        blur.setVisibility(View.VISIBLE);
+
         urlStr = new StringBuilder();
         urlStr.append("https://playde-server-pzovl.run.goorm.io/user/join?platform=0&email=");
         urlStr.append(mail_id.getText().toString());
@@ -115,9 +117,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
         ) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                return params;
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
             }
         };
 
@@ -128,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginEvent() {
         //로그인 버튼
+        blur.setVisibility(View.VISIBLE);
         urlStr = new StringBuilder();
         urlStr.append("https://playde-server-pzovl.run.goorm.io/user/login?platform=0&email=");
         urlStr.append(id_edit.getText().toString());
@@ -140,12 +142,12 @@ public class LoginActivity extends AppCompatActivity {
                 error -> {
                     Toast.makeText(getApplicationContext(), "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
                     Log.e("Login", "에러 발생");
+                    blur.setVisibility(View.GONE);
                 }
         ) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                return params;
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
             }
         };
 
@@ -171,6 +173,8 @@ public class LoginActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("registerJSONParse", "예외 발생");
         }
+
+        blur.setVisibility(View.GONE);
     }
 
     private void loginJSONParse(String response) {
@@ -178,7 +182,6 @@ public class LoginActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(response);
             if (jsonObject.getBoolean("access")) {
                 userId = Integer.toString(jsonObject.getInt("id"));
-                blur.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("userId", userId);
                 startActivity(intent);
@@ -188,6 +191,8 @@ public class LoginActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("loginJSONParse", "예외 발생");
         }
+
+        blur.setVisibility(View.GONE);
     }
 
     @Override
