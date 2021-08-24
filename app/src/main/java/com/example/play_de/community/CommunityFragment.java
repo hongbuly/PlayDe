@@ -652,7 +652,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             JSONObject jsonObject = new JSONObject(response);
             JSONObject subJsonObject01 = new JSONObject(jsonObject.getString("board"));
             int like = subJsonObject01.getInt("like");
-            heart.setText(Integer.toString(like));
+            heart.setText("공감 " + like);
 
             String comment = jsonObject.getString("comment");
             JSONArray jsonArray = new JSONArray(comment);
