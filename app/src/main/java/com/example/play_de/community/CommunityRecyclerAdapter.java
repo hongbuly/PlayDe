@@ -53,6 +53,9 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
         TextView heart;
         TextView comment;
 
+        ImageView three_dot;
+        TextView time;
+
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -63,6 +66,9 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
 
             heart = itemView.findViewById(R.id.heart);
             comment = itemView.findViewById(R.id.comment);
+
+            three_dot = itemView.findViewById(R.id.three_dot);
+            time = itemView.findViewById(R.id.time);
 
             image.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -87,6 +93,15 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
                 if (pos != RecyclerView.NO_POSITION) {
                     if (mListener != null) {
                         mListener.onItemClick(3, pos);
+                    }
+                }
+            });
+
+            three_dot.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    if (mListener != null) {
+                        mListener.onItemClick(4, pos);
                     }
                 }
             });
@@ -118,6 +133,7 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
         holder.content.setText(mData.get(position).comment);
         holder.heart.setText("공감 " + mData.get(position).like);
         holder.comment.setText("댓글 " + mData.get(position).comment_cnt);
+        holder.time.setText(mData.get(position).time);
     }
 
     @Override

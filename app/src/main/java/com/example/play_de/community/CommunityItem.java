@@ -7,6 +7,7 @@ public class CommunityItem {
     public String name;
     public String level;
     public String comment;
+    public String time = "오후 1:55";
     public int like = 0;
     public boolean my_like = false;
     public int comment_cnt = 0;

@@ -56,7 +56,7 @@
             android:layout_height="0dp"
             android:layout_weight="10"
             android:background="@drawable/round_back_white"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/filterEdit"
@@ -259,16 +259,13 @@
             android:layout_height="0dp"
             android:layout_weight="10"
             android:background="@drawable/round_back_white"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_margin="20dp"
                 android:src="@drawable/circle_grey"
                 tools:ignore="ContentDescription" />
 
@@ -278,7 +275,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_toEndOf="@+id/image"
-                android:fontFamily="@font/apple_b"
+                android:fontFamily="@font/apple_sb"
                 android:text="이름"
                 android:textColor="@color/Black"
                 android:textSize="17sp"
@@ -297,6 +294,37 @@
                 android:textSize="14sp"
                 tools:ignore="HardcodedText" />
 
+            <TextView
+                android:id="@+id/read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:drawableStart="@drawable/read"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/apple_l"
+                android:text="114"
+                android:textColor="@color/Black"
+                android:textSize="13sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/read"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="20dp"
+                android:drawableStart="@drawable/time"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/apple_l"
+                android:text="2021.08.20"
+                android:textColor="@color/Black"
+                android:textSize="13sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -313,24 +341,37 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="40dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="40dp"
                 android:fontFamily="@font/apple_l"
                 android:text="내용 내용\n내용 내용"
                 android:textColor="@color/Black"
                 android:textSize="14sp"
                 tools:ignore="HardcodedText" />
 
+            <TextView
+                android:id="@+id/tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/content"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/apple_l"
+                android:text="#추천해요"
+                android:textColor="@color/MainRed"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/content"
+                android:layout_below="@+id/tag"
                 android:background="#B3DDDDDD" />
 
             <TextView
                 android:id="@+id/heart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/content"
+                android:layout_below="@+id/tag"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
@@ -346,7 +387,7 @@
                 android:id="@+id/comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/content"
+                android:layout_below="@+id/tag"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"

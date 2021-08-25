@@ -71,6 +71,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private ImageView image;
     private TextView name, level, content, heart;
 
+    private int comment_position;
     private int board_id;
     private CommunityCommentAdapter comment_adapter;
     private EditText msg_edit;
@@ -253,8 +254,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
         heart.setOnClickListener(v -> {
             //공감하기 갯수 올리기
-//            clickHeart();
-//            refreshComment(board_id);
+            communityRecyclerAdapter.setHeart(comment_position);
+            communityRecyclerAdapter.notifyDataSetChanged();
+            clickHeart();
         });
 
         communityRecyclerAdapter.setOnItemClickListener((component, position) -> {
@@ -284,7 +286,10 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 content.setText(communityRecyclerAdapter.getData(position).comment);
 
                 board_id = communityRecyclerAdapter.getData(position).write_id;
+                comment_position = position;
                 refreshComment(board_id);
+            } else if (component == 4) {
+                //three dot 클릭
             }
         });
         refreshCommunityWrite();
@@ -587,7 +592,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         AppHelper.requestQueue.add(request);
     }
 
-    private void addCommunityRecyclerView(int write_id, String image, String name, String comment, int uid, int like, boolean my_like, int comment_cnt) {
+    private void addCommunityRecyclerView(int write_id, String image, String name, String comment, int uid, int like, boolean my_like, String time, int comment_cnt) {
         CommunityItem item = new CommunityItem();
         item.write_id = write_id;
         if (image.equals(""))
@@ -600,6 +605,14 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         item.uid = uid;
         item.like = like;
         item.my_like = my_like;
+        int hour = Integer.parseInt(time.substring(11, 13));
+        if (hour == 12) {
+            item.time = "오후 " + time.substring(11, 16);
+        } else if (hour > 12) {
+            item.time = "오후 " + (Integer.parseInt(time.substring(11, 13)) - 12) + time.substring(13, 16);
+        } else {
+            item.time = "오전 " + time.substring(11, 16);
+        }
         item.comment_cnt = comment_cnt;
         communityRecyclerAdapter.addItem(item);
         communityRecyclerAdapter.notifyDataSetChanged();
@@ -671,6 +684,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private void communityJSONParse(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
+            String meta = jsonObject.getString("meta");
+            JSONObject subJsonObject01 = new JSONObject(meta);
+            int count = subJsonObject01.getInt("count");
+            filterEdit.setHint("전체 " + count);
+
             String community = jsonObject.getString("community");
             JSONArray jsonArray = new JSONArray(community);
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -681,6 +699,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 String content = subJsonObject2.getString("content");
                 int like = subJsonObject2.getInt("like");
                 boolean my_like = subJsonObject2.getBoolean("my_like");
+                String time = subJsonObject2.getString("created_at");
                 int comment_cnt = subJsonObject2.getInt("comment_cnt");
 
                 String writer = subJsonObject.getString("writer");
@@ -688,7 +707,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 String nickname = subJsonObject3.getString("nickname");
                 String profile = subJsonObject3.getString("profile");
                 int id = subJsonObject3.getInt("id");
-                addCommunityRecyclerView(write_id, profile, nickname, content, id, like, my_like, comment_cnt);
+                addCommunityRecyclerView(write_id, profile, nickname, content, id, like, my_like, time, comment_cnt);
             }
         } catch (Exception e) {
             Log.e("communityJSONParse", "예외 발생");
