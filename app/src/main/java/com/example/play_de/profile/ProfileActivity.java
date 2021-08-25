@@ -111,6 +111,7 @@ public class ProfileActivity extends AppCompatActivity {
         //main profile
         main_image = findViewById(R.id.main_image);
         main_name = findViewById(R.id.main_name);
+        main_name.setText(MainActivity.name);
         main_level = findViewById(R.id.main_level);
 
         //main profile btn
@@ -313,7 +314,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         back_view();
     }
 }

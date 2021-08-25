@@ -17,6 +17,10 @@ public class CafeRecyclerAdapter extends RecyclerView.Adapter<CafeRecyclerAdapte
     private ArrayList<CafeRecyclerItem> mData = new ArrayList<>();
     private OnItemClickListener mListener;
 
+    void initialSetUp() {
+        mData = new ArrayList<>();
+    }
+
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }

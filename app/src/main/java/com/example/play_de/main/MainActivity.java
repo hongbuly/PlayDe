@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private OnClickReportListener reportListener;
     private long backKeyPressedTime = 0;
     public static String userId;
-    private String name;
+    public static String name;
 
     private View blur;
     private LinearLayout finish_reserve;
@@ -149,10 +149,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("commentJSONParse", "예외 발생");
         }
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void showBlur(boolean show) {

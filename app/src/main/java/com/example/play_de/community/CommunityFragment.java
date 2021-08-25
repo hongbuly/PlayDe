@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,7 +53,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private EditText filterEdit;
 
     private RelativeLayout community_view01;
-    private CommunityTagAdapter communityTagAdapter;
+    private Button recommendBtn, meetBtn, questionBtn, newsBtn;
+    private int whiteColor, greyColor;
+    private int setBtn = 0;
 
     private RelativeLayout write_view;
     private TextView bulletin;
@@ -133,12 +136,13 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         content = view.findViewById(R.id.content);
         heart = view.findViewById(R.id.heart);
 
-        communityTagAdapter = new CommunityTagAdapter();
-        RecyclerView tag_recyclerView = view.findViewById(R.id.tag_recycler);
-        RecyclerView.LayoutManager tagLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        tag_recyclerView.setLayoutManager(tagLayoutManager);
-        tag_recyclerView.setAdapter(communityTagAdapter);
-        addTagRecyclerView();
+        recommendBtn = view.findViewById(R.id.recommendBtn);
+        meetBtn = view.findViewById(R.id.meetBtn);
+        questionBtn = view.findViewById(R.id.questionBtn);
+        newsBtn = view.findViewById(R.id.newsBtn);
+
+        whiteColor = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.White);
+        greyColor = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.LineGrey);
 
         communityRecyclerAdapter = new CommunityRecyclerAdapter();
         RecyclerView community_recyclerView = view.findViewById(R.id.community_recycler);
@@ -229,6 +233,22 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             public void afterTextChanged(Editable s) {
                 //입력된 후
             }
+        });
+
+        recommendBtn.setOnClickListener(v -> {
+            changeBtn(0);
+        });
+
+        meetBtn.setOnClickListener(v -> {
+            changeBtn(1);
+        });
+
+        questionBtn.setOnClickListener(v -> {
+            changeBtn(2);
+        });
+
+        newsBtn.setOnClickListener(v -> {
+            changeBtn(3);
         });
 
         heart.setOnClickListener(v -> {
@@ -353,6 +373,38 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             Toast.makeText(context, "신고되었습니다.", Toast.LENGTH_SHORT).show();
             backView();
         });
+    }
+
+    private void changeBtn(int setBtn) {
+        if (setBtn == 0) {
+            recommendBtn.setTextColor(whiteColor);
+            recommendBtn.setBackgroundResource(R.drawable.round_red20);
+        } else if (setBtn == 1) {
+            meetBtn.setTextColor(whiteColor);
+            meetBtn.setBackgroundResource(R.drawable.round_red20);
+        } else if (setBtn == 2) {
+            questionBtn.setTextColor(whiteColor);
+            questionBtn.setBackgroundResource(R.drawable.round_red20);
+        } else if (setBtn == 3) {
+            newsBtn.setTextColor(whiteColor);
+            newsBtn.setBackgroundResource(R.drawable.round_red20);
+        }
+
+        if (this.setBtn == 0) {
+            recommendBtn.setTextColor(greyColor);
+            recommendBtn.setBackgroundResource(R.drawable.round_corner_line20);
+        } else if (this.setBtn == 1) {
+            meetBtn.setTextColor(greyColor);
+            meetBtn.setBackgroundResource(R.drawable.round_corner_line20);
+        } else if (this.setBtn == 2) {
+            questionBtn.setTextColor(greyColor);
+            questionBtn.setBackgroundResource(R.drawable.round_corner_line20);
+        } else if (this.setBtn == 3) {
+            newsBtn.setTextColor(greyColor);
+            newsBtn.setBackgroundResource(R.drawable.round_corner_line20);
+        }
+
+        this.setBtn = setBtn;
     }
 
     private void write_community() {
@@ -613,22 +665,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         store_adapter.addItem(item);
 
         store_adapter.notifyDataSetChanged();
-    }
-
-    private void addTagRecyclerView() {
-        String item = "#추천해요";
-        communityTagAdapter.addItem(item);
-        item = "#만나요";
-        communityTagAdapter.addItem(item);
-        item = "#질문있어요";
-        communityTagAdapter.addItem(item);
-        item = "#보드게임 소식";
-        communityTagAdapter.addItem(item);
-        item = "#일상";
-        communityTagAdapter.addItem(item);
-        item = "#수다";
-        communityTagAdapter.addItem(item);
-        communityTagAdapter.notifyDataSetChanged();
     }
 
     @SuppressLint("SetTextI18n")

@@ -1,11 +1,23 @@
 package com.example.play_de.cafe;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,23 +37,43 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.play_de.main.AppHelper;
 import com.example.play_de.main.MainActivity;
 import com.example.play_de.main.OnBackPressedListener;
 import com.example.play_de.R;
 import com.example.play_de.profile.ProfileActivity;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBackPressedListener {
+    private Context context;
     private MainActivity main;
     private View view;
     private TextView positionText;
@@ -60,6 +93,12 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private Button map_seat;
     private Button map_noSeat;
 
+    private GpsTracker gpsTracker;
+    private static final int PERMISSIONS_REQUEST_CODE = 100;
+    String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION};
+    private double latitude, longitude;
+
     private LinearLayout reserve_view02;
     private ViewPager vp;
     private ImageView tab01, tab02, tab03;
@@ -77,7 +116,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private int year, month, day;
     private Button[] reserve_time_btn;
     private static boolean[] isChecked = new boolean[14];
-    private int blackColor, whiteColor;
+    private int blackColor, whiteColor, greyColor;
     private Button next_btn02;
 
     private LinearLayout reserve_view04;
@@ -96,44 +135,8 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         initialSetup();
         eventListener();
         setDate();
+        checkRunTimePermission();
         return view;
-    }
-
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        map = googleMap;
-
-        LatLng KookMin = new LatLng(37.611166, 126.995550);
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(KookMin);
-        markerOptions.title("국민대학교");
-        markerOptions.snippet("사립대학교");
-        map.addMarker(markerOptions);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(KookMin, 15));
-    }
-
-    private void showDate() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.DatePickerDialog, (view, year, month, dayOfMonth) -> {
-            String text = year + "년  " + (month + 1) + "월  " + dayOfMonth + "일";
-            reserve_day_btn.setText(text);
-            reserve_day.setText(text);
-        }, year, month - 1, day);
-        datePickerDialog.show();
-    }
-
-    private void setDate() {
-        Date date = Calendar.getInstance().getTime();
-        SimpleDateFormat simpleYear = new SimpleDateFormat("yyyy");
-        SimpleDateFormat simpleMonth = new SimpleDateFormat("MM");
-        SimpleDateFormat simpleDate = new SimpleDateFormat("dd");
-        year = Integer.parseInt(simpleYear.format(date));
-        month = Integer.parseInt(simpleMonth.format(date));
-        day = Integer.parseInt(simpleDate.format(date));
-
-        String text = year + "년  " + month + "월  " + day + "일";
-        reserve_day_btn.setText(text);
-        reserve_day.setText(text);
     }
 
     private void initialSetup() {
@@ -159,7 +162,6 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         layoutManager = new LinearLayoutManager(getActivity());
         cafe_recyclerView.setLayoutManager(layoutManager);
         cafe_recyclerView.setAdapter(cafe_adapter);
-        addCafeRecyclerView();
 
         //자리가 없을 시 버튼 색깔을 바꿔주어야 함.
         map_seat = view.findViewById(R.id.map_seat);
@@ -193,8 +195,9 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         reserve_time_btn[11] = view.findViewById(R.id.reserve_20btn);
         reserve_time_btn[12] = view.findViewById(R.id.reserve_21btn);
         reserve_time_btn[13] = view.findViewById(R.id.reserve_22btn);
-        blackColor = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.Black);
-        whiteColor = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.White);
+        blackColor = ContextCompat.getColor(context, R.color.Black);
+        whiteColor = ContextCompat.getColor(context, R.color.White);
+        greyColor = ContextCompat.getColor(context, R.color.LineGrey);
         next_btn02 = view.findViewById(R.id.next_btn02);
 
         //이전 화면에서 정보를 넘겨받아 text 바꾸기.
@@ -364,66 +367,193 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         });
     }
 
-    @SuppressLint("ResourceAsColor")
+    private void checkRunTimePermission() {
+        int hasFineLocationPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);
+        int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if (hasFineLocationPermission != PackageManager.PERMISSION_GRANTED ||
+                hasCoarseLocationPermission != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(main, REQUIRED_PERMISSIONS[0])) {
+                Toast.makeText(context, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_SHORT).show();
+                ActivityCompat.requestPermissions(main, REQUIRED_PERMISSIONS,
+                        PERMISSIONS_REQUEST_CODE);
+            } else {
+                ActivityCompat.requestPermissions(main, REQUIRED_PERMISSIONS,
+                        PERMISSIONS_REQUEST_CODE);
+            }
+        } else {
+            if (checkLocationServicesStatus()) {
+                gpsTracker = new GpsTracker(main);
+                latitude = gpsTracker.getLatitude();
+                longitude = gpsTracker.getLongitude();
+                refreshCafe();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSIONS_REQUEST_CODE && grantResults.length == REQUIRED_PERMISSIONS.length) {
+            boolean check_result = true;
+
+            for (int result : grantResults) {
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    check_result = false;
+                    break;
+                }
+            }
+
+            if (!check_result) {
+                Toast.makeText(context, "위치 권한 설정을 허용해주세요.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private boolean checkLocationServicesStatus() {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        map = googleMap;
+        setDefaultLocation();
+    }
+
+    private void setDefaultLocation() {
+        LatLng KookMin = new LatLng(37.611166, 126.995550);
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(KookMin);
+        markerOptions.title("국민대학교");
+        markerOptions.snippet("사립대학교");
+        map.addMarker(markerOptions);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(KookMin, 15));
+    }
+
+    private void showDate() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context, R.style.DatePickerDialog, (view, year, month, dayOfMonth) -> {
+            String text = year + "년  " + (month + 1) + "월  " + dayOfMonth + "일";
+            reserve_day_btn.setText(text);
+            reserve_day.setText(text);
+        }, year, month - 1, day);
+        datePickerDialog.show();
+    }
+
+    private void setDate() {
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat simpleYear = new SimpleDateFormat("yyyy");
+        SimpleDateFormat simpleMonth = new SimpleDateFormat("MM");
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd");
+        year = Integer.parseInt(simpleYear.format(date));
+        month = Integer.parseInt(simpleMonth.format(date));
+        day = Integer.parseInt(simpleDate.format(date));
+
+        String text = year + "년  " + month + "월  " + day + "일";
+        reserve_day_btn.setText(text);
+        reserve_day.setText(text);
+    }
+
     private void changeBtn(int setBtn) {
         if (setBtn == 0) {
-            popularBtn.setTextColor(R.color.White);
+            popularBtn.setTextColor(whiteColor);
             popularBtn.setBackgroundResource(R.drawable.round_red20);
         } else if (setBtn == 1) {
-            distanceBtn.setTextColor(R.color.White);
+            distanceBtn.setTextColor(whiteColor);
             distanceBtn.setBackgroundResource(R.drawable.round_red20);
         } else if (setBtn == 2) {
-            priceBtn.setTextColor(R.color.White);
+            priceBtn.setTextColor(whiteColor);
             priceBtn.setBackgroundResource(R.drawable.round_red20);
         } else if (setBtn == 3) {
-            registerBtn.setTextColor(R.color.White);
+            registerBtn.setTextColor(whiteColor);
             registerBtn.setBackgroundResource(R.drawable.round_red20);
         }
 
         if (this.setBtn == 0) {
-            popularBtn.setTextColor(R.color.LineGrey);
+            popularBtn.setTextColor(greyColor);
             popularBtn.setBackgroundResource(R.drawable.round_corner_line20);
         } else if (this.setBtn == 1) {
-            distanceBtn.setTextColor(R.color.LineGrey);
+            distanceBtn.setTextColor(greyColor);
             distanceBtn.setBackgroundResource(R.drawable.round_corner_line20);
         } else if (this.setBtn == 2) {
-            priceBtn.setTextColor(R.color.LineGrey);
+            priceBtn.setTextColor(greyColor);
             priceBtn.setBackgroundResource(R.drawable.round_corner_line20);
         } else if (this.setBtn == 3) {
-            registerBtn.setTextColor(R.color.LineGrey);
+            registerBtn.setTextColor(greyColor);
             registerBtn.setBackgroundResource(R.drawable.round_corner_line20);
         }
 
         this.setBtn = setBtn;
     }
 
-    private void addCafeRecyclerView() {
+    private void addCafeRecyclerView(int id, String name, String address, String profile, int table_cnt, String open, String close, int like) {
         //서버로부터 데이터 가져와서 추가하기.
         CafeRecyclerItem item = new CafeRecyclerItem();
         int image = R.drawable.cafe01;
-        String name = "정릉 플레이";
-        String address = "서울특별시 성북구 정릉동 정릉로 77";
-        String table = "테이블 수 8개";
+        String table = "테이블 수 " + table_cnt + "개";
         String time = "9:00AM~22:00PM";
-        String heart = "35";
-        item.setData(image, name, address, table, time, heart);
-        cafe_adapter.addItem(item);
-
-        item = new CafeRecyclerItem();
-        name = "렛츠 플레이";
-        item.setData(image, name, address, table, time, heart);
-        cafe_adapter.addItem(item);
-
-        item = new CafeRecyclerItem();
-        name = "고 플레이";
-        item.setData(image, name, address, table, time, heart);
-        cafe_adapter.addItem(item);
-
-        item = new CafeRecyclerItem();
-        name = "스톱 플레이";
-        item.setData(image, name, address, table, time, heart);
+        String heart = Integer.toString(like);
+        item.setData(id, image, name, address, table, time, heart);
         cafe_adapter.addItem(item);
         cafe_adapter.notifyDataSetChanged();
+    }
+
+    private void refreshCafe() {
+        //카페 목록 새로고침
+        cafe_adapter.initialSetUp();
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append("https://playde-server-pzovl.run.goorm.io/cafe/list?coords=");
+        urlStr.append(latitude);
+        urlStr.append(",");
+        urlStr.append(longitude);
+        urlStr.append("&sort=");
+        urlStr.append(setBtn);
+        urlStr.append("&range=0,30");
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    Log.e("JSONParse", response);
+                    cafeJSONParse(response);
+                },
+                error -> {
+                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("cafeRefresh", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
+        AppHelper.requestQueue.add(request);
+    }
+
+    private void cafeJSONParse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            String cafe = jsonObject.getString("cafe");
+            JSONArray jsonArray = new JSONArray(cafe);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject subJsonObject = jsonArray.getJSONObject(i);
+                int id = subJsonObject.getInt("id");
+                String name = subJsonObject.getString("name");
+                String address = subJsonObject.getString("address");
+                String profile = subJsonObject.getString("profile");
+                int table_cnt = subJsonObject.getInt("table_cnt");
+                String open = subJsonObject.getString("open");
+                String close = subJsonObject.getString("close");
+                int like = subJsonObject.getInt("like");
+
+                addCafeRecyclerView(id, name, address, profile, table_cnt, open, close, like);
+            }
+        } catch (Exception e) {
+            Log.e("cafeJSONParse", "예외 발생");
+        }
     }
 
     private void initialization() {
@@ -486,5 +616,11 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     public void onResume() {
         super.onResume();
         main.setOnBackPressedListener(this, 1);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 }

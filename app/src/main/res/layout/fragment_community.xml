@@ -65,7 +65,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/round_corner_red15"
                 android:drawableEnd="@drawable/reading_glasses"
                 android:fontFamily="@font/apple_l"
@@ -77,21 +77,99 @@
                 android:textSize="12sp"
                 tools:ignore="Autofill,HardcodedText,TextFields" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/tag_recycler"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/buttonsLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/filterEdit"
+                android:layout_below="@id/filterEdit"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/recommendBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_red20"
+                    android:fontFamily="@font/apple_l"
+                    android:minWidth="0dp"
+                    android:minHeight="30dp"
+                    android:paddingBottom="3dp"
+                    android:text="#추천해요"
+                    android:textColor="@color/White"
+                    android:textSize="13sp"
+                    tools:ignore="ButtonStyle,HardcodedText" />
+
+                <Button
+                    android:id="@+id/meetBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_corner_line20"
+                    android:fontFamily="@font/apple_l"
+                    android:minWidth="0dp"
+                    android:minHeight="30dp"
+                    android:paddingBottom="3dp"
+                    android:text="#만나요"
+                    android:textColor="@color/LineGrey"
+                    android:textSize="13sp"
+                    tools:ignore="ButtonStyle,HardcodedText" />
+
+                <Button
+                    android:id="@+id/questionBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_corner_line20"
+                    android:fontFamily="@font/apple_l"
+                    android:minWidth="0dp"
+                    android:minHeight="30dp"
+                    android:paddingBottom="3dp"
+                    android:text="#질문있어요"
+                    android:textColor="@color/LineGrey"
+                    android:textSize="13sp"
+                    tools:ignore="ButtonStyle,HardcodedText" />
+
+                <Button
+                    android:id="@+id/newsBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_corner_line20"
+                    android:fontFamily="@font/apple_l"
+                    android:minWidth="0dp"
+                    android:minHeight="30dp"
+                    android:paddingBottom="3dp"
+                    android:text="#최신 소식"
+                    android:textColor="@color/LineGrey"
+                    android:textSize="13sp"
+                    tools:ignore="ButtonStyle,HardcodedText" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/buttonsLayout"
                 android:layout_marginStart="15dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:scrollbars="none" />
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/PolarGrey" />
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_community"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/tag_recycler">
+                android:layout_below="@+id/buttonsLayout"
+                android:layout_marginTop="10dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/community_recycler"
@@ -733,7 +811,8 @@
             android:background="@drawable/round_back_white"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:ignore="TooManyViews">
 
             <TextView
                 android:layout_width="match_parent"

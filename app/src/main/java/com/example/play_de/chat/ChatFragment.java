@@ -24,8 +24,6 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
 
     private ChatHistoryAdapter chat_adapter;
 
-    private String name;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +40,6 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
 
     private void initialSetUp() {
         main = (MainActivity) getActivity();
-        name = main.getName();
-
         back = view.findViewById(R.id.backBtn);
         userBtn = view.findViewById(R.id.userBtn);
 
