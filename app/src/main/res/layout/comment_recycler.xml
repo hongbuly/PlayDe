@@ -1,83 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/White">
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        android:src="@drawable/circle_grey"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/comment01"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/image"
-        android:fontFamily="@font/apple_b"
-        android:text="이름"
-        android:textColor="@color/Black"
-        android:textSize="13sp"
-        tools:ignore="HardcodedText" />
+        android:background="@color/White"
+        android:paddingTop="20dp">
 
-    <TextView
-        android:id="@+id/level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
-        android:layout_marginTop="1dp"
-        android:layout_toEndOf="@+id/image"
-        android:fontFamily="@font/apple_l"
-        android:text="보드게임러버"
-        android:textColor="@color/Grey"
-        android:textSize="9sp"
-        tools:ignore="HardcodedText,SmallSp" />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/circle_grey"
+            tools:ignore="ContentDescription" />
 
-    <ImageView
-        android:id="@+id/three_dot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:padding="10dp"
-        app:srcCompat="@drawable/three_dot"
-        tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/image"
+            android:fontFamily="@font/apple_sb"
+            android:text="이름"
+            android:textColor="@color/Black"
+            android:textSize="13sp"
+            tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/image"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="3dp"
-        android:layout_toEndOf="@+id/image"
-        android:fontFamily="@font/apple_l"
-        android:text="내용 내용\n내용 내용"
-        android:textColor="@color/Black"
-        android:textSize="13sp"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_toEndOf="@+id/image"
+            android:fontFamily="@font/apple_l"
+            android:text="보드게임러버"
+            android:textColor="@color/Grey"
+            android:textSize="9sp"
+            tools:ignore="HardcodedText,SmallSp" />
 
-    <TextView
-        android:id="@+id/answer"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/three_dot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:padding="10dp"
+            app:srcCompat="@drawable/three_dot"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="3dp"
+            android:layout_toEndOf="@+id/image"
+            android:fontFamily="@font/apple_l"
+            android:text="내용 내용\n내용 내용"
+            android:textColor="@color/Black"
+            android:textSize="13sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="15dp"
+            android:layout_toEndOf="@+id/image"
+            android:fontFamily="@font/apple_l"
+            android:text="답글쓰기"
+            android:textColor="@color/Grey"
+            android:textSize="9sp"
+            tools:ignore="HardcodedText,SmallSp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/comment02"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/content"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="7dp"
-        android:layout_toEndOf="@+id/image"
-        android:fontFamily="@font/apple_l"
-        android:text="답글쓰기"
-        android:textColor="@color/Grey"
-        android:textSize="9sp"
-        tools:ignore="HardcodedText,SmallSp" />
-</RelativeLayout>
+        android:background="@color/PolarGrey"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:visibility="gone"
+        tools:ignore="RtlSymmetry">
+
+        <ImageView
+            android:id="@+id/image02"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/circle_grey"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/name02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/image02"
+            android:fontFamily="@font/apple_sb"
+            android:text="이름"
+            android:textColor="@color/Black"
+            android:textSize="13sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/level02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name02"
+            android:layout_toEndOf="@+id/image02"
+            android:fontFamily="@font/apple_l"
+            android:text="보드게임러버"
+            android:textColor="@color/Grey"
+            android:textSize="9sp"
+            tools:ignore="HardcodedText,SmallSp" />
+
+        <ImageView
+            android:id="@+id/three_dot02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:padding="10dp"
+            app:srcCompat="@drawable/three_dot"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/content02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image02"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="3dp"
+            android:layout_toEndOf="@+id/image02"
+            android:fontFamily="@font/apple_l"
+            android:text="내용 내용\n내용 내용"
+            android:textColor="@color/Black"
+            android:textSize="13sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/answer02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/content02"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="15dp"
+            android:layout_toEndOf="@+id/image02"
+            android:fontFamily="@font/apple_l"
+            android:text="답글쓰기"
+            android:textColor="@color/Grey"
+            android:textSize="9sp"
+            tools:ignore="HardcodedText,SmallSp" />
+    </RelativeLayout>
+</LinearLayout>

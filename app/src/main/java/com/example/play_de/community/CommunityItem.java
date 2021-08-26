@@ -11,4 +11,5 @@ public class CommunityItem {
     public int like = 0;
     public boolean my_like = false;
     public int comment_cnt = 0;
+    public boolean second_comment = false;
 }

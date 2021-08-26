@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,7 +28,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -38,6 +38,7 @@ import com.example.play_de.main.AppHelper;
 import com.example.play_de.main.MainActivity;
 import com.example.play_de.main.OnBackPressedListener;
 import com.example.play_de.R;
+import com.example.play_de.main.OnClickRemoveListener;
 import com.example.play_de.main.OnClickReportListener;
 import com.example.play_de.profile.ProfileActivity;
 import com.hedgehog.ratingbar.RatingBar;
@@ -48,7 +49,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommunityFragment extends Fragment implements OnBackPressedListener, OnClickReportListener {
+public class CommunityFragment extends Fragment implements OnBackPressedListener, OnClickReportListener, OnClickRemoveListener {
     private Context context;
     private MainActivity main;
     private View view;
@@ -82,6 +83,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private CommunityCommentAdapter comment_adapter;
     private EditText msg_edit;
     private ImageView sendBtn;
+    private boolean second_comment = false;
 
     private LinearLayout profile_view;
     private ImageView profile_image;
@@ -148,8 +150,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         questionBtn = view.findViewById(R.id.questionBtn);
         newsBtn = view.findViewById(R.id.newsBtn);
 
-        whiteColor = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.White);
-        greyColor = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.LineGrey);
+        whiteColor = ContextCompat.getColor(context, R.color.White);
+        greyColor = ContextCompat.getColor(context, R.color.LineGrey);
 
         communityRecyclerAdapter = new CommunityRecyclerAdapter();
         RecyclerView community_recyclerView = view.findViewById(R.id.community_recycler);
@@ -299,7 +301,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 comment_position = position;
                 refreshComment(board_id);
             } else if (component == 4) {
-                //three dot 클릭
+                //three dot 클릭, 삭제
+                main.showBlur_remove(true);
             }
         });
         refreshCommunityWrite();
@@ -363,9 +366,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             }
         });
 
-        sendBtn.setOnClickListener(v -> {
-            write_comment();
-        });
+        sendBtn.setOnClickListener(v -> write_comment());
 
         send_message.setOnClickListener(v -> {
             //메시지 보내기.
@@ -380,6 +381,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
         comment_adapter.setOnItemClickListener((component, position) -> {
             if (component == 0) {
+                //이미지 클릭 -> 프로필 보여주기
                 community_view02.setVisibility(View.GONE);
                 profile_view.setVisibility(View.VISIBLE);
                 profile_image.setImageResource(Integer.parseInt(comment_adapter.getData(position).image));
@@ -387,7 +389,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 profile_level.setText(comment_adapter.getData(position).level);
                 //하단에 하트와 가게도 set 하도록 연결할 것.
             } else if (component == 1) {
-                //답글쓰기
+                //답글쓰기, msg_edit 포커스 주기.
+                msg_edit.requestFocus();
+                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                second_comment = true;
             } else if (component == 2) {
                 //신고하기
                 main.showBlur_report(true);
@@ -489,9 +495,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 }
         ) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                return params;
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
             }
         };
 
@@ -543,44 +548,49 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
     private void write_comment() {
         //댓글 쓰기
-        StringBuilder urlStr = new StringBuilder();
-        urlStr.append("https://playde-server-pzovl.run.goorm.io/community/comment/upload?user_id=");
-        urlStr.append(MainActivity.userId);
-        urlStr.append("&board_id=");
-        urlStr.append(board_id);
-        urlStr.append("&content=");
-        urlStr.append(msg_edit.getText().toString());
-        msg_edit.setText("");
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
-                urlStr.toString(),
-                response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean act = jsonObject.getBoolean("act");
-                        if (act) {
-                            Toast.makeText(context, "업로드되었습니다.", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(context, "업로드를 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
-                        Log.e("write_community", "예외 발생");
+        if (second_comment) {
+            //대댓글 쓰기
+            second_comment = false;
+        } else {
+            StringBuilder urlStr = new StringBuilder();
+            urlStr.append("https://playde-server-pzovl.run.goorm.io/community/comment/upload?user_id=");
+            urlStr.append(MainActivity.userId);
+            urlStr.append("&board_id=");
+            urlStr.append(board_id);
+            urlStr.append("&content=");
+            urlStr.append(msg_edit.getText().toString());
+            msg_edit.setText("");
+            StringRequest request = new StringRequest(
+                    Request.Method.POST,
+                    urlStr.toString(),
+                    response -> {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean act = jsonObject.getBoolean("act");
+                            if (act) {
+                                Toast.makeText(context, "업로드되었습니다.", Toast.LENGTH_SHORT).show();
+                            } else
+                                Toast.makeText(context, "업로드를 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Log.e("write_community", "예외 발생");
+                        }
+                    },
+                    error -> {
+                        Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                        Log.e("sendComment", "에러 발생");
                     }
-                },
-                error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
-                    Log.e("sendComment", "에러 발생");
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    return new HashMap<>();
                 }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                return new HashMap<>();
-            }
-        };
+            };
 
-        request.setShouldCache(false);
-        AppHelper.requestQueue = Volley.newRequestQueue(context);
-        AppHelper.requestQueue.add(request);
-        refreshComment(board_id);
+            request.setShouldCache(false);
+            AppHelper.requestQueue = Volley.newRequestQueue(context);
+            AppHelper.requestQueue.add(request);
+            refreshComment(board_id);
+        }
     }
 
     private void refreshCommunityWrite() {
@@ -819,6 +829,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         super.onResume();
         main.setOnBackPressedListener(this, 2);
         main.setOnClickReportListener(this);
+        main.setOnClickRemoveListener(this);
     }
 
     @Override
@@ -826,5 +837,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //신고하기 버튼
         community_view02.setVisibility(View.GONE);
         report_layout01.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onClickRemove() {
+        //커뮤니티 글 삭제 버튼
+
     }
 }

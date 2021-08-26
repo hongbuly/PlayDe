@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public TabLayout mTab;
     private OnBackPressedListener[] listener = new OnBackPressedListener[5];
     private OnClickReportListener reportListener;
+    private OnClickRemoveListener removeListener;
     private long backKeyPressedTime = 0;
     public static String userId;
     public static String name;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private View blur;
     private LinearLayout finish_reserve;
     private TextView reportBtn;
+    private TextView removeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,15 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+        removeBtn = findViewById(R.id.removeBtn);
+        if (removeBtn.getVisibility() == View.VISIBLE) {
+            removeBtn.setOnClickListener(v -> {
+                //커뮤니티 글 삭제
+                showBlur_remove(false);
+                removeListener.onClickRemove();
+            });
+        }
+
         setName();
     }
 
@@ -90,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setOnClickReportListener(OnClickReportListener listener) {
         this.reportListener = listener;
+    }
+
+    public void setOnClickRemoveListener(OnClickRemoveListener listener) {
+        this.removeListener = listener;
     }
 
     @Override
@@ -121,18 +136,15 @@ public class MainActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 urlStr.toString(),
-                response -> {
-                    nameJSONParse(response);
-                },
+                this::nameJSONParse,
                 error -> {
                     Toast.makeText(this, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
                     Log.e("setName", "에러 발생");
                 }
         ) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                return params;
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
             }
         };
 
@@ -182,6 +194,36 @@ public class MainActivity extends AppCompatActivity {
                 public void onAnimationEnd(Animation animation) {
                     blur.setVisibility(View.GONE);
                     reportBtn.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+        }
+    }
+
+    public void showBlur_remove(boolean show) {
+        //커뮤니티 신고하기 버튼
+        if (show) {
+            Animation down_up = AnimationUtils.loadAnimation(this, R.anim.down_up);
+            blur.setVisibility(View.VISIBLE);
+            removeBtn.setVisibility(View.VISIBLE);
+            removeBtn.startAnimation(down_up);
+        } else {
+            Animation up_down = AnimationUtils.loadAnimation(this, R.anim.up_down);
+            removeBtn.startAnimation(up_down);
+            up_down.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    blur.setVisibility(View.GONE);
+                    removeBtn.setVisibility(View.GONE);
                 }
 
                 @Override
