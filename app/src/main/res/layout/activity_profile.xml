@@ -55,6 +55,7 @@
                 android:layout_height="95dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/circle_grey"
                 tools:ignore="ContentDescription" />
 

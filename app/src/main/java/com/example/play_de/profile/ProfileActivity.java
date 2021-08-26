@@ -1,11 +1,18 @@
 package com.example.play_de.profile;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,10 +23,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.play_de.R;
 import com.example.play_de.main.MainActivity;
 import com.google.android.material.tabs.TabLayout;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -211,6 +222,13 @@ public class ProfileActivity extends AppCompatActivity {
         backBtn.setOnClickListener(v -> back_view());
 
         //main
+        main_image.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent, 0);
+        });
+
         user_friend.setOnClickListener(v -> {
             main_profile.setVisibility(View.GONE);
             review_profile.setVisibility(View.VISIBLE);
@@ -300,6 +318,19 @@ public class ProfileActivity extends AppCompatActivity {
         store_adapter.notifyDataSetChanged();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == RESULT_OK && data.getData() != null) {
+            Uri selectedImageUri = data.getData();
+
+            Glide.with(this)
+                    .load(selectedImageUri)
+                    .apply(new RequestOptions().circleCrop())
+                    .into(main_image);
+        }
+    }
+
     private void back_view() {
         if (main_profile.getVisibility() == View.VISIBLE)
             finish();
@@ -316,4 +347,6 @@ public class ProfileActivity extends AppCompatActivity {
     public void onBackPressed() {
         back_view();
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.example.play_de.community;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -30,6 +31,8 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.play_de.chat.ChatActivity;
 import com.example.play_de.main.AppHelper;
 import com.example.play_de.main.MainActivity;
@@ -63,6 +66,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private Button write_btn;
     private View blur;
     private RelativeLayout bulletin_view;
+    private ImageView x;
+    private TextView recommend, meet, question, news;
+    private int selected_bulletin = -1;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private CommunityRecyclerAdapter communityRecyclerAdapter;
@@ -158,6 +164,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         write_btn = view.findViewById(R.id.write_btn);
         blur = view.findViewById(R.id.blur);
         bulletin_view = view.findViewById(R.id.bulletin_view);
+        x = view.findViewById(R.id.x);
+        recommend = view.findViewById(R.id.recommend);
+        meet = view.findViewById(R.id.meet);
+        question = view.findViewById(R.id.question);
+        news = view.findViewById(R.id.news);
 
         msg_edit = view.findViewById(R.id.msg_edit);
         sendBtn = view.findViewById(R.id.sendBtn);
@@ -276,11 +287,10 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 // 댓글 달기
                 community_view01.setVisibility(View.GONE);
                 community_view02.setVisibility(View.VISIBLE);
-//                Glide.with(requireContext())
-//                        .load(communityRecyclerAdapter.getData(position).image)
-//                        .apply(new RequestOptions().circleCrop())
-//                        .into(image);
-                image.setImageResource(Integer.parseInt(communityRecyclerAdapter.getData(position).image));
+                Glide.with(context)
+                        .load(communityRecyclerAdapter.getData(position).image)
+                        .apply(new RequestOptions().circleCrop())
+                        .into(image);
                 name.setText(communityRecyclerAdapter.getData(position).name);
                 level.setText(communityRecyclerAdapter.getData(position).level);
                 content.setText(communityRecyclerAdapter.getData(position).comment);
@@ -310,8 +320,47 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             bulletin_view.setVisibility(View.GONE);
         });
 
+        x.setOnClickListener(v -> {
+            blur.setVisibility(View.GONE);
+            bulletin_view.setVisibility(View.GONE);
+        });
+
+        recommend.setOnClickListener(v -> {
+            selected_bulletin = 0;
+            bulletin.setText("#추천해요");
+            blur.setVisibility(View.GONE);
+            bulletin_view.setVisibility(View.GONE);
+        });
+
+        meet.setOnClickListener(v -> {
+            selected_bulletin = 1;
+            bulletin.setText("#만나요");
+            blur.setVisibility(View.GONE);
+            bulletin_view.setVisibility(View.GONE);
+        });
+
+        question.setOnClickListener(v -> {
+            selected_bulletin = 2;
+            bulletin.setText("#질문있어요");
+            blur.setVisibility(View.GONE);
+            bulletin_view.setVisibility(View.GONE);
+        });
+
+        news.setOnClickListener(v -> {
+            selected_bulletin = 3;
+            bulletin.setText("#최신 소식");
+            blur.setVisibility(View.GONE);
+            bulletin_view.setVisibility(View.GONE);
+        });
+
         write_btn.setOnClickListener(v -> {
-            write_community();
+            if (selected_bulletin == -1) {
+                Toast.makeText(context, "게시판을 선택해주세요.", Toast.LENGTH_SHORT).show();
+            } else {
+                selected_bulletin = -1;
+                bulletin.setText("게시판 선택");
+                write_community();
+            }
         });
 
         sendBtn.setOnClickListener(v -> {
@@ -593,10 +642,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     }
 
     private void addCommunityRecyclerView(int write_id, String image, String name, String comment, int uid, int like, boolean my_like, String time, int comment_cnt) {
+        Uri uri = Uri.parse("android:resource://com.example.play_de/drawable.circle_grey");
         CommunityItem item = new CommunityItem();
         item.write_id = write_id;
         if (image.equals(""))
-            item.image = Integer.toString(R.drawable.circle_grey);
+            item.image = uri.toString();
         else
             item.image = image;
         item.name = name;

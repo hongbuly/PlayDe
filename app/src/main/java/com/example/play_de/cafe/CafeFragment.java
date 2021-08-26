@@ -470,6 +470,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         }
 
         this.setBtn = setBtn;
+        refreshCafe();
     }
 
     private void addCafeRecyclerView(int id, String name, String address, String profile, int table_cnt, String open, String close, int like) {
@@ -495,6 +496,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         urlStr.append("&sort=");
         urlStr.append(setBtn);
         urlStr.append("&range=0,30");
+        Log.e("cafe", urlStr.toString());
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 urlStr.toString(),
