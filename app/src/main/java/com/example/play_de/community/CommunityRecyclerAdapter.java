@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.play_de.R;
 
 import java.util.ArrayList;
@@ -122,12 +124,10 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CommunityRecyclerAdapter.ViewHolder holder, int position) {
-//        Glide.with(holder.itemView.getContext())
-//                .load(mData.get(position).image)
-//                .apply(new RequestOptions().circleCrop())
-//                .into(holder.image);
-
-        holder.image.setImageResource(Integer.parseInt(mData.get(position).image));
+        Glide.with(holder.itemView.getContext())
+                .load(mData.get(position).image)
+                .apply(new RequestOptions().circleCrop())
+                .into(holder.image);
         holder.name.setText(mData.get(position).name);
         holder.level.setText(mData.get(position).level);
         holder.content.setText(mData.get(position).comment);

@@ -56,7 +56,7 @@
             android:layout_height="0dp"
             android:layout_weight="10"
             android:background="@drawable/round_back_white"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/filterEdit"
@@ -259,7 +259,7 @@
             android:layout_height="0dp"
             android:layout_weight="10"
             android:background="@drawable/round_back_white"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/image"
@@ -952,7 +952,7 @@
 
         <TextView
             android:id="@+id/recommend"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/x"
             android:layout_marginTop="20dp"
@@ -973,7 +973,7 @@
 
         <TextView
             android:id="@+id/meet"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recommend"
             android:fontFamily="@font/apple_l"
@@ -993,7 +993,7 @@
 
         <TextView
             android:id="@+id/question"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/meet"
             android:fontFamily="@font/apple_l"
@@ -1013,7 +1013,7 @@
 
         <TextView
             android:id="@+id/news"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/question"
             android:layout_marginBottom="30dp"

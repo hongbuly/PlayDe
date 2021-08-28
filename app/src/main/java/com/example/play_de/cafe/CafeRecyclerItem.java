@@ -2,20 +2,21 @@ package com.example.play_de.cafe;
 
 public class CafeRecyclerItem {
     private int id;
-    private int image;
+    private String image;
     private String name;
     private String address;
     private String table;
-    private String time;
+    private int open, close;
     private String heart;
 
-    public void setData(int id, int image, String name, String address, String table, String time, String heart) {
+    public void setData(int id, String image, String name, String address, String table, int open, int close, String heart) {
         this.id = id;
         this.image = image;
         this.name = name;
         this.address = address;
         this.table = table;
-        this.time = time;
+        this.open = open;
+        this.close = close;
         this.heart = heart;
     }
 
@@ -23,7 +24,7 @@ public class CafeRecyclerItem {
         return id;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
@@ -40,6 +41,12 @@ public class CafeRecyclerItem {
     }
 
     public String getTime() {
+        String time;
+        if (open > 12) {
+            time = (open - 12) + "PM~" + (close - 12) + "PM";
+        } else {
+            time = open + "AM~" + (close - 12) + "PM";
+        }
         return time;
     }
 

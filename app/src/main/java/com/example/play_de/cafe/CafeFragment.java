@@ -476,11 +476,17 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private void addCafeRecyclerView(int id, String name, String address, String profile, int table_cnt, String open, String close, int like) {
         //서버로부터 데이터 가져와서 추가하기.
         CafeRecyclerItem item = new CafeRecyclerItem();
-        int image = R.drawable.cafe01;
+        Uri uri = Uri.parse("android:resource://com.example.play_de/drawable/cafe01");
         String table = "테이블 수 " + table_cnt + "개";
-        String time = "9:00AM~22:00PM";
         String heart = Integer.toString(like);
-        item.setData(id, image, name, address, table, time, heart);
+        int open_time;
+        if (open.substring(0, 1).equals("0")) {
+            open_time = Integer.parseInt(open.substring(1, 2));
+        } else {
+            open_time = Integer.parseInt(open.substring(0, 2));
+        }
+        int close_time = Integer.parseInt(close.substring(0, 2));
+        item.setData(id, uri.toString(), name, address, table, open_time, close_time, heart);
         cafe_adapter.addItem(item);
         cafe_adapter.notifyDataSetChanged();
     }
@@ -495,7 +501,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         urlStr.append(longitude);
         urlStr.append("&sort=");
         urlStr.append(setBtn);
-        urlStr.append("&range=0,30");
+        urlStr.append("&range=1,30");
         Log.e("cafe", urlStr.toString());
         StringRequest request = new StringRequest(
                 Request.Method.POST,

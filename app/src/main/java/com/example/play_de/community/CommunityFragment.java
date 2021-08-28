@@ -70,6 +70,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private ImageView x;
     private TextView recommend, meet, question, news;
     private int selected_bulletin = -1;
+    private String[] selected_tag = {"추천해요", "만나요", "질문있어요", "최근 소식"};
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private CommunityRecyclerAdapter communityRecyclerAdapter;
@@ -78,8 +79,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private ImageView image;
     private TextView name, level, content, heart;
 
-    private int comment_position;
-    private int board_id;
+    private int comment_id; //댓글 id
+    private int community_position; //community adapter 에서 position
+    private int board_id; //데이터 베이스에서 커뮤니티 id
     private CommunityCommentAdapter comment_adapter;
     private EditText msg_edit;
     private ImageView sendBtn;
@@ -220,18 +222,22 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     }
 
     private void eventListener() {
+        //뒤로 가기 버튼
         back.setOnClickListener(v -> backView());
 
+        //글 올리는 오른쪽 하단 플러스 버튼
         plusBtn.setOnClickListener(v -> {
             community_view01.setVisibility(View.GONE);
             write_view.setVisibility(View.VISIBLE);
         });
 
+        //오른쪽 상단 프로필 버튼
         userBtn.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), ProfileActivity.class);
             startActivity(intent);
         });
 
+        //editText 검색
         filterEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -249,27 +255,24 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             }
         });
 
+        //#추천해요 버튼
         recommendBtn.setOnClickListener(v -> {
             changeBtn(0);
         });
 
+        //#만나요 버튼
         meetBtn.setOnClickListener(v -> {
             changeBtn(1);
         });
 
+        //#질문 있어요 버튼
         questionBtn.setOnClickListener(v -> {
             changeBtn(2);
         });
 
+        //#최근 소식 버튼
         newsBtn.setOnClickListener(v -> {
             changeBtn(3);
-        });
-
-        heart.setOnClickListener(v -> {
-            //공감하기 갯수 올리기
-            communityRecyclerAdapter.setHeart(comment_position);
-            communityRecyclerAdapter.notifyDataSetChanged();
-            clickHeart();
         });
 
         communityRecyclerAdapter.setOnItemClickListener((component, position) -> {
@@ -298,7 +301,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 content.setText(communityRecyclerAdapter.getData(position).comment);
 
                 board_id = communityRecyclerAdapter.getData(position).write_id;
-                comment_position = position;
+                community_position = position;
                 refreshComment(board_id);
             } else if (component == 4) {
                 //three dot 클릭, 삭제
@@ -312,8 +315,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             mSwipeRefreshLayout.setRefreshing(false);
         });
 
+        //게시판 선택 다이얼로그
         bulletin.setOnClickListener(v -> {
-            //게시판 선택.
             blur.setVisibility(View.VISIBLE);
             bulletin_view.setVisibility(View.VISIBLE);
         });
@@ -328,6 +331,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             bulletin_view.setVisibility(View.GONE);
         });
 
+        //다이얼로그
         recommend.setOnClickListener(v -> {
             selected_bulletin = 0;
             bulletin.setText("#추천해요");
@@ -356,28 +360,17 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             bulletin_view.setVisibility(View.GONE);
         });
 
+        //글 올리기 버튼
         write_btn.setOnClickListener(v -> {
             if (selected_bulletin == -1) {
                 Toast.makeText(context, "게시판을 선택해주세요.", Toast.LENGTH_SHORT).show();
             } else {
+                write_community();
                 selected_bulletin = -1;
                 bulletin.setText("게시판 선택");
-                write_community();
+                refreshCommunityWrite();
             }
         });
-
-        sendBtn.setOnClickListener(v -> write_comment());
-
-        send_message.setOnClickListener(v -> {
-            //메시지 보내기.
-        });
-
-        blockBtn.setOnClickListener(v -> {
-            //차단하기.
-        });
-
-        //User Model 에 heart 갯수 추가하기.
-        heart_rating.setStar(3);
 
         comment_adapter.setOnItemClickListener((component, position) -> {
             if (component == 0) {
@@ -394,11 +387,37 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                 second_comment = true;
+                comment_id = comment_adapter.getData(position).write_id;
             } else if (component == 2) {
                 //신고하기
                 main.showBlur_report(true);
             }
         });
+
+        //커뮤니티 상세보기 하트 버튼
+        heart.setOnClickListener(v -> {
+            communityRecyclerAdapter.setHeart(community_position);
+            communityRecyclerAdapter.notifyDataSetChanged();
+            clickHeart();
+        });
+
+        sendBtn.setOnClickListener(v -> {
+                    write_comment();
+                    refreshComment(board_id);
+                }
+        );
+
+        //프로필 상세보기에서
+        send_message.setOnClickListener(v -> {
+            //메시지 보내기.
+        });
+
+        blockBtn.setOnClickListener(v -> {
+            //차단하기.
+        });
+
+        //User Model 에 heart 갯수 추가하기.
+        heart_rating.setStar(3);
 
         for (int i = 0; i < 7; i++) {
             int finalI = i;
@@ -474,6 +493,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         urlStr.append(MainActivity.userId);
         urlStr.append("&content=");
         urlStr.append(write_editText.getText().toString());
+        urlStr.append("&tag=");
+        urlStr.append(selected_tag[selected_bulletin]);
+        Log.e("writeCommunity", urlStr.toString());
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 urlStr.toString(),
@@ -527,7 +549,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                             Log.e("clickHeart", "false");
                         Log.e("clickHeart", "업로드");
                     } catch (Exception e) {
-
+                        Log.e("clickHeart", "예외 발생");
                     }
                 },
                 error -> {
@@ -550,6 +572,44 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //댓글 쓰기
         if (second_comment) {
             //대댓글 쓰기
+            StringBuilder urlStr = new StringBuilder();
+            urlStr.append("https://playde-server-pzovl.run.goorm.io/community/reply/upload?user_id=");
+            urlStr.append(MainActivity.userId);
+            urlStr.append("&comment_id=");
+            urlStr.append(comment_id);
+            urlStr.append("&content=");
+            urlStr.append(msg_edit.getText().toString());
+            msg_edit.setText("");
+            StringRequest request = new StringRequest(
+                    Request.Method.POST,
+                    urlStr.toString(),
+                    response -> {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean act = jsonObject.getBoolean("act");
+                            if (act) {
+                                Toast.makeText(context, "업로드되었습니다.", Toast.LENGTH_SHORT).show();
+                            } else
+                                Toast.makeText(context, "업로드를 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Log.e("write_comment", "예외 발생");
+                        }
+                    },
+                    error -> {
+                        Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                        Log.e("writeComment", "에러 발생");
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    return new HashMap<>();
+                }
+            };
+
+            request.setShouldCache(false);
+            AppHelper.requestQueue = Volley.newRequestQueue(context);
+            AppHelper.requestQueue.add(request);
+            refreshComment(board_id);
             second_comment = false;
         } else {
             StringBuilder urlStr = new StringBuilder();
@@ -572,12 +632,12 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                             } else
                                 Toast.makeText(context, "업로드를 실패했습니다.", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
-                            Log.e("write_community", "예외 발생");
+                            Log.e("write_comment", "예외 발생");
                         }
                     },
                     error -> {
                         Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
-                        Log.e("sendComment", "에러 발생");
+                        Log.e("writeComment", "에러 발생");
                     }
             ) {
                 @Override
@@ -652,7 +712,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     }
 
     private void addCommunityRecyclerView(int write_id, String image, String name, String comment, int uid, int like, boolean my_like, String time, int comment_cnt) {
-        Uri uri = Uri.parse("android:resource://com.example.play_de/drawable.circle_grey");
+        Uri uri = Uri.parse("android:resource://com.example.play_de/drawable/circle_grey");
         CommunityItem item = new CommunityItem();
         item.write_id = write_id;
         if (image.equals(""))
@@ -740,6 +800,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         store_adapter.notifyDataSetChanged();
     }
 
+    //글 목록 불러오기
     @SuppressLint("SetTextI18n")
     private void communityJSONParse(String response) {
         try {
@@ -774,6 +835,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         }
     }
 
+    //커뮤니티 글 상세보기
     @SuppressLint("SetTextI18n")
     private void commentJSONParse(String response) {
         try {
