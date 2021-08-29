@@ -12,4 +12,6 @@ public class CommunityItem {
     public boolean my_like = false;
     public int comment_cnt = 0;
     public boolean second_comment = false;
+    public int visit = 0;
+    public String tag = "#추천해요";
 }

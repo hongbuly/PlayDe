@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
         blur.setVisibility(View.VISIBLE);
 
         urlStr = new StringBuilder();
-        urlStr.append("https://playde-server-pzovl.run.goorm.io/user/join?platform=0&email=");
+        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/user/join?platform=0&email=");
         urlStr.append(mail_id.getText().toString());
         urlStr.append("&password=");
         urlStr.append(password.getText().toString());
@@ -113,7 +113,8 @@ public class LoginActivity extends AppCompatActivity {
                 this::registerJSONParse,
                 error -> {
                     Toast.makeText(getApplicationContext(), "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
-                    Log.e("Register", "Error");
+                    Log.e("Register", urlStr.toString());
+                    blur.setVisibility(View.GONE);
                 }
         ) {
             @Override
@@ -131,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
         //로그인 버튼
         blur.setVisibility(View.VISIBLE);
         urlStr = new StringBuilder();
-        urlStr.append("https://playde-server-pzovl.run.goorm.io/user/login?platform=0&email=");
+        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/user/login?platform=0&email=");
         urlStr.append(id_edit.getText().toString());
         urlStr.append("&password=");
         urlStr.append(password_edit.getText().toString());
@@ -141,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                 this::loginJSONParse,
                 error -> {
                     Toast.makeText(getApplicationContext(), "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
-                    Log.e("Login", "에러 발생");
+                    Log.e("Login", urlStr.toString());
                     blur.setVisibility(View.GONE);
                 }
         ) {
@@ -188,11 +189,11 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             } else
                 Toast.makeText(getApplicationContext(), "아이디 혹은 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+            blur.setVisibility(View.GONE);
         } catch (Exception e) {
             Log.e("loginJSONParse", "예외 발생");
+            blur.setVisibility(View.GONE);
         }
-
-        blur.setVisibility(View.GONE);
     }
 
     @Override

@@ -28,6 +28,10 @@ public class CafeRecyclerAdapter extends RecyclerView.Adapter<CafeRecyclerAdapte
         void onItemClick(View view, int position);
     }
 
+    CafeRecyclerItem getData(int position) {
+        return mData.get(position);
+    }
+
     void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }

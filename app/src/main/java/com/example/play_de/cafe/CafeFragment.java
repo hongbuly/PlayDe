@@ -74,6 +74,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private LinearLayout reserve_view01;
     private GoogleMap map;
     private ImageButton map_callBtn;
+    private TextView name, address, table, time;
     private String tel = "tel:01012341234";
     private Button map_seat;
     private Button map_noSeat;
@@ -149,6 +150,10 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         cafe_recyclerView.setAdapter(cafe_adapter);
 
         //자리가 없을 시 버튼 색깔을 바꿔주어야 함.
+        name = view.findViewById(R.id.name);
+        address = view.findViewById(R.id.address);
+        table = view.findViewById(R.id.table);
+        time = view.findViewById(R.id.time);
         map_seat = view.findViewById(R.id.map_seat);
         map_noSeat = view.findViewById(R.id.map_noSeat);
         map_callBtn = view.findViewById(R.id.map_callBtn);
@@ -221,6 +226,10 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         });
 
         cafe_adapter.setOnItemClickListener((view, position) -> {
+            name.setText(cafe_adapter.getData(position).getName());
+            address.setText(cafe_adapter.getData(position).getAddress());
+            table.setText(cafe_adapter.getData(position).getTable());
+            time.setText(cafe_adapter.getData(position).getTime());
             search_cafe.setVisibility(View.GONE);
             reserve_view01.setVisibility(View.VISIBLE);
             positionText.setText("지도");
@@ -237,7 +246,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         map_seat.setOnClickListener(v -> {
             reserve_view01.setVisibility(View.GONE);
             reserve_view02.setVisibility(View.VISIBLE);
-            positionText.setText("카페 이름");
+            positionText.setText(name.getText().toString());
         });
 
         map_callBtn.setOnClickListener(v -> startActivity(new Intent("android.intent.action.DIAL", Uri.parse(tel))));
@@ -495,7 +504,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         //카페 목록 새로고침
         cafe_adapter.initialSetUp();
         StringBuilder urlStr = new StringBuilder();
-        urlStr.append("https://playde-server-pzovl.run.goorm.io/cafe/list?coords=");
+        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/cafe/list?coords=");
         urlStr.append(latitude);
         urlStr.append(",");
         urlStr.append(longitude);

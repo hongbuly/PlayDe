@@ -43,9 +43,9 @@ public class CafeRecyclerItem {
     public String getTime() {
         String time;
         if (open > 12) {
-            time = (open - 12) + "PM~" + (close - 12) + "PM";
+            time = (open - 12) + ":00 PM~" + (close - 12) + ":00 PM";
         } else {
-            time = open + "AM~" + (close - 12) + "PM";
+            time = open + ":00 AM~" + (close - 12) + ":00 PM";
         }
         return time;
     }

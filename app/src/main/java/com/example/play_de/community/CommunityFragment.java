@@ -77,7 +77,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
     private RelativeLayout community_view02;
     private ImageView image;
-    private TextView name, level, content, heart;
+    private TextView name, level, content, heart, comment, read, time, tag;
 
     private int comment_id; //댓글 id
     private int community_position; //community adapter 에서 position
@@ -146,6 +146,10 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         level = view.findViewById(R.id.level);
         content = view.findViewById(R.id.content);
         heart = view.findViewById(R.id.heart);
+        comment = view.findViewById(R.id.comment);
+        read = view.findViewById(R.id.read);
+        time = view.findViewById(R.id.time);
+        tag = view.findViewById(R.id.tag);
 
         recommendBtn = view.findViewById(R.id.recommendBtn);
         meetBtn = view.findViewById(R.id.meetBtn);
@@ -221,6 +225,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         report_btn02 = view.findViewById(R.id.report_btn02);
     }
 
+    @SuppressLint("SetTextI18n")
     private void eventListener() {
         //뒤로 가기 버튼
         back.setOnClickListener(v -> backView());
@@ -299,12 +304,18 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 name.setText(communityRecyclerAdapter.getData(position).name);
                 level.setText(communityRecyclerAdapter.getData(position).level);
                 content.setText(communityRecyclerAdapter.getData(position).comment);
+                read.setText(Integer.toString(communityRecyclerAdapter.getData(position).visit));
+                time.setText(communityRecyclerAdapter.getData(position).time);
+                heart.setText("공감 "+ communityRecyclerAdapter.getData(position).like);
+                comment.setText("댓글 " + communityRecyclerAdapter.getData(position).comment_cnt);
+                tag.setText(communityRecyclerAdapter.getData(position).tag);
 
                 board_id = communityRecyclerAdapter.getData(position).write_id;
                 community_position = position;
                 refreshComment(board_id);
             } else if (component == 4) {
                 //three dot 클릭, 삭제
+                board_id = communityRecyclerAdapter.getData(position).write_id;
                 main.showBlur_remove(true);
             }
         });
@@ -484,12 +495,13 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         }
 
         this.setBtn = setBtn;
+        refreshCommunityWrite();
     }
 
     private void write_community() {
         //글 올리기
         StringBuilder urlStr = new StringBuilder();
-        urlStr.append("https://playde-server-pzovl.run.goorm.io/community/board/upload?user_id=");
+        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/board/upload?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&content=");
         urlStr.append(write_editText.getText().toString());
@@ -532,7 +544,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private void clickHeart() {
         //공감하기 버튼
         StringBuilder urlStr = new StringBuilder();
-        urlStr.append("https://playde-server-pzovl.run.goorm.io/community/board/like?user_id=");
+        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/board/like?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&board_id=");
         urlStr.append(board_id);
@@ -573,7 +585,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         if (second_comment) {
             //대댓글 쓰기
             StringBuilder urlStr = new StringBuilder();
-            urlStr.append("https://playde-server-pzovl.run.goorm.io/community/reply/upload?user_id=");
+            urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/reply/upload?user_id=");
             urlStr.append(MainActivity.userId);
             urlStr.append("&comment_id=");
             urlStr.append(comment_id);
@@ -613,7 +625,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             second_comment = false;
         } else {
             StringBuilder urlStr = new StringBuilder();
-            urlStr.append("https://playde-server-pzovl.run.goorm.io/community/comment/upload?user_id=");
+            urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/comment/upload?user_id=");
             urlStr.append(MainActivity.userId);
             urlStr.append("&board_id=");
             urlStr.append(board_id);
@@ -657,14 +669,15 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //커뮤니티 글 새로고침
         communityRecyclerAdapter.initialSetUp();
         StringBuilder urlStr = new StringBuilder();
-        urlStr.append("https://playde-server-pzovl.run.goorm.io/community/get?user_id=");
+        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/get?user_id=");
         urlStr.append(MainActivity.userId);
-        urlStr.append("&range=1,100");
+        urlStr.append("&range=1,50&tag");
+        urlStr.append(selected_tag[setBtn]);
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 urlStr.toString(),
                 response -> {
-                    Log.e("JSONParse", response);
+                    Log.e("communityJSONParse", response);
                     communityJSONParse(response);
                 },
                 error -> {
@@ -687,7 +700,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //커뮤니티 글 상세보기
         comment_adapter.initialSetUp();
         StringBuilder urlStr = new StringBuilder();
-        urlStr.append("https://playde-server-pzovl.run.goorm.io/community/board/");
+        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/board/");
         urlStr.append(write_id);
         urlStr.append("?user_id=");
         urlStr.append(MainActivity.userId);
@@ -711,7 +724,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         AppHelper.requestQueue.add(request);
     }
 
-    private void addCommunityRecyclerView(int write_id, String image, String name, String comment, int uid, int like, boolean my_like, String time, int comment_cnt) {
+    private void addCommunityRecyclerView(int write_id, String image, String name, String comment, int uid, int like, boolean my_like, String time, int visit, String tag, int comment_cnt) {
         Uri uri = Uri.parse("android:resource://com.example.play_de/drawable/circle_grey");
         CommunityItem item = new CommunityItem();
         item.write_id = write_id;
@@ -734,16 +747,19 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             item.time = "오전 " + time.substring(11, 16);
         }
         item.comment_cnt = comment_cnt;
+        item.visit = visit;
+        item.tag = "#" + tag;
         communityRecyclerAdapter.addItem(item);
         communityRecyclerAdapter.notifyDataSetChanged();
     }
 
-    private void addCommentRecyclerView(int comment_id, String content, int id, String name) {
+    private void addCommentRecyclerView(int comment_id, String content, boolean second_comment, int id, String name) {
         CommunityItem item = new CommunityItem();
         item.write_id = comment_id;
         item.image = Integer.toString(R.drawable.circle_grey);
         item.name = name;
         item.level = "보드게임러버";
+        item.second_comment = second_comment;
         item.comment = content;
         item.uid = id;
         comment_adapter.addItem(item);
@@ -816,11 +832,13 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 JSONObject subJsonObject = jsonArray.getJSONObject(i);
                 String board = subJsonObject.getString("board");
                 JSONObject subJsonObject2 = new JSONObject(board);
-                int write_id = subJsonObject2.getInt("id");
+                int write_id = subJsonObject2.getInt("id"); //커뮤니티 글 id
                 String content = subJsonObject2.getString("content");
                 int like = subJsonObject2.getInt("like");
                 boolean my_like = subJsonObject2.getBoolean("my_like");
                 String time = subJsonObject2.getString("created_at");
+                int visit = subJsonObject2.getInt("visit");
+                String tag = subJsonObject2.getString("tag");
                 int comment_cnt = subJsonObject2.getInt("comment_cnt");
 
                 String writer = subJsonObject.getString("writer");
@@ -828,7 +846,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 String nickname = subJsonObject3.getString("nickname");
                 String profile = subJsonObject3.getString("profile");
                 int id = subJsonObject3.getInt("id");
-                addCommunityRecyclerView(write_id, profile, nickname, content, id, like, my_like, time, comment_cnt);
+                addCommunityRecyclerView(write_id, profile, nickname, content, id, like, my_like, time, visit, tag, comment_cnt);
             }
         } catch (Exception e) {
             Log.e("communityJSONParse", "예외 발생");
@@ -850,12 +868,13 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 JSONObject subJsonObject = jsonArray.getJSONObject(i);
                 int comment_id = subJsonObject.getInt("id");
                 String content = subJsonObject.getString("content");
+                //boolean second_comment = subJsonObject.getBoolean("reply");
 
                 JSONObject subJsonObject2 = subJsonObject.getJSONObject("writer");
                 int id = subJsonObject2.getInt("id");
                 String name = subJsonObject2.getString("nickname");
 
-                addCommentRecyclerView(comment_id, content, id, name);
+                addCommentRecyclerView(comment_id, content, false, id, name);
             }
         } catch (Exception e) {
             Log.e("commentJSONParse", "예외 발생");
@@ -904,6 +923,40 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     @Override
     public void onClickRemove() {
         //커뮤니티 글 삭제 버튼
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/board/delete?user_id=");
+        urlStr.append(MainActivity.userId);
+        urlStr.append("&board_id=");
+        urlStr.append(board_id);
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean act = jsonObject.getBoolean("act");
+                        if (act) {
+                            Toast.makeText(context, "삭제되었습니다..", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(context, "삭제를 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Log.e("remove_community", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("remove_community", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
+            }
+        };
 
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
+        AppHelper.requestQueue.add(request);
+        refreshCommunityWrite();
     }
 }

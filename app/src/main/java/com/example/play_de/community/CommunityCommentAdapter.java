@@ -119,6 +119,8 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
     @Override
     public void onBindViewHolder(@NonNull CommunityCommentAdapter.ViewHolder holder, int position) {
         if (mData.get(position).second_comment) {
+            holder.comment01.setVisibility(View.GONE);
+            holder.comment02.setVisibility(View.VISIBLE);
             Glide.with(context)
                     .load(mData.get(position).image)
                     .apply(new RequestOptions().circleCrop())
@@ -127,6 +129,8 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
             holder.level02.setText(mData.get(position).level);
             holder.content02.setText(mData.get(position).comment);
         } else {
+            holder.comment01.setVisibility(View.VISIBLE);
+            holder.comment02.setVisibility(View.GONE);
             Glide.with(context)
                     .load(mData.get(position).image)
                     .apply(new RequestOptions().circleCrop())
