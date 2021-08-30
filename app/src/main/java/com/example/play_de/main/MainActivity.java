@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private long backKeyPressedTime = 0;
     public static String userId;
     public static String name;
+    public static String mainUrl = "http://ec2-3-36-50-26.ap-northeast-2.compute.amazonaws.com";
 
     private View blur;
     private LinearLayout finish_reserve;

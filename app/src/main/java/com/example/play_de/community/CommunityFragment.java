@@ -501,7 +501,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private void write_community() {
         //글 올리기
         StringBuilder urlStr = new StringBuilder();
-        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/board/upload?user_id=");
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("/community/board/upload?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&content=");
         urlStr.append(write_editText.getText().toString());
@@ -544,7 +545,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private void clickHeart() {
         //공감하기 버튼
         StringBuilder urlStr = new StringBuilder();
-        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/board/like?user_id=");
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("/community/board/like?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&board_id=");
         urlStr.append(board_id);
@@ -585,7 +587,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         if (second_comment) {
             //대댓글 쓰기
             StringBuilder urlStr = new StringBuilder();
-            urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/reply/upload?user_id=");
+            urlStr.append(MainActivity.mainUrl);
+            urlStr.append("/community/reply/upload?user_id=");
             urlStr.append(MainActivity.userId);
             urlStr.append("&comment_id=");
             urlStr.append(comment_id);
@@ -625,7 +628,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             second_comment = false;
         } else {
             StringBuilder urlStr = new StringBuilder();
-            urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/comment/upload?user_id=");
+            urlStr.append(MainActivity.mainUrl);
+            urlStr.append("/community/comment/upload?user_id=");
             urlStr.append(MainActivity.userId);
             urlStr.append("&board_id=");
             urlStr.append(board_id);
@@ -669,7 +673,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //커뮤니티 글 새로고침
         communityRecyclerAdapter.initialSetUp();
         StringBuilder urlStr = new StringBuilder();
-        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/get?user_id=");
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("/community/get?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&range=1,50&tag");
         urlStr.append(selected_tag[setBtn]);
@@ -700,7 +705,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //커뮤니티 글 상세보기
         comment_adapter.initialSetUp();
         StringBuilder urlStr = new StringBuilder();
-        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/board/");
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("/community/board/");
         urlStr.append(write_id);
         urlStr.append("?user_id=");
         urlStr.append(MainActivity.userId);
@@ -924,7 +930,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     public void onClickRemove() {
         //커뮤니티 글 삭제 버튼
         StringBuilder urlStr = new StringBuilder();
-        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/community/board/delete?user_id=");
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("/community/board/delete?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&board_id=");
         urlStr.append(board_id);

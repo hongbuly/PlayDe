@@ -504,7 +504,8 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         //카페 목록 새로고침
         cafe_adapter.initialSetUp();
         StringBuilder urlStr = new StringBuilder();
-        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/cafe/list?coords=");
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("/cafe/list?coords=");
         urlStr.append(latitude);
         urlStr.append(",");
         urlStr.append(longitude);

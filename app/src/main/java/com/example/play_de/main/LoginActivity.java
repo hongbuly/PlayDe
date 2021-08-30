@@ -99,7 +99,8 @@ public class LoginActivity extends AppCompatActivity {
         blur.setVisibility(View.VISIBLE);
 
         urlStr = new StringBuilder();
-        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/user/join?platform=0&email=");
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("/user/join?platform=0&email=");
         urlStr.append(mail_id.getText().toString());
         urlStr.append("&password=");
         urlStr.append(password.getText().toString());
@@ -132,7 +133,8 @@ public class LoginActivity extends AppCompatActivity {
         //로그인 버튼
         blur.setVisibility(View.VISIBLE);
         urlStr = new StringBuilder();
-        urlStr.append("http://ec2-3-36-57-36.ap-northeast-2.compute.amazonaws.com:80/user/login?platform=0&email=");
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("/user/login?platform=0&email=");
         urlStr.append(id_edit.getText().toString());
         urlStr.append("&password=");
         urlStr.append(password_edit.getText().toString());
