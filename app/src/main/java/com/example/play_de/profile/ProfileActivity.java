@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,15 +24,27 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.play_de.R;
+import com.example.play_de.main.AppHelper;
 import com.example.play_de.main.MainActivity;
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONObject;
+
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
     private TabLayout tab;
@@ -328,6 +341,48 @@ public class ProfileActivity extends AppCompatActivity {
                     .load(selectedImageUri)
                     .apply(new RequestOptions().circleCrop())
                     .into(main_image);
+            replacePicture(selectedImageUri);
+        }
+    }
+
+    private void replacePicture(Uri uri) {
+        //사용자 프로필사진 변경
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("/user/profile/image/set?user_id=");
+        urlStr.append(MainActivity.userId);
+        urlStr.append("&image_url=");
+        urlStr.append(uri.toString());
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                urlStr.toString(),
+                this::pictureJSONParse,
+                error -> {
+                    Toast.makeText(getApplicationContext(), "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("Picture", urlStr.toString());
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(this);
+        AppHelper.requestQueue.add(request);
+    }
+
+    private void pictureJSONParse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            if (jsonObject.getBoolean("act")) {
+                Toast.makeText(getApplicationContext(), "업로드 성공", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "업로드 실패", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Log.e("pictureJSONParse", "예외 발생");
         }
     }
 

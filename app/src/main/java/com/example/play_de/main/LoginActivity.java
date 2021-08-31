@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         urlStr.append("&nickname=");
         urlStr.append(name.getText().toString());
         StringRequest request = new StringRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 urlStr.toString(),
                 this::registerJSONParse,
                 error -> {
@@ -139,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
         urlStr.append("&password=");
         urlStr.append(password_edit.getText().toString());
         StringRequest request = new StringRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 urlStr.toString(),
                 this::loginJSONParse,
                 error -> {
@@ -193,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "아이디 혹은 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
             blur.setVisibility(View.GONE);
         } catch (Exception e) {
-            Log.e("loginJSONParse", "예외 발생");
+            Log.e("loginJSONParse", response);
             blur.setVisibility(View.GONE);
         }
     }

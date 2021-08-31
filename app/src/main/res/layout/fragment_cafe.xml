@@ -265,6 +265,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/apple_l"
+                    android:layout_marginStart="10dp"
                     android:text="9:00AM ~ 22:00PM"
                     android:textColor="@color/Black"
                     android:textSize="12sp"

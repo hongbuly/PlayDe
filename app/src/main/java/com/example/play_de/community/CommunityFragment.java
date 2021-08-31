@@ -510,7 +510,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         urlStr.append(selected_tag[selected_bulletin]);
         Log.e("writeCommunity", urlStr.toString());
         StringRequest request = new StringRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 urlStr.toString(),
                 response -> {
                     try {
@@ -551,7 +551,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         urlStr.append("&board_id=");
         urlStr.append(board_id);
         StringRequest request = new StringRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 urlStr.toString(),
                 response -> {
                     try {
@@ -596,7 +596,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             urlStr.append(msg_edit.getText().toString());
             msg_edit.setText("");
             StringRequest request = new StringRequest(
-                    Request.Method.POST,
+                    Request.Method.GET,
                     urlStr.toString(),
                     response -> {
                         try {
@@ -637,7 +637,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             urlStr.append(msg_edit.getText().toString());
             msg_edit.setText("");
             StringRequest request = new StringRequest(
-                    Request.Method.POST,
+                    Request.Method.GET,
                     urlStr.toString(),
                     response -> {
                         try {
@@ -672,14 +672,15 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private void refreshCommunityWrite() {
         //커뮤니티 글 새로고침
         communityRecyclerAdapter.initialSetUp();
+        communityRecyclerAdapter.notifyDataSetChanged();
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
         urlStr.append("/community/get?user_id=");
         urlStr.append(MainActivity.userId);
-        urlStr.append("&range=1,50&tag");
+        urlStr.append("&range=1,50&tag=");
         urlStr.append(selected_tag[setBtn]);
         StringRequest request = new StringRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 urlStr.toString(),
                 response -> {
                     Log.e("communityJSONParse", response);
@@ -711,7 +712,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         urlStr.append("?user_id=");
         urlStr.append(MainActivity.userId);
         StringRequest request = new StringRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 urlStr.toString(),
                 this::commentJSONParse,
                 error -> {
@@ -936,7 +937,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         urlStr.append("&board_id=");
         urlStr.append(board_id);
         StringRequest request = new StringRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 urlStr.toString(),
                 response -> {
                     try {

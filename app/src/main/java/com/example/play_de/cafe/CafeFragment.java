@@ -381,6 +381,8 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
                 latitude = gpsTracker.getLatitude();
                 longitude = gpsTracker.getLongitude();
                 refreshCafe();
+            } else {
+                Toast.makeText(context, "설정에서 위치를 켜주세요", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -514,7 +516,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         urlStr.append("&range=1,30");
         Log.e("cafe", urlStr.toString());
         StringRequest request = new StringRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 urlStr.toString(),
                 response -> {
                     Log.e("JSONParse", response);
