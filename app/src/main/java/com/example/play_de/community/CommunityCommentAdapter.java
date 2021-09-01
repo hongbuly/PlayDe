@@ -38,7 +38,6 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
         RelativeLayout comment01;
         ImageView image;
         TextView name;
-        TextView level;
         TextView content;
 
         TextView answer;
@@ -47,7 +46,6 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
         RelativeLayout comment02;
         ImageView image02;
         TextView name02;
-        TextView level02;
         TextView content02;
 
         TextView answer02;
@@ -57,7 +55,6 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
             comment01 = itemView.findViewById(R.id.comment01);
             image = itemView.findViewById(R.id.image);
             name = itemView.findViewById(R.id.name);
-            level = itemView.findViewById(R.id.level);
             content = itemView.findViewById(R.id.content);
 
             answer = itemView.findViewById(R.id.answer);
@@ -66,7 +63,6 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
             comment02 = itemView.findViewById(R.id.comment02);
             image02 = itemView.findViewById(R.id.image02);
             name02 = itemView.findViewById(R.id.name02);
-            level02 = itemView.findViewById(R.id.level02);
             content02 = itemView.findViewById(R.id.content02);
 
             answer02 = itemView.findViewById(R.id.answer02);
@@ -126,7 +122,6 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
                     .apply(new RequestOptions().circleCrop())
                     .into(holder.image02);
             holder.name02.setText(mData.get(position).name);
-            holder.level02.setText(mData.get(position).level);
             holder.content02.setText(mData.get(position).comment);
         } else {
             holder.comment01.setVisibility(View.VISIBLE);
@@ -136,7 +131,6 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
                     .apply(new RequestOptions().circleCrop())
                     .into(holder.image);
             holder.name.setText(mData.get(position).name);
-            holder.level.setText(mData.get(position).level);
             holder.content.setText(mData.get(position).comment);
         }
     }

@@ -77,7 +77,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
     private RelativeLayout community_view02;
     private ImageView image;
-    private TextView name, level, content, heart, comment, read, time, tag;
+    private TextView name, content, heart, comment, read, time, tag;
 
     private int comment_id; //댓글 id
     private int community_position; //community adapter 에서 position
@@ -89,7 +89,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
     private LinearLayout profile_view;
     private ImageView profile_image;
-    private TextView profile_name, profile_level, send_message;
+    private TextView profile_name, send_message;
     private RatingBar heart_rating;
     private ImageButton blockBtn;
 
@@ -143,7 +143,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
         image = view.findViewById(R.id.image);
         name = view.findViewById(R.id.name);
-        level = view.findViewById(R.id.level);
         content = view.findViewById(R.id.content);
         heart = view.findViewById(R.id.heart);
         comment = view.findViewById(R.id.comment);
@@ -183,7 +182,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
         profile_image = view.findViewById(R.id.profile_image);
         profile_name = view.findViewById(R.id.profile_name);
-        profile_level = view.findViewById(R.id.profile_level);
         send_message = view.findViewById(R.id.send_message);
         blockBtn = view.findViewById(R.id.blockBtn);
         heart_rating = view.findViewById(R.id.heart_rating);
@@ -302,7 +300,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                         .apply(new RequestOptions().circleCrop())
                         .into(image);
                 name.setText(communityRecyclerAdapter.getData(position).name);
-                level.setText(communityRecyclerAdapter.getData(position).level);
                 content.setText(communityRecyclerAdapter.getData(position).comment);
                 read.setText(Integer.toString(communityRecyclerAdapter.getData(position).visit));
                 time.setText(communityRecyclerAdapter.getData(position).time);
@@ -390,7 +387,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 profile_view.setVisibility(View.VISIBLE);
                 profile_image.setImageResource(Integer.parseInt(comment_adapter.getData(position).image));
                 profile_name.setText(comment_adapter.getData(position).name);
-                profile_level.setText(comment_adapter.getData(position).level);
                 //하단에 하트와 가게도 set 하도록 연결할 것.
             } else if (component == 1) {
                 //답글쓰기, msg_edit 포커스 주기.
@@ -740,7 +736,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         else
             item.image = image;
         item.name = name;
-        item.level = "보드게임러버";
         item.comment = comment;
         item.uid = uid;
         item.like = like;
@@ -765,7 +760,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         item.write_id = comment_id;
         item.image = Integer.toString(R.drawable.circle_grey);
         item.name = name;
-        item.level = "보드게임러버";
         item.second_comment = second_comment;
         item.comment = content;
         item.uid = id;

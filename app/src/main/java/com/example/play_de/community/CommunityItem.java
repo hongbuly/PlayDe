@@ -5,7 +5,6 @@ public class CommunityItem {
     public int uid;
     public String image;
     public String name;
-    public String level;
     public String comment;
     public String time = "오후 1:55";
     public int like = 0;

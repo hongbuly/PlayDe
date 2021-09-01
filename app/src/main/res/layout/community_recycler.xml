@@ -30,17 +30,16 @@
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/level"
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
-        android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/image"
-        android:fontFamily="@font/apple_l"
-        android:text="보드게임러버"
-        android:textColor="@color/Black"
-        android:textSize="14sp"
-        tools:ignore="HardcodedText" />
+        android:layout_marginTop="5dp"
+        android:text="오후 1:55"
+        android:textColor="@color/LightGrey"
+        android:textSize="8sp"
+        tools:ignore="SmallSp" />
 
     <ImageView
         android:id="@+id/three_dot"
@@ -50,19 +49,6 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         app:srcCompat="@drawable/three_dot" />
-
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/three_dot"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:text="오후 1:55"
-        android:textColor="@color/LightGrey"
-        android:textSize="8sp"
-        tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/content"
@@ -90,8 +76,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:drawableStart="@drawable/small_heart"
         android:drawablePadding="10dp"
         android:fontFamily="@font/apple_ul"
@@ -106,13 +92,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:layout_toEndOf="@+id/heart"
         android:drawableStart="@drawable/comment"
         android:drawablePadding="10dp"
         android:fontFamily="@font/apple_ul"
-        android:text="댓글"
+        android:text="댓글 0"
         android:textColor="@color/Black"
         android:textSize="11sp"
         tools:ignore="HardcodedText,SmallSp" />

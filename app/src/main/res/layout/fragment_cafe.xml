@@ -45,6 +45,21 @@
             tools:ignore="ContentDescription" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/no_cafe"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingTop="150dp"
+        android:layout_weight="10"
+        android:background="@drawable/round_back_white"
+        android:fontFamily="@font/apple_b"
+        android:gravity="center|top"
+        android:text="앱에 등록된 주위 카페가 없어요!"
+        android:textColor="@color/LineGrey"
+        android:textSize="20sp"
+        android:visibility="visible"
+        tools:ignore="HardcodedText" />
+
     <LinearLayout
         android:id="@+id/search_cafe"
         android:layout_width="match_parent"
@@ -52,7 +67,7 @@
         android:layout_weight="10"
         android:background="@drawable/round_back_white"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/filterEdit"
@@ -83,7 +98,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/popularBtn"
+                android:id="@+id/basicBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -94,7 +109,7 @@
                 android:minWidth="0dp"
                 android:minHeight="30dp"
                 android:paddingBottom="3dp"
-                android:text="인기 많은 순"
+                android:text="기본 순"
                 android:textColor="@color/White"
                 android:textSize="13sp"
                 tools:ignore="ButtonStyle,HardcodedText" />
@@ -182,10 +197,10 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
+            android:layout_weight="1"
             tools:context=".MapsActivity"
             tools:ignore="FragmentTagUsage,NestedWeights" />
 
@@ -264,8 +279,8 @@
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
                     android:fontFamily="@font/apple_l"
-                    android:layout_marginStart="10dp"
                     android:text="9:00AM ~ 22:00PM"
                     android:textColor="@color/Black"
                     android:textSize="12sp"
@@ -722,8 +737,8 @@
                     android:background="@drawable/round_corner_whitegrey30"
                     android:fontFamily="@font/apple_l"
                     android:text="11:00"
-                    tools:ignore="ButtonStyle,HardcodedText"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="ButtonStyle,HardcodedText" />
 
                 <Button
                     android:id="@+id/reserve_12btn"
@@ -733,8 +748,8 @@
                     android:background="@drawable/round_corner_whitegrey30"
                     android:fontFamily="@font/apple_l"
                     android:text="12:00"
-                    tools:ignore="ButtonStyle,HardcodedText"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="ButtonStyle,HardcodedText" />
 
             </LinearLayout>
 
@@ -769,8 +784,8 @@
                     android:background="@drawable/round_corner_whitegrey30"
                     android:fontFamily="@font/apple_l"
                     android:text="13:00"
-                    tools:ignore="ButtonStyle,HardcodedText,NestedWeights"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="ButtonStyle,HardcodedText,NestedWeights" />
 
                 <Button
                     android:id="@+id/reserve_14btn"
@@ -781,8 +796,8 @@
                     android:background="@drawable/round_corner_whitegrey30"
                     android:fontFamily="@font/apple_l"
                     android:text="14:00"
-                    tools:ignore="ButtonStyle,HardcodedText"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="ButtonStyle,HardcodedText" />
 
                 <Button
                     android:id="@+id/reserve_15btn"
@@ -793,8 +808,8 @@
                     android:background="@drawable/round_corner_whitegrey30"
                     android:fontFamily="@font/apple_l"
                     android:text="15:00"
-                    tools:ignore="ButtonStyle,HardcodedText"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="ButtonStyle,HardcodedText" />
 
                 <Button
                     android:id="@+id/reserve_16btn"
@@ -804,8 +819,8 @@
                     android:background="@drawable/round_corner_whitegrey30"
                     android:fontFamily="@font/apple_l"
                     android:text="16:00"
-                    tools:ignore="ButtonStyle,HardcodedText"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="ButtonStyle,HardcodedText" />
 
             </LinearLayout>
 
@@ -827,8 +842,8 @@
                     android:background="@drawable/round_corner_whitegrey30"
                     android:fontFamily="@font/apple_l"
                     android:text="17:00"
-                    tools:ignore="ButtonStyle,HardcodedText,NestedWeights"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="ButtonStyle,HardcodedText,NestedWeights" />
 
                 <Button
                     android:id="@+id/reserve_18btn"
@@ -839,8 +854,8 @@
                     android:background="@drawable/round_corner_whitegrey30"
                     android:fontFamily="@font/apple_l"
                     android:text="18:00"
-                    tools:ignore="ButtonStyle,HardcodedText"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="ButtonStyle,HardcodedText" />
 
                 <Button
                     android:id="@+id/reserve_19btn"
@@ -851,8 +866,8 @@
                     android:background="@drawable/round_corner_whitegrey30"
                     android:fontFamily="@font/apple_l"
                     android:text="19:00"
-                    tools:ignore="ButtonStyle,HardcodedText"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="ButtonStyle,HardcodedText, TooManyViews" />
 
                 <Button
                     android:id="@+id/reserve_20btn"
@@ -862,8 +877,8 @@
                     android:background="@drawable/round_corner_whitegrey30"
                     android:fontFamily="@font/apple_l"
                     android:text="20:00"
-                    tools:ignore="ButtonStyle,HardcodedText,TooManyViews"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="ButtonStyle,HardcodedText,TooManyViews" />
             </LinearLayout>
 
             <LinearLayout
@@ -884,8 +899,8 @@
                     android:background="@drawable/round_corner_whitegrey30"
                     android:fontFamily="@font/apple_l"
                     android:text="21:00"
-                    tools:ignore="ButtonStyle,HardcodedText,NestedWeights"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="ButtonStyle,HardcodedText,NestedWeights" />
 
                 <Button
                     android:id="@+id/reserve_22btn"
@@ -896,8 +911,8 @@
                     android:background="@drawable/round_corner_whitegrey30"
                     android:fontFamily="@font/apple_l"
                     android:text="22:00"
-                    tools:ignore="ButtonStyle,HardcodedText"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="ButtonStyle,HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -925,9 +940,9 @@
             android:gravity="center"
             android:stateListAnimator="@null"
             android:text="다음"
-            tools:ignore="ButtonStyle,HardcodedText"
             android:textColor="@color/White"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            tools:ignore="ButtonStyle,HardcodedText" />
     </LinearLayout>
 
 
@@ -1001,9 +1016,9 @@
                     android:fontFamily="@font/apple_l"
                     android:gravity="center"
                     android:text="2021년 05월 21일"
-                    tools:ignore="HardcodedText"
                     android:textColor="@color/Black"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
             </RelativeLayout>
 
             <View
@@ -1027,9 +1042,9 @@
                     android:fontFamily="@font/apple_b"
                     android:gravity="center"
                     android:text="시간"
-                    tools:ignore="HardcodedText"
                     android:textColor="@color/Black"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:id="@+id/timeText"
@@ -1048,9 +1063,9 @@
                     android:fontFamily="@font/apple_l"
                     android:gravity="center"
                     android:text="시간선택"
-                    tools:ignore="HardcodedText"
                     android:textColor="@color/Black"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
 
             </RelativeLayout>
 
@@ -1076,9 +1091,9 @@
                     android:fontFamily="@font/apple_b"
                     android:gravity="center"
                     android:text="인원"
-                    tools:ignore="HardcodedText"
                     android:textColor="@color/Black"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:id="@+id/peopleText"
@@ -1097,9 +1112,9 @@
                     android:fontFamily="@font/apple_l"
                     android:gravity="center"
                     android:text="4"
-                    tools:ignore="HardcodedText"
                     android:textColor="@color/Black"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
 
             </RelativeLayout>
 
@@ -1123,9 +1138,9 @@
                     android:fontFamily="@font/apple_b"
                     android:gravity="center"
                     android:text="예약자 정보"
-                    tools:ignore="HardcodedText"
                     android:textColor="@color/Black"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:id="@+id/nameText"
@@ -1144,9 +1159,9 @@
                     android:fontFamily="@font/apple_l"
                     android:gravity="center"
                     android:text="김OO"
-                    tools:ignore="HardcodedText"
                     android:textColor="@color/Black"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
 
             </RelativeLayout>
 
@@ -1171,9 +1186,9 @@
                     android:fontFamily="@font/apple_b"
                     android:gravity="center"
                     android:text="연락처"
-                    tools:ignore="HardcodedText"
                     android:textColor="@color/Black"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:id="@+id/numberText"
@@ -1192,9 +1207,9 @@
                     android:fontFamily="@font/apple_l"
                     android:gravity="center"
                     android:text="010-1234-5678"
-                    tools:ignore="HardcodedText"
                     android:textColor="@color/Black"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
             </RelativeLayout>
 
             <View
@@ -1219,9 +1234,9 @@
                     android:fontFamily="@font/apple_b"
                     android:gravity="center"
                     android:text="게임"
-                    tools:ignore="HardcodedText"
                     android:textColor="@color/Black"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:id="@+id/gameLine"
@@ -1240,9 +1255,9 @@
                     android:fontFamily="@font/apple_l"
                     android:gravity="center"
                     android:text="게임선택"
-                    tools:ignore="HardcodedText"
                     android:textColor="@color/Black"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -1265,9 +1280,9 @@
                 android:paddingEnd="20dp"
                 android:stateListAnimator="@null"
                 android:text="결제하기"
-                tools:ignore="HardcodedText,RtlSymmetry"
                 android:textColor="@color/White"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                tools:ignore="HardcodedText,RtlSymmetry" />
 
             <TextView
                 android:id="@+id/pay_text"
@@ -1277,9 +1292,9 @@
                 android:gravity="start|center"
                 android:paddingStart="20dp"
                 android:text="총"
-                tools:ignore="HardcodedText,RtlSymmetry"
                 android:textColor="@color/White"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                tools:ignore="HardcodedText,RtlSymmetry" />
 
             <TextView
                 android:id="@+id/pay_bill"
@@ -1289,9 +1304,9 @@
                 android:gravity="start|center"
                 android:paddingStart="45dp"
                 android:text="4인/2시간/20,000원"
-                tools:ignore="HardcodedText,RtlSymmetry"
                 android:textColor="@color/White"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                tools:ignore="HardcodedText,RtlSymmetry" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

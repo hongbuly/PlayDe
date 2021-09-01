@@ -49,7 +49,6 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name;
-        TextView level;
         TextView content;
 
         TextView heart;
@@ -63,7 +62,6 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
 
             image = itemView.findViewById(R.id.image);
             name = itemView.findViewById(R.id.name);
-            level = itemView.findViewById(R.id.level);
             content = itemView.findViewById(R.id.content);
 
             heart = itemView.findViewById(R.id.heart);
@@ -129,7 +127,6 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
                 .apply(new RequestOptions().circleCrop())
                 .into(holder.image);
         holder.name.setText(mData.get(position).name);
-        holder.level.setText(mData.get(position).level);
         holder.content.setText(mData.get(position).comment);
         holder.heart.setText("공감 " + mData.get(position).like);
         holder.comment.setText("댓글 " + mData.get(position).comment_cnt);

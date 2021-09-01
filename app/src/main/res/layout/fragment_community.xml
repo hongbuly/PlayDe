@@ -203,12 +203,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
-                android:drawableEnd="@drawable/down_clamp"
                 android:drawablePadding="5dp"
                 android:text="게시판 선택"
                 android:textColor="@color/Black"
                 android:textSize="13sp"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"
+                app:drawableEndCompat="@drawable/down_clamp" />
 
             <Button
                 android:id="@+id/write_btn"
@@ -273,7 +273,7 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="22dp"
                 android:layout_toEndOf="@+id/image"
                 android:fontFamily="@font/apple_sb"
                 android:text="이름"
@@ -282,48 +282,35 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/level"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/name"
-                android:layout_marginTop="1dp"
-                android:layout_toEndOf="@+id/image"
-                android:fontFamily="@font/apple_l"
-                android:text="보드게임러버"
-                android:textColor="@color/Black"
-                android:textSize="14sp"
-                tools:ignore="HardcodedText" />
-
-            <TextView
                 android:id="@+id/read"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="20dp"
-                android:drawableStart="@drawable/read"
+                android:layout_below="@+id/name"
+                android:layout_toEndOf="@+id/time"
+                android:layout_marginTop="8dp"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/apple_l"
                 android:text="114"
                 android:textColor="@color/Black"
                 android:textSize="13sp"
-                tools:ignore="HardcodedText,SmallSp" />
+                tools:ignore="HardcodedText,SmallSp"
+                app:drawableStartCompat="@drawable/read" />
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/read"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="20dp"
-                android:drawableStart="@drawable/time"
+                android:layout_below="@+id/name"
+                android:layout_marginTop="8dp"
+                android:layout_toEndOf="@+id/image"
+                android:layout_marginEnd="10dp"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/apple_l"
                 android:text="2021.08.20"
                 android:textColor="@color/Black"
                 android:textSize="13sp"
-                tools:ignore="HardcodedText,SmallSp" />
+                tools:ignore="HardcodedText,SmallSp"
+                app:drawableStartCompat="@drawable/time" />
 
             <View
                 android:layout_width="match_parent"
@@ -373,8 +360,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tag"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:drawableStart="@drawable/small_heart"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/apple_ul"
@@ -389,8 +376,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tag"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:layout_toEndOf="@+id/heart"
                 android:drawableStart="@drawable/comment"
                 android:drawablePadding="10dp"
@@ -488,18 +475,6 @@
                 android:text="이름"
                 android:textColor="@color/Black"
                 android:textSize="17sp"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/profile_level"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="3dp"
-                android:fontFamily="@font/apple_l"
-                android:text="보드게임러버"
-                android:textColor="@color/Black"
-                android:textSize="14sp"
                 tools:ignore="HardcodedText" />
 
             <View

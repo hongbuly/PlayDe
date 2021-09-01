@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -64,9 +65,12 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private TextView positionText;
     private ImageButton backBtn, userBtn;
 
+    private TextView no_cafe;
+
     private LinearLayout search_cafe;
+    private EditText filterEdit;
     private int setBtn = 0;
-    private Button popularBtn, distanceBtn, priceBtn, registerBtn;
+    private Button basicBtn, distanceBtn, priceBtn, registerBtn;
     private RecyclerView cafe_recyclerView;
     private CafeRecyclerAdapter cafe_adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -138,7 +142,10 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         backBtn = view.findViewById(R.id.backBtn);
         userBtn = view.findViewById(R.id.userBtn);
 
-        popularBtn = view.findViewById(R.id.popularBtn);
+        no_cafe = view.findViewById(R.id.no_cafe);
+
+        filterEdit = view.findViewById(R.id.filterEdit);
+        basicBtn = view.findViewById(R.id.basicBtn);
         distanceBtn = view.findViewById(R.id.distanceBtn);
         priceBtn = view.findViewById(R.id.priceBtn);
         registerBtn = view.findViewById(R.id.registerBtn);
@@ -209,7 +216,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             startActivity(intent);
         });
 
-        popularBtn.setOnClickListener(v -> {
+        basicBtn.setOnClickListener(v -> {
             changeBtn(0);
         });
 
@@ -453,8 +460,8 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
 
     private void changeBtn(int setBtn) {
         if (setBtn == 0) {
-            popularBtn.setTextColor(whiteColor);
-            popularBtn.setBackgroundResource(R.drawable.round_red20);
+            basicBtn.setTextColor(whiteColor);
+            basicBtn.setBackgroundResource(R.drawable.round_red20);
         } else if (setBtn == 1) {
             distanceBtn.setTextColor(whiteColor);
             distanceBtn.setBackgroundResource(R.drawable.round_red20);
@@ -467,8 +474,8 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         }
 
         if (this.setBtn == 0) {
-            popularBtn.setTextColor(greyColor);
-            popularBtn.setBackgroundResource(R.drawable.round_corner_line20);
+            basicBtn.setTextColor(greyColor);
+            basicBtn.setBackgroundResource(R.drawable.round_corner_line20);
         } else if (this.setBtn == 1) {
             distanceBtn.setTextColor(greyColor);
             distanceBtn.setBackgroundResource(R.drawable.round_corner_line20);
@@ -484,7 +491,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         refreshCafe();
     }
 
-    private void addCafeRecyclerView(int id, String name, String address, String profile, int table_cnt, String open, String close, int like) {
+    private void addCafeRecyclerView(int id, String name, String address, String profile, int table_cnt, String open, String close, int like, String location) {
         //서버로부터 데이터 가져와서 추가하기.
         CafeRecyclerItem item = new CafeRecyclerItem();
         Uri uri = Uri.parse("android:resource://com.example.play_de/drawable/cafe01");
@@ -497,7 +504,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             open_time = Integer.parseInt(open.substring(0, 2));
         }
         int close_time = Integer.parseInt(close.substring(0, 2));
-        item.setData(id, uri.toString(), name, address, table, open_time, close_time, heart);
+        item.setData(id, uri.toString(), name, address, table, open_time, close_time, heart, location);
         cafe_adapter.addItem(item);
         cafe_adapter.notifyDataSetChanged();
     }
@@ -541,20 +548,31 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private void cafeJSONParse(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
-            String cafe = jsonObject.getString("cafe");
-            JSONArray jsonArray = new JSONArray(cafe);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject subJsonObject = jsonArray.getJSONObject(i);
-                int id = subJsonObject.getInt("id");
-                String name = subJsonObject.getString("name");
-                String address = subJsonObject.getString("address");
-                String profile = subJsonObject.getString("profile");
-                int table_cnt = subJsonObject.getInt("table_cnt");
-                String open = subJsonObject.getString("open");
-                String close = subJsonObject.getString("close");
-                int like = subJsonObject.getInt("like");
+            String meta = jsonObject.getString("meta");
+            JSONObject subJsonObject01 = jsonObject.getJSONObject(meta);
+            int count = subJsonObject01.getInt("count");
 
-                addCafeRecyclerView(id, name, address, profile, table_cnt, open, close, like);
+            if (count != 0) {
+                no_cafe.setVisibility(View.GONE);
+                search_cafe.setVisibility(View.VISIBLE);
+                filterEdit.setHint("전체 " + count);
+
+                String cafe = jsonObject.getString("cafe");
+                JSONArray jsonArray = new JSONArray(cafe);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject subJsonObject = jsonArray.getJSONObject(i);
+                    int id = subJsonObject.getInt("id");
+                    String name = subJsonObject.getString("name");
+                    String address = subJsonObject.getString("address");
+                    String location = subJsonObject.getString("coords");
+                    String profile = subJsonObject.getString("profile");
+                    int table_cnt = subJsonObject.getInt("table_cnt");
+                    String open = subJsonObject.getString("open");
+                    String close = subJsonObject.getString("close");
+                    int like = subJsonObject.getInt("like");
+
+                    addCafeRecyclerView(id, name, address, profile, table_cnt, open, close, like, location);
+                }
             }
         } catch (Exception e) {
             Log.e("cafeJSONParse", "예외 발생");
@@ -611,7 +629,9 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
 
     @Override
     public void onBackPressed() {
-        if (search_cafe.getVisibility() == View.GONE)
+        if (no_cafe.getVisibility() == View.VISIBLE)
+            main.onBackTime();
+        else if (search_cafe.getVisibility() == View.GONE)
             goBack();
         else
             main.onBackTime();

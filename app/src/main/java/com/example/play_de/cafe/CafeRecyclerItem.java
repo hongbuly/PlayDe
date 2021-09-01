@@ -8,8 +8,9 @@ public class CafeRecyclerItem {
     private String table;
     private int open, close;
     private String heart;
+    private String location;
 
-    public void setData(int id, String image, String name, String address, String table, int open, int close, String heart) {
+    public void setData(int id, String image, String name, String address, String table, int open, int close, String heart, String location) {
         this.id = id;
         this.image = image;
         this.name = name;
@@ -18,6 +19,7 @@ public class CafeRecyclerItem {
         this.open = open;
         this.close = close;
         this.heart = heart;
+        this.location = location;
     }
 
     public int getId() {
