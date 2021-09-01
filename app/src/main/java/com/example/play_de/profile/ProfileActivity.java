@@ -1,7 +1,7 @@
 package com.example.play_de.profile;
 
-import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -9,10 +9,11 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,20 +34,19 @@ import com.example.play_de.R;
 import com.example.play_de.main.AppHelper;
 import com.example.play_de.main.MainActivity;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
+    private FirebaseStorage storage;
     private TabLayout tab;
     private TextView positionText;
     private ImageButton backBtn;
@@ -98,6 +98,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initialSetUp() {
+        storage = FirebaseStorage.getInstance();
         positionText = findViewById(R.id.positionText);
         backBtn = findViewById(R.id.backBtn);
         tab = findViewById(R.id.MainTab);
@@ -336,12 +337,14 @@ public class ProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0 && resultCode == RESULT_OK && data.getData() != null) {
             Uri selectedImageUri = data.getData();
-
             Glide.with(this)
                     .load(selectedImageUri)
                     .apply(new RequestOptions().circleCrop())
                     .into(main_image);
-            replacePicture(selectedImageUri);
+
+            FirebaseStorage.getInstance().getReference().child("userImages").putFile(selectedImageUri).addOnCompleteListener(task1 -> {
+                FirebaseStorage.getInstance().getReference().child("userImages").getDownloadUrl().addOnSuccessListener(this::replacePicture);
+            });
         }
     }
 
@@ -349,7 +352,7 @@ public class ProfileActivity extends AppCompatActivity {
         //사용자 프로필사진 변경
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("/user/profile/image/set?user_id=");
+        urlStr.append("user/profile/image/set?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&image_url=");
         urlStr.append(uri.toString());
