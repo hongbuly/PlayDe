@@ -72,7 +72,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private int selected_bulletin = -1;
     private String[] selected_tag = {"추천해요", "만나요", "질문있어요", "최근 소식"};
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private SwipeRefreshLayout swipeRefreshCommunity;
     private CommunityRecyclerAdapter communityRecyclerAdapter;
 
     private RelativeLayout community_view02;
@@ -82,6 +82,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private int comment_id; //댓글 id
     private int community_position; //community adapter 에서 position
     private int board_id; //데이터 베이스에서 커뮤니티 id
+    private SwipeRefreshLayout swipeRefreshComment;
     private CommunityCommentAdapter comment_adapter;
     private EditText msg_edit;
     private ImageView sendBtn;
@@ -165,7 +166,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         community_recyclerView.setLayoutManager(communityLayoutManager);
         community_recyclerView.setAdapter(communityRecyclerAdapter);
 
-        mSwipeRefreshLayout = view.findViewById(R.id.swipe_community);
+        swipeRefreshCommunity = view.findViewById(R.id.swipe_community);
+        swipeRefreshComment = view.findViewById(R.id.swipe_comment);
 
         bulletin = view.findViewById(R.id.bulletin);
         write_editText = view.findViewById(R.id.write_editText);
@@ -321,9 +323,14 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         });
         refreshCommunityWrite();
 
-        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+        swipeRefreshCommunity.setOnRefreshListener(() -> {
             refreshCommunityWrite();
-            mSwipeRefreshLayout.setRefreshing(false);
+            swipeRefreshCommunity.setRefreshing(false);
+        });
+
+        swipeRefreshComment.setOnRefreshListener(() -> {
+            refreshComment(board_id);
+            swipeRefreshComment.setRefreshing(false);
         });
 
         //게시판 선택 다이얼로그

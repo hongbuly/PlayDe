@@ -207,8 +207,8 @@
                 android:text="게시판 선택"
                 android:textColor="@color/Black"
                 android:textSize="13sp"
-                tools:ignore="HardcodedText"
-                app:drawableEndCompat="@drawable/down_clamp" />
+                app:drawableEndCompat="@drawable/down_clamp"
+                tools:ignore="HardcodedText" />
 
             <Button
                 android:id="@+id/write_btn"
@@ -286,15 +286,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name"
-                android:layout_toEndOf="@+id/time"
                 android:layout_marginTop="8dp"
+                android:layout_toEndOf="@+id/time"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/apple_l"
                 android:text="114"
                 android:textColor="@color/Black"
                 android:textSize="13sp"
-                tools:ignore="HardcodedText,SmallSp"
-                app:drawableStartCompat="@drawable/read" />
+                app:drawableStartCompat="@drawable/read"
+                tools:ignore="HardcodedText,SmallSp" />
 
             <TextView
                 android:id="@+id/time"
@@ -302,15 +302,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name"
                 android:layout_marginTop="8dp"
-                android:layout_toEndOf="@+id/image"
                 android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/image"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/apple_l"
                 android:text="2021.08.20"
                 android:textColor="@color/Black"
                 android:textSize="13sp"
-                tools:ignore="HardcodedText,SmallSp"
-                app:drawableStartCompat="@drawable/time" />
+                app:drawableStartCompat="@drawable/time"
+                tools:ignore="HardcodedText,SmallSp" />
 
             <View
                 android:layout_width="match_parent"
@@ -393,13 +393,19 @@
                 android:layout_below="@+id/heart"
                 android:background="#B3DDDDDD" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/comment_recycler"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_comment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/send"
                 android:layout_below="@+id/heart"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="15dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/comment_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
             <RelativeLayout
                 android:id="@+id/send"

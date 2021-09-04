@@ -49,11 +49,11 @@
         android:id="@+id/no_cafe"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="150dp"
         android:layout_weight="10"
         android:background="@drawable/round_back_white"
         android:fontFamily="@font/apple_b"
         android:gravity="center|top"
+        android:paddingTop="150dp"
         android:text="앱에 등록된 주위 카페가 없어요!"
         android:textColor="@color/LineGrey"
         android:textSize="20sp"
@@ -173,13 +173,19 @@
             android:layout_marginBottom="15dp"
             android:background="@color/PolarGrey" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_cafe"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@color/Glass"
-            android:dividerHeight="5dp"
-            android:listSelector="@android:color/transparent" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/Glass"
+                android:dividerHeight="5dp"
+                android:listSelector="@android:color/transparent" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 
 

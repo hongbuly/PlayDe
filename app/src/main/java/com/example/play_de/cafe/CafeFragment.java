@@ -30,6 +30,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.Request;
@@ -73,6 +74,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private EditText filterEdit;
     private int setBtn = 0;
     private Button basicBtn, distanceBtn, priceBtn, registerBtn;
+    private SwipeRefreshLayout swipeRefreshCafe;
     private RecyclerView cafe_recyclerView;
     private CafeRecyclerAdapter cafe_adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -125,9 +127,9 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_cafe, container, false);
         initialSetup();
+        checkRunTimePermission();
         eventListener();
         setDate();
-        checkRunTimePermission();
         return view;
     }
 
@@ -151,6 +153,8 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         distanceBtn = view.findViewById(R.id.distanceBtn);
         priceBtn = view.findViewById(R.id.priceBtn);
         registerBtn = view.findViewById(R.id.registerBtn);
+
+        swipeRefreshCafe = view.findViewById(R.id.swipe_cafe);
 
         cafe_adapter = new CafeRecyclerAdapter();
         cafe_recyclerView = view.findViewById(R.id.recycler);
@@ -232,7 +236,8 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             @Override
             public void afterTextChanged(Editable s) {
                 //입력된 후
-                refreshCafe();
+                if (!filterEdit.getText().toString().equals(""))
+                    refreshCafe();
             }
         });
 
@@ -271,6 +276,11 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
                 cafe_adapter.setHeart(position);
                 cafe_adapter.notifyDataSetChanged();
             }
+        });
+
+        swipeRefreshCafe.setOnRefreshListener(() -> {
+            refreshCafe();
+            swipeRefreshCafe.setRefreshing(false);
         });
 
         FragmentManager fm = getChildFragmentManager();
@@ -770,6 +780,12 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     public void onResume() {
         super.onResume();
         main.setOnBackPressedListener(this, 1);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        filterEdit.setText("");
     }
 
     @Override
