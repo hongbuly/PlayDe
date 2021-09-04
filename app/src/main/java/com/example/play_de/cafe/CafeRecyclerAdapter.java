@@ -25,7 +25,7 @@ public class CafeRecyclerAdapter extends RecyclerView.Adapter<CafeRecyclerAdapte
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(int component, int position);
     }
 
     CafeRecyclerItem getData(int position) {
@@ -58,7 +58,16 @@ public class CafeRecyclerAdapter extends RecyclerView.Adapter<CafeRecyclerAdapte
                 int pos = getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
                     if (mListener != null) {
-                        mListener.onItemClick(v, pos);
+                        mListener.onItemClick(0, pos);
+                    }
+                }
+            });
+
+            heart.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    if (mListener != null) {
+                        mListener.onItemClick(1, pos);
                     }
                 }
             });
@@ -78,7 +87,10 @@ public class CafeRecyclerAdapter extends RecyclerView.Adapter<CafeRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull CafeRecyclerAdapter.ViewHolder holder, int position) {
-        holder.image.setImageURI(Uri.parse(mData.get(position).getImage()));
+        if (mData.get(position).getImage().equals("")) {
+            holder.image.setImageResource(R.drawable.cafe01);
+        } else
+            holder.image.setImageURI(Uri.parse(mData.get(position).getImage()));
         holder.name.setText(mData.get(position).getName());
         holder.address.setText(mData.get(position).getAddress());
         holder.table.setText(mData.get(position).getTable());

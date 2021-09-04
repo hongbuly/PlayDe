@@ -88,6 +88,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private boolean second_comment = false;
 
     private LinearLayout profile_view;
+    private int profile_position;
     private ImageView profile_image;
     private TextView profile_name, send_message;
     private RatingBar heart_rating;
@@ -281,10 +282,12 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         communityRecyclerAdapter.setOnItemClickListener((component, position) -> {
             if (component == 1) {
                 //image 클릭, chat 만들기
-                Intent intent = new Intent(requireContext(), ChatActivity.class);
-                intent.putExtra("destinationName", communityRecyclerAdapter.getData(position).name);
-                intent.putExtra("destinationUid", communityRecyclerAdapter.getData(position).uid);
-                startActivity(intent);
+                if (communityRecyclerAdapter.getData(position).uid != Integer.parseInt(MainActivity.userId)) {
+                    Intent intent = new Intent(requireContext(), ChatActivity.class);
+                    intent.putExtra("destinationName", communityRecyclerAdapter.getData(position).name);
+                    intent.putExtra("destinationUid", communityRecyclerAdapter.getData(position).uid);
+                    startActivity(intent);
+                }
             } else if (component == 2) {
                 //공감하기 버튼 클릭
                 board_id = communityRecyclerAdapter.getData(position).write_id;
@@ -303,7 +306,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 content.setText(communityRecyclerAdapter.getData(position).comment);
                 read.setText(Integer.toString(communityRecyclerAdapter.getData(position).visit));
                 time.setText(communityRecyclerAdapter.getData(position).time);
-                heart.setText("공감 "+ communityRecyclerAdapter.getData(position).like);
+                heart.setText("공감 " + communityRecyclerAdapter.getData(position).like);
                 comment.setText("댓글 " + communityRecyclerAdapter.getData(position).comment_cnt);
                 tag.setText(communityRecyclerAdapter.getData(position).tag);
 
@@ -376,7 +379,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 write_community();
                 selected_bulletin = -1;
                 bulletin.setText("게시판 선택");
-                refreshCommunityWrite();
             }
         });
 
@@ -385,8 +387,17 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 //이미지 클릭 -> 프로필 보여주기
                 community_view02.setVisibility(View.GONE);
                 profile_view.setVisibility(View.VISIBLE);
-                profile_image.setImageResource(Integer.parseInt(comment_adapter.getData(position).image));
+                if (comment_adapter.getData(position).image.equals("")) {
+                    profile_image.setImageResource(R.drawable.circle_grey);
+                } else {
+                    Uri uri = Uri.parse(comment_adapter.getData(position).image);
+                    Glide.with(profile_image.getContext())
+                            .load(uri)
+                            .apply(new RequestOptions().circleCrop())
+                            .into(profile_image);
+                }
                 profile_name.setText(comment_adapter.getData(position).name);
+                profile_position = position;
                 //하단에 하트와 가게도 set 하도록 연결할 것.
             } else if (component == 1) {
                 //답글쓰기, msg_edit 포커스 주기.
@@ -417,10 +428,17 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //프로필 상세보기에서
         send_message.setOnClickListener(v -> {
             //메시지 보내기.
+            if (communityRecyclerAdapter.getData(profile_position).uid != Integer.parseInt(MainActivity.userId)) {
+                Intent intent = new Intent(requireContext(), ChatActivity.class);
+                intent.putExtra("destinationName", communityRecyclerAdapter.getData(profile_position).name);
+                intent.putExtra("destinationUid", communityRecyclerAdapter.getData(profile_position).uid);
+                startActivity(intent);
+            }
         });
 
         blockBtn.setOnClickListener(v -> {
             //차단하기.
+            onClickReport();
         });
 
         //User Model 에 heart 갯수 추가하기.
@@ -620,7 +638,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             request.setShouldCache(false);
             AppHelper.requestQueue = Volley.newRequestQueue(context);
             AppHelper.requestQueue.add(request);
-            refreshComment(board_id);
             second_comment = false;
         } else {
             StringBuilder urlStr = new StringBuilder();
@@ -661,7 +678,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             request.setShouldCache(false);
             AppHelper.requestQueue = Volley.newRequestQueue(context);
             AppHelper.requestQueue.add(request);
-            refreshComment(board_id);
         }
     }
 
@@ -728,12 +744,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     }
 
     private void addCommunityRecyclerView(int write_id, String image, String name, String comment, int uid, int like, boolean my_like, String time, int visit, String tag, int comment_cnt) {
-        Uri uri = Uri.parse("android:resource://com.example.play_de/drawable/circle_grey");
         CommunityItem item = new CommunityItem();
         item.write_id = write_id;
-        if (image.equals(""))
-            item.image = uri.toString();
-        else
+        if (!image.equals(""))
             item.image = image;
         item.name = name;
         item.comment = comment;
@@ -755,7 +768,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         communityRecyclerAdapter.notifyDataSetChanged();
     }
 
-    private void addCommentRecyclerView(int comment_id, String content, boolean second_comment, int id, String name) {
+    private void addCommentRecyclerView(int comment_id, String content, boolean second_comment, int id, String name, String profile) {
         CommunityItem item = new CommunityItem();
         item.write_id = comment_id;
         item.image = Integer.toString(R.drawable.circle_grey);
@@ -763,6 +776,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         item.second_comment = second_comment;
         item.comment = content;
         item.uid = id;
+        item.image = profile;
         comment_adapter.addItem(item);
         comment_adapter.notifyDataSetChanged();
     }
@@ -869,13 +883,14 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 JSONObject subJsonObject = jsonArray.getJSONObject(i);
                 int comment_id = subJsonObject.getInt("id");
                 String content = subJsonObject.getString("content");
-                //boolean second_comment = subJsonObject.getBoolean("reply");
+                boolean second_comment = subJsonObject.getBoolean("reply");
 
                 JSONObject subJsonObject2 = subJsonObject.getJSONObject("writer");
                 int id = subJsonObject2.getInt("id");
                 String name = subJsonObject2.getString("nickname");
+                String profile = subJsonObject2.getString("profile");
 
-                addCommentRecyclerView(comment_id, content, false, id, name);
+                addCommentRecyclerView(comment_id, content, second_comment, id, name, profile);
             }
         } catch (Exception e) {
             Log.e("commentJSONParse", "예외 발생");
@@ -918,6 +933,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     public void onClickReport() {
         //신고하기 버튼
         community_view02.setVisibility(View.GONE);
+        profile_view.setVisibility(View.GONE);
         report_layout01.setVisibility(View.VISIBLE);
     }
 

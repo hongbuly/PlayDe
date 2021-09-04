@@ -1,6 +1,7 @@
 package com.example.play_de.community;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
         TextView content02;
 
         TextView answer02;
+        ImageView three_dot02;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,8 +68,18 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
             content02 = itemView.findViewById(R.id.content02);
 
             answer02 = itemView.findViewById(R.id.answer02);
+            three_dot02 = itemView.findViewById(R.id.three_dot02);
 
             image.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    if (mListener != null) {
+                        mListener.onItemClick(0, pos);
+                    }
+                }
+            });
+
+            image02.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
                     if (mListener != null) {
@@ -85,7 +97,25 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
                 }
             });
 
+            answer02.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    if (mListener != null) {
+                        mListener.onItemClick(1, pos);
+                    }
+                }
+            });
+
             three_dot.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    if (mListener != null) {
+                        mListener.onItemClick(2, pos);
+                    }
+                }
+            });
+
+            three_dot02.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
                     if (mListener != null) {
@@ -114,22 +144,30 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
 
     @Override
     public void onBindViewHolder(@NonNull CommunityCommentAdapter.ViewHolder holder, int position) {
+        Uri uri = null;
+
+        if (!mData.get(position).image.equals("")) {
+            uri = Uri.parse(mData.get(position).image);
+            Glide.with(context)
+                    .load(uri)
+                    .apply(new RequestOptions().circleCrop())
+                    .into(holder.image02);
+            Glide.with(context)
+                    .load(uri)
+                    .apply(new RequestOptions().circleCrop())
+                    .into(holder.image);
+        } else {
+            holder.image.setImageResource(R.drawable.circle_grey);
+        }
+
         if (mData.get(position).second_comment) {
             holder.comment01.setVisibility(View.GONE);
             holder.comment02.setVisibility(View.VISIBLE);
-            Glide.with(context)
-                    .load(mData.get(position).image)
-                    .apply(new RequestOptions().circleCrop())
-                    .into(holder.image02);
             holder.name02.setText(mData.get(position).name);
             holder.content02.setText(mData.get(position).comment);
         } else {
             holder.comment01.setVisibility(View.VISIBLE);
             holder.comment02.setVisibility(View.GONE);
-            Glide.with(context)
-                    .load(mData.get(position).image)
-                    .apply(new RequestOptions().circleCrop())
-                    .into(holder.image);
             holder.name.setText(mData.get(position).name);
             holder.content.setText(mData.get(position).comment);
         }
@@ -139,6 +177,4 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
     public int getItemCount() {
         return mData.size();
     }
-
-
 }

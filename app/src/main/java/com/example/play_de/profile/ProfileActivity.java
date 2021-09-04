@@ -135,6 +135,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         //main profile
         main_image = findViewById(R.id.main_image);
+        if (!MainActivity.profile.equals("")) {
+            Uri profile_uri = Uri.parse(MainActivity.profile);
+            Glide.with(this)
+                    .load(profile_uri)
+                    .apply(new RequestOptions().circleCrop())
+                    .into(main_image);
+        }
         main_name = findViewById(R.id.main_name);
         main_name.setText(MainActivity.name);
         main_level = findViewById(R.id.main_level);
@@ -342,8 +349,9 @@ public class ProfileActivity extends AppCompatActivity {
                     .apply(new RequestOptions().circleCrop())
                     .into(main_image);
 
-            FirebaseStorage.getInstance().getReference().child("userImages").putFile(selectedImageUri).addOnCompleteListener(task1 -> {
-                FirebaseStorage.getInstance().getReference().child("userImages").getDownloadUrl().addOnSuccessListener(this::replacePicture);
+            //파이어베이스에 내 사진을 올리고, Uri 를 서버로.
+            FirebaseStorage.getInstance().getReference().child("UserImages_" + MainActivity.userId).putFile(selectedImageUri).addOnCompleteListener(task1 -> {
+                FirebaseStorage.getInstance().getReference().child("UserImages_" + MainActivity.userId).getDownloadUrl().addOnSuccessListener(this::replacePicture);
             });
         }
     }

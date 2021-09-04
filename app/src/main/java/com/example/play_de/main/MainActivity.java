@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private long backKeyPressedTime = 0;
     public static String userId;
     public static String name;
+    public static String profile;
+    public static int score;
     public static String mainUrl = "https://playde-server-pzovl.run.goorm.io/";
 
     private View blur;
@@ -72,26 +74,28 @@ public class MainActivity extends AppCompatActivity {
         blur.setOnClickListener(v -> {
             if (reportBtn.getVisibility() == View.VISIBLE)
                 showBlur_report(false);
+            else if (removeBtn.getVisibility() == View.VISIBLE)
+                showBlur_remove(false);
         });
 
         finish_reserve = findViewById(R.id.finish_reserve);
         reportBtn = findViewById(R.id.reportBtn);
-        if (reportBtn.getVisibility() == View.VISIBLE) {
-            reportBtn.setOnClickListener(v -> {
-                //댓글 신고
+        reportBtn.setOnClickListener(v -> {
+            //댓글 신고
+            if (reportBtn.getVisibility() == View.VISIBLE) {
                 showBlur_report(false);
                 reportListener.onClickReport();
-            });
-        }
+            }
+        });
 
         removeBtn = findViewById(R.id.removeBtn);
-        if (removeBtn.getVisibility() == View.VISIBLE) {
-            removeBtn.setOnClickListener(v -> {
-                //커뮤니티 글 삭제
+        removeBtn.setOnClickListener(v -> {
+            //커뮤니티 글 삭제
+            if (removeBtn.getVisibility() == View.VISIBLE) {
                 showBlur_remove(false);
                 removeListener.onClickRemove();
-            });
-        }
+            }
+        });
 
         setName();
     }
@@ -158,7 +162,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(response);
             name = jsonObject.getString("nickname");
-            //profile, score 도 가져올 수 있음.
+            profile = jsonObject.getString("profile");
+            score = jsonObject.getInt("score");
         } catch (Exception e) {
             Log.e("commentJSONParse", "예외 발생");
         }
@@ -206,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showBlur_remove(boolean show) {
-        //커뮤니티 신고하기 버튼
+        //커뮤니티 삭제하기 버튼
         if (show) {
             Animation down_up = AnimationUtils.loadAnimation(this, R.anim.down_up);
             blur.setVisibility(View.VISIBLE);

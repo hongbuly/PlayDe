@@ -22,6 +22,10 @@ public class CafeRecyclerItem {
         this.location = location;
     }
 
+    public void setHeart(String heart) {
+        this.heart = heart;
+    }
+
     public int getId() {
         return id;
     }

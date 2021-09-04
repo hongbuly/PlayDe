@@ -190,12 +190,11 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
                 android:adjustViewBounds="true"
-                android:paddingEnd="10dp"
                 app:srcCompat="@drawable/store"
                 tools:ignore="ContentDescription,RtlSymmetry" />
 

@@ -232,14 +232,19 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             changeBtn(3);
         });
 
-        cafe_adapter.setOnItemClickListener((view, position) -> {
-            name.setText(cafe_adapter.getData(position).getName());
-            address.setText(cafe_adapter.getData(position).getAddress());
-            table.setText(cafe_adapter.getData(position).getTable());
-            time.setText(cafe_adapter.getData(position).getTime());
-            search_cafe.setVisibility(View.GONE);
-            reserve_view01.setVisibility(View.VISIBLE);
-            positionText.setText("지도");
+        cafe_adapter.setOnItemClickListener((component, position) -> {
+            if (component == 0) {
+                name.setText(cafe_adapter.getData(position).getName());
+                address.setText(cafe_adapter.getData(position).getAddress());
+                table.setText(cafe_adapter.getData(position).getTable());
+                time.setText(cafe_adapter.getData(position).getTime());
+                search_cafe.setVisibility(View.GONE);
+                reserve_view01.setVisibility(View.VISIBLE);
+                positionText.setText("지도");
+            } else if (component == 1) {
+                cafe_like(position);
+                //하트 개수 변경하기.
+            }
         });
 
         FragmentManager fm = getChildFragmentManager();
@@ -491,10 +496,47 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         refreshCafe();
     }
 
+    private void cafe_like(int position) {
+        //찜 카페 추가
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("/cafe/fav/add?user_id=");
+        urlStr.append(MainActivity.userId);
+        urlStr.append("&cafe_id=");
+        urlStr.append(cafe_adapter.getData(position).getId());
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean act = jsonObject.getBoolean("act");
+                        if (act) {
+                            Toast.makeText(context, "찜 카페가 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Log.e("cafe_like", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("cafe_like", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
+        AppHelper.requestQueue.add(request);
+    }
+
     private void addCafeRecyclerView(int id, String name, String address, String profile, int table_cnt, String open, String close, int like, String location) {
         //서버로부터 데이터 가져와서 추가하기.
         CafeRecyclerItem item = new CafeRecyclerItem();
-        Uri uri = Uri.parse("android:resource://com.example.play_de/drawable/cafe01");
         String table = "테이블 수 " + table_cnt + "개";
         String heart = Integer.toString(like);
         int open_time;
@@ -504,7 +546,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             open_time = Integer.parseInt(open.substring(0, 2));
         }
         int close_time = Integer.parseInt(close.substring(0, 2));
-        item.setData(id, uri.toString(), name, address, table, open_time, close_time, heart, location);
+        item.setData(id, "", name, address, table, open_time, close_time, heart, location);
         cafe_adapter.addItem(item);
         cafe_adapter.notifyDataSetChanged();
     }
@@ -549,7 +591,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         try {
             JSONObject jsonObject = new JSONObject(response);
             String meta = jsonObject.getString("meta");
-            JSONObject subJsonObject01 = jsonObject.getJSONObject(meta);
+            JSONObject subJsonObject01 = new JSONObject(meta);
             int count = subJsonObject01.getInt("count");
 
             if (count != 0) {
@@ -565,13 +607,13 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
                     String name = subJsonObject.getString("name");
                     String address = subJsonObject.getString("address");
                     String location = subJsonObject.getString("coords");
-                    String profile = subJsonObject.getString("profile");
+                    //String profile = subJsonObject.getString("profile");
                     int table_cnt = subJsonObject.getInt("table_cnt");
                     String open = subJsonObject.getString("open");
                     String close = subJsonObject.getString("close");
                     int like = subJsonObject.getInt("like");
 
-                    addCafeRecyclerView(id, name, address, profile, table_cnt, open, close, like, location);
+                    addCafeRecyclerView(id, name, address, "", table_cnt, open, close, like, location);
                 }
             }
         } catch (Exception e) {

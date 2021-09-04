@@ -1,6 +1,8 @@
 package com.example.play_de.community;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,10 +124,14 @@ public class CommunityRecyclerAdapter extends RecyclerView.Adapter<CommunityRecy
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CommunityRecyclerAdapter.ViewHolder holder, int position) {
-        Glide.with(holder.itemView.getContext())
-                .load(mData.get(position).image)
-                .apply(new RequestOptions().circleCrop())
-                .into(holder.image);
+        if (!mData.get(position).image.equals("")) {
+            Uri uri = Uri.parse(mData.get(position).image);
+            Glide.with(holder.itemView.getContext())
+                    .load(uri)
+                    .apply(new RequestOptions().circleCrop())
+                    .into(holder.image);
+        } else
+            holder.image.setImageResource(R.drawable.circle_grey);
         holder.name.setText(mData.get(position).name);
         holder.content.setText(mData.get(position).comment);
         holder.heart.setText("공감 " + mData.get(position).like);
