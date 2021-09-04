@@ -36,6 +36,24 @@ public class CafeRecyclerAdapter extends RecyclerView.Adapter<CafeRecyclerAdapte
         mListener = listener;
     }
 
+    void setHeart(int position) {
+        if (mData.get(position).my_like) {
+            mData.get(position).heart--;
+            mData.get(position).my_like = false;
+        } else {
+            mData.get(position).heart++;
+            mData.get(position).my_like = true;
+        }
+    }
+
+    float getLatitude(int position) {
+        return Float.parseFloat(mData.get(position).location.substring(0, mData.get(position).location.lastIndexOf(",")));
+    }
+
+    float getLongitude(int position) {
+        return Float.parseFloat(mData.get(position).location.substring(mData.get(position).location.lastIndexOf(",") + 1));
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name;
@@ -87,13 +105,13 @@ public class CafeRecyclerAdapter extends RecyclerView.Adapter<CafeRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull CafeRecyclerAdapter.ViewHolder holder, int position) {
-        if (mData.get(position).getImage().equals("")) {
+        if (mData.get(position).image.equals("")) {
             holder.image.setImageResource(R.drawable.cafe01);
         } else
-            holder.image.setImageURI(Uri.parse(mData.get(position).getImage()));
-        holder.name.setText(mData.get(position).getName());
-        holder.address.setText(mData.get(position).getAddress());
-        holder.table.setText(mData.get(position).getTable());
+            holder.image.setImageURI(Uri.parse(mData.get(position).image));
+        holder.name.setText(mData.get(position).name);
+        holder.address.setText(mData.get(position).address);
+        holder.table.setText(mData.get(position).table);
         holder.time.setText(mData.get(position).getTime());
         holder.heart.setText(mData.get(position).getHeart());
     }

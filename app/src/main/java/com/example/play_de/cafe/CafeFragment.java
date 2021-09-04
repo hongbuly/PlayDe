@@ -9,6 +9,8 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -216,6 +218,24 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             startActivity(intent);
         });
 
+        filterEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //입력되기 전에
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //텍스트가 변경 될때마다
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //입력된 후
+                refreshCafe();
+            }
+        });
+
         basicBtn.setOnClickListener(v -> {
             changeBtn(0);
         });
@@ -234,16 +254,22 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
 
         cafe_adapter.setOnItemClickListener((component, position) -> {
             if (component == 0) {
-                name.setText(cafe_adapter.getData(position).getName());
-                address.setText(cafe_adapter.getData(position).getAddress());
-                table.setText(cafe_adapter.getData(position).getTable());
+                setCafeLocation(cafe_adapter.getLatitude(position), cafe_adapter.getLongitude(position), cafe_adapter.getData(position).name, "보드게임카페");
+                name.setText(cafe_adapter.getData(position).name);
+                address.setText(cafe_adapter.getData(position).address);
+                table.setText(cafe_adapter.getData(position).table);
                 time.setText(cafe_adapter.getData(position).getTime());
                 search_cafe.setVisibility(View.GONE);
                 reserve_view01.setVisibility(View.VISIBLE);
                 positionText.setText("지도");
             } else if (component == 1) {
-                cafe_like(position);
+                if (cafe_adapter.getData(position).my_like)
+                    cafe_remove(position);
+                else
+                    cafe_like(position);
                 //하트 개수 변경하기.
+                cafe_adapter.setHeart(position);
+                cafe_adapter.notifyDataSetChanged();
             }
         });
 
@@ -440,6 +466,17 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(KookMin, 15));
     }
 
+    private void setCafeLocation(float latitude, float longitude, String title, String snippet) {
+        LatLng Cafe = new LatLng(latitude, longitude);
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(Cafe);
+        markerOptions.title(title);
+        markerOptions.snippet(snippet);
+        map.addMarker(markerOptions);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(Cafe, 15));
+    }
+
     private void showDate() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(context, R.style.DatePickerDialog, (view, year, month, dayOfMonth) -> {
             String text = year + "년  " + (month + 1) + "월  " + dayOfMonth + "일";
@@ -500,10 +537,10 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         //찜 카페 추가
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("/cafe/fav/add?user_id=");
+        urlStr.append("cafe/fav/add?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&cafe_id=");
-        urlStr.append(cafe_adapter.getData(position).getId());
+        urlStr.append(cafe_adapter.getData(position).id);
         StringRequest request = new StringRequest(
                 Request.Method.GET,
                 urlStr.toString(),
@@ -534,11 +571,48 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         AppHelper.requestQueue.add(request);
     }
 
-    private void addCafeRecyclerView(int id, String name, String address, String profile, int table_cnt, String open, String close, int like, String location) {
+    private void cafe_remove(int position) {
+        //찜 카페 삭제
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("cafe/fav/delete?user_id=");
+        urlStr.append(MainActivity.userId);
+        urlStr.append("&cafe_id=");
+        urlStr.append(cafe_adapter.getData(position).id);
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean act = jsonObject.getBoolean("act");
+                        if (act) {
+                            Toast.makeText(context, "찜 카페가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Log.e("cafe_remove", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("cafe_remove", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
+        AppHelper.requestQueue.add(request);
+    }
+
+    private void addCafeRecyclerView(int id, String name, String address, String profile, int table_cnt, String open, String close, int like, boolean my_like, String location) {
         //서버로부터 데이터 가져와서 추가하기.
         CafeRecyclerItem item = new CafeRecyclerItem();
         String table = "테이블 수 " + table_cnt + "개";
-        String heart = Integer.toString(like);
         int open_time;
         if (open.substring(0, 1).equals("0")) {
             open_time = Integer.parseInt(open.substring(1, 2));
@@ -546,7 +620,16 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             open_time = Integer.parseInt(open.substring(0, 2));
         }
         int close_time = Integer.parseInt(close.substring(0, 2));
-        item.setData(id, "", name, address, table, open_time, close_time, heart, location);
+        item.id = id;
+        item.name = name;
+        item.address = address;
+        item.image = profile;
+        item.table = table;
+        item.heart = like;
+        item.open = open_time;
+        item.close = close_time;
+        item.location = location;
+        item.my_like = my_like;
         cafe_adapter.addItem(item);
         cafe_adapter.notifyDataSetChanged();
     }
@@ -556,13 +639,16 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         cafe_adapter.initialSetUp();
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("/cafe/list?coords=");
+        urlStr.append("cafe/list?user_id=");
+        urlStr.append(MainActivity.userId);
+        urlStr.append("&coords=");
         urlStr.append(latitude);
         urlStr.append(",");
         urlStr.append(longitude);
         urlStr.append("&sort=");
         urlStr.append(setBtn);
-        urlStr.append("&range=1,30");
+        urlStr.append("&range=1,30&cafe_name=");
+        urlStr.append(filterEdit.getText().toString());
         Log.e("cafe", urlStr.toString());
         StringRequest request = new StringRequest(
                 Request.Method.GET,
@@ -612,8 +698,9 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
                     String open = subJsonObject.getString("open");
                     String close = subJsonObject.getString("close");
                     int like = subJsonObject.getInt("like");
+                    boolean my_like = subJsonObject.getBoolean("my_like");
 
-                    addCafeRecyclerView(id, name, address, "", table_cnt, open, close, like, location);
+                    addCafeRecyclerView(id, name, address, "", table_cnt, open, close, like, my_like, location);
                 }
             }
         } catch (Exception e) {

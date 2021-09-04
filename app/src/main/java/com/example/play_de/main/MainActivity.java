@@ -19,6 +19,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.play_de.R;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.iid.FirebaseInstanceIdReceiver;
 
 import org.json.JSONObject;
 
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         //키보드가 레이아웃에 영향을 안주게
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+
 
         Intent intent = getIntent();
         userId = intent.getExtras().getString("userId");
