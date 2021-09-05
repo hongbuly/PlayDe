@@ -73,7 +73,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
     private LinearLayout search_cafe;
     private EditText filterEdit;
     private int setBtn = 0;
-    private Button basicBtn, distanceBtn, priceBtn, registerBtn;
+    private Button basicBtn, distanceBtn, likeBtn, priceBtn;
     private SwipeRefreshLayout swipeRefreshCafe;
     private RecyclerView cafe_recyclerView;
     private CafeRecyclerAdapter cafe_adapter;
@@ -151,8 +151,8 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         filterEdit = view.findViewById(R.id.filterEdit);
         basicBtn = view.findViewById(R.id.basicBtn);
         distanceBtn = view.findViewById(R.id.distanceBtn);
+        likeBtn = view.findViewById(R.id.likeBtn);
         priceBtn = view.findViewById(R.id.priceBtn);
-        registerBtn = view.findViewById(R.id.registerBtn);
 
         swipeRefreshCafe = view.findViewById(R.id.swipe_cafe);
 
@@ -249,11 +249,11 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             changeBtn(1);
         });
 
-        priceBtn.setOnClickListener(v -> {
+        likeBtn.setOnClickListener(v -> {
             changeBtn(2);
         });
 
-        registerBtn.setOnClickListener(v -> {
+        priceBtn.setOnClickListener(v -> {
             changeBtn(3);
         });
 
@@ -518,11 +518,11 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             distanceBtn.setTextColor(whiteColor);
             distanceBtn.setBackgroundResource(R.drawable.round_red20);
         } else if (setBtn == 2) {
+            likeBtn.setTextColor(whiteColor);
+            likeBtn.setBackgroundResource(R.drawable.round_red20);
+        } else if (setBtn == 3) {
             priceBtn.setTextColor(whiteColor);
             priceBtn.setBackgroundResource(R.drawable.round_red20);
-        } else if (setBtn == 3) {
-            registerBtn.setTextColor(whiteColor);
-            registerBtn.setBackgroundResource(R.drawable.round_red20);
         }
 
         if (this.setBtn == 0) {
@@ -532,11 +532,11 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
             distanceBtn.setTextColor(greyColor);
             distanceBtn.setBackgroundResource(R.drawable.round_corner_line20);
         } else if (this.setBtn == 2) {
+            likeBtn.setTextColor(greyColor);
+            likeBtn.setBackgroundResource(R.drawable.round_corner_line20);
+        } else if (this.setBtn == 3) {
             priceBtn.setTextColor(greyColor);
             priceBtn.setBackgroundResource(R.drawable.round_corner_line20);
-        } else if (this.setBtn == 3) {
-            registerBtn.setTextColor(greyColor);
-            registerBtn.setBackgroundResource(R.drawable.round_corner_line20);
         }
 
         this.setBtn = setBtn;

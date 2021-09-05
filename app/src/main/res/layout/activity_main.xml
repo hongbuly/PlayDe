@@ -118,11 +118,12 @@
         android:background="@color/White"
         android:fontFamily="@font/apple_m"
         android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:paddingTop="20dp"
         android:paddingBottom="25dp"
         android:text="삭제하기"
         android:textColor="@color/Black"
         android:textSize="15sp"
         android:visibility="gone"
-        tools:ignore="HardcodedText,RtlSymmetry" />
+        tools:ignore="HardcodedText" />
 </RelativeLayout>
