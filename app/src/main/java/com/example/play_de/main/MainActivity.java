@@ -221,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
             removeBtn.startAnimation(down_up);
         } else {
             Animation up_down = AnimationUtils.loadAnimation(this, R.anim.up_down);
+            //애니메이션의 fillAfter 를 사용하면, gone 이 적용되지 않음.
             removeBtn.startAnimation(up_down);
             up_down.setAnimationListener(new Animation.AnimationListener() {
                 @Override

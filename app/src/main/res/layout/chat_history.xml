@@ -1,42 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="horizontal">
+    android:padding="20dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/image"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:adjustViewBounds="true"
+        android:layout_marginEnd="15dp"
         android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/circular" />
+        android:src="@drawable/circle_grey" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/name"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/image"
+        android:fontFamily="@font/apple_b"
+        android:text="이름"
+        android:textColor="@color/Black"
+        android:textSize="12sp"
+        tools:ignore="HardcodedText" />
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/apple_b"
-            android:text="이름"
-            android:textColor="@color/Black"
-            android:textSize="12dp" />
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/image"
+        android:fontFamily="@font/apple_l"
+        android:maxLines="2"
+        android:text="마지막 채팅 내용"
+        android:textColor="@color/Black"
+        android:textSize="12sp"
+        tools:ignore="HardcodedText" />
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/apple_l"
-            android:text="마지막 채팅 내용"
-            android:textColor="@color/Black"
-            android:textSize="12dp" />
-    </LinearLayout>
-</LinearLayout>
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/apple_l"
+        android:text="오후 1:56"
+        android:textColor="@color/LightGrey"
+        android:textSize="8sp"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/read_txt"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_below="@+id/time"
+        android:layout_alignParentEnd="true"
+        android:fontFamily="@font/apple_l"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="1"
+        android:textColor="@color/White"
+        android:background="@drawable/circle_red"
+        android:textSize="8sp"
+        tools:ignore="SmallSp" />
+
+</RelativeLayout>
