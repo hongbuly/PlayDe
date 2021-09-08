@@ -225,6 +225,21 @@
                 android:textSize="13sp"
                 tools:ignore="HardcodedText,SmallSp" />
 
+            <Button
+                android:id="@+id/moment_write_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="68dp"
+                android:layout_height="33dp"
+                android:layout_toStartOf="@+id/write_btn"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/round_corner_grey15"
+                android:fontFamily="@font/apple_l"
+                android:text="임시저장"
+                android:textColor="@color/Grey"
+                android:textSize="13sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

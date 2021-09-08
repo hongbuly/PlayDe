@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,10 +15,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.play_de.R;
 import com.example.play_de.community.CommunityProfileFavorite;
 import com.example.play_de.community.CommunityProfileFavoriteAdapter;
+import com.example.play_de.main.AppHelper;
+import com.example.play_de.main.MainActivity;
 import com.github.mmin18.widget.RealtimeBlurView;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity {
     private String chatRoomUid; //채팅방 id
@@ -52,6 +64,14 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     void initialSetUp() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        String token = task.getResult();
+                        sendToken(token);
+                    }
+                });
+
         name = getIntent().getStringExtra("destinationName");
         destUid = getIntent().getStringExtra("destinationUid"); //채팅 상대
 
@@ -104,6 +124,42 @@ public class ChatActivity extends AppCompatActivity {
 
     private void checkChatRoom() {
 
+    }
+
+    private void sendToken(String token){
+        //token 저장하기
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("user/push_token/set?token=");
+        urlStr.append(token);
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean act = jsonObject.getBoolean("act");
+                        if (act) {
+                            Log.e("Token", "저장");
+                        } else
+                            Log.e("Token", "실패");
+                    } catch (Exception e) {
+                        Log.e("Token", "예외 발생");
+                    }
+                },
+                error -> {
+                    Log.e("Token", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(this);
+        AppHelper.requestQueue.add(request);
     }
 
     private void addHeartRecyclerView() {

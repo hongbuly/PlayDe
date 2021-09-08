@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
 
         urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("/user/join?platform=0&email=");
+        urlStr.append("user/join?platform=0&email=");
         urlStr.append(mail_id.getText().toString());
         urlStr.append("&password=");
         urlStr.append(password.getText().toString());
@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
         blur.setVisibility(View.VISIBLE);
         urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("/user/login?platform=0&email=");
+        urlStr.append("user/login?platform=0&email=");
         urlStr.append(id_edit.getText().toString());
         urlStr.append("&password=");
         urlStr.append(password_edit.getText().toString());

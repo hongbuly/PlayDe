@@ -64,7 +64,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private RelativeLayout write_view;
     private TextView bulletin;
     private EditText write_editText;
-    private Button write_btn;
+    private Button write_btn, moment_write_btn;
     private View blur;
     private RelativeLayout bulletin_view;
     private ImageView x;
@@ -172,6 +172,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         bulletin = view.findViewById(R.id.bulletin);
         write_editText = view.findViewById(R.id.write_editText);
         write_btn = view.findViewById(R.id.write_btn);
+        moment_write_btn = view.findViewById(R.id.moment_write_btn);
         blur = view.findViewById(R.id.blur);
         bulletin_view = view.findViewById(R.id.bulletin_view);
         x = view.findViewById(R.id.x);
@@ -389,6 +390,10 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             }
         });
 
+        moment_write_btn.setOnClickListener(v -> {
+            //임시저장
+        });
+
         comment_adapter.setOnItemClickListener((component, position) -> {
             if (component == 0) {
                 //이미지 클릭 -> 프로필 보여주기
@@ -426,6 +431,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             clickHeart();
         });
 
+        //대댓글 작성
         sendBtn.setOnClickListener(v -> {
                     write_comment();
                     refreshComment(board_id);
@@ -523,7 +529,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //글 올리기
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("/community/board/upload?user_id=");
+        urlStr.append("community/board/upload?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&content=");
         urlStr.append(write_editText.getText().toString());
@@ -560,6 +566,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         AppHelper.requestQueue = Volley.newRequestQueue(context);
         AppHelper.requestQueue.add(request);
         refreshCommunityWrite();
+        write_editText.setText("");
         backView();
     }
 
@@ -567,7 +574,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //공감하기 버튼
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("/community/board/like?user_id=");
+        urlStr.append("community/board/like?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&board_id=");
         urlStr.append(board_id);
@@ -609,7 +616,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             //대댓글 쓰기
             StringBuilder urlStr = new StringBuilder();
             urlStr.append(MainActivity.mainUrl);
-            urlStr.append("/community/reply/upload?user_id=");
+            urlStr.append("community/reply/upload?user_id=");
             urlStr.append(MainActivity.userId);
             urlStr.append("&comment_id=");
             urlStr.append(comment_id);
@@ -649,7 +656,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         } else {
             StringBuilder urlStr = new StringBuilder();
             urlStr.append(MainActivity.mainUrl);
-            urlStr.append("/community/comment/upload?user_id=");
+            urlStr.append("community/comment/upload?user_id=");
             urlStr.append(MainActivity.userId);
             urlStr.append("&board_id=");
             urlStr.append(board_id);
@@ -694,7 +701,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         communityRecyclerAdapter.notifyDataSetChanged();
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("/community/get?user_id=");
+        urlStr.append("community/get?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&range=1,50&tag=");
         urlStr.append(selected_tag[setBtn]);
@@ -726,7 +733,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         comment_adapter.initialSetUp();
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("/community/board/");
+        urlStr.append("community/board/");
         urlStr.append(write_id);
         urlStr.append("?user_id=");
         urlStr.append(MainActivity.userId);
@@ -949,7 +956,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //커뮤니티 글 삭제 버튼
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("/community/board/delete?user_id=");
+        urlStr.append("community/board/delete?user_id=");
         urlStr.append(MainActivity.userId);
         urlStr.append("&board_id=");
         urlStr.append(board_id);
