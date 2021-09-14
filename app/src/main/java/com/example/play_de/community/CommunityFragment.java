@@ -65,12 +65,16 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private TextView bulletin;
     private EditText write_editText;
     private Button write_btn, moment_write_btn;
+    private TextView moment_write_num;
     private View blur;
     private RelativeLayout bulletin_view;
     private ImageView x;
     private TextView recommend, meet, question, news;
     private int selected_bulletin = -1;
     private String[] selected_tag = {"추천해요", "만나요", "질문있어요", "최근 소식"};
+
+    private RelativeLayout storage;
+    private CommunityStorageAdapter storage_adapter;
 
     private SwipeRefreshLayout swipeRefreshCommunity;
     private CommunityRecyclerAdapter communityRecyclerAdapter;
@@ -131,6 +135,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private void initialSetUp() {
         community_view01 = view.findViewById(R.id.community_view01);
         write_view = view.findViewById(R.id.write_view);
+        storage = view.findViewById(R.id.storage);
         community_view02 = view.findViewById(R.id.community_view02);
         profile_view = view.findViewById(R.id.profile_view);
         report_layout01 = view.findViewById(R.id.report_layout01);
@@ -173,6 +178,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         write_editText = view.findViewById(R.id.write_editText);
         write_btn = view.findViewById(R.id.write_btn);
         moment_write_btn = view.findViewById(R.id.moment_write_btn);
+        moment_write_num = view.findViewById(R.id.moment_write_num);
         blur = view.findViewById(R.id.blur);
         bulletin_view = view.findViewById(R.id.bulletin_view);
         x = view.findViewById(R.id.x);
@@ -180,6 +186,12 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         meet = view.findViewById(R.id.meet);
         question = view.findViewById(R.id.question);
         news = view.findViewById(R.id.news);
+
+        storage_adapter = new CommunityStorageAdapter();
+        RecyclerView storage_recyclerView = view.findViewById(R.id.storage_recycler);
+        RecyclerView.LayoutManager storageLayoutManager = new LinearLayoutManager(getActivity());
+        storage_recyclerView.setLayoutManager(storageLayoutManager);
+        storage_recyclerView.setAdapter(storage_adapter);
 
         msg_edit = view.findViewById(R.id.msg_edit);
         sendBtn = view.findViewById(R.id.sendBtn);

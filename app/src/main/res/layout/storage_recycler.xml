@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="@color/PolarGrey"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/apple_l"
+        android:singleLine="true"
+        android:text="내용"
+        android:textColor="@color/Black"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/apple_l"
+        android:singleLine="true"
+        android:text="2021.08.15 18:50"
+        android:textColor="@color/Grey"
+        android:textSize="13sp" />
+
+</LinearLayout>

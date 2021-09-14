@@ -1,5 +1,7 @@
 package com.example.play_de.fundingParent;
 
+import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.play_de.main.MainActivity;
@@ -16,6 +19,7 @@ import com.example.play_de.R;
 
 public class ChildFundingFragment extends Fragment implements OnBackPressedListener {
     private MainActivity main;
+    private Context context;
     private FundingFragment fundingFragment;
     private View view;
     private TextView plusBtn;
@@ -58,6 +62,9 @@ public class ChildFundingFragment extends Fragment implements OnBackPressedListe
         percent = new TextView[4];
         tag = new TextView[4];
 
+        GradientDrawable drawable = (GradientDrawable) context.getDrawable(R.drawable.image_rounding);
+        //setBackground, setClipToOutline(true) 레이아웃에 적용시키기.
+
         game[0] = view.findViewById(R.id.game01);
         game[1] = view.findViewById(R.id.game02);
         game[2] = view.findViewById(R.id.game03);
@@ -96,5 +103,11 @@ public class ChildFundingFragment extends Fragment implements OnBackPressedListe
     public void onResume() {
         super.onResume();
         main.setOnBackPressedListener(this, 3);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 }
