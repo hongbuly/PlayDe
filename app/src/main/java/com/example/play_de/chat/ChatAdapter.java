@@ -10,13 +10,51 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.play_de.R;
+import com.example.play_de.main.MainActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
-    private TextView left_text;
-    private TextView right_text;
+    private List<ChatModel> comments;
+    private String uid;
+
+    public ChatAdapter(String chatRoomUid, String uid) {
+        comments = new ArrayList<>();
+        this.uid = uid;
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("chatRooms")
+                .child(chatRoomUid)
+                .child("comments")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        comments.clear();
+
+                        for (DataSnapshot item : snapshot.getChildren()) {
+                            comments.add(item.getValue(ChatModel.class));
+                        }
+                        notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
+        TextView left_text;
+        TextView right_text;
         TextView text;
 
         ViewHolder(@NonNull View itemView) {
@@ -27,20 +65,20 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             right_text = itemView.findViewById(R.id.right_chat);
         }
 
-        void onBind() {
+        void onBind(ChatModel comment) {
             image.setImageResource(R.drawable.cafe01);
 
-//            if (item.uid.equals(myUid)) {
-//                image.setVisibility(View.GONE);
-//                left_text.setVisibility(View.GONE);
-//                right_text.setVisibility(View.VISIBLE);
-//                text = right_text;
-//            } else {
-//                left_text.setVisibility(View.VISIBLE);
-//                right_text.setVisibility(View.GONE);
-//                text = left_text;
-//            }
-//            text.setText(item.message);
+            if (comment.comments.get(uid).equals(MainActivity.userId)) {
+                image.setVisibility(View.GONE);
+                left_text.setVisibility(View.GONE);
+                right_text.setVisibility(View.VISIBLE);
+                text = right_text;
+            } else {
+                left_text.setVisibility(View.VISIBLE);
+                right_text.setVisibility(View.GONE);
+                text = left_text;
+            }
+            text.setText(comment.comments.get("message"));
         }
     }
 
@@ -53,11 +91,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        holder.onBind(comments.get(position));
+        holder.onBind(comments.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return comments.size();
     }
 }

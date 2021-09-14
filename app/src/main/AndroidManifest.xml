@@ -29,7 +29,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDRjLjbuX8A63rHcw1DpJvnWla-rI67diY" />
 
-        <activity android:name=".main.SplashActivity">
+        <activity android:name=".main.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,7 +39,8 @@
         </activity>
 
         <service
-            android:name=".chat.FireBaseMessagingService">
+            android:name=".chat.FireBaseMessagingService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         //키보드가 레이아웃에 영향을 안주게
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
-
         Intent intent = getIntent();
         userId = intent.getExtras().getString("userId");
 

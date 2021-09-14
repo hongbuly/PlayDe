@@ -56,7 +56,7 @@
             android:layout_height="0dp"
             android:layout_weight="10"
             android:background="@drawable/round_back_white"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/filterEdit"
@@ -195,7 +195,7 @@
             android:layout_weight="10"
             android:background="@drawable/round_back_white"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/bulletin"
@@ -307,7 +307,7 @@
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/apple_l"
                 android:text="저장기간 30일, 저장 개수 30개, 초과시 자동 삭제"
-                android:textColor="Grey"
+                android:textColor="@color/Grey"
                 android:textSize="11sp"
                 tools:ignore="HardcodedText" />
 

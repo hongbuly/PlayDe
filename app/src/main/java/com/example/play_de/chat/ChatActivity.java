@@ -1,5 +1,6 @@
 package com.example.play_de.chat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,12 @@ import com.example.play_de.community.CommunityProfileFavoriteAdapter;
 import com.example.play_de.main.AppHelper;
 import com.example.play_de.main.MainActivity;
 import com.github.mmin18.widget.RealtimeBlurView;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONObject;
@@ -53,6 +60,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private String name;
     private RecyclerView chat_view;
+    private ChatAdapter chatAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -66,7 +74,7 @@ public class ChatActivity extends AppCompatActivity {
     void initialSetUp() {
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         String token = task.getResult();
                         sendToken(token);
                     }
@@ -74,6 +82,7 @@ public class ChatActivity extends AppCompatActivity {
 
         name = getIntent().getStringExtra("destinationName");
         destUid = getIntent().getStringExtra("destinationUid"); //채팅 상대
+        myUid = MainActivity.userId;
 
         nameText = findViewById(R.id.nameText);
         nameText.setText(name);
@@ -115,22 +124,66 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         sendBtn.setOnClickListener(v -> {
+            ChatModel chatModel = new ChatModel();
+            chatModel.users.put(myUid, myUid);
+            chatModel.users.put(destUid, destUid);
+            chatModel.comments.put("message", msg_edit.getText().toString());
+            msg_edit.setText("");
 
+            if (chatRoomUid == null) {
+                sendBtn.setEnabled(false);
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("chatRooms")
+                        .push()
+                        .setValue(chatModel)
+                        .addOnSuccessListener(unused -> checkChatRoom());
+            } else {
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("chatRooms")
+                        .child(chatRoomUid)
+                        .child("comments")
+                        .push()
+                        .setValue(chatModel.comments);
+            }
         });
 
         overlap.setOnClickListener(v -> goToUp());
         back_layout.setOnClickListener(v -> goToDown());
     }
 
-    private void checkChatRoom() {
+    void checkChatRoom() {
+        FirebaseDatabase.getInstance().getReference().child("chatRooms").orderByChild("users/" + myUid).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    ChatModel chatModel = item.getValue(ChatModel.class);
+                    if (chatModel.users.containsKey(destUid)) {
+                        chatRoomUid = item.getKey();
+                        sendBtn.setEnabled(true);
+                        chat_view.setLayoutManager(layoutManager);
+                        chat_view.setAdapter(new ChatAdapter(chatRoomUid, myUid));
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
-    private void sendToken(String token){
+    private void sendToken(String token) {
         //token 저장하기
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("user/push_token/set?token=");
+        urlStr.append("user/push_token/set?user_id=");
+        urlStr.append(MainActivity.userId);
+        urlStr.append("&token=");
         urlStr.append(token);
         StringRequest request = new StringRequest(
                 Request.Method.GET,

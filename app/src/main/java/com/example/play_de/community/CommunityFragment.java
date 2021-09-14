@@ -300,7 +300,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 if (communityRecyclerAdapter.getData(position).uid != Integer.parseInt(MainActivity.userId)) {
                     Intent intent = new Intent(requireContext(), ChatActivity.class);
                     intent.putExtra("destinationName", communityRecyclerAdapter.getData(position).name);
-                    intent.putExtra("destinationUid", communityRecyclerAdapter.getData(position).uid);
+                    intent.putExtra("destinationUid", Integer.toString(communityRecyclerAdapter.getData(position).uid));
                     startActivity(intent);
                 }
             } else if (component == 2) {
