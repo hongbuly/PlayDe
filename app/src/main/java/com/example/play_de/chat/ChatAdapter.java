@@ -20,12 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
-    private List<ChatModel> comments;
-    private String uid;
+    private List<String> comments;
 
-    public ChatAdapter(String chatRoomUid, String uid) {
+    public ChatAdapter(String chatRoomUid) {
         comments = new ArrayList<>();
-        this.uid = uid;
 
         FirebaseDatabase
                 .getInstance()
@@ -39,7 +37,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                         comments.clear();
 
                         for (DataSnapshot item : snapshot.getChildren()) {
-                            comments.add(item.getValue(ChatModel.class));
+                            comments.add((String) item.getValue());
                         }
                         notifyDataSetChanged();
                     }
@@ -65,10 +63,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             right_text = itemView.findViewById(R.id.right_chat);
         }
 
-        void onBind(ChatModel comment) {
+        void onBind(String comment) {
+            String[] uidAndComment = comment.split(":");
+            String uid = uidAndComment[0];
+            String message = uidAndComment[1];
+
             image.setImageResource(R.drawable.cafe01);
 
-            if (comment.comments.get(uid).equals(MainActivity.userId)) {
+            if (uid.equals(MainActivity.userId)) {
                 image.setVisibility(View.GONE);
                 left_text.setVisibility(View.GONE);
                 right_text.setVisibility(View.VISIBLE);
@@ -78,7 +80,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 right_text.setVisibility(View.GONE);
                 text = left_text;
             }
-            text.setText(comment.comments.get("message"));
+
+            text.setText(message);
         }
     }
 

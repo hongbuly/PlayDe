@@ -48,9 +48,9 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         }
 
         void onBind(ChatRecyclerItem item) {
-            image.setImageResource(item.getImage());
-            name.setText(item.getName());
-            text.setText(item.getText());
+            image.setImageResource(item.image);
+            name.setText(item.name);
+            text.setText(item.text);
         }
     }
 
@@ -76,6 +76,6 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
     }
 
     public String getName(int position) {
-        return mData.get(position).getName();
+        return mData.get(position).name;
     }
 }

@@ -103,13 +103,17 @@
                     android:id="@+id/msg_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
+                    android:text=""
                     android:layout_toEndOf="@+id/pictureBtn"
                     android:background="@drawable/round_polar25"
-                    android:padding="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingStart="10dp"
                     tools:ignore="Autofill,LabelFor,TextFields" />
 
                 <ImageView

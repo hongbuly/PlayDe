@@ -60,7 +60,6 @@ public class ChatActivity extends AppCompatActivity {
 
     private String name;
     private RecyclerView chat_view;
-    private ChatAdapter chatAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -125,10 +124,8 @@ public class ChatActivity extends AppCompatActivity {
 
         sendBtn.setOnClickListener(v -> {
             ChatModel chatModel = new ChatModel();
-            chatModel.users.put(myUid, myUid);
-            chatModel.users.put(destUid, destUid);
-            chatModel.comments.put("message", msg_edit.getText().toString());
-            msg_edit.setText("");
+            chatModel.users.put(myUid, true);
+            chatModel.users.put(destUid, true);
 
             if (chatRoomUid == null) {
                 sendBtn.setEnabled(false);
@@ -139,20 +136,26 @@ public class ChatActivity extends AppCompatActivity {
                         .push()
                         .setValue(chatModel)
                         .addOnSuccessListener(unused -> checkChatRoom());
-            } else {
-                FirebaseDatabase
-                        .getInstance()
-                        .getReference()
-                        .child("chatRooms")
-                        .child(chatRoomUid)
-                        .child("comments")
-                        .push()
-                        .setValue(chatModel.comments);
+            } else if (!msg_edit.getText().toString().equals("")) {
+                sendMsg();
+                chat_view.setAdapter(new ChatAdapter(chatRoomUid));
             }
         });
 
         overlap.setOnClickListener(v -> goToUp());
         back_layout.setOnClickListener(v -> goToDown());
+    }
+
+    void sendMsg() {
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("chatRooms")
+                .child(chatRoomUid)
+                .child("comments")
+                .push()
+                .setValue(myUid + ":" + msg_edit.getText().toString())
+                .addOnSuccessListener(unused -> msg_edit.setText(""));
     }
 
     void checkChatRoom() {
@@ -165,7 +168,9 @@ public class ChatActivity extends AppCompatActivity {
                         chatRoomUid = item.getKey();
                         sendBtn.setEnabled(true);
                         chat_view.setLayoutManager(layoutManager);
-                        chat_view.setAdapter(new ChatAdapter(chatRoomUid, myUid));
+                        chat_view.setAdapter(new ChatAdapter(chatRoomUid));
+                        if (!msg_edit.getText().toString().equals(""))
+                            sendMsg();
                     }
                 }
             }
