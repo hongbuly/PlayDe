@@ -18,8 +18,11 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.play_de.R;
+import com.example.play_de.chat.TokenModel;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceIdReceiver;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONObject;
 
@@ -53,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
 
         //키보드가 레이아웃에 영향을 안주게
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        String token = task.getResult();
+                        sendToken(token);
+                    }
+                });
 
         Intent intent = getIntent();
         userId = intent.getExtras().getString("userId");
@@ -99,6 +110,55 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setName();
+    }
+
+    private void sendToken(String token) {
+        //token 저장하기
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("user/push_token/set?user_id=");
+        urlStr.append(MainActivity.userId);
+        urlStr.append("&token=");
+        urlStr.append(token);
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean act = jsonObject.getBoolean("act");
+                        if (act) {
+                            Log.e("Token", "성공");
+                        } else
+                            Log.e("Token", "실패");
+                    } catch (Exception e) {
+                        Log.e("Token", "예외 발생");
+                    }
+                },
+                error -> {
+                    Log.e("Token", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(this);
+        AppHelper.requestQueue.add(request);
+
+        TokenModel firebaseToken = new TokenModel();
+        firebaseToken.pushToken = token;
+        firebaseToken.uid = userId;
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("userTokens")
+                .push()
+                .setValue(firebaseToken)
+                .addOnSuccessListener(unused -> Log.e("FirebaseToken", "Access"));
     }
 
     public void setOnBackPressedListener(OnBackPressedListener listener, int num) {

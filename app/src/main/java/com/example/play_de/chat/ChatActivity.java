@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -17,30 +15,28 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.play_de.R;
 import com.example.play_de.community.CommunityProfileFavorite;
 import com.example.play_de.community.CommunityProfileFavoriteAdapter;
-import com.example.play_de.main.AppHelper;
 import com.example.play_de.main.MainActivity;
 import com.github.mmin18.widget.RealtimeBlurView;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ChatActivity extends AppCompatActivity {
     private String chatRoomUid; //채팅방 id
@@ -62,7 +58,7 @@ public class ChatActivity extends AppCompatActivity {
     private CommunityProfileFavoriteAdapter heart_adapter;
     private CommunityProfileFavoriteAdapter store_adapter;
 
-    private String name;
+    private String destName;
     private RecyclerView chat_view;
     private ChatAdapter chatAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -76,21 +72,15 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     void initialSetUp() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        String token = task.getResult();
-                        sendToken(token);
-                    }
-                });
 
-        name = getIntent().getStringExtra("destinationName");
+
+        destName = getIntent().getStringExtra("destinationName");
         destUid = getIntent().getStringExtra("destinationUid"); //채팅 상대
         destImage = getIntent().getStringExtra("destinationImage");
         myUid = MainActivity.userId;
 
         nameText = findViewById(R.id.nameText);
-        nameText.setText(name);
+        nameText.setText(destName);
         backBtn = findViewById(R.id.backBtn);
 
         pictureBtn = findViewById(R.id.pictureBtn);
@@ -145,12 +135,65 @@ public class ChatActivity extends AppCompatActivity {
             } else if (!msg_edit.getText().toString().equals("")) {
                 sendMsg();
                 chat_view.setAdapter(new ChatAdapter(chatRoomUid, destImage));
-
             }
         });
 
         overlap.setOnClickListener(v -> goToUp());
         back_layout.setOnClickListener(v -> goToDown());
+    }
+
+    void sendGcm() {
+        Gson gson = new Gson();
+
+        NotificationModel notificationModel = new NotificationModel();
+        notificationModel.to = getDestToken();
+        notificationModel.notification.title = destName;
+        notificationModel.notification.text = msg_edit.getText().toString();
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf8"), gson.toJson(notificationModel));
+        Request request = new Request.Builder()
+                .header("Content-Type", "application/json")
+                .addHeader("Authorization", "key=AAAANipQibc:APA91bEK0mWBtESqbthZXkIF-Bv2tkJao2fOouScTbRuk015-jcJe5LR5wFy5ssoBct6xxpPjS_g8hYitkbayD1nn-K3t65DxpbocaMLGi75u88JkPtkvrYnEEENbMp73OeLkkjUZOei")
+                .url("https://gcm-http.googleapis.com/gcm/send")
+                .post(requestBody)
+                .build();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+
+            }
+        });
+    }
+
+    String getDestToken() {
+        final String[] token = new String[1];
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("userTokens")
+                .orderByChild("uid")
+                .equalTo(destUid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot item : snapshot.getChildren()) {
+                            TokenModel tokenModel = item.getValue(TokenModel.class);
+                            token[0] = tokenModel.pushToken;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+        return token[0];
     }
 
     void sendMsg() {
@@ -162,7 +205,10 @@ public class ChatActivity extends AppCompatActivity {
                 .child("comments")
                 .push()
                 .setValue(myUid + ":" + msg_edit.getText().toString() + ":" + getTime())
-                .addOnSuccessListener(unused -> msg_edit.setText(""));
+                .addOnSuccessListener(unused -> {
+                    sendGcm();
+                    msg_edit.setText("");
+                });
     }
 
     String getTime() {
@@ -173,67 +219,35 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     void checkChatRoom() {
-        FirebaseDatabase.getInstance().getReference().child("chatRooms").orderByChild("users/" + myUid).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot item : snapshot.getChildren()) {
-                    ChatModel chatModel = item.getValue(ChatModel.class);
-                    if (chatModel.users.containsKey(destUid)) {
-                        chatRoomUid = item.getKey();
-                        sendBtn.setEnabled(true);
-                        chat_view.setLayoutManager(layoutManager);
-                        chatAdapter = new ChatAdapter(chatRoomUid, destImage);
-                        chat_view.setAdapter(chatAdapter);
-                        chat_view.smoothScrollToPosition(chatAdapter.getItemCount());
-                        if (!msg_edit.getText().toString().equals(""))
-                            sendMsg();
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("chatRooms")
+                .orderByChild("users/" + myUid)
+                .equalTo(true)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot item : snapshot.getChildren()) {
+                            ChatModel chatModel = item.getValue(ChatModel.class);
+                            if (chatModel.users.containsKey(destUid)) {
+                                chatRoomUid = item.getKey();
+                                sendBtn.setEnabled(true);
+                                chat_view.setLayoutManager(layoutManager);
+                                chatAdapter = new ChatAdapter(chatRoomUid, destImage);
+                                chat_view.setAdapter(chatAdapter);
+                                chat_view.smoothScrollToPosition(chatAdapter.getItemCount());
+                                if (!msg_edit.getText().toString().equals(""))
+                                    sendMsg();
+                            }
+                        }
                     }
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-    }
-
-    private void sendToken(String token) {
-        //token 저장하기
-        StringBuilder urlStr = new StringBuilder();
-        urlStr.append(MainActivity.mainUrl);
-        urlStr.append("user/push_token/set?user_id=");
-        urlStr.append(MainActivity.userId);
-        urlStr.append("&token=");
-        urlStr.append(token);
-        StringRequest request = new StringRequest(
-                Request.Method.GET,
-                urlStr.toString(),
-                response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean act = jsonObject.getBoolean("act");
-                        if (act) {
-                            Log.e("Token", "저장");
-                        } else
-                            Log.e("Token", "실패");
-                    } catch (Exception e) {
-                        Log.e("Token", "예외 발생");
                     }
-                },
-                error -> {
-                    Log.e("Token", "에러 발생");
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                return new HashMap<>();
-            }
-        };
-
-        request.setShouldCache(false);
-        AppHelper.requestQueue = Volley.newRequestQueue(this);
-        AppHelper.requestQueue.add(request);
+                });
     }
 
     private void addHeartRecyclerView() {
