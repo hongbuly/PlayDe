@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,11 +31,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,10 +46,10 @@ public class ChatActivity extends AppCompatActivity {
     private String chatRoomUid; //채팅방 id
     private String myUid;       //나의 id
     private String destUid;     //상대방 uid
+    private String destImage;
 
     private TextView nameText;
     private ImageButton backBtn;
-
     private ImageView pictureBtn;
     private EditText msg_edit;
     private ImageView sendBtn;
@@ -60,6 +64,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private String name;
     private RecyclerView chat_view;
+    private ChatAdapter chatAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -81,6 +86,7 @@ public class ChatActivity extends AppCompatActivity {
 
         name = getIntent().getStringExtra("destinationName");
         destUid = getIntent().getStringExtra("destinationUid"); //채팅 상대
+        destImage = getIntent().getStringExtra("destinationImage");
         myUid = MainActivity.userId;
 
         nameText = findViewById(R.id.nameText);
@@ -138,7 +144,8 @@ public class ChatActivity extends AppCompatActivity {
                         .addOnSuccessListener(unused -> checkChatRoom());
             } else if (!msg_edit.getText().toString().equals("")) {
                 sendMsg();
-                chat_view.setAdapter(new ChatAdapter(chatRoomUid));
+                chat_view.setAdapter(new ChatAdapter(chatRoomUid, destImage));
+
             }
         });
 
@@ -154,8 +161,15 @@ public class ChatActivity extends AppCompatActivity {
                 .child(chatRoomUid)
                 .child("comments")
                 .push()
-                .setValue(myUid + ":" + msg_edit.getText().toString())
+                .setValue(myUid + ":" + msg_edit.getText().toString() + ":" + getTime())
                 .addOnSuccessListener(unused -> msg_edit.setText(""));
+    }
+
+    String getTime() {
+        SimpleDateFormat mFormat = new SimpleDateFormat("hh:mm");
+        long mNow = System.currentTimeMillis();
+        Date mDate = new Date(mNow);
+        return mFormat.format(mDate);
     }
 
     void checkChatRoom() {
@@ -168,7 +182,9 @@ public class ChatActivity extends AppCompatActivity {
                         chatRoomUid = item.getKey();
                         sendBtn.setEnabled(true);
                         chat_view.setLayoutManager(layoutManager);
-                        chat_view.setAdapter(new ChatAdapter(chatRoomUid));
+                        chatAdapter = new ChatAdapter(chatRoomUid, destImage);
+                        chat_view.setAdapter(chatAdapter);
+                        chat_view.smoothScrollToPosition(chatAdapter.getItemCount());
                         if (!msg_edit.getText().toString().equals(""))
                             sendMsg();
                     }

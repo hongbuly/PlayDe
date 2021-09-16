@@ -301,6 +301,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                     Intent intent = new Intent(requireContext(), ChatActivity.class);
                     intent.putExtra("destinationName", communityRecyclerAdapter.getData(position).name);
                     intent.putExtra("destinationUid", Integer.toString(communityRecyclerAdapter.getData(position).uid));
+                    intent.putExtra("destinationImage", communityRecyclerAdapter.getData(position).image);
                     startActivity(intent);
                 }
             } else if (component == 2) {
@@ -456,7 +457,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             if (communityRecyclerAdapter.getData(profile_position).uid != Integer.parseInt(MainActivity.userId)) {
                 Intent intent = new Intent(requireContext(), ChatActivity.class);
                 intent.putExtra("destinationName", communityRecyclerAdapter.getData(profile_position).name);
-                intent.putExtra("destinationUid", communityRecyclerAdapter.getData(profile_position).uid);
+                intent.putExtra("destinationUid", Integer.toString(communityRecyclerAdapter.getData(profile_position).uid));
+                intent.putExtra("destinationImage", communityRecyclerAdapter.getData(profile_position).image);
                 startActivity(intent);
             }
         });

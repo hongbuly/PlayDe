@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.play_de.main.MainActivity;
 import com.example.play_de.main.OnBackPressedListener;
@@ -22,6 +23,7 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
     private View view;
     private ImageButton back, userBtn;
 
+    private TextView start_chatting;
     private ChatHistoryAdapter chat_adapter;
 
     @Override
@@ -48,7 +50,12 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         chat_historyView.setLayoutManager(layoutManager);
         chat_historyView.setAdapter(chat_adapter);
-        addChatHistoryView();
+
+        start_chatting = view.findViewById(R.id.start_chatting);
+        if (chat_adapter.getItemCount() != 0) {
+            start_chatting.setVisibility(View.GONE);
+            chat_historyView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void eventListener() {
@@ -62,19 +69,12 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
         });
 
         chat_adapter.setOnItemClickListener((view, position) -> {
-            Intent intent = new Intent(getActivity(), ChatActivity.class);
-            intent.putExtra("name", chat_adapter.getName(position));
+            Intent intent = new Intent(getContext(), ChatActivity.class);
+            intent.putExtra("destinationName", chat_adapter.getName());
+            intent.putExtra("destinationUid", chat_adapter.getDestUid());
+            intent.putExtra("destinationImage", chat_adapter.getImage());
             startActivity(intent);
         });
-    }
-
-    private void addChatHistoryView() {
-        //서버로부터 데이터 가져와서 추가하기.
-//        ChatRecyclerItem item = new ChatRecyclerItem();
-//        int image = R.drawable.cafe01;
-//        item.setData(image, "신채이", "누구세요");
-//        chat_adapter.addItem(item);
-        //chat_adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -83,15 +83,15 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        main.setOnBackPressedListener(this, 4);
-    }
-
-    @Override
     public void goToUp() {
         //chat Activity 를 intent 해서, 하트를 띄어주거나 해야함.
         Intent intent = new Intent(getActivity(), ChatActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        main.setOnBackPressedListener(this, 4);
     }
 }

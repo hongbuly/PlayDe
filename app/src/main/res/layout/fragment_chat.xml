@@ -62,10 +62,10 @@
             android:dividerHeight="15dp"
             android:elevation="5dp"
             android:listSelector="@android:color/transparent"
-            android:padding="15dp"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <TextView
+            android:id="@+id/start_chatting"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="150dp"
@@ -74,7 +74,7 @@
             android:text="커뮤니티에서 채팅을 시작해보세요!"
             android:textColor="@color/LineGrey"
             android:textSize="20sp"
-            android:visibility="visible"
+            android:visibility="gone"
             tools:ignore="HardcodedText" />
     </RelativeLayout>
 </LinearLayout>

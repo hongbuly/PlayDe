@@ -30,8 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
-        android:layout_marginEnd="50dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="50dp"
         android:layout_toEndOf="@+id/image"
         android:fontFamily="@font/apple_l"
         android:maxLines="2"
@@ -58,13 +58,14 @@
         android:layout_height="15dp"
         android:layout_below="@+id/time"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/circle_red"
         android:fontFamily="@font/apple_l"
         android:gravity="center"
-        android:layout_marginTop="10dp"
         android:text="1"
         android:textColor="@color/White"
-        android:background="@drawable/circle_red"
         android:textSize="8sp"
+        android:visibility="gone"
         tools:ignore="SmallSp" />
 
 </RelativeLayout>

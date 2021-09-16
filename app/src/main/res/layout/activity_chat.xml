@@ -15,8 +15,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/horizon_gradient">
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/nameText"
@@ -63,16 +62,18 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
-            android:background="@drawable/round_back_white">
+            android:background="@drawable/round_back_white"
+            android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chat_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
@@ -86,7 +87,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
                 android:background="@color/White"
                 android:elevation="5dp">
 
@@ -104,16 +105,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="7dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:text=""
                     android:layout_toEndOf="@+id/pictureBtn"
                     android:background="@drawable/round_polar25"
-                    android:paddingBottom="5dp"
+                    android:paddingStart="10dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="5dp"
-                    android:paddingStart="10dp"
+                    android:paddingBottom="5dp"
+                    android:text=""
                     tools:ignore="Autofill,LabelFor,TextFields" />
 
                 <ImageView
@@ -123,13 +123,13 @@
                     android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
                     android:paddingStart="10dp"
-                    android:paddingTop="6dp"
+                    android:paddingTop="8dp"
                     android:paddingEnd="10dp"
                     android:paddingBottom="10dp"
                     app:srcCompat="@drawable/paper_plane"
                     tools:ignore="ContentDescription" />
             </RelativeLayout>
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <com.github.mmin18.widget.RealtimeBlurView
