@@ -149,6 +149,8 @@ public class ChatActivity extends AppCompatActivity {
         notificationModel.to = getDestToken();
         notificationModel.notification.title = destName;
         notificationModel.notification.text = msg_edit.getText().toString();
+        notificationModel.data.title = destName;
+        notificationModel.data.text = msg_edit.getText().toString();
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf8"), gson.toJson(notificationModel));
         Request request = new Request.Builder()
