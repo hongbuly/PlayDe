@@ -2,6 +2,7 @@ package com.example.play_de.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -18,9 +20,14 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.play_de.R;
+import com.example.play_de.chat.ChatAdapter;
+import com.example.play_de.chat.ChatModel;
 import com.example.play_de.chat.TokenModel;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceIdReceiver;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -53,9 +60,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //키보드가 레이아웃에 영향을 안주게
-        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
@@ -149,16 +153,42 @@ public class MainActivity extends AppCompatActivity {
         AppHelper.requestQueue = Volley.newRequestQueue(this);
         AppHelper.requestQueue.add(request);
 
-        TokenModel firebaseToken = new TokenModel();
-        firebaseToken.pushToken = token;
-        firebaseToken.uid = userId;
         FirebaseDatabase
                 .getInstance()
                 .getReference()
                 .child("userTokens")
-                .push()
-                .setValue(firebaseToken)
-                .addOnSuccessListener(unused -> Log.e("FirebaseToken", "Access"));
+                .orderByChild("uid")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        boolean isSame = false;
+                        for (DataSnapshot item : snapshot.getChildren()) {
+                            TokenModel tokenModel = item.getValue(TokenModel.class);
+                            if (tokenModel.uid.equals(userId)) {
+                                isSame = true;
+                                break;
+                            }
+                        }
+
+                        if (!isSame) {
+                            TokenModel firebaseToken = new TokenModel();
+                            firebaseToken.pushToken = token;
+                            firebaseToken.uid = userId;
+                            FirebaseDatabase
+                                    .getInstance()
+                                    .getReference()
+                                    .child("userTokens")
+                                    .push()
+                                    .setValue(firebaseToken)
+                                    .addOnSuccessListener(unused -> Log.e("FirebaseToken", "Access"));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     public void setOnBackPressedListener(OnBackPressedListener listener, int num) {

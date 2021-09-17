@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -72,8 +73,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     void initialSetUp() {
-
-
         destName = getIntent().getStringExtra("destinationName");
         destUid = getIntent().getStringExtra("destinationUid"); //채팅 상대
         destImage = getIntent().getStringExtra("destinationImage");
@@ -118,6 +117,10 @@ public class ChatActivity extends AppCompatActivity {
             //사진, 동영상 등등.
         });
 
+        msg_edit.setOnClickListener(v -> {
+            new Handler().postDelayed(() -> chat_view.smoothScrollToPosition(chatAdapter.getItemCount() - 1), 200);
+        });
+
         sendBtn.setOnClickListener(v -> {
             ChatModel chatModel = new ChatModel();
             chatModel.users.put(myUid, true);
@@ -135,6 +138,7 @@ public class ChatActivity extends AppCompatActivity {
             } else if (!msg_edit.getText().toString().equals("")) {
                 sendMsg();
                 chat_view.setAdapter(new ChatAdapter(chatRoomUid, destImage));
+                new Handler().postDelayed(() -> chat_view.smoothScrollToPosition(chatAdapter.getItemCount() - 1), 200);
             }
         });
 
@@ -238,7 +242,7 @@ public class ChatActivity extends AppCompatActivity {
                                 chat_view.setLayoutManager(layoutManager);
                                 chatAdapter = new ChatAdapter(chatRoomUid, destImage);
                                 chat_view.setAdapter(chatAdapter);
-                                chat_view.smoothScrollToPosition(chatAdapter.getItemCount());
+                                new Handler().postDelayed(() -> chat_view.smoothScrollToPosition(chatAdapter.getItemCount() - 1), 700);
                                 if (!msg_edit.getText().toString().equals(""))
                                     sendMsg();
                             }

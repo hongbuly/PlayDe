@@ -14,9 +14,13 @@
         android:roundIcon="@drawable/play_de"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity" />
+        <activity
+            android:name=".main.MainActivity"
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".main.LoginActivity" />
-        <activity android:name=".chat.ChatActivity" />
+        <activity
+            android:name=".chat.ChatActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".profile.ProfileActivity" />
 
         <activity
@@ -29,7 +33,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDRjLjbuX8A63rHcw1DpJvnWla-rI67diY" />
 
-        <activity android:name=".main.SplashActivity"
+        <activity
+            android:name=".main.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
