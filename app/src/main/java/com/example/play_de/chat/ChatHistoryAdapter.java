@@ -1,5 +1,6 @@
 package com.example.play_de.chat;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
     private ArrayList<ChatModel> chatModels = new ArrayList<>();
     private OnItemClickListener mListener;
     private String name, image, destUid;
+    private Context context;
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
@@ -151,11 +153,12 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         };
 
         request.setShouldCache(false);
-        AppHelper.requestQueue = Volley.newRequestQueue(holder.itemView.getContext());
+        context = holder.itemView.getContext();
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
         AppHelper.requestQueue.add(request);
 
         //메시지를 내림 차순으로 정렬 후 마지막 메시지의 키값을 가져옴.
-        Map<String, String> commentMap= new TreeMap<>(Collections.reverseOrder());
+        Map<String, String> commentMap = new TreeMap<>(Collections.reverseOrder());
         commentMap.putAll(chatModels.get(position).comments);
         String lastMessageKey = (String) commentMap.keySet().toArray()[0];
         String[] message = chatModels.get(position).comments.get(lastMessageKey).split(":");
@@ -165,17 +168,52 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         holder.time.setText(time);
     }
 
-    String getName() {
-        return name;
+    void setData(int position) {
+        String destinationUid = null;
+
+        for (String user : chatModels.get(position).users.keySet()) {
+            if (!user.equals(MainActivity.userId)) {
+                destinationUid = user;
+            }
+        }
+
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("user/profile?user_id=");
+        urlStr.append(destinationUid);
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        name = jsonObject.getString("nickname");
+                        destUid = Integer.toString(jsonObject.getInt("id"));
+                        image = jsonObject.getString("profile");
+                    } catch (Exception e) {
+                        Log.e("ChatHistory", "예외 발생");
+                    }
+                },
+                error -> {
+                    Log.e("ChatHistory", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
+        AppHelper.requestQueue.add(request);
     }
 
-    String getImage() {
-        return image;
-    }
+    String getName() { return name; }
 
-    String getDestUid() {
-        return destUid;
-    }
+    String getImage() { return image; }
+
+    String getDestUid() { return destUid; }
 
     private String getTime(String hour) {
         if (Integer.parseInt(hour) < 12)

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,10 +71,13 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
 
         chat_adapter.setOnItemClickListener((view, position) -> {
             Intent intent = new Intent(getContext(), ChatActivity.class);
-            intent.putExtra("destinationName", chat_adapter.getName());
-            intent.putExtra("destinationUid", chat_adapter.getDestUid());
-            intent.putExtra("destinationImage", chat_adapter.getImage());
-            startActivity(intent);
+            chat_adapter.setData(position);
+            new Handler().postDelayed(() -> {
+                intent.putExtra("destinationName", chat_adapter.getName());
+                intent.putExtra("destinationUid", chat_adapter.getDestUid());
+                intent.putExtra("destinationImage", chat_adapter.getImage());
+                startActivity(intent);
+            }, 700);
         });
     }
 
