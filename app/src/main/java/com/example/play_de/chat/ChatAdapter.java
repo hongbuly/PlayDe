@@ -33,11 +33,15 @@ import java.util.Map;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private List<ChatModel.CommentModel> comments;
+    private List<String> keys;
     private String destImage;
+    private String chatRoomUid;
 
     public ChatAdapter(String chatRoomUid, String destImage) {
         comments = new ArrayList<>();
+        keys = new ArrayList<>();
         this.destImage = destImage;
+        this.chatRoomUid = chatRoomUid;
 
         FirebaseDatabase
                 .getInstance()
@@ -52,6 +56,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
                         for (DataSnapshot item : snapshot.getChildren()) {
                             comments.add(item.getValue(ChatModel.CommentModel.class));
+                            keys.add(item.getKey());
                         }
                         notifyDataSetChanged();
                     }
@@ -87,7 +92,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             right_read = itemView.findViewById(R.id.right_read);
         }
 
-        void onBind(ChatModel.CommentModel comment) {
+        void onBind(ChatModel.CommentModel comment, int position) {
             String uid = comment.myUid;
             String message = comment.message;
             String[] time = comment.time.split(":");
@@ -102,14 +107,20 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 left_text.setVisibility(View.GONE);
                 right_text.setVisibility(View.VISIBLE);
                 right_time.setText(time_text);
+                if(comment.read)
+                    right_read.setText("읽음");
                 text = right_text;
             } else {
+                //상대 메시지를 내가 본 것
+                read_chat(position);
+
                 right_info.setVisibility(View.GONE);
                 left_info.setVisibility(View.VISIBLE);
                 image.setVisibility(View.VISIBLE);
                 left_text.setVisibility(View.VISIBLE);
                 right_text.setVisibility(View.GONE);
                 left_time.setText(time_text);
+                left_read.setText("읽음");
                 text = left_text;
             }
 
@@ -121,6 +132,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 return "오후 " + hour;
             else
                 return "오전 " + (Integer.parseInt(hour) - 12);
+        }
+
+        void read_chat(int position) {
+            FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("chatRooms")
+                    .child(chatRoomUid)
+                    .child("comments")
+                    .child(keys.get(position))
+                    .child("read")
+                    .setValue(true);
         }
     }
 
@@ -140,7 +163,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 .apply(new RequestOptions().circleCrop())
                 .into(holder.image);
 
-        holder.onBind(comments.get(position));
+        holder.onBind(comments.get(position), position);
     }
 
     @Override
