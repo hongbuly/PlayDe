@@ -158,14 +158,15 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         AppHelper.requestQueue.add(request);
 
         //메시지를 내림 차순으로 정렬 후 마지막 메시지의 키값을 가져옴.
-        Map<String, String> commentMap = new TreeMap<>(Collections.reverseOrder());
+        Map<String, ChatModel.CommentModel> commentMap = new TreeMap<>(Collections.reverseOrder());
         commentMap.putAll(chatModels.get(position).comments);
         String lastMessageKey = (String) commentMap.keySet().toArray()[0];
-        String[] message = chatModels.get(position).comments.get(lastMessageKey).split(":");
-        holder.text.setText(message[1]);
+        String message = chatModels.get(position).comments.get(lastMessageKey).message;
+        holder.text.setText(message);
 
-        String time = getTime(message[2]) + ":" + message[3];
-        holder.time.setText(time);
+        String[] time = chatModels.get(position).comments.get(lastMessageKey).time.split(":");
+        String time_text = getTime(time[0]) + ":" + time[1];
+        holder.time.setText(time_text);
     }
 
     void setData(int position) {
@@ -209,11 +210,17 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         AppHelper.requestQueue.add(request);
     }
 
-    String getName() { return name; }
+    String getName() {
+        return name;
+    }
 
-    String getImage() { return image; }
+    String getImage() {
+        return image;
+    }
 
-    String getDestUid() { return destUid; }
+    String getDestUid() {
+        return destUid;
+    }
 
     private String getTime(String hour) {
         if (Integer.parseInt(hour) < 12)

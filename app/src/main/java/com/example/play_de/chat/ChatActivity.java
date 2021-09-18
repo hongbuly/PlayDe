@@ -203,6 +203,12 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     void sendMsg() {
+        ChatModel.CommentModel comments = new ChatModel.CommentModel();
+        comments.myUid = myUid;
+        comments.message = msg_edit.getText().toString();
+        comments.time = getTime();
+        comments.read = false;
+
         FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -210,7 +216,7 @@ public class ChatActivity extends AppCompatActivity {
                 .child(chatRoomUid)
                 .child("comments")
                 .push()
-                .setValue(myUid + ":" + msg_edit.getText().toString() + ":" + getTime())
+                .setValue(comments)
                 .addOnSuccessListener(unused -> {
                     sendGcm();
                     msg_edit.setText("");

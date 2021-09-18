@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
-    private List<String> comments;
+    private List<ChatModel.CommentModel> comments;
     private String destImage;
 
     public ChatAdapter(String chatRoomUid, String destImage) {
@@ -51,7 +51,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                         comments.clear();
 
                         for (DataSnapshot item : snapshot.getChildren()) {
-                            comments.add((String) item.getValue());
+                            comments.add(item.getValue(ChatModel.CommentModel.class));
                         }
                         notifyDataSetChanged();
                     }
@@ -87,13 +87,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             right_read = itemView.findViewById(R.id.right_read);
         }
 
-        void onBind(String comment) {
-            String[] chat_model = comment.split(":");
-            String uid = chat_model[0];
-            String message = chat_model[1];
-            String hour = chat_model[2];
-            String minute = chat_model[3];
-            String time = getTime(hour) + ":" + minute;
+        void onBind(ChatModel.CommentModel comment) {
+            String uid = comment.myUid;
+            String message = comment.message;
+            String[] time = comment.time.split(":");
+            String hour = time[0];
+            String minute = time[1];
+            String time_text = getTime(hour) + ":" + minute;
 
             if (uid.equals(MainActivity.userId)) {
                 right_info.setVisibility(View.VISIBLE);
@@ -101,7 +101,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 image.setVisibility(View.GONE);
                 left_text.setVisibility(View.GONE);
                 right_text.setVisibility(View.VISIBLE);
-                right_time.setText(time);
+                right_time.setText(time_text);
                 text = right_text;
             } else {
                 right_info.setVisibility(View.GONE);
@@ -109,7 +109,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 image.setVisibility(View.VISIBLE);
                 left_text.setVisibility(View.VISIBLE);
                 right_text.setVisibility(View.GONE);
-                left_time.setText(time);
+                left_time.setText(time_text);
                 text = left_text;
             }
 
