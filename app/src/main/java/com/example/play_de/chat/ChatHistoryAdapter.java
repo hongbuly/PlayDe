@@ -49,6 +49,10 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
     }
 
     ChatHistoryAdapter() {
+        setChatModels();
+    }
+
+    void setChatModels() {
         FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -80,6 +84,7 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         TextView name;
         TextView text;
         TextView time;
+        TextView read_text;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +93,7 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
             name = itemView.findViewById(R.id.name);
             text = itemView.findViewById(R.id.text);
             time = itemView.findViewById(R.id.time);
+            read_text = itemView.findViewById(R.id.read_text);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -167,9 +173,29 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         String[] time = chatModels.get(position).comments.get(lastMessageKey).time.split(":");
         String time_text = getTime(time[0]) + ":" + time[1];
         holder.time.setText(time_text);
+
+        int count = 0;
+        for (int i = 0; i < 10; i++) {
+            String nextKey = (String) commentMap.keySet().toArray()[i];
+            if (chatModels.get(position).comments.get(nextKey).myUid.equals(MainActivity.userId))
+                break;
+
+            //내가 안읽은 채팅 개수
+            boolean isRead = chatModels.get(position).comments.get(nextKey).read;
+            if (isRead) {
+                break;
+            } else {
+                ++count;
+            }
+        }
+
+        if (count != 0) {
+            holder.read_text.setText(Integer.toString(count));
+            holder.read_text.setVisibility(View.VISIBLE);
+        }
     }
 
-    void setData(int position) {
+    String setData(int position) {
         String destinationUid = null;
 
         for (String user : chatModels.get(position).users.keySet()) {
@@ -178,48 +204,7 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
             }
         }
 
-        StringBuilder urlStr = new StringBuilder();
-        urlStr.append(MainActivity.mainUrl);
-        urlStr.append("user/profile?user_id=");
-        urlStr.append(destinationUid);
-        StringRequest request = new StringRequest(
-                Request.Method.GET,
-                urlStr.toString(),
-                response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        name = jsonObject.getString("nickname");
-                        destUid = Integer.toString(jsonObject.getInt("id"));
-                        image = jsonObject.getString("profile");
-                    } catch (Exception e) {
-                        Log.e("ChatHistory", "예외 발생");
-                    }
-                },
-                error -> {
-                    Log.e("ChatHistory", "에러 발생");
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                return new HashMap<>();
-            }
-        };
-
-        request.setShouldCache(false);
-        AppHelper.requestQueue = Volley.newRequestQueue(context);
-        AppHelper.requestQueue.add(request);
-    }
-
-    String getName() {
-        return name;
-    }
-
-    String getImage() {
-        return image;
-    }
-
-    String getDestUid() {
-        return destUid;
+        return destinationUid;
     }
 
     private String getTime(String hour) {
