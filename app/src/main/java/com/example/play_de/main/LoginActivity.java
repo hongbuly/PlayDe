@@ -100,16 +100,9 @@ public class LoginActivity extends AppCompatActivity {
 
         urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("user/join?platform=0&email=");
-        urlStr.append(mail_id.getText().toString());
-        urlStr.append("&password=");
-        urlStr.append(password.getText().toString());
-        urlStr.append("&name=");
-        urlStr.append(name.getText().toString());
-        urlStr.append("&nickname=");
-        urlStr.append(name.getText().toString());
+        urlStr.append("user/join");
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 this::registerJSONParse,
                 error -> {
@@ -120,7 +113,13 @@ public class LoginActivity extends AppCompatActivity {
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("platform", "0");
+                body.put("email", mail_id.getText().toString());
+                body.put("password", password.getText().toString());
+                body.put("name", name.getText().toString());
+                body.put("nickname", name.getText().toString());
+                return body;
             }
         };
 
@@ -134,12 +133,9 @@ public class LoginActivity extends AppCompatActivity {
         blur.setVisibility(View.VISIBLE);
         urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("user/login?platform=0&email=");
-        urlStr.append(id_edit.getText().toString());
-        urlStr.append("&password=");
-        urlStr.append(password_edit.getText().toString());
+        urlStr.append("user/login");
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 this::loginJSONParse,
                 error -> {
@@ -150,7 +146,12 @@ public class LoginActivity extends AppCompatActivity {
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("platform", "0");
+                body.put("email", id_edit.getText().toString());
+                body.put("password", password_edit.getText().toString());
+                Log.e("Login", body.toString());
+                return body;
             }
         };
 

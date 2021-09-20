@@ -541,12 +541,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //상대방 차단하기
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("user/block/add?user_id=");
-        urlStr.append(MainActivity.userId);
-        urlStr.append("&his_id=");
-        urlStr.append(block_uid);
+        urlStr.append("user/block/add");
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 response -> {
                     try {
@@ -567,7 +564,10 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                body.put("his_id", block_uid);
+                return body;
             }
         };
 
@@ -586,15 +586,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //글 올리기
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("community/board/upload?user_id=");
-        urlStr.append(MainActivity.userId);
-        urlStr.append("&content=");
-        urlStr.append(write_editText.getText().toString());
-        urlStr.append("&tag=");
-        urlStr.append(selected_tag[selected_bulletin]);
-        Log.e("writeCommunity", urlStr.toString());
+        urlStr.append("community/board/upload");
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 response -> {
                     try {
@@ -615,7 +609,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                body.put("content", write_editText.getText().toString());
+                body.put("tag", selected_tag[selected_bulletin]);
+                return body;
             }
         };
 
@@ -631,12 +629,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         //공감하기 버튼
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("community/board/like?user_id=");
-        urlStr.append(MainActivity.userId);
-        urlStr.append("&board_id=");
-        urlStr.append(board_id);
+        urlStr.append("community/board/like");
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 response -> {
                     try {
@@ -658,7 +653,10 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                body.put("board_id", Integer.toString(board_id));
+                return body;
             }
         };
 
@@ -673,15 +671,10 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             //대댓글 쓰기
             StringBuilder urlStr = new StringBuilder();
             urlStr.append(MainActivity.mainUrl);
-            urlStr.append("community/reply/upload?user_id=");
-            urlStr.append(MainActivity.userId);
-            urlStr.append("&comment_id=");
-            urlStr.append(comment_id);
-            urlStr.append("&content=");
-            urlStr.append(msg_edit.getText().toString());
+            urlStr.append("community/reply/upload");
             msg_edit.setText("");
             StringRequest request = new StringRequest(
-                    Request.Method.GET,
+                    Request.Method.POST,
                     urlStr.toString(),
                     response -> {
                         try {
@@ -702,7 +695,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             ) {
                 @Override
                 protected Map<String, String> getParams() {
-                    return new HashMap<>();
+                    HashMap<String, String> body = new HashMap<>();
+                    body.put("user_id", MainActivity.userId);
+                    body.put("comment_id", Integer.toString(comment_id));
+                    body.put("content", msg_edit.getText().toString());
+                    return body;
                 }
             };
 
@@ -713,15 +710,10 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         } else {
             StringBuilder urlStr = new StringBuilder();
             urlStr.append(MainActivity.mainUrl);
-            urlStr.append("community/comment/upload?user_id=");
-            urlStr.append(MainActivity.userId);
-            urlStr.append("&board_id=");
-            urlStr.append(board_id);
-            urlStr.append("&content=");
-            urlStr.append(msg_edit.getText().toString());
+            urlStr.append("community/comment/upload");
             msg_edit.setText("");
             StringRequest request = new StringRequest(
-                    Request.Method.GET,
+                    Request.Method.POST,
                     urlStr.toString(),
                     response -> {
                         try {
@@ -742,7 +734,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             ) {
                 @Override
                 protected Map<String, String> getParams() {
-                    return new HashMap<>();
+                    HashMap<String, String> body = new HashMap<>();
+                    body.put("user_id", MainActivity.userId);
+                    body.put("board_id", Integer.toString(board_id));
+                    body.put("content", msg_edit.getText().toString());
+                    return body;
                 }
             };
 
@@ -758,12 +754,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         communityRecyclerAdapter.notifyDataSetChanged();
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("community/get?user_id=");
-        urlStr.append(MainActivity.userId);
-        urlStr.append("&range=1,50&tag=");
-        urlStr.append(selected_tag[setBtn]);
+        urlStr.append("community/get");
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 response -> {
                     Log.e("communityJSONParse", response);
@@ -776,7 +769,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                body.put("range", "1, 50");
+                body.put("tag", selected_tag[setBtn]);
+                return body;
             }
         };
 
@@ -792,10 +789,8 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         urlStr.append(MainActivity.mainUrl);
         urlStr.append("community/board/");
         urlStr.append(write_id);
-        urlStr.append("?user_id=");
-        urlStr.append(MainActivity.userId);
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 this::commentJSONParse,
                 error -> {
@@ -805,7 +800,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                return body;
             }
         };
 

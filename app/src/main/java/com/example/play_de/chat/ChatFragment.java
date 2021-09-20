@@ -100,10 +100,9 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
     private void setData(String destinationUid) {
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("user/profile?user_id=");
-        urlStr.append(destinationUid);
+        urlStr.append("user/profile");
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 response -> {
                     try {
@@ -121,7 +120,9 @@ public class ChatFragment extends Fragment implements OnBackPressedListener, GoU
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", destinationUid);
+                return body;
             }
         };
 

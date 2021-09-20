@@ -547,12 +547,9 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         //찜 카페 추가
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("cafe/fav/add?user_id=");
-        urlStr.append(MainActivity.userId);
-        urlStr.append("&cafe_id=");
-        urlStr.append(cafe_adapter.getData(position).id);
+        urlStr.append("cafe/fav/add");
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 response -> {
                     try {
@@ -572,7 +569,10 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                body.put("cafe_id", Integer.toString(cafe_adapter.getData(position).id));
+                return body;
             }
         };
 
@@ -585,12 +585,9 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         //찜 카페 삭제
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("cafe/fav/delete?user_id=");
-        urlStr.append(MainActivity.userId);
-        urlStr.append("&cafe_id=");
-        urlStr.append(cafe_adapter.getData(position).id);
+        urlStr.append("cafe/fav/delete");
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 response -> {
                     try {
@@ -610,7 +607,10 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                body.put("cafe_id", Integer.toString(cafe_adapter.getData(position).id));
+                return body;
             }
         };
 
@@ -649,19 +649,9 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         cafe_adapter.initialSetUp();
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("cafe/list?user_id=");
-        urlStr.append(MainActivity.userId);
-        urlStr.append("&coords=");
-        urlStr.append(latitude);
-        urlStr.append(",");
-        urlStr.append(longitude);
-        urlStr.append("&sort=");
-        urlStr.append(setBtn);
-        urlStr.append("&range=1,30&cafe_name=");
-        urlStr.append(filterEdit.getText().toString());
-        Log.e("cafe", urlStr.toString());
+        urlStr.append("cafe/list");
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 response -> {
                     Log.e("JSONParse", response);
@@ -674,7 +664,13 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                body.put("coords", latitude + "," + longitude);
+                body.put("sort", Integer.toString(setBtn));
+                body.put("range", "1, 30");
+                body.put("cafe_name", filterEdit.getText().toString());
+                return body;
             }
         };
 

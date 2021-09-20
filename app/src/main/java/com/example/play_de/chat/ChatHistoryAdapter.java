@@ -123,12 +123,13 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
             }
         }
 
+        String finalDestinationUid = destinationUid;
+
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("user/profile?user_id=");
-        urlStr.append(destinationUid);
+        urlStr.append("user/profile");
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 response -> {
                     try {
@@ -158,7 +159,9 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", finalDestinationUid);
+                return body;
             }
         };
 

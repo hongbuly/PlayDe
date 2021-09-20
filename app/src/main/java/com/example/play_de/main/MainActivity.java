@@ -120,12 +120,9 @@ public class MainActivity extends AppCompatActivity {
         //token 저장하기
         StringBuilder urlStr = new StringBuilder();
         urlStr.append(MainActivity.mainUrl);
-        urlStr.append("user/push_token/set?user_id=");
-        urlStr.append(MainActivity.userId);
-        urlStr.append("&token=");
-        urlStr.append(token);
+        urlStr.append("user/push_token/set");
         StringRequest request = new StringRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlStr.toString(),
                 response -> {
                     try {
@@ -145,7 +142,10 @@ public class MainActivity extends AppCompatActivity {
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                body.put("token", token);
+                return body;
             }
         };
 
@@ -227,8 +227,7 @@ public class MainActivity extends AppCompatActivity {
     private void setName() {
         //사용자 프로필 가져오기
         urlStr = new StringBuilder();
-        urlStr.append("https://playde-server-pzovl.run.goorm.io/user/profile?user_id=");
-        urlStr.append(MainActivity.userId);
+        urlStr.append("https://playde-server-pzovl.run.goorm.io/user/profile");
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 urlStr.toString(),
@@ -240,7 +239,9 @@ public class MainActivity extends AppCompatActivity {
         ) {
             @Override
             protected Map<String, String> getParams() {
-                return new HashMap<>();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                return body;
             }
         };
 
