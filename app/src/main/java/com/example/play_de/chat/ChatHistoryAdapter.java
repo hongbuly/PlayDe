@@ -139,11 +139,15 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
                         destUid = Integer.toString(jsonObject.getInt("id"));
 
                         image = jsonObject.getString("profile");
-                        Uri uri = Uri.parse(image);
-                        Glide.with(holder.itemView.getContext())
-                                .load(uri)
-                                .apply(new RequestOptions().circleCrop())
-                                .into(holder.image);
+                        if (image.equals("")) {
+                            holder.image.setImageResource(R.drawable.circle_grey);
+                        } else {
+                            Uri uri = Uri.parse(image);
+                            Glide.with(holder.itemView.getContext())
+                                    .load(uri)
+                                    .apply(new RequestOptions().circleCrop())
+                                    .into(holder.image);
+                        }
                     } catch (Exception e) {
                         Log.e("ChatHistory", "예외 발생");
                     }
@@ -176,7 +180,12 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
 
         int count = 0;
         for (int i = 0; i < 10; i++) {
-            String nextKey = (String) commentMap.keySet().toArray()[i];
+            String nextKey;
+            try {
+                nextKey = (String) commentMap.keySet().toArray()[i];
+            } catch (Exception e) {
+                break;
+            }
             if (chatModels.get(position).comments.get(nextKey).myUid.equals(MainActivity.userId))
                 break;
 

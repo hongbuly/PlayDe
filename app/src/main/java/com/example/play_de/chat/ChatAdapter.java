@@ -107,7 +107,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 left_text.setVisibility(View.GONE);
                 right_text.setVisibility(View.VISIBLE);
                 right_time.setText(time_text);
-                if(comment.read)
+                if (comment.read)
                     right_read.setText("읽음");
                 text = right_text;
             } else {
@@ -157,11 +157,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //이미지만 여기서 함.
-        Uri uri = Uri.parse(destImage);
-        Glide.with(holder.itemView.getContext())
-                .load(uri)
-                .apply(new RequestOptions().circleCrop())
-                .into(holder.image);
+        if (destImage.equals("")) {
+            holder.image.setImageResource(R.drawable.circle_grey);
+        } else {
+            Uri uri = Uri.parse(destImage);
+            Glide.with(holder.itemView.getContext())
+                    .load(uri)
+                    .apply(new RequestOptions().circleCrop())
+                    .into(holder.image);
+        }
 
         holder.onBind(comments.get(position), position);
     }

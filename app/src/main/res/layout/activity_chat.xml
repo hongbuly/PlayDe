@@ -62,74 +62,65 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chat_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_weight="11"
             android:background="@drawable/round_back_white"
-            android:orientation="vertical">
+            android:divider="@color/Glass"
+            android:dividerHeight="15dp"
+            android:elevation="5dp"
+            android:listSelector="@android:color/transparent"
+            android:paddingStart="10dp"
+            android:paddingTop="30dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="20dp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/chat_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:divider="@color/Glass"
-                android:dividerHeight="15dp"
-                android:elevation="5dp"
-                android:listSelector="@android:color/transparent"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:elevation="5dp">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/pictureBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                app:srcCompat="@drawable/picture"
+                tools:ignore="ContentDescription" />
+
+            <EditText
+                android:id="@+id/msg_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@color/White"
-                android:elevation="5dp">
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/pictureBtn"
+                android:background="@drawable/round_polar25"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="5dp"
+                android:text=""
+                tools:ignore="Autofill,LabelFor,TextFields" />
 
-                <ImageView
-                    android:id="@+id/pictureBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
-                    app:srcCompat="@drawable/picture"
-                    tools:ignore="ContentDescription" />
-
-                <EditText
-                    android:id="@+id/msg_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_toEndOf="@+id/pictureBtn"
-                    android:background="@drawable/round_polar25"
-                    android:paddingStart="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingBottom="5dp"
-                    android:text=""
-                    tools:ignore="Autofill,LabelFor,TextFields" />
-
-                <ImageView
-                    android:id="@+id/sendBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_gravity="center"
-                    android:paddingStart="10dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="10dp"
-                    app:srcCompat="@drawable/paper_plane"
-                    tools:ignore="ContentDescription" />
-            </RelativeLayout>
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/sendBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:paddingStart="10dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                app:srcCompat="@drawable/paper_plane"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
     </LinearLayout>
 
     <com.github.mmin18.widget.RealtimeBlurView

@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -146,37 +147,6 @@ public class ChatActivity extends AppCompatActivity {
         back_layout.setOnClickListener(v -> goToDown());
     }
 
-    void sendGcm() {
-        Gson gson = new Gson();
-
-        NotificationModel notificationModel = new NotificationModel();
-        notificationModel.to = getDestToken();
-        notificationModel.notification.title = destName;
-        notificationModel.notification.text = msg_edit.getText().toString();
-        notificationModel.data.title = destName;
-        notificationModel.data.text = msg_edit.getText().toString();
-
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf8"), gson.toJson(notificationModel));
-        Request request = new Request.Builder()
-                .header("Content-Type", "application/json")
-                .addHeader("Authorization", "key=AAAANipQibc:APA91bEK0mWBtESqbthZXkIF-Bv2tkJao2fOouScTbRuk015-jcJe5LR5wFy5ssoBct6xxpPjS_g8hYitkbayD1nn-K3t65DxpbocaMLGi75u88JkPtkvrYnEEENbMp73OeLkkjUZOei")
-                .url("https://gcm-http.googleapis.com/gcm/send")
-                .post(requestBody)
-                .build();
-        OkHttpClient okHttpClient = new OkHttpClient();
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-
-            }
-        });
-    }
-
     String getDestToken() {
         final String[] token = new String[1];
         FirebaseDatabase
@@ -221,6 +191,37 @@ public class ChatActivity extends AppCompatActivity {
                     sendGcm();
                     msg_edit.setText("");
                 });
+    }
+
+    void sendGcm() {
+        Gson gson = new Gson();
+
+        NotificationModel notificationModel = new NotificationModel();
+        notificationModel.to = getDestToken();
+        notificationModel.notification.title = destName;
+        notificationModel.notification.body = msg_edit.getText().toString();
+        notificationModel.data.title = destName;
+        notificationModel.data.body = msg_edit.getText().toString();
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf8"), gson.toJson(notificationModel));
+        Request request = new Request.Builder()
+                .header("Content-Type", "application/json")
+                .addHeader("Authorization", "key=AAAANipQibc:APA91bEK0mWBtESqbthZXkIF-Bv2tkJao2fOouScTbRuk015-jcJe5LR5wFy5ssoBct6xxpPjS_g8hYitkbayD1nn-K3t65DxpbocaMLGi75u88JkPtkvrYnEEENbMp73OeLkkjUZOei")
+                .url("https://gcm-http.googleapis.com/gcm/send")
+                .post(requestBody)
+                .build();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+
+            }
+        });
     }
 
     String getTime() {
