@@ -91,6 +91,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private EditText msg_edit;
     private ImageView sendBtn;
     private boolean second_comment = false;
+    private String block_uid;
 
     private LinearLayout profile_view;
     private int profile_position;
@@ -424,6 +425,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 profile_name.setText(comment_adapter.getData(position).name);
                 profile_position = position;
                 //하단에 하트와 가게도 set 하도록 연결할 것.
+                setUserInformation(comment_adapter.getData(position).uid);
             } else if (component == 1) {
                 //답글쓰기, msg_edit 포커스 주기.
                 msg_edit.requestFocus();
@@ -434,6 +436,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             } else if (component == 2) {
                 //신고하기
                 main.showBlur_report(true);
+                block_uid = Integer.toString(comment_adapter.getData(position).uid);
             }
         });
 
@@ -468,9 +471,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             onClickReport();
         });
 
-        //User Model 에 heart 갯수 추가하기.
-        heart_rating.setStar(3);
-
         for (int i = 0; i < 7; i++) {
             int finalI = i;
             _report_reason[i].setOnClickListener(v -> {
@@ -496,13 +496,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         });
 
         report_btn01.setOnClickListener(v -> {
-            Toast.makeText(context, "신고되었습니다.", Toast.LENGTH_SHORT).show();
-            backView();
+            blocking();
         });
 
         report_btn02.setOnClickListener(v -> {
-            Toast.makeText(context, "신고되었습니다.", Toast.LENGTH_SHORT).show();
-            backView();
+            blocking();
         });
     }
 
@@ -537,6 +535,51 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
         this.setBtn = setBtn;
         refreshCommunityWrite();
+    }
+
+    private void blocking() {
+        //상대방 차단하기
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("user/block/add?user_id=");
+        urlStr.append(MainActivity.userId);
+        urlStr.append("&his_id=");
+        urlStr.append(block_uid);
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean act = jsonObject.getBoolean("act");
+                        if (act) {
+                            Toast.makeText(context, "신고되었습니다.", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(context, "신고를 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Log.e("block_user", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("block_user", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                return new HashMap<>();
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
+        AppHelper.requestQueue.add(request);
+        backView();
+    }
+
+    private void setUserInformation(int uid) {
+        //프로필 정보 불러와서 적용하기
+        heart_rating.setStar(3);
     }
 
     private void write_community() {

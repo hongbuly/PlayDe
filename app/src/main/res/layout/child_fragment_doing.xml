@@ -1,7 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/White">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/board_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="20dp"
+        android:adjustViewBounds="true"
+        android:elevation="5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/glitch_big"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/heart"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="29dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="35dp"
+        app:srcCompat="@drawable/grey_heart"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/board_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/board_image"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/apple_m"
+        android:text="GLITCH"
+        android:textColor="@color/Black"
+        android:textSize="25sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/board_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/board_name"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/apple_m"
+        android:text="5일 남음"
+        android:textColor="@color/LineGrey"
+        android:textSize="12sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/board_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/board_time"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/apple_m"
+        android:text="960% 달성 . 28,819,900원 펀딩"
+        android:textColor="@color/LineGrey"
+        android:textSize="12sp"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/go_funding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/round_gradient100"
+        android:fontFamily="@font/apple_b"
+        android:text="펀딩하러 가기"
+        android:textColor="@color/White"
+        android:textSize="15sp"
+        tools:ignore="HardcodedText" />
+</RelativeLayout>
