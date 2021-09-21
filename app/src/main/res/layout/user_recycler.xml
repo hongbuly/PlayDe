@@ -15,12 +15,13 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/image"
         android:fontFamily="@font/apple_l"
+        android:singleLine="true"
         android:text="이름"
         android:textColor="@color/Black"
         android:textSize="13sp"
@@ -41,5 +42,5 @@
         android:textOn="삭제"
         android:thumb="@drawable/custom_switch_thumb"
         android:track="@drawable/custom_switch_track"
-        tools:ignore="HardcodedText,SmallSp" />
+        tools:ignore="HardcodedText,SmallSp,UseSwitchCompatOrMaterialXml" />
 </RelativeLayout>

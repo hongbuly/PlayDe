@@ -38,6 +38,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -166,7 +167,7 @@ public class ProfileActivity extends AppCompatActivity {
         gameLayoutManager = new LinearLayoutManager(this);
         game_recyclerView.setLayoutManager(gameLayoutManager);
         game_recyclerView.setAdapter(game_adapter);
-        addGameRecyclerView();
+        setFavGame(MainActivity.userId);
 
         //favorite store
         favorite_store_count = findViewById(R.id.favorite_store_count);
@@ -177,7 +178,7 @@ public class ProfileActivity extends AppCompatActivity {
         storeLayoutManager = new LinearLayoutManager(this);
         store_recyclerView.setLayoutManager(storeLayoutManager);
         store_recyclerView.setAdapter(store_adapter);
-        addStoreRecyclerView();
+        setFavCafe(MainActivity.userId);
 
         //review
         recent_play01 = findViewById(R.id.recent_play01);
@@ -319,20 +320,106 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void addGameRecyclerView() {
+    private void setFavCafe(String uid) {
+        //찜 카페 가져오기
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("cafe/fav");
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String cafe = jsonObject.getString("cafe");
+                        JSONArray jsonArray = new JSONArray(cafe);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject subJsonObject = jsonArray.getJSONObject(i);
+                            int id = subJsonObject.getInt("id");
+                            String name = subJsonObject.getString("name");
+                            String profile = subJsonObject.getString("profile");
+                            addStoreRecyclerView(id, name, profile);
+                        }
+                    } catch (Exception e) {
+                        Log.e("setFavCafe", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(this, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("setFavCafe", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", uid);
+                return body;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(this);
+        AppHelper.requestQueue.add(request);
+    }
+
+    private void setFavGame(String uid) {
+        //보드게임 위시리스트 가져오기
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("game/wish");
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String games = jsonObject.getString("games");
+                        JSONArray jsonArray = new JSONArray(games);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject subJsonObject = jsonArray.getJSONObject(i);
+                            int id = subJsonObject.getInt("id");
+                            String name = subJsonObject.getString("kor_name");
+                            String profile = subJsonObject.getString("profile_img");
+                            addGameRecyclerView(id, name, profile);
+                        }
+                    } catch (Exception e) {
+                        Log.e("setFavGame", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(this, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("setFavGame", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", uid);
+                return body;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(this);
+        AppHelper.requestQueue.add(request);
+    }
+
+    private void addGameRecyclerView(int id, String name, String image) {
         ProfileUser item = new ProfileUser();
-        item.image = R.drawable.cluedo;
-        item.name = "CLUEDO";
+        item.id = id;
+        item.image = image;
+        item.name = name;
         item.switchOn = "삭제";
         item.switchOff = "저장";
         game_adapter.addItem(item);
         game_adapter.notifyDataSetChanged();
     }
 
-    private void addStoreRecyclerView() {
+    private void addStoreRecyclerView(int id, String name, String image) {
         ProfileUser item = new ProfileUser();
-        item.image = R.drawable.cafe01;
-        item.name = "정릉 플레이";
+        item.id = id;
+        item.image = image;
+        item.name = name;
         item.switchOn = "삭제";
         item.switchOff = "저장";
         store_adapter.addItem(item);

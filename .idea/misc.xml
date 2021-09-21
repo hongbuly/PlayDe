@@ -21,6 +21,7 @@
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/activity_main.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/activity_splash.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/cafe_listview.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/chat_favorite_listview.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/chat_history.xml" value="0.536" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/chat_listview.xml" value="0.39403973509933776" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/child_fragment_community.xml" value="0.30512820512820515" />
@@ -30,12 +31,14 @@
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/child_fragment_supporter.xml" value="0.264" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/comment_recycler.xml" value="0.264" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/community_recycler.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/favorite_recycler.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_6_22.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_cafe.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_chat.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_community.xml" value="0.27546296296296297" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_game_select.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/storage_recycler.xml" value="0.4" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/user_recycler.xml" value="0.27395833333333336" />
       </map>
     </option>
   </component>

@@ -214,14 +214,12 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         RecyclerView.LayoutManager heartLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         heart_recyclerView.setLayoutManager(heartLayoutManager);
         heart_recyclerView.setAdapter(heart_adapter);
-        addHeartRecyclerView();
 
         store_adapter = new CommunityProfileFavoriteAdapter();
         RecyclerView store_recyclerView = view.findViewById(R.id.store_recycler);
         RecyclerView.LayoutManager storeLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         store_recyclerView.setLayoutManager(storeLayoutManager);
         store_recyclerView.setAdapter(store_adapter);
-        addStoreRecyclerView();
 
         _report_reason[0] = view.findViewById(R.id.report_reason01);
         _report_reason[1] = view.findViewById(R.id.report_reason02);
@@ -579,7 +577,128 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
     private void setUserInformation(int uid) {
         //프로필 정보 불러와서 적용하기
-        heart_rating.setStar(3);
+        setFavCafe(Integer.toString(uid));
+        setFavGame(Integer.toString(uid));
+        setHeart(Integer.toString(uid));
+    }
+
+    private void setFavCafe(String uid) {
+        //찜 카페 가져오기
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("cafe/fav");
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String cafe = jsonObject.getString("cafe");
+                        JSONArray jsonArray = new JSONArray(cafe);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject subJsonObject = jsonArray.getJSONObject(i);
+                            int id = subJsonObject.getInt("id");
+                            String name = subJsonObject.getString("name");
+                            String profile = subJsonObject.getString("profile");
+                            addStoreRecyclerView(id, name, profile);
+                        }
+                    } catch (Exception e) {
+                        Log.e("setFavCafe", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("setFavCafe", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", uid);
+                return body;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
+        AppHelper.requestQueue.add(request);
+    }
+
+    private void setFavGame(String uid) {
+        //보드게임 위시리스트 가져오기
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("game/wish");
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String games = jsonObject.getString("games");
+                        JSONArray jsonArray = new JSONArray(games);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject subJsonObject = jsonArray.getJSONObject(i);
+                            int id = subJsonObject.getInt("id");
+                            String name = subJsonObject.getString("kor_name");
+                            String profile = subJsonObject.getString("profile_img");
+                            addHeartRecyclerView(id, name, profile);
+                        }
+                    } catch (Exception e) {
+                        Log.e("setFavGame", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("setFavGame", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", uid);
+                return body;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
+        AppHelper.requestQueue.add(request);
+    }
+
+    private void setHeart(String uid) {
+        //사용자 프로필 가져오기
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("user/profile");
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        int score = jsonObject.getInt("score");
+                        heart_rating.setStar(((float) score) / 2);
+                    } catch (Exception e) {
+                        Log.e("setHeart", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("setHeart", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", uid);
+                return body;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
+        AppHelper.requestQueue.add(request);
     }
 
     private void write_community() {
@@ -849,53 +968,21 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         comment_adapter.notifyDataSetChanged();
     }
 
-    private void addHeartRecyclerView() {
+    private void addHeartRecyclerView(int id, String name, String image) {
         CommunityProfileFavorite item = new CommunityProfileFavorite();
-        item.image = R.drawable.rumicube;
-        item.name = "루미큐브";
+        item.id = id;
+        item.image = image;
+        item.name = name;
         heart_adapter.addItem(item);
-
-        item.image = R.drawable.cluedo;
-        item.name = "클루";
-        heart_adapter.addItem(item);
-
-        item.image = R.drawable.ticket_to_ride;
-        item.name = "티켓투라이드";
-        heart_adapter.addItem(item);
-
-        item.image = R.drawable.uno;
-        item.name = "우노";
-        heart_adapter.addItem(item);
-
-        item.image = R.drawable.diamond;
-        item.name = "다이아몬드";
-        heart_adapter.addItem(item);
-
         heart_adapter.notifyDataSetChanged();
     }
 
-    private void addStoreRecyclerView() {
+    private void addStoreRecyclerView(int id, String name, String image) {
         CommunityProfileFavorite item = new CommunityProfileFavorite();
-        item.image = R.drawable.rumicube;
-        item.name = "루미큐브";
+        item.id = id;
+        item.image = image;
+        item.name = name;
         store_adapter.addItem(item);
-
-        item.image = R.drawable.cluedo;
-        item.name = "클루";
-        store_adapter.addItem(item);
-
-        item.image = R.drawable.ticket_to_ride;
-        item.name = "티켓투라이드";
-        store_adapter.addItem(item);
-
-        item.image = R.drawable.uno;
-        item.name = "우노";
-        store_adapter.addItem(item);
-
-        item.image = R.drawable.diamond;
-        item.name = "다이아몬드";
-        store_adapter.addItem(item);
-
         store_adapter.notifyDataSetChanged();
     }
 

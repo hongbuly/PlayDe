@@ -1,5 +1,6 @@
 package com.example.play_de.profile;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.play_de.R;
 
 import java.util.ArrayList;
@@ -44,7 +47,15 @@ public class ProfileUserAdapter extends RecyclerView.Adapter<ProfileUserAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ProfileUserAdapter.ViewHolder holder, int position) {
-        holder.image.setImageResource(mData.get(position).image);
+        if (mData.get(position).image.equals("{\"order\":null}")) {
+            holder.image.setImageResource(R.drawable.circle_grey);
+        } else {
+            Uri uri = Uri.parse(mData.get(position).image);
+            Glide.with(holder.itemView.getContext())
+                    .load(uri)
+                    .apply(new RequestOptions().circleCrop())
+                    .into(holder.image);
+        }
         holder.name.setText(mData.get(position).name);
         holder.mSwitch.setTextOn(mData.get(position).switchOn);
         holder.mSwitch.setTextOff(mData.get(position).switchOff);

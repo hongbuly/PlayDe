@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,10 +16,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.play_de.R;
 import com.example.play_de.community.CommunityProfileFavorite;
 import com.example.play_de.community.CommunityProfileFavoriteAdapter;
+import com.example.play_de.main.AppHelper;
 import com.example.play_de.main.MainActivity;
 import com.github.mmin18.widget.RealtimeBlurView;
 import com.google.firebase.database.DataSnapshot;
@@ -27,10 +32,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -97,14 +107,14 @@ public class ChatActivity extends AppCompatActivity {
         RecyclerView.LayoutManager heartLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         heart_recyclerView.setLayoutManager(heartLayoutManager);
         heart_recyclerView.setAdapter(heart_adapter);
-        addHeartRecyclerView();
+        setFavGame(destUid);
 
         store_adapter = new CommunityProfileFavoriteAdapter();
         RecyclerView store_recyclerView = findViewById(R.id.store_recycler);
         RecyclerView.LayoutManager storeLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         store_recyclerView.setLayoutManager(storeLayoutManager);
         store_recyclerView.setAdapter(store_adapter);
-        addStoreRecyclerView();
+        setFavCafe(destUid);
 
         chat_view = findViewById(R.id.chat_recycler);
         layoutManager = new LinearLayoutManager(this);
@@ -263,53 +273,105 @@ public class ChatActivity extends AppCompatActivity {
                 });
     }
 
-    private void addHeartRecyclerView() {
+    private void setFavCafe(String uid) {
+        //찜 카페 가져오기
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("cafe/fav");
+        StringRequest request = new StringRequest(
+                com.android.volley.Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String cafe = jsonObject.getString("cafe");
+                        JSONArray jsonArray = new JSONArray(cafe);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject subJsonObject = jsonArray.getJSONObject(i);
+                            int id = subJsonObject.getInt("id");
+                            String name = subJsonObject.getString("name");
+                            String profile = subJsonObject.getString("profile");
+                            addStoreRecyclerView(id, name, profile);
+                        }
+                    } catch (Exception e) {
+                        Log.e("setFavCafe", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(this, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("setFavCafe", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", uid);
+                return body;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(this);
+        AppHelper.requestQueue.add(request);
+    }
+
+    private void setFavGame(String uid) {
+        //보드게임 위시리스트 가져오기
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("game/wish");
+        StringRequest request = new StringRequest(
+                com.android.volley.Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String games = jsonObject.getString("games");
+                        JSONArray jsonArray = new JSONArray(games);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject subJsonObject = jsonArray.getJSONObject(i);
+                            int id = subJsonObject.getInt("id");
+                            String name = subJsonObject.getString("kor_name");
+                            String profile = subJsonObject.getString("profile_img");
+                            addHeartRecyclerView(id, name, profile);
+                        }
+                    } catch (Exception e) {
+                        Log.e("setFavGame", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(this, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("setFavGame", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", uid);
+                return body;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(this);
+        AppHelper.requestQueue.add(request);
+    }
+
+    private void addHeartRecyclerView(int id, String name, String image) {
         CommunityProfileFavorite item = new CommunityProfileFavorite();
-        item.image = R.drawable.rumicube;
-        item.name = "루미큐브";
+        item.id = id;
+        item.image = image;
+        item.name = name;
         heart_adapter.addItem(item);
-
-        item.image = R.drawable.cluedo;
-        item.name = "클루";
-        heart_adapter.addItem(item);
-
-        item.image = R.drawable.ticket_to_ride;
-        item.name = "티켓투라이드";
-        heart_adapter.addItem(item);
-
-        item.image = R.drawable.uno;
-        item.name = "우노";
-        heart_adapter.addItem(item);
-
-        item.image = R.drawable.diamond;
-        item.name = "다이아몬드";
-        heart_adapter.addItem(item);
-
         heart_adapter.notifyDataSetChanged();
     }
 
-    private void addStoreRecyclerView() {
+    private void addStoreRecyclerView(int id, String name, String image) {
         CommunityProfileFavorite item = new CommunityProfileFavorite();
-        item.image = R.drawable.rumicube;
-        item.name = "루미큐브";
+        item.id = id;
+        item.image = image;
+        item.name = name;
         store_adapter.addItem(item);
-
-        item.image = R.drawable.cluedo;
-        item.name = "클루";
-        store_adapter.addItem(item);
-
-        item.image = R.drawable.ticket_to_ride;
-        item.name = "티켓투라이드";
-        store_adapter.addItem(item);
-
-        item.image = R.drawable.uno;
-        item.name = "우노";
-        store_adapter.addItem(item);
-
-        item.image = R.drawable.diamond;
-        item.name = "다이아몬드";
-        store_adapter.addItem(item);
-
         store_adapter.notifyDataSetChanged();
     }
 
