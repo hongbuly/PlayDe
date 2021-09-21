@@ -583,12 +583,11 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
 
     private void cafe_remove(int position) {
         //찜 카페 삭제
-        StringBuilder urlStr = new StringBuilder();
-        urlStr.append(MainActivity.mainUrl);
-        urlStr.append("cafe/fav/delete");
+        String urlStr = MainActivity.mainUrl
+                + "cafe/fav/delete";
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                urlStr.toString(),
+                urlStr,
                 response -> {
                     try {
                         JSONObject jsonObject = new JSONObject(response);

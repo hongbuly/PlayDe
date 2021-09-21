@@ -15,11 +15,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.play_de.R;
+import com.example.play_de.community.CommunityRecyclerAdapter;
 
 import java.util.ArrayList;
 
 public class ProfileUserAdapter extends RecyclerView.Adapter<ProfileUserAdapter.ViewHolder> {
     private ArrayList<ProfileUser> mData = new ArrayList<>();
+    private CommunityRecyclerAdapter.OnItemClickListener mListener;
+
+    void initialSetUp() {
+        mData = new ArrayList<>();
+    }
+
+    ProfileUser getData(int position) {
+        return mData.get(position);
+    }
+
+    void removeData(int position) {
+        mData.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mData.size());
+    }
+
+    void setOnItemClickListener(CommunityRecyclerAdapter.OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
@@ -61,9 +81,9 @@ public class ProfileUserAdapter extends RecyclerView.Adapter<ProfileUserAdapter.
         holder.mSwitch.setTextOff(mData.get(position).switchOff);
 
         holder.mSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            mData.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, mData.size());
+            if (mListener != null) {
+                mListener.onItemClick(0, position);
+            }
         });
     }
 

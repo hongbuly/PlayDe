@@ -13,6 +13,7 @@ import androidx.loader.content.CursorLoader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -59,15 +60,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     private RelativeLayout favorite_game;
     private TextView favorite_game_count, favorite_game_delete;
-    private RecyclerView game_recyclerView;
     private ProfileUserAdapter game_adapter;
-    private RecyclerView.LayoutManager gameLayoutManager;
 
     private RelativeLayout favorite_store;
     private TextView favorite_store_count, favorite_store_delete;
-    private RecyclerView store_recyclerView;
     private ProfileUserAdapter store_adapter;
-    private RecyclerView.LayoutManager storeLayoutManager;
 
     private LinearLayout review_profile;
     private LinearLayout review_background;
@@ -163,8 +160,8 @@ public class ProfileActivity extends AppCompatActivity {
         favorite_game_delete = findViewById(R.id.favorite_game_delete);
 
         game_adapter = new ProfileUserAdapter();
-        game_recyclerView = findViewById(R.id.favorite_game_list);
-        gameLayoutManager = new LinearLayoutManager(this);
+        RecyclerView game_recyclerView = findViewById(R.id.favorite_game_list);
+        RecyclerView.LayoutManager gameLayoutManager = new LinearLayoutManager(this);
         game_recyclerView.setLayoutManager(gameLayoutManager);
         game_recyclerView.setAdapter(game_adapter);
         setFavGame(MainActivity.userId);
@@ -174,8 +171,8 @@ public class ProfileActivity extends AppCompatActivity {
         favorite_store_delete = findViewById(R.id.favorite_store_delete);
 
         store_adapter = new ProfileUserAdapter();
-        store_recyclerView = findViewById(R.id.favorite_store_list);
-        storeLayoutManager = new LinearLayoutManager(this);
+        RecyclerView store_recyclerView = findViewById(R.id.favorite_store_list);
+        RecyclerView.LayoutManager storeLayoutManager = new LinearLayoutManager(this);
         store_recyclerView.setLayoutManager(storeLayoutManager);
         store_recyclerView.setAdapter(store_adapter);
         setFavCafe(MainActivity.userId);
@@ -266,6 +263,20 @@ public class ProfileActivity extends AppCompatActivity {
             favorite_store.setVisibility(View.VISIBLE);
         });
 
+        //favorite_store
+        favorite_store_delete.setOnClickListener(v -> {
+            //전체 삭제
+            for (int i = 0; i < store_adapter.getItemCount(); i++) {
+                deleteFavStore(Integer.toString(store_adapter.getData(i).id), i);
+            }
+        });
+
+        store_adapter.setOnItemClickListener((component, position) -> {
+            if (component == 0) {
+                deleteFavStore(Integer.toString(store_adapter.getData(position).id), position);
+            }
+        });
+
         //review
         recent_play01.setOnClickListener(v -> review_background.setBackgroundResource(R.drawable.word_balloon01));
         recent_play02.setOnClickListener(v -> review_background.setBackgroundResource(R.drawable.word_balloon02));
@@ -320,17 +331,62 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void setFavCafe(String uid) {
-        //찜 카페 가져오기
-        StringBuilder urlStr = new StringBuilder();
-        urlStr.append(MainActivity.mainUrl);
-        urlStr.append("cafe/fav");
+    private void deleteFavStore(String cafe_id, int position) {
+        //찜 카페 삭제
+        String urlStr = MainActivity.mainUrl
+                + "cafe/fav/delete";
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                urlStr.toString(),
+                urlStr,
                 response -> {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
+                        boolean act = jsonObject.getBoolean("act");
+                        if (act) {
+                            store_adapter.removeData(position);
+                            setFavCafe(MainActivity.userId);
+                            Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Log.e("delFavCafe", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(this, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("delFavCafe", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                body.put("cafe_id", cafe_id);
+                return body;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(this);
+        AppHelper.requestQueue.add(request);
+    }
+
+    private void setFavCafe(String uid) {
+        //찜 카페 가져오기
+        store_adapter.initialSetUp();
+        String urlStr = MainActivity.mainUrl
+                + "cafe/fav";
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr,
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String meta = jsonObject.getString("meta");
+                        JSONObject sub_jsonObject = new JSONObject(meta);
+                        int count = sub_jsonObject.getInt("count");
+                        String count_txt = "총 " + count + "곳";
+                        favorite_store_count.setText(count_txt);
+
                         String cafe = jsonObject.getString("cafe");
                         JSONArray jsonArray = new JSONArray(cafe);
                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -364,12 +420,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void setFavGame(String uid) {
         //보드게임 위시리스트 가져오기
-        StringBuilder urlStr = new StringBuilder();
-        urlStr.append(MainActivity.mainUrl);
-        urlStr.append("game/wish");
+        String urlStr = MainActivity.mainUrl
+                + "game/wish";
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                urlStr.toString(),
+                urlStr,
                 response -> {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
