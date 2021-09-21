@@ -245,6 +245,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
         //글 올리는 오른쪽 하단 플러스 버튼
         plusBtn.setOnClickListener(v -> {
+            setStorage();
             community_view01.setVisibility(View.GONE);
             write_view.setVisibility(View.VISIBLE);
         });
@@ -404,6 +405,21 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
         moment_write_btn.setOnClickListener(v -> {
             //임시저장
+            addStorage();
+        });
+
+        moment_write_num.setOnClickListener(v -> {
+            //임시저장 목록
+            write_view.setVisibility(View.GONE);
+            storage.setVisibility(View.VISIBLE);
+            setStorage();
+        });
+
+        storage_adapter.setOnItemClickListener(position -> {
+            //클릭한 임시저장 내용을 가져와서 write_editText 에 set 하기.
+            write_editText.setText(storage_adapter.getData(position).content);
+            storage.setVisibility(View.GONE);
+            write_view.setVisibility(View.VISIBLE);
         });
 
         comment_adapter.setOnItemClickListener((component, position) -> {
@@ -533,6 +549,97 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
         this.setBtn = setBtn;
         refreshCommunityWrite();
+    }
+
+    private void addStorage() {
+        //임시 저장하기
+        String urlStr = MainActivity.mainUrl
+                + "community/board/upload";
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr,
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean act = jsonObject.getBoolean("act");
+                        if (act) {
+                            Toast.makeText(context, "임시저장되었습니다.", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(context, "임시저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Log.e("addStorage", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("addStorage", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                body.put("content", write_editText.getText().toString());
+                body.put("temp", "True");
+                return body;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
+        AppHelper.requestQueue.add(request);
+        write_editText.setText(null);
+        backView();
+    }
+
+    private void setStorage() {
+        //임시 보관함 목록 불러오기
+        storage_adapter.initialSetUp();
+        String urlStr = MainActivity.mainUrl
+                + "community/temp/get";
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                urlStr,
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String meta = jsonObject.getString("meta");
+                        JSONObject sub_jsonObject = new JSONObject(meta);
+                        String count = Integer.toString(sub_jsonObject.getInt("count"));
+                        moment_write_num.setText(count);
+
+                        String community = jsonObject.getString("community");
+                        JSONArray jsonArray = new JSONArray(community);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject subJsonObject = jsonArray.getJSONObject(i);
+                            int id = subJsonObject.getInt("id");
+                            String content = subJsonObject.getString("content");
+                            String tag = subJsonObject.getString("tag");
+                            //시간 추가되면 변경!!
+                            String time = "2021.09.21 19:07";
+                            addStorageRecyclerView(id, content, tag, time);
+                        }
+                    } catch (Exception e) {
+                        Log.e("setStorage", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("setStorage", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> body = new HashMap<>();
+                body.put("user_id", MainActivity.userId);
+                body.put("range", "1, 30");
+                return body;
+            }
+        };
+
+        request.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(context);
+        AppHelper.requestQueue.add(request);
     }
 
     private void blocking() {
@@ -703,12 +810,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
     private void write_community() {
         //글 올리기
-        StringBuilder urlStr = new StringBuilder();
-        urlStr.append(MainActivity.mainUrl);
-        urlStr.append("community/board/upload");
+        String urlStr = MainActivity.mainUrl
+                + "community/board/upload";
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                urlStr.toString(),
+                urlStr,
                 response -> {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
@@ -732,6 +838,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 body.put("user_id", MainActivity.userId);
                 body.put("content", write_editText.getText().toString());
                 body.put("tag", selected_tag[selected_bulletin]);
+                body.put("temp", "False");
                 return body;
             }
         };
@@ -986,6 +1093,15 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         store_adapter.notifyDataSetChanged();
     }
 
+    private void addStorageRecyclerView(int id, String content, String tag, String time) {
+        CommunityStorage item = new CommunityStorage();
+        item.id = id;
+        item.content = content;
+        item.time = time;
+        storage_adapter.addItem(item);
+        storage_adapter.notifyDataSetChanged();
+    }
+
     //글 목록 불러오기
     @SuppressLint("SetTextI18n")
     private void communityJSONParse(String response) {
@@ -1058,7 +1174,10 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     }
 
     private void backView() {
-        if (report_layout03.getVisibility() == View.VISIBLE || report_layout02.getVisibility() == View.VISIBLE || report_layout01.getVisibility() == View.VISIBLE) {
+        if (storage.getVisibility() == View.VISIBLE) {
+            storage.setVisibility(View.GONE);
+            write_view.setVisibility(View.VISIBLE);
+        } else if (report_layout03.getVisibility() == View.VISIBLE || report_layout02.getVisibility() == View.VISIBLE || report_layout01.getVisibility() == View.VISIBLE) {
             report_layout03.setVisibility(View.GONE);
             report_layout02.setVisibility(View.GONE);
             report_layout01.setVisibility(View.GONE);

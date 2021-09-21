@@ -188,6 +188,7 @@
                 tools:ignore="ContentDescription" />
         </RelativeLayout>
 
+
         <RelativeLayout
             android:id="@+id/write_view"
             android:layout_width="match_parent"
@@ -251,11 +252,10 @@
 
             <TextView
                 android:id="@+id/moment_write_num"
-                android:layout_width="wrap_content"
+                android:layout_width="24dp"
                 android:layout_height="33dp"
                 android:layout_alignEnd="@+id/moment_write_btn"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
                 android:gravity="center"
                 android:text="1"
                 android:textColor="@color/Grey"
