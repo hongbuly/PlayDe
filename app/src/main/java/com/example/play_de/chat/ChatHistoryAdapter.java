@@ -1,5 +1,6 @@
 package com.example.play_de.chat;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
@@ -28,8 +29,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -177,9 +180,16 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         String message = chatModels.get(position).comments.get(lastMessageKey).message;
         holder.text.setText(message);
 
+        String[] date = getDate().split(":");
         String[] time = chatModels.get(position).comments.get(lastMessageKey).time.split(":");
-        String time_text = getTime(time[0]) + ":" + time[1];
-        holder.time.setText(time_text);
+        if (Integer.parseInt(date[1], 10) < Integer.parseInt(time[1], 10)) {
+            holder.time.setText("오래전");
+        } else if (Integer.parseInt(date[2], 10) == Integer.parseInt(time[2], 10) - 1) {
+            holder.time.setText("어제");
+        } else {
+            String time_text = getTime(time[3]) + ":" + time[4];
+            holder.time.setText(time_text);
+        }
 
         int count = 0;
         for (int i = 0; i < 10; i++) {
@@ -205,6 +215,14 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
             holder.read_text.setText(Integer.toString(count));
             holder.read_text.setVisibility(View.VISIBLE);
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    String getDate() {
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy:MM:dd");
+        long mNow = System.currentTimeMillis();
+        Date mDate = new Date(mNow);
+        return mFormat.format(mDate);
     }
 
     String setData(int position) {

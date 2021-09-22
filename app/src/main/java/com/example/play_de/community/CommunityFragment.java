@@ -616,7 +616,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                             String content = subJsonObject.getString("content");
                             String tag = subJsonObject.getString("tag");
                             //시간 추가되면 변경!!
-                            String time = "2021.09.21 19:07";
+                            String time = subJsonObject.getString("created_at");
                             addStorageRecyclerView(id, content, tag, time);
                         }
                     } catch (Exception e) {
@@ -1047,14 +1047,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         item.uid = uid;
         item.like = like;
         item.my_like = my_like;
-        int hour = Integer.parseInt(time.substring(11, 13));
-        if (hour == 12) {
-            item.time = "오후 " + time.substring(11, 16);
-        } else if (hour > 12) {
-            item.time = "오후 " + (Integer.parseInt(time.substring(11, 13)) - 12) + time.substring(13, 16);
-        } else {
-            item.time = "오전 " + time.substring(11, 16);
-        }
+        item.time = time;
         item.comment_cnt = comment_cnt;
         item.visit = visit;
         item.tag = "#" + tag;
@@ -1062,13 +1055,14 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         communityRecyclerAdapter.notifyDataSetChanged();
     }
 
-    private void addCommentRecyclerView(int comment_id, String content, boolean second_comment, int id, String name, String profile) {
+    private void addCommentRecyclerView(int comment_id, String content, String time, boolean second_comment, int id, String name, String profile) {
         CommunityItem item = new CommunityItem();
         item.write_id = comment_id;
         item.image = Integer.toString(R.drawable.circle_grey);
         item.name = name;
         item.second_comment = second_comment;
         item.comment = content;
+        item.time = time;
         item.uid = id;
         item.image = profile;
         comment_adapter.addItem(item);
@@ -1154,6 +1148,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 JSONObject subJsonObject = jsonArray.getJSONObject(i);
                 int comment_id = subJsonObject.getInt("id");
                 String content = subJsonObject.getString("content");
+                String time = subJsonObject.getString("created_at");
                 boolean second_comment = subJsonObject.getBoolean("reply");
 
                 JSONObject subJsonObject2 = subJsonObject.getJSONObject("writer");
@@ -1161,7 +1156,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 String name = subJsonObject2.getString("nickname");
                 String profile = subJsonObject2.getString("profile");
 
-                addCommentRecyclerView(comment_id, content, second_comment, id, name, profile);
+                addCommentRecyclerView(comment_id, content, time, second_comment, id, name, profile);
             }
         } catch (Exception e) {
             Log.e("commentJSONParse", "예외 발생");

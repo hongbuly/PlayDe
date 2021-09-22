@@ -36,7 +36,7 @@
         android:layout_below="@+id/name"
         android:layout_toEndOf="@+id/image"
         android:layout_marginTop="3dp"
-        android:text="오후 1:55"
+        android:text="2021.09.21 20:03"
         android:textColor="@color/LightGrey"
         android:textSize="8sp"
         tools:ignore="SmallSp" />

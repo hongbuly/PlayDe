@@ -34,6 +34,18 @@
             android:textSize="13sp"
             tools:ignore="HardcodedText" />
 
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/name"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="9dp"
+            android:text="2021.09.21 20:03"
+            android:textColor="@color/LightGrey"
+            android:textSize="8sp"
+            tools:ignore="SmallSp" />
+
         <ImageView
             android:id="@+id/three_dot"
             android:layout_width="wrap_content"
@@ -105,6 +117,18 @@
             android:textColor="@color/Black"
             android:textSize="13sp"
             tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/time02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/name02"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="9dp"
+            android:text="2021.09.21 20:03"
+            android:textColor="@color/LightGrey"
+            android:textSize="8sp"
+            tools:ignore="SmallSp" />
 
         <ImageView
             android:id="@+id/three_dot02"

@@ -34,12 +34,14 @@ import java.util.Map;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private List<ChatModel.CommentModel> comments;
     private List<String> keys;
+    private List<Integer> dateSelect;
     private String destImage;
     private String chatRoomUid;
 
     public ChatAdapter(String chatRoomUid, String destImage) {
         comments = new ArrayList<>();
         keys = new ArrayList<>();
+        dateSelect = new ArrayList<>();
         this.destImage = destImage;
         this.chatRoomUid = chatRoomUid;
 
@@ -53,8 +55,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         comments.clear();
+                        String date = "-1";
 
                         for (DataSnapshot item : snapshot.getChildren()) {
+                            if (date.equals("-1") || item.getValue(ChatModel.CommentModel.class).time.equals(date)) {
+                                comments.add(item.getValue(ChatModel.CommentModel.class));
+                                date = item.getValue(ChatModel.CommentModel.class).time;
+                                dateSelect.add(comments.size() - 1);
+                            }
                             comments.add(item.getValue(ChatModel.CommentModel.class));
                             keys.add(item.getKey());
                         }
@@ -69,6 +77,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        TextView date;
+
         ImageView image;
         TextView left_text;
         TextView right_text;
@@ -80,7 +90,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            date = itemView.findViewById(R.id.date);
             image = itemView.findViewById(R.id.image);
             left_text = itemView.findViewById(R.id.left_chat);
             right_text = itemView.findViewById(R.id.right_chat);
@@ -93,38 +103,47 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         }
 
         void onBind(ChatModel.CommentModel comment, int position) {
-            String uid = comment.myUid;
-            String message = comment.message;
-            String[] time = comment.time.split(":");
-            String hour = time[0];
-            String minute = time[1];
-            String time_text = getTime(hour) + ":" + minute;
-
-            if (uid.equals(MainActivity.userId)) {
-                right_info.setVisibility(View.VISIBLE);
-                left_info.setVisibility(View.GONE);
-                image.setVisibility(View.GONE);
-                left_text.setVisibility(View.GONE);
-                right_text.setVisibility(View.VISIBLE);
-                right_time.setText(time_text);
-                if (comment.read)
-                    right_read.setText("읽음");
-                text = right_text;
-            } else {
-                //상대 메시지를 내가 본 것
-                read_chat(position);
-
+            if (dateSelect.contains(position)) {
+                String[] time = comment.time.split(":");
+                String date_txt = time[0] + "년 " + time[1] + "월 " + time[2] + "일";
+                date.setText(date_txt);
+                date.setVisibility(View.VISIBLE);
                 right_info.setVisibility(View.GONE);
-                left_info.setVisibility(View.VISIBLE);
-                image.setVisibility(View.VISIBLE);
-                left_text.setVisibility(View.VISIBLE);
                 right_text.setVisibility(View.GONE);
-                left_time.setText(time_text);
-                left_read.setText("읽음");
-                text = left_text;
-            }
+            } else {
+                String uid = comment.myUid;
+                String message = comment.message;
+                String[] time = comment.time.split(":");
+                String hour = time[3];
+                String minute = time[4];
+                String time_text = getTime(hour) + ":" + minute;
 
-            text.setText(message);
+                if (uid.equals(MainActivity.userId)) {
+                    right_info.setVisibility(View.VISIBLE);
+                    left_info.setVisibility(View.GONE);
+                    image.setVisibility(View.GONE);
+                    left_text.setVisibility(View.GONE);
+                    right_text.setVisibility(View.VISIBLE);
+                    right_time.setText(time_text);
+                    if (comment.read)
+                        right_read.setText("읽음");
+                    text = right_text;
+                } else {
+                    //상대 메시지를 내가 본 것
+                    read_chat(position);
+
+                    right_info.setVisibility(View.GONE);
+                    left_info.setVisibility(View.VISIBLE);
+                    image.setVisibility(View.VISIBLE);
+                    left_text.setVisibility(View.VISIBLE);
+                    right_text.setVisibility(View.GONE);
+                    left_time.setText(time_text);
+                    left_read.setText("읽음");
+                    text = left_text;
+                }
+
+                text.setText(message);
+            }
         }
 
         String getTime(String hour) {

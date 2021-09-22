@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -234,8 +235,9 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SimpleDateFormat")
     String getTime() {
-        SimpleDateFormat mFormat = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy:MM:dd:hh:mm");
         long mNow = System.currentTimeMillis();
         Date mDate = new Date(mNow);
         return mFormat.format(mDate);

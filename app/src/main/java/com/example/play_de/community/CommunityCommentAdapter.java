@@ -39,6 +39,7 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
         RelativeLayout comment01;
         ImageView image;
         TextView name;
+        TextView time;
         TextView content;
 
         TextView answer;
@@ -47,6 +48,7 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
         RelativeLayout comment02;
         ImageView image02;
         TextView name02;
+        TextView time02;
         TextView content02;
 
         TextView answer02;
@@ -57,6 +59,7 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
             comment01 = itemView.findViewById(R.id.comment01);
             image = itemView.findViewById(R.id.image);
             name = itemView.findViewById(R.id.name);
+            time = itemView.findViewById(R.id.time);
             content = itemView.findViewById(R.id.content);
 
             answer = itemView.findViewById(R.id.answer);
@@ -65,6 +68,7 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
             comment02 = itemView.findViewById(R.id.comment02);
             image02 = itemView.findViewById(R.id.image02);
             name02 = itemView.findViewById(R.id.name02);
+            time02 = itemView.findViewById(R.id.time02);
             content02 = itemView.findViewById(R.id.content02);
 
             answer02 = itemView.findViewById(R.id.answer02);
@@ -164,11 +168,13 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
             holder.comment01.setVisibility(View.GONE);
             holder.comment02.setVisibility(View.VISIBLE);
             holder.name02.setText(mData.get(position).name);
+            holder.time02.setText(mData.get(position).time);
             holder.content02.setText(mData.get(position).comment);
         } else {
             holder.comment01.setVisibility(View.VISIBLE);
             holder.comment02.setVisibility(View.GONE);
             holder.name.setText(mData.get(position).name);
+            holder.time.setText(mData.get(position).time);
             holder.content.setText(mData.get(position).comment);
         }
     }
