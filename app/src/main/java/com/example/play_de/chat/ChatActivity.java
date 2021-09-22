@@ -56,6 +56,7 @@ public class ChatActivity extends AppCompatActivity {
     private String myUid;       //나의 id
     private String destUid;     //상대방 uid
     private String destImage;
+    private String destToken;
 
     private TextView nameText;
     private ImageButton backBtn;
@@ -120,6 +121,8 @@ public class ChatActivity extends AppCompatActivity {
         chat_view = findViewById(R.id.chat_recycler);
         layoutManager = new LinearLayoutManager(this);
         checkChatRoom();
+
+        setDestToken();
     }
 
     void eventListener() {
@@ -158,8 +161,7 @@ public class ChatActivity extends AppCompatActivity {
         back_layout.setOnClickListener(v -> goToDown());
     }
 
-    String getDestToken() {
-        final String[] token = new String[1];
+    void setDestToken() {
         FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -171,7 +173,8 @@ public class ChatActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot item : snapshot.getChildren()) {
                             TokenModel tokenModel = item.getValue(TokenModel.class);
-                            token[0] = tokenModel.pushToken;
+                            destToken = tokenModel.pushToken;
+                            break;
                         }
                     }
 
@@ -180,7 +183,6 @@ public class ChatActivity extends AppCompatActivity {
 
                     }
                 });
-        return token[0];
     }
 
     void sendMsg() {
@@ -208,17 +210,18 @@ public class ChatActivity extends AppCompatActivity {
         Gson gson = new Gson();
 
         NotificationModel notificationModel = new NotificationModel();
-        notificationModel.to = getDestToken();
-        notificationModel.notification.title = destName;
+        notificationModel.to = destToken;
+        notificationModel.notification.title = MainActivity.name;
         notificationModel.notification.body = msg_edit.getText().toString();
-        notificationModel.data.title = destName;
+        notificationModel.data.title = MainActivity.name;
         notificationModel.data.body = msg_edit.getText().toString();
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf8"), gson.toJson(notificationModel));
+        Log.e("json", gson.toJson(notificationModel));
         Request request = new Request.Builder()
                 .header("Content-Type", "application/json")
                 .addHeader("Authorization", "key=AAAANipQibc:APA91bEK0mWBtESqbthZXkIF-Bv2tkJao2fOouScTbRuk015-jcJe5LR5wFy5ssoBct6xxpPjS_g8hYitkbayD1nn-K3t65DxpbocaMLGi75u88JkPtkvrYnEEENbMp73OeLkkjUZOei")
-                .url("https://gcm-http.googleapis.com/gcm/send")
+                .url("https://fcm.googleapis.com/fcm/send")
                 .post(requestBody)
                 .build();
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -233,41 +236,6 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-
-        //서버를 통해 메시지 전송 알림 보내기
-        StringBuilder urlStr = new StringBuilder();
-        urlStr.append(MainActivity.mainUrl);
-        urlStr.append("message/send");
-        StringRequest request01 = new StringRequest(
-                com.android.volley.Request.Method.POST,
-                urlStr.toString(),
-                response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        String response01 = jsonObject.getString("response");
-                        Log.e("sendMessage", response01);
-                    } catch (Exception e) {
-                        Log.e("sendMessage", "예외 발생");
-                    }
-                },
-                error -> {
-                    Toast.makeText(this, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
-                    Log.e("sendMessage", "에러 발생");
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                HashMap<String, String> body = new HashMap<>();
-                body.put("writer_id", MainActivity.userId);
-                body.put("target_id", destUid);
-                body.put("content", msg_edit.getText().toString());
-                return body;
-            }
-        };
-
-        request01.setShouldCache(false);
-        AppHelper.requestQueue = Volley.newRequestQueue(this);
-        AppHelper.requestQueue.add(request01);
     }
 
     @SuppressLint("SimpleDateFormat")

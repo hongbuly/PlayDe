@@ -72,6 +72,8 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
                             Log.e("chatModel", "Active");
                         }
 
+                        Collections.reverse(chatModels);
+
                         notifyDataSetChanged();
                     }
 

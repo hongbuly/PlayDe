@@ -58,10 +58,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                         String date = "-1";
 
                         for (DataSnapshot item : snapshot.getChildren()) {
-                            if (date.equals("-1") || !item.getValue(ChatModel.CommentModel.class).time.equals(date)) {
+                            if (date.equals("-1") || !item.getValue(ChatModel.CommentModel.class).time.substring(0, 9).equals(date)) {
                                 comments.add(item.getValue(ChatModel.CommentModel.class));
                                 keys.add(item.getKey());
-                                date = item.getValue(ChatModel.CommentModel.class).time;
+                                date = item.getValue(ChatModel.CommentModel.class).time.substring(0, 9);
                                 dateSelect.add(comments.size() - 1);
                             }
                             comments.add(item.getValue(ChatModel.CommentModel.class));
