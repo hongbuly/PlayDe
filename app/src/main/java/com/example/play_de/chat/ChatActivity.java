@@ -233,6 +233,41 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+
+        //서버를 통해 메시지 전송 알림 보내기
+        StringBuilder urlStr = new StringBuilder();
+        urlStr.append(MainActivity.mainUrl);
+        urlStr.append("message/send");
+        StringRequest request01 = new StringRequest(
+                com.android.volley.Request.Method.POST,
+                urlStr.toString(),
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String response01 = jsonObject.getString("response");
+                        Log.e("sendMessage", response01);
+                    } catch (Exception e) {
+                        Log.e("sendMessage", "예외 발생");
+                    }
+                },
+                error -> {
+                    Toast.makeText(this, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.e("sendMessage", "에러 발생");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> body = new HashMap<>();
+                body.put("writer_id", MainActivity.userId);
+                body.put("target_id", destUid);
+                body.put("content", msg_edit.getText().toString());
+                return body;
+            }
+        };
+
+        request01.setShouldCache(false);
+        AppHelper.requestQueue = Volley.newRequestQueue(this);
+        AppHelper.requestQueue.add(request01);
     }
 
     @SuppressLint("SimpleDateFormat")

@@ -58,8 +58,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                         String date = "-1";
 
                         for (DataSnapshot item : snapshot.getChildren()) {
-                            if (date.equals("-1") || item.getValue(ChatModel.CommentModel.class).time.equals(date)) {
+                            if (date.equals("-1") || !item.getValue(ChatModel.CommentModel.class).time.equals(date)) {
                                 comments.add(item.getValue(ChatModel.CommentModel.class));
+                                keys.add(item.getKey());
                                 date = item.getValue(ChatModel.CommentModel.class).time;
                                 dateSelect.add(comments.size() - 1);
                             }
@@ -154,15 +155,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         }
 
         void read_chat(int position) {
-            FirebaseDatabase
-                    .getInstance()
-                    .getReference()
-                    .child("chatRooms")
-                    .child(chatRoomUid)
-                    .child("comments")
-                    .child(keys.get(position))
-                    .child("read")
-                    .setValue(true);
+            if (!dateSelect.contains(position)) {
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("chatRooms")
+                        .child(chatRoomUid)
+                        .child("comments")
+                        .child(keys.get(position))
+                        .child("read")
+                        .setValue(true);
+            }
         }
     }
 
