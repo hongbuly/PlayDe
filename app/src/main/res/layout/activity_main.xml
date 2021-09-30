@@ -95,6 +95,40 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/removeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/urlBtn"
+        android:background="@color/White"
+        android:fontFamily="@font/apple_m"
+        android:paddingStart="15dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="25dp"
+        android:text="삭제하기"
+        android:textColor="@color/Black"
+        android:textSize="15sp"
+        android:visibility="gone"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/urlBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/reportBtn"
+        android:background="@color/White"
+        android:fontFamily="@font/apple_m"
+        android:paddingStart="15dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="25dp"
+        android:text="URL 공유"
+        android:textColor="@color/Black"
+        android:textSize="15sp"
+        android:visibility="gone"
+        tools:ignore="HardcodedText" />
+
+    <TextView
         android:id="@+id/reportBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -109,21 +143,4 @@
         android:textSize="15sp"
         android:visibility="gone"
         tools:ignore="HardcodedText,RtlSymmetry" />
-
-    <TextView
-        android:id="@+id/removeBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/White"
-        android:fontFamily="@font/apple_m"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="25dp"
-        android:text="삭제하기"
-        android:textColor="@color/Black"
-        android:textSize="15sp"
-        android:visibility="gone"
-        tools:ignore="HardcodedText" />
 </RelativeLayout>

@@ -40,6 +40,7 @@ import com.example.play_de.main.OnBackPressedListener;
 import com.example.play_de.R;
 import com.example.play_de.main.OnClickRemoveListener;
 import com.example.play_de.main.OnClickReportListener;
+import com.example.play_de.main.OnClickUrlListener;
 import com.example.play_de.profile.ProfileActivity;
 import com.hedgehog.ratingbar.RatingBar;
 
@@ -49,7 +50,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommunityFragment extends Fragment implements OnBackPressedListener, OnClickReportListener, OnClickRemoveListener {
+public class CommunityFragment extends Fragment implements OnBackPressedListener, OnClickReportListener, OnClickRemoveListener, OnClickUrlListener {
     private Context context;
     private MainActivity main;
     private View view;
@@ -92,6 +93,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private ImageView sendBtn;
     private boolean second_comment = false;
     private String block_uid;
+    private boolean isCommunity = true;
 
     private LinearLayout profile_view;
     private int profile_position;
@@ -333,6 +335,14 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 //three dot 클릭, 삭제
                 board_id = communityRecyclerAdapter.getData(position).write_id;
                 main.showBlur_remove(true);
+
+                //신고하기
+                main.showBlur_report(true);
+                block_uid = Integer.toString(communityRecyclerAdapter.getData(position).uid);
+
+                main.showBlur_url(true);
+
+                isCommunity = true;
             }
         });
         refreshCommunityWrite();
@@ -448,9 +458,17 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 second_comment = true;
                 comment_id = comment_adapter.getData(position).write_id;
             } else if (component == 2) {
+                //three dot 클릭, 삭제
+                board_id = comment_adapter.getData(position).write_id;
+                main.showBlur_remove(true);
+
                 //신고하기
                 main.showBlur_report(true);
                 block_uid = Integer.toString(comment_adapter.getData(position).uid);
+
+                main.showBlur_url(true);
+
+                isCommunity = false;
             }
         });
 
@@ -838,7 +856,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 body.put("user_id", MainActivity.userId);
                 body.put("content", write_editText.getText().toString());
                 body.put("tag", selected_tag[selected_bulletin]);
-                body.put("temp", "False");
+                body.put("temp", "");
                 return body;
             }
         };
@@ -898,7 +916,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             StringBuilder urlStr = new StringBuilder();
             urlStr.append(MainActivity.mainUrl);
             urlStr.append("community/reply/upload");
-            msg_edit.setText("");
             StringRequest request = new StringRequest(
                     Request.Method.POST,
                     urlStr.toString(),
@@ -933,11 +950,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             AppHelper.requestQueue = Volley.newRequestQueue(context);
             AppHelper.requestQueue.add(request);
             second_comment = false;
+            msg_edit.setText("");
         } else {
             StringBuilder urlStr = new StringBuilder();
             urlStr.append(MainActivity.mainUrl);
             urlStr.append("community/comment/upload");
-            msg_edit.setText("");
             StringRequest request = new StringRequest(
                     Request.Method.POST,
                     urlStr.toString(),
@@ -971,6 +988,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             request.setShouldCache(false);
             AppHelper.requestQueue = Volley.newRequestQueue(context);
             AppHelper.requestQueue.add(request);
+            msg_edit.setText("");
         }
     }
 
@@ -1136,6 +1154,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     //커뮤니티 글 상세보기
     @SuppressLint("SetTextI18n")
     private void commentJSONParse(String response) {
+        Log.e("commentJSONParse", response);
         try {
             JSONObject jsonObject = new JSONObject(response);
             JSONObject subJsonObject01 = new JSONObject(jsonObject.getString("board"));
@@ -1176,7 +1195,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             report_layout03.setVisibility(View.GONE);
             report_layout02.setVisibility(View.GONE);
             report_layout01.setVisibility(View.GONE);
-            community_view02.setVisibility(View.VISIBLE);
+            community_view01.setVisibility(View.VISIBLE);
         } else if (profile_view.getVisibility() == View.VISIBLE) {
             profile_view.setVisibility(View.GONE);
             community_view02.setVisibility(View.VISIBLE);
@@ -1196,11 +1215,13 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
         main.setOnBackPressedListener(this, 2);
         main.setOnClickReportListener(this);
         main.setOnClickRemoveListener(this);
+        main.setOnClickUrlListener(this);
     }
 
     @Override
     public void onClickReport() {
         //신고하기 버튼
+        community_view01.setVisibility(View.GONE);
         community_view02.setVisibility(View.GONE);
         profile_view.setVisibility(View.GONE);
         report_layout01.setVisibility(View.VISIBLE);
@@ -1208,42 +1229,51 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
     @Override
     public void onClickRemove() {
-        //커뮤니티 글 삭제 버튼
-        StringBuilder urlStr = new StringBuilder();
-        urlStr.append(MainActivity.mainUrl);
-        urlStr.append("community/board/delete?user_id=");
-        urlStr.append(MainActivity.userId);
-        urlStr.append("&board_id=");
-        urlStr.append(board_id);
-        StringRequest request = new StringRequest(
-                Request.Method.GET,
-                urlStr.toString(),
-                response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean act = jsonObject.getBoolean("act");
-                        if (act) {
-                            Toast.makeText(context, "삭제되었습니다..", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(context, "삭제를 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
-                        Log.e("remove_community", "예외 발생");
+        if (isCommunity) {
+            //커뮤니티 글 삭제 버튼
+            StringBuilder urlStr = new StringBuilder();
+            urlStr.append(MainActivity.mainUrl);
+            urlStr.append("community/board/delete?user_id=");
+            urlStr.append(MainActivity.userId);
+            urlStr.append("&board_id=");
+            urlStr.append(board_id);
+            StringRequest request = new StringRequest(
+                    Request.Method.GET,
+                    urlStr.toString(),
+                    response -> {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean act = jsonObject.getBoolean("act");
+                            if (act) {
+                                Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                            } else
+                                Toast.makeText(context, "삭제를 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Log.e("remove_community", "예외 발생");
+                        }
+                    },
+                    error -> {
+                        Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                        Log.e("remove_community", "에러 발생");
                     }
-                },
-                error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
-                    Log.e("remove_community", "에러 발생");
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    return new HashMap<>();
                 }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                return new HashMap<>();
-            }
-        };
+            };
 
-        request.setShouldCache(false);
-        AppHelper.requestQueue = Volley.newRequestQueue(context);
-        AppHelper.requestQueue.add(request);
-        refreshCommunityWrite();
+            request.setShouldCache(false);
+            AppHelper.requestQueue = Volley.newRequestQueue(context);
+            AppHelper.requestQueue.add(request);
+            refreshCommunityWrite();
+        } else {
+
+        }
+    }
+
+    @Override
+    public void onClickUrl() {
+        //url 클릭
     }
 }

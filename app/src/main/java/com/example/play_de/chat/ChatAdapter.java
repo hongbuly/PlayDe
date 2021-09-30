@@ -180,7 +180,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //이미지만 여기서 함.
         if (destImage.equals("")) {
-            holder.image.setImageResource(R.drawable.circle_grey);
+            holder.image.setImageResource(R.drawable.default_user);
         } else {
             Uri uri = Uri.parse(destImage);
             Glide.with(holder.itemView.getContext())

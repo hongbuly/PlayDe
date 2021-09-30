@@ -161,7 +161,7 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
                     .apply(new RequestOptions().circleCrop())
                     .into(holder.image);
         } else {
-            holder.image.setImageResource(R.drawable.circle_grey);
+            holder.image.setImageResource(R.drawable.default_user);
         }
 
         if (mData.get(position).second_comment) {

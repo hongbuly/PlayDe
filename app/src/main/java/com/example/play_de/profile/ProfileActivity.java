@@ -55,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private RelativeLayout main_profile;
     private ImageView main_image;
-    private TextView main_name, main_level;
+    private TextView main_name;
     private ImageView user_profile, user_friend, user_block, user_reserve, user_game, user_cafe, user_comment, user_write, user_etc;
 
     private RelativeLayout favorite_game;
@@ -142,7 +142,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
         main_name = findViewById(R.id.main_name);
         main_name.setText(MainActivity.name);
-        main_level = findViewById(R.id.main_level);
 
         //main profile btn
         user_profile = findViewById(R.id.user_profile);

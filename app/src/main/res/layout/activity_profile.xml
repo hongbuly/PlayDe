@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/horizon_gradient"
@@ -56,7 +57,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/circle_grey"
+                android:src="@drawable/default_user"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -72,22 +73,10 @@
                 android:textSize="15sp"
                 tools:ignore="HardcodedText" />
 
-            <TextView
-                android:id="@+id/main_level"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/main_name"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/apple_l"
-                android:text="보드게임러버"
-                android:textColor="@color/Black"
-                android:textSize="11sp"
-                tools:ignore="HardcodedText,SmallSp" />
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/main_level"
+                android:layout_below="@+id/main_name"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
@@ -97,7 +86,7 @@
                 android:id="@+id/user_profile"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:layout_below="@+id/main_level"
+                android:layout_below="@+id/main_name"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="40dp"
                 android:src="@drawable/user_profile"
@@ -107,7 +96,7 @@
                 android:id="@+id/user_friend"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:layout_below="@+id/main_level"
+                android:layout_below="@+id/main_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
                 android:src="@drawable/user_friend"
@@ -117,7 +106,7 @@
                 android:id="@+id/user_block"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:layout_below="@+id/main_level"
+                android:layout_below="@+id/main_name"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="30dp"
@@ -322,10 +311,10 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/apple_b"
-                android:text="최근 함께한 친구"
+                android:text="최근 함께한 플레이한 친구"
                 android:textColor="@color/Black"
                 android:textSize="15sp"
                 tools:ignore="HardcodedText" />
@@ -333,8 +322,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
-                android:layout_marginRight="23dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginRight="28dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
@@ -353,8 +342,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="7dp"
                         android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="7dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/circle_grey"
+                        android:src="@drawable/default_user"
                         tools:ignore="ContentDescription" />
 
                     <TextView
@@ -366,15 +356,6 @@
                         android:textColor="@color/Black"
                         android:textSize="13sp"
                         tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/apple_l"
-                        android:text="보드게임러버"
-                        android:textColor="@color/Black"
-                        android:textSize="11sp"
-                        tools:ignore="HardcodedText,SmallSp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -392,8 +373,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="7dp"
                         android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="7dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/circle_grey"
+                        android:src="@drawable/default_user"
                         tools:ignore="ContentDescription" />
 
                     <TextView
@@ -405,15 +387,6 @@
                         android:textColor="@color/Black"
                         android:textSize="13sp"
                         tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/apple_l"
-                        android:text="보드게임러버"
-                        android:textColor="@color/Black"
-                        android:textSize="11sp"
-                        tools:ignore="HardcodedText,SmallSp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -431,8 +404,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="7dp"
                         android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="7dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/circle_grey"
+                        android:src="@drawable/default_user"
                         tools:ignore="ContentDescription" />
 
                     <TextView
@@ -444,15 +418,6 @@
                         android:textColor="@color/Black"
                         android:textSize="13sp"
                         tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/apple_l"
-                        android:text="보드게임러버"
-                        android:textColor="@color/Black"
-                        android:textSize="11sp"
-                        tools:ignore="HardcodedText,SmallSp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -470,8 +435,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="7dp"
                         android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="7dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/circle_grey"
+                        android:src="@drawable/default_user"
                         tools:ignore="ContentDescription" />
 
                     <TextView
@@ -483,15 +449,6 @@
                         android:textColor="@color/Black"
                         android:textSize="13sp"
                         tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/apple_l"
-                        android:text="보드게임러버"
-                        android:textColor="@color/Black"
-                        android:textSize="11sp"
-                        tools:ignore="HardcodedText,SmallSp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -555,20 +512,26 @@
                     android:layout_height="0dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_polar12"
                     android:gravity="top"
                     android:padding="20dp"
                     tools:ignore="Autofill,LabelFor,TextFields" />
 
-                <RatingBar
+                <com.hedgehog.ratingbar.RatingBar
+                    android:id="@+id/heart_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:starImageHeight="27dp"
+                    app:starImageWidth="40dp"
+                    hedgehog:clickable="false"
+                    hedgehog:halfstart="true"
+                    hedgehog:starCount="5"
                     android:layout_gravity="center"
-                    android:numStars="5"
-                    android:rating="2.5"
-                    android:stepSize="0.5"
-                    android:theme="@style/CustomRatingBar" />
+                    hedgehog:starEmpty="@drawable/rating_false"
+                    hedgehog:starFill="@drawable/rating_true"
+                    hedgehog:starHalf="@drawable/half_heart" />
 
                 <Button
                     android:id="@+id/register_review_btn"

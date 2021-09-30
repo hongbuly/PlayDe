@@ -2,7 +2,6 @@ package com.example.play_de.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -15,20 +14,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.play_de.R;
-import com.example.play_de.chat.ChatAdapter;
-import com.example.play_de.chat.ChatModel;
 import com.example.play_de.chat.TokenModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceIdReceiver;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONObject;
@@ -44,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private OnBackPressedListener[] listener = new OnBackPressedListener[5];
     private OnClickReportListener reportListener;
     private OnClickRemoveListener removeListener;
+    private OnClickUrlListener urlListener;
     private long backKeyPressedTime = 0;
     public static String userId;
     public static String name;
@@ -53,8 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private View blur;
     private LinearLayout finish_reserve;
-    private TextView reportBtn;
-    private TextView removeBtn;
+    private TextView reportBtn, urlBtn, removeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,19 +83,31 @@ public class MainActivity extends AppCompatActivity {
 
         blur = findViewById(R.id.blur);
         blur.setOnClickListener(v -> {
-            if (reportBtn.getVisibility() == View.VISIBLE)
-                showBlur_report(false);
-            else if (removeBtn.getVisibility() == View.VISIBLE)
-                showBlur_remove(false);
+            showBlur_report(false);
+            showBlur_remove(false);
+            showBlur_url(false);
         });
 
         finish_reserve = findViewById(R.id.finish_reserve);
         reportBtn = findViewById(R.id.reportBtn);
         reportBtn.setOnClickListener(v -> {
-            //댓글 신고
+            //커뮤니티 글 신고
             if (reportBtn.getVisibility() == View.VISIBLE) {
                 showBlur_report(false);
+                showBlur_url(false);
+                showBlur_remove(false);
                 reportListener.onClickReport();
+            }
+        });
+
+        urlBtn = findViewById(R.id.urlBtn);
+        urlBtn.setOnClickListener(v -> {
+            //커뮤니티 글 URL
+            if (urlBtn.getVisibility() == View.VISIBLE) {
+                showBlur_report(false);
+                showBlur_url(false);
+                showBlur_remove(false);
+                urlListener.onClickUrl();
             }
         });
 
@@ -108,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
         removeBtn.setOnClickListener(v -> {
             //커뮤니티 글 삭제
             if (removeBtn.getVisibility() == View.VISIBLE) {
+                showBlur_report(false);
+                showBlur_url(false);
                 showBlur_remove(false);
                 removeListener.onClickRemove();
             }
@@ -201,6 +210,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setOnClickRemoveListener(OnClickRemoveListener listener) {
         this.removeListener = listener;
+    }
+
+    public void setOnClickUrlListener(OnClickUrlListener listener) {
+        this.urlListener = listener;
     }
 
     @Override
@@ -305,12 +318,11 @@ public class MainActivity extends AppCompatActivity {
     public void showBlur_remove(boolean show) {
         //커뮤니티 삭제하기 버튼
         if (show) {
-            Animation down_up = AnimationUtils.loadAnimation(this, R.anim.down_up);
-            blur.setVisibility(View.VISIBLE);
+            Animation down_up = AnimationUtils.loadAnimation(this, R.anim.down_up300);
             removeBtn.setVisibility(View.VISIBLE);
             removeBtn.startAnimation(down_up);
         } else {
-            Animation up_down = AnimationUtils.loadAnimation(this, R.anim.up_down);
+            Animation up_down = AnimationUtils.loadAnimation(this, R.anim.up_down300);
             //애니메이션의 fillAfter 를 사용하면, gone 이 적용되지 않음.
             removeBtn.startAnimation(up_down);
             up_down.setAnimationListener(new Animation.AnimationListener() {
@@ -321,8 +333,36 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    blur.setVisibility(View.GONE);
                     removeBtn.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+        }
+    }
+
+    public void showBlur_url(boolean show) {
+        //커뮤니티 Url 버튼
+        if (show) {
+            Animation down_up = AnimationUtils.loadAnimation(this, R.anim.down_up200);
+            urlBtn.setVisibility(View.VISIBLE);
+            urlBtn.startAnimation(down_up);
+        } else {
+            Animation up_down = AnimationUtils.loadAnimation(this, R.anim.up_down200);
+            //애니메이션의 fillAfter 를 사용하면, gone 이 적용되지 않음.
+            urlBtn.startAnimation(up_down);
+            up_down.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    urlBtn.setVisibility(View.GONE);
                 }
 
                 @Override

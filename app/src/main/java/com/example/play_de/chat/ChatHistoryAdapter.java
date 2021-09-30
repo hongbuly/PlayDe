@@ -32,6 +32,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -71,8 +72,6 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
                             chatModels.add(item.getValue(ChatModel.class));
                             Log.e("chatModel", "Active");
                         }
-
-                        Collections.reverse(chatModels);
 
                         notifyDataSetChanged();
                     }
@@ -146,7 +145,7 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
 
                         image = jsonObject.getString("profile");
                         if (image.equals("")) {
-                            holder.image.setImageResource(R.drawable.circle_grey);
+                            holder.image.setImageResource(R.drawable.default_user);
                         } else {
                             Uri uri = Uri.parse(image);
                             Glide.with(holder.itemView.getContext())
