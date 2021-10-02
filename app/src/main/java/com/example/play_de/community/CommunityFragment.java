@@ -93,7 +93,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     private ImageView sendBtn;
     private boolean second_comment = false;
     private String block_uid;
-    private boolean isCommunity = true;
+    private int isCommunity = 0; //0:글 1:댓글 2: 대댓글
 
     private LinearLayout profile_view;
     private int profile_position;
@@ -342,7 +342,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
                 main.showBlur_url(true);
 
-                isCommunity = true;
+                isCommunity = 0;
             }
         });
         refreshCommunityWrite();
@@ -459,7 +459,11 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 comment_id = comment_adapter.getData(position).write_id;
             } else if (component == 2) {
                 //three dot 클릭, 삭제
-                board_id = comment_adapter.getData(position).write_id;
+                if (comment_adapter.getData(position).second_comment)
+                    isCommunity = 2; //대댓글
+                else
+                    isCommunity = 1; //댓글
+
                 main.showBlur_remove(true);
 
                 //신고하기
@@ -467,8 +471,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 block_uid = Integer.toString(comment_adapter.getData(position).uid);
 
                 main.showBlur_url(true);
-
-                isCommunity = false;
             }
         });
 
@@ -1229,16 +1231,13 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
 
     @Override
     public void onClickRemove() {
-        if (isCommunity) {
+        if (isCommunity == 0) {
             //커뮤니티 글 삭제 버튼
             StringBuilder urlStr = new StringBuilder();
             urlStr.append(MainActivity.mainUrl);
-            urlStr.append("community/board/delete?user_id=");
-            urlStr.append(MainActivity.userId);
-            urlStr.append("&board_id=");
-            urlStr.append(board_id);
+            urlStr.append("community/board/delete");
             StringRequest request = new StringRequest(
-                    Request.Method.GET,
+                    Request.Method.POST,
                     urlStr.toString(),
                     response -> {
                         try {
@@ -1259,7 +1258,10 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             ) {
                 @Override
                 protected Map<String, String> getParams() {
-                    return new HashMap<>();
+                    HashMap<String, String> body = new HashMap<>();
+                    body.put("user_id", MainActivity.userId);
+                    body.put("board_id", Integer.toString(board_id));
+                    return body;
                 }
             };
 
@@ -1267,8 +1269,82 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
             AppHelper.requestQueue = Volley.newRequestQueue(context);
             AppHelper.requestQueue.add(request);
             refreshCommunityWrite();
-        } else {
+        } else if (isCommunity == 1){
+            //커뮤니티 댓글 삭제 버튼
+            StringBuilder urlStr = new StringBuilder();
+            urlStr.append(MainActivity.mainUrl);
+            urlStr.append("community/comment/delete");
+            StringRequest request = new StringRequest(
+                    Request.Method.POST,
+                    urlStr.toString(),
+                    response -> {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean act = jsonObject.getBoolean("act");
+                            if (act) {
+                                Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                            } else
+                                Toast.makeText(context, "삭제를 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Log.e("remove_comment", "예외 발생");
+                        }
+                    },
+                    error -> {
+                        Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                        Log.e("remove_comment", "에러 발생");
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    HashMap<String, String> body = new HashMap<>();
+                    body.put("user_id", MainActivity.userId);
+                    body.put("comment_id", Integer.toString(comment_id));
+                    return body;
+                }
+            };
 
+            request.setShouldCache(false);
+            AppHelper.requestQueue = Volley.newRequestQueue(context);
+            AppHelper.requestQueue.add(request);
+            refreshComment(board_id);
+        } else {
+            //커뮤니티 대댓글 삭제 버튼
+            StringBuilder urlStr = new StringBuilder();
+            urlStr.append(MainActivity.mainUrl);
+            urlStr.append("community/reply/delete");
+            StringRequest request = new StringRequest(
+                    Request.Method.POST,
+                    urlStr.toString(),
+                    response -> {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean act = jsonObject.getBoolean("act");
+                            if (act) {
+                                Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                            } else
+                                Toast.makeText(context, "삭제를 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Log.e("remove_reply", "예외 발생");
+                        }
+                    },
+                    error -> {
+                        Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                        Log.e("remove_reply", "에러 발생");
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    HashMap<String, String> body = new HashMap<>();
+                    body.put("user_id", MainActivity.userId);
+                    body.put("reply_id", Integer.toString(comment_id));
+                    return body;
+                }
+            };
+
+            request.setShouldCache(false);
+            AppHelper.requestQueue = Volley.newRequestQueue(context);
+            AppHelper.requestQueue.add(request);
+            refreshComment(board_id);
         }
     }
 

@@ -14,9 +14,11 @@
         android:roundIcon="@drawable/play_de"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".main.MainActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing">
+        </activity>
         <activity android:name=".main.LoginActivity" />
         <activity
             android:name=".chat.ChatActivity"

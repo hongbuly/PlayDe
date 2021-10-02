@@ -112,6 +112,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 right_info.setVisibility(View.GONE);
                 right_text.setVisibility(View.GONE);
             } else {
+                date.setVisibility(View.GONE);
                 String uid = comment.myUid;
                 String message = comment.message;
                 String[] time = comment.time.split(":");
