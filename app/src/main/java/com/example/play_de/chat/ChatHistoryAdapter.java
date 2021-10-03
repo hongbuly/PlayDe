@@ -179,7 +179,14 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         commentMap.putAll(chatModels.get(position).comments);
         String lastMessageKey = (String) commentMap.keySet().toArray()[0];
         String message = chatModels.get(position).comments.get(lastMessageKey).message;
-        holder.text.setText(message);
+        try {
+            if (message.substring(0, 6).equals("image:")) {
+                holder.text.setText("이미지");
+            } else
+                holder.text.setText(message);
+        } catch (StringIndexOutOfBoundsException e) {
+            holder.text.setText(message);
+        }
 
         String[] date = getDate().split(":");
         String[] time = chatModels.get(position).comments.get(lastMessageKey).time.split(":");
@@ -187,7 +194,7 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
             holder.time.setText("오래전");
         } else if (Integer.parseInt(date[2], 10) == Integer.parseInt(time[2], 10) - 1) {
             holder.time.setText("어제");
-        } else if (Integer.parseInt(date[2], 10) < Integer.parseInt(time[2], 10) - 1){
+        } else if (Integer.parseInt(date[2], 10) < Integer.parseInt(time[2], 10) - 1) {
             String date_text = time[1] + "월 " + time[2] + "일";
             holder.time.setText(date_text);
         } else {

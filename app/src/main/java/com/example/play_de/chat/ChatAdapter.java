@@ -1,5 +1,6 @@
 package com.example.play_de.chat;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private List<Integer> dateSelect;
     private String destImage;
     private String chatRoomUid;
+    private Context context;
 
     public ChatAdapter(String chatRoomUid, String destImage) {
         comments = new ArrayList<>();
@@ -83,11 +85,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         ImageView image;
         TextView left_text;
         TextView right_text;
-        TextView text;
 
         LinearLayout left_info, right_info;
         TextView left_time, left_read;
         TextView right_time, right_read;
+
+        ImageView left_chat_img, right_chat_img;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -101,6 +104,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             left_read = itemView.findViewById(R.id.left_read);
             right_time = itemView.findViewById(R.id.right_time);
             right_read = itemView.findViewById(R.id.right_read);
+            left_chat_img = itemView.findViewById(R.id.left_chat_img);
+            right_chat_img = itemView.findViewById(R.id.right_chat_img);
         }
 
         void onBind(ChatModel.CommentModel comment, int position) {
@@ -125,26 +130,60 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                     left_info.setVisibility(View.GONE);
                     image.setVisibility(View.GONE);
                     left_text.setVisibility(View.GONE);
-                    right_text.setVisibility(View.VISIBLE);
+                    left_chat_img.setVisibility(View.GONE);
                     right_time.setText(time_text);
                     if (comment.read)
                         right_read.setText("읽음");
-                    text = right_text;
+
+                    try {
+                        if (message.substring(0, 6).equals("image:")) {
+                            right_text.setVisibility(View.GONE);
+                            right_chat_img.setVisibility(View.VISIBLE);
+                            Uri uri = Uri.parse(message.substring(6));
+                            Glide.with(context)
+                                    .load(uri)
+                                    .apply(new RequestOptions().fitCenter())
+                                    .into(right_chat_img);
+                        } else {
+                            right_text.setVisibility(View.VISIBLE);
+                            right_text.setText(message);
+                        }
+                    } catch (StringIndexOutOfBoundsException e) {
+                        right_chat_img.setVisibility(View.GONE);
+                        right_text.setVisibility(View.VISIBLE);
+                        right_text.setText(message);
+                    }
                 } else {
                     //상대 메시지를 내가 본 것
                     read_chat(position);
-
                     right_info.setVisibility(View.GONE);
                     left_info.setVisibility(View.VISIBLE);
                     image.setVisibility(View.VISIBLE);
-                    left_text.setVisibility(View.VISIBLE);
-                    right_text.setVisibility(View.GONE);
-                    left_time.setText(time_text);
                     left_read.setText("읽음");
-                    text = left_text;
-                }
+                    left_time.setText(time_text);
+                    right_text.setVisibility(View.GONE);
+                    right_chat_img.setVisibility(View.GONE);
 
-                text.setText(message);
+                    try {
+                        if (message.substring(0, 6).equals("image:")) {
+                            right_text.setVisibility(View.GONE);
+                            left_text.setVisibility(View.GONE);
+                            left_chat_img.setVisibility(View.VISIBLE);
+                            Uri uri = Uri.parse(message.substring(6));
+                            Glide.with(context)
+                                    .load(uri)
+                                    .apply(new RequestOptions().fitCenter())
+                                    .into(left_chat_img);
+                        } else {
+                            left_text.setVisibility(View.VISIBLE);
+                            left_text.setText(message);
+                        }
+                    } catch (StringIndexOutOfBoundsException e) {
+                        left_chat_img.setVisibility(View.GONE);
+                        left_text.setVisibility(View.VISIBLE);
+                        left_text.setText(message);
+                    }
+                }
             }
         }
 
@@ -179,12 +218,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        context = holder.itemView.getContext();
         //이미지만 여기서 함.
         if (destImage.equals("")) {
             holder.image.setImageResource(R.drawable.default_user);
         } else {
             Uri uri = Uri.parse(destImage);
-            Glide.with(holder.itemView.getContext())
+            Glide.with(context)
                     .load(uri)
                     .apply(new RequestOptions().circleCrop())
                     .into(holder.image);

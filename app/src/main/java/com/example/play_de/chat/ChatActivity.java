@@ -1,11 +1,14 @@
 package com.example.play_de.chat;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -21,6 +24,8 @@ import android.widget.Toast;
 
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.play_de.R;
 import com.example.play_de.community.CommunityProfileFavorite;
 import com.example.play_de.community.CommunityProfileFavoriteAdapter;
@@ -31,6 +36,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -129,7 +135,11 @@ public class ChatActivity extends AppCompatActivity {
         backBtn.setOnClickListener(v -> finish());
 
         pictureBtn.setOnClickListener(v -> {
-            //사진, 동영상 등등.
+            //사진 가져오기
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent, 0);
         });
 
         msg_edit.setOnClickListener(v -> {
@@ -161,6 +171,40 @@ public class ChatActivity extends AppCompatActivity {
         back_layout.setOnClickListener(v -> goToDown());
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == RESULT_OK && data.getData() != null) {
+            Uri selectedImageUri = data.getData();
+
+            //파이어베이스 스토리지에 내 사진을 올리고, Uri 를 데이터베이스에
+            FirebaseStorage.getInstance().getReference().child("ChatImages_" + selectedImageUri.toString()).putFile(selectedImageUri).addOnCompleteListener(task1 -> {
+                FirebaseStorage.getInstance().getReference().child("ChatImages_" + selectedImageUri.toString()).getDownloadUrl().addOnSuccessListener(this::sendImageEvent);
+            });
+        }
+    }
+
+    private void sendImageEvent(Uri uri) {
+        ChatModel chatModel = new ChatModel();
+        chatModel.users.put(myUid, true);
+        chatModel.users.put(destUid, true);
+
+        if (chatRoomUid == null) {
+            sendBtn.setEnabled(false);
+            FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("chatRooms")
+                    .push()
+                    .setValue(chatModel)
+                    .addOnSuccessListener(unused -> checkChatRoom());
+        } else {
+            sendImage(uri.toString());
+            chat_view.setAdapter(new ChatAdapter(chatRoomUid, destImage));
+            new Handler().postDelayed(() -> chat_view.smoothScrollToPosition(chatAdapter.getItemCount() - 1), 200);
+        }
+    }
+
     void setDestToken() {
         FirebaseDatabase
                 .getInstance()
@@ -185,6 +229,27 @@ public class ChatActivity extends AppCompatActivity {
                 });
     }
 
+    void sendImage(String uri) {
+        ChatModel.CommentModel comments = new ChatModel.CommentModel();
+        comments.myUid = myUid;
+        comments.message = "image:" + uri;
+        comments.time = getTime();
+        comments.read = false;
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("chatRooms")
+                .child(chatRoomUid)
+                .child("comments")
+                .push()
+                .setValue(comments)
+                .addOnSuccessListener(unused -> {
+                    msg_edit.setText(null);
+                    sendGcm();
+                });
+    }
+
     void sendMsg() {
         ChatModel.CommentModel comments = new ChatModel.CommentModel();
         comments.myUid = myUid;
@@ -202,7 +267,7 @@ public class ChatActivity extends AppCompatActivity {
                 .setValue(comments)
                 .addOnSuccessListener(unused -> {
                     sendGcm();
-                    msg_edit.setText("");
+                    msg_edit.setText(null);
                 });
     }
 
@@ -212,9 +277,14 @@ public class ChatActivity extends AppCompatActivity {
         NotificationModel notificationModel = new NotificationModel();
         notificationModel.to = destToken;
         notificationModel.notification.title = MainActivity.name;
-        notificationModel.notification.body = msg_edit.getText().toString();
         notificationModel.data.title = MainActivity.name;
-        notificationModel.data.body = msg_edit.getText().toString();
+        if (msg_edit.getText() != null) {
+            notificationModel.notification.body = msg_edit.getText().toString();
+            notificationModel.data.body = msg_edit.getText().toString();
+        } else {
+            notificationModel.notification.body = "이미지";
+            notificationModel.data.body = "이미지";
+        }
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf8"), gson.toJson(notificationModel));
         Log.e("json", gson.toJson(notificationModel));
