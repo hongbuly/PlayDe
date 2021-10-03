@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                 urlStr.toString(),
                 this::nameJSONParse,
                 error -> {
-                    Toast.makeText(this, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("setName", "에러 발생");
                 }
         ) {

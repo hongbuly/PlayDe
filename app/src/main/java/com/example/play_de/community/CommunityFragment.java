@@ -136,6 +136,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     }
 
     private void initialSetUp() {
+
         community_view01 = view.findViewById(R.id.community_view01);
         write_view = view.findViewById(R.id.write_view);
         storage = view.findViewById(R.id.storage);
@@ -591,7 +592,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                     }
                 },
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("addStorage", "에러 발생");
                 }
         ) {
@@ -644,7 +645,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                     }
                 },
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("setStorage", "에러 발생");
                 }
         ) {
@@ -683,7 +684,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                     }
                 },
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("block_user", "에러 발생");
                 }
         ) {
@@ -734,7 +735,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                     }
                 },
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("setFavCafe", "에러 발생");
                 }
         ) {
@@ -776,7 +777,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                     }
                 },
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("setFavGame", "에러 발생");
                 }
         ) {
@@ -811,7 +812,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                     }
                 },
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("setHeart", "에러 발생");
                 }
         ) {
@@ -848,7 +849,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                     }
                 },
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("communityWrite", "에러 발생");
                 }
         ) {
@@ -893,7 +894,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                     }
                 },
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("clickHeart", "에러 발생");
                 }
         ) {
@@ -934,7 +935,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                         }
                     },
                     error -> {
-                        Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                         Log.e("writeComment", "에러 발생");
                     }
             ) {
@@ -973,7 +974,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                         }
                     },
                     error -> {
-                        Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                         Log.e("writeComment", "에러 발생");
                     }
             ) {
@@ -1009,7 +1010,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                     communityJSONParse(response);
                 },
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("communityRefresh", "에러 발생");
                 }
         ) {
@@ -1040,7 +1041,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                 urlStr.toString(),
                 this::commentJSONParse,
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("commentRefresh", "에러 발생");
                 }
         ) {
@@ -1252,7 +1253,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                         }
                     },
                     error -> {
-                        Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                         Log.e("remove_community", "에러 발생");
                     }
             ) {
@@ -1290,7 +1291,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                         }
                     },
                     error -> {
-                        Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                         Log.e("remove_comment", "에러 발생");
                     }
             ) {
@@ -1328,7 +1329,7 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
                         }
                     },
                     error -> {
-                        Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                         Log.e("remove_reply", "에러 발생");
                     }
             ) {
@@ -1351,5 +1352,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     @Override
     public void onClickUrl() {
         //url 클릭
+        Toast.makeText(context, "준비중인 기능입니다.", Toast.LENGTH_SHORT).show();
     }
 }

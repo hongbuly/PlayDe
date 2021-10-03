@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                 urlStr.toString(),
                 this::registerJSONParse,
                 error -> {
-                    Toast.makeText(getApplicationContext(), "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("Register", urlStr.toString());
                     blur.setVisibility(View.GONE);
                 }
@@ -139,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                 urlStr.toString(),
                 this::loginJSONParse,
                 error -> {
-                    Toast.makeText(getApplicationContext(), "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("Login", urlStr.toString());
                     blur.setVisibility(View.GONE);
                 }

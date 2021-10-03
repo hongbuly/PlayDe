@@ -563,7 +563,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
                     }
                 },
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("cafe_like", "에러 발생");
                 }
         ) {
@@ -600,7 +600,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
                     }
                 },
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("cafe_remove", "에러 발생");
                 }
         ) {
@@ -657,7 +657,7 @@ public class CafeFragment extends Fragment implements OnMapReadyCallback, OnBack
                     cafeJSONParse(response);
                 },
                 error -> {
-                    Toast.makeText(context, "인터넷이 연결되었는지 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "서버와의 연결에서 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("cafeRefresh", "에러 발생");
                 }
         ) {
