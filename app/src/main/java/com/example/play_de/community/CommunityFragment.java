@@ -1,6 +1,10 @@
 package com.example.play_de.community;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
+
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -1352,6 +1356,9 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     @Override
     public void onClickUrl() {
         //url 클릭
-        Toast.makeText(context, "준비중인 기능입니다.", Toast.LENGTH_SHORT).show();
+        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("label", "https://played.page.link/NLtk");
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(context, "클립보드에 URL이 복사되었습니다.", Toast.LENGTH_SHORT).show();
     }
 }

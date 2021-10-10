@@ -1,9 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@drawable/horizon_gradient"
     tools:context=".game.GameFragment">
 
-</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:fontFamily="@font/apple_eb"
+        android:gravity="center"
+        android:text="PLAY-DE"
+        android:textColor="@color/White"
+        android:textSize="25sp"
+        tools:ignore="HardcodedText" />
+
+    <ImageButton
+        android:id="@+id/userBtn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:minWidth="0dp"
+        app:srcCompat="@drawable/user"
+        tools:ignore="ContentDescription" />
+
+    <EditText
+        android:id="@+id/filterEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userBtn"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_white100"
+        android:drawableEnd="@drawable/reading_glasses"
+        android:fontFamily="@font/apple_l"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp"
+        android:textSize="12sp"
+        tools:ignore="Autofill,HardcodedText,LabelFor,TextFields" />
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/filterEdit"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cafe"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/game_circle_btn"
+            android:fontFamily="@font/apple_b"
+            android:text="카페"
+            android:textColor="@color/White"
+            android:textSize="15sp"
+            tools:ignore="ButtonStyle,HardcodedText" />
+
+        <Button
+            android:id="@+id/game"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/game_circle_btn"
+            android:fontFamily="@font/apple_b"
+            android:text="게임"
+            android:textColor="@color/White"
+            android:textSize="15sp"
+            tools:ignore="ButtonStyle,HardcodedText" />
+
+        <Button
+            android:id="@+id/community"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:background="@drawable/game_circle_btn"
+            android:fontFamily="@font/apple_b"
+            android:text="커뮤니티"
+            android:textColor="@color/White"
+            android:textSize="15sp"
+            tools:ignore="ButtonStyle,HardcodedText" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/buttonsLayout"
+        android:background="@drawable/round_back_white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/apple_m"
+                android:text="금주의 게임 추천"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommend"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/apple_m"
+                android:text="위시리스트 보드게임"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/wish"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/apple_m"
+                android:text="최근 했던 보드게임"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recently"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="30dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

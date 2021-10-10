@@ -35,7 +35,7 @@ public class CommunityCommentAdapter extends RecyclerView.Adapter<CommunityComme
         mListener = listener;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout comment01;
         ImageView image;
         TextView name;

@@ -6,11 +6,13 @@
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/drawable-v24/login_edge.xml" value="0.15833333333333333" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/drawable-v24/splash_background.xml" value="0.15833333333333333" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/drawable/block_btn.xml" value="0.1" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/drawable/circle_white25.xml" value="0.1361111111111111" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/drawable/grey_heart.xml" value="0.29010416666666666" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/drawable/heart.xml" value="0.29010416666666666" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/drawable/image_round10.xml" value="0.13796296296296295" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/drawable/image_rounding.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/drawable/round_pink15.xml" value="0.1" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/drawable/round_white100.xml" value="0.10555555555555556" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/drawable/small_heart.xml" value="0.29010416666666666" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout-v23/funding_community_recycler.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/activity_1_37.xml" value="0.27395833333333336" />
@@ -38,8 +40,10 @@
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_6_22.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_cafe.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_chat.xml" value="0.27395833333333336" />
-        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_community.xml" value="0.4" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_community.xml" value="0.2967581047381546" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_game.xml" value="0.264" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_game_select.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/game_recycler.xml" value="0.15942028985507245" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/storage_recycler.xml" value="0.4" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/user_recycler.xml" value="0.27395833333333336" />
       </map>
