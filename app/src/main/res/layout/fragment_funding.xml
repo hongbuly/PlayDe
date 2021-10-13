@@ -54,42 +54,337 @@
         android:orientation="vertical"
         android:visibility="visible">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/funding_tab01"
+        <EditText
+            android:id="@+id/filterEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            app:tabIndicator="@drawable/tab_indicator"
-            app:tabIndicatorColor="@color/MainRed"
-            app:tabTextAppearance="@style/tab_text02">
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/round_corner_red15"
+            android:drawableEnd="@drawable/reading_glasses"
+            android:fontFamily="@font/apple_l"
+            android:hint="전체 12,395"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="10dp"
+            android:textSize="12sp"
+            tools:ignore="Autofill,HardcodedText,TextFields" />
 
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_funding"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="펀딩"
-                tools:ignore="HardcodedText" />
+                android:layout_marginEnd="7dp"
+                android:background="@drawable/small_heart"
+                android:fontFamily="@font/apple_l"
+                android:gravity="center"
+                android:text="9"
+                android:textColor="@color/Black"
+                android:textSize="10sp"
+                tools:ignore="HardcodedText,SmallSp" />
 
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_talk"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="소식&amp;톡"
-                tools:ignore="HardcodedText" />
+                android:fontFamily="@font/apple_l"
+                android:gravity="center"
+                android:text="찜한 펀딩 >"
+                android:textColor="@color/Black"
+                android:textSize="10sp"
+                tools:ignore="HardcodedText,SmallSp" />
+        </LinearLayout>
 
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_schedule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="일정표"
-                tools:ignore="HardcodedText" />
-        </com.google.android.material.tabs.TabLayout>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/funding_vp01"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/White" />
+            android:layout_height="27dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/apple_m"
+                android:text="추천 보드게임"
+                android:textColor="@color/Black"
+                android:textSize="18dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/plusBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center"
+                android:layout_marginRight="20dp"
+                android:fontFamily="@font/apple_m"
+                android:text="더보기"
+                android:textColor="@color/PlusGrey"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/game01"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_white20"
+                android:elevation="5dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image01"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/glitch"
+                    app:shapeAppearanceOverlay="@style/Top_round" />
+
+                <TextView
+                    android:id="@+id/name01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image01"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/apple_l"
+                    android:text="Glitch"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/percent01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name01"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/apple_l"
+                    android:text="100%"
+                    android:textColor="@color/gradient01"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/tag01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name01"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_toRightOf="@+id/percent01"
+                    android:fontFamily="@font/apple_l"
+                    android:text="#추리#맞추기#심리"
+                    android:textColor="@color/Black"
+                    android:textSize="8dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/game02"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_white20"
+                android:elevation="5dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/bt"
+                    app:shapeAppearanceOverlay="@style/Top_round" />
+
+                <TextView
+                    android:id="@+id/name02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image02"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/apple_l"
+                    android:text="B.T"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/percent02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name02"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/apple_l"
+                    android:text="100%"
+                    android:textColor="@color/gradient01"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/tag02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name02"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_toRightOf="@+id/percent02"
+                    android:fontFamily="@font/apple_l"
+                    android:text="#계산#경제#심리"
+                    android:textColor="@color/Black"
+                    android:textSize="8dp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/game03"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_white20"
+                android:elevation="5dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image03"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/mapping_local"
+                    app:shapeAppearanceOverlay="@style/Top_round" />
+
+                <TextView
+                    android:id="@+id/name03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image03"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/apple_l"
+                    android:text="MAPPING LOCAL"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/percent03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name03"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/apple_l"
+                    android:text="100%"
+                    android:textColor="@color/gradient01"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/tag03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name03"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_toRightOf="@+id/percent03"
+                    android:fontFamily="@font/apple_l"
+                    android:text="#계산#맞추기#심리"
+                    android:textColor="@color/Black"
+                    android:textSize="8dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/game04"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_white20"
+                android:elevation="5dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image04"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/calender_stamp"
+                    app:shapeAppearanceOverlay="@style/Top_round" />
+
+                <TextView
+                    android:id="@+id/name04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image04"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/apple_l"
+                    android:text="CALENDER STAMP"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/percent04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name04"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/apple_l"
+                    android:text="100%"
+                    android:textColor="@color/gradient01"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/tag04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name04"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_toRightOf="@+id/percent04"
+                    android:fontFamily="@font/apple_l"
+                    android:text="#추리#맞추기#심리"
+                    android:textColor="@color/Black"
+                    android:textSize="8dp" />
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

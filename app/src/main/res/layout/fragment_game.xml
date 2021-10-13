@@ -68,6 +68,7 @@
             android:background="@drawable/game_circle_btn"
             android:fontFamily="@font/apple_b"
             android:text="카페"
+            android:paddingEnd="7dp"
             android:textColor="@color/White"
             android:textSize="15sp"
             tools:ignore="ButtonStyle,HardcodedText" />
@@ -81,6 +82,7 @@
             android:background="@drawable/game_circle_btn"
             android:fontFamily="@font/apple_b"
             android:text="게임"
+            android:paddingEnd="7dp"
             android:textColor="@color/White"
             android:textSize="15sp"
             tools:ignore="ButtonStyle,HardcodedText" />
@@ -92,6 +94,7 @@
             android:layout_weight="1"
             android:background="@drawable/game_circle_btn"
             android:fontFamily="@font/apple_b"
+            android:paddingEnd="5dp"
             android:text="커뮤니티"
             android:textColor="@color/White"
             android:textSize="15sp"

@@ -140,7 +140,6 @@ public class CommunityFragment extends Fragment implements OnBackPressedListener
     }
 
     private void initialSetUp() {
-
         community_view01 = view.findViewById(R.id.community_view01);
         write_view = view.findViewById(R.id.write_view);
         storage = view.findViewById(R.id.storage);

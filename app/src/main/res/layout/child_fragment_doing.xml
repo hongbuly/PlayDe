@@ -17,8 +17,7 @@
         android:adjustViewBounds="true"
         android:elevation="5dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/glitch_big"
-        tools:ignore="ContentDescription" />
+        android:src="@drawable/glitch_big" />
 
     <ImageButton
         android:id="@+id/heart"
@@ -49,8 +48,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/board_name"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
         android:fontFamily="@font/apple_m"
-        android:text="5일 남음"
+        android:text="5일 남음 (2021.10.13 종료)"
         android:textColor="@color/LineGrey"
         android:textSize="12sp"
         tools:ignore="HardcodedText" />
@@ -61,12 +61,23 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/board_time"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:fontFamily="@font/apple_m"
-        android:text="960% 달성 . 28,819,900원 펀딩"
+        android:text="960% 달성 . 251명 참여 . 28,819,900원 펀딩"
         android:textColor="@color/LineGrey"
         android:textSize="12sp"
         tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/board_money"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="15dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/funding_date" />
 
     <Button
         android:id="@+id/go_funding"
@@ -75,7 +86,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/round_gradient100"
         android:fontFamily="@font/apple_b"
         android:text="펀딩하러 가기"

@@ -32,8 +32,11 @@
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/child_fragment_community.xml" value="0.30512820512820515" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/child_fragment_detail.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/child_fragment_doing.xml" value="0.30512820512820515" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/child_fragment_funding.xml" value="0.16077898550724637" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/child_fragment_news.xml" value="0.30512820512820515" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/child_fragment_schedule.xml" value="0.1421875" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/child_fragment_supporter.xml" value="0.264" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/child_fragment_talk.xml" value="0.1421875" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/comment_recycler.xml" value="0.536" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/community_recycler.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/favorite_recycler.xml" value="0.27395833333333336" />
@@ -41,8 +44,10 @@
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_cafe.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_chat.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_community.xml" value="0.2967581047381546" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_funding.xml" value="0.264" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_game.xml" value="0.264" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/fragment_game_select.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/funding_news_recycler.xml" value="0.264" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/game_recycler.xml" value="0.15942028985507245" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/storage_recycler.xml" value="0.4" />
         <entry key="..\:/Users/toffl/StudioProjects/Play_De/app/src/main/res/layout/user_recycler.xml" value="0.27395833333333336" />

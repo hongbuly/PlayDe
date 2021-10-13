@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,50 +10,87 @@
     android:paddingEnd="20dp">
 
     <LinearLayout
+        android:id="@+id/news01"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/last"
+                android:layout_width="71dp"
+                android:layout_height="28dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/round_red20"
+                android:fontFamily="@font/apple_l"
+                android:text="최신순"
+                android:textColor="@color/White"
+                android:textSize="11sp"
+                tools:ignore="HardcodedText" />
+
+            <Button
+                android:id="@+id/past"
+                android:layout_width="71dp"
+                android:layout_height="28dp"
+                android:layout_gravity="end"
+                android:background="@drawable/round_corner_line20"
+                android:fontFamily="@font/apple_l"
+                android:text="과거순"
+                android:textColor="@color/Grey"
+                android:textSize="11sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
 
         <View
-            android:layout_width="0dp"
-            android:layout_height="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/Black" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/news_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/last"
-            android:layout_width="71dp"
-            android:layout_height="28dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/round_red20"
-            android:fontFamily="@font/apple_l"
-            android:text="최신순"
-            android:textColor="@color/White"
-            android:textSize="11sp"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/past"
-            android:layout_width="71dp"
-            android:layout_height="28dp"
-            android:layout_gravity="end"
-            android:background="@drawable/round_corner_line20"
-            android:fontFamily="@font/apple_l"
-            android:text="과거순"
-            android:textColor="@color/Grey"
-            android:textSize="11sp"
-            tools:ignore="HardcodedText" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/Black" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/news_recycler"
+    <LinearLayout
+        android:id="@+id/news02"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/apple_m"
+            android:text="새로 GLITCH라는 보드게임이\n펀딩을 시작하였습니다!"
+            android:textColor="@color/Black"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                app:srcCompat="@drawable/default_user" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
