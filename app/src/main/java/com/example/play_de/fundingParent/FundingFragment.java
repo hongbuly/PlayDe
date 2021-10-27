@@ -22,6 +22,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.play_de.fundingChild.ChildNewsFragment;
 import com.example.play_de.main.AppHelper;
 import com.example.play_de.main.MainActivity;
 import com.example.play_de.R;
@@ -162,7 +163,9 @@ public class FundingFragment extends Fragment implements OnBackPressedListener {
 
     @Override
     public void onBackPressed() {
-        if (getVisibility())
+        if (ChildNewsFragment.backView()) {
+            //no backView
+        } else if (getVisibility())
             main.onBackTime();
         else
             onChangeFunding(false);

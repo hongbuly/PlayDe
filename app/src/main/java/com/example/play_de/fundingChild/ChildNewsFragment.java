@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,10 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.play_de.R;
 import com.example.play_de.community.CommunityItem;
 import com.example.play_de.community.CommunityRecyclerAdapter;
+import com.example.play_de.main.MainActivity;
+import com.example.play_de.main.OnBackPressedListener;
 
 public class ChildNewsFragment extends Fragment {
     private View view;
     private Context context;
+
+    private static LinearLayout news01;
     private Button last, past;
 
     private boolean isLast;
@@ -29,6 +35,9 @@ public class ChildNewsFragment extends Fragment {
 
     private NewsRecyclerAdapter newsRecyclerAdapter;
     private RecyclerView news_recyclerView;
+
+    private static ScrollView news02;
+    private TextView explain;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,7 @@ public class ChildNewsFragment extends Fragment {
     }
 
     private void initialization() {
+        news01 = view.findViewById(R.id.news01);
         last = view.findViewById(R.id.last);
         past = view.findViewById(R.id.past);
 
@@ -63,6 +73,10 @@ public class ChildNewsFragment extends Fragment {
         addNewsRecyclerView("글리치 보드게임 캐릭터 공개!", "GLITCH", "어제");
         addNewsRecyclerView("글리치 보드게임 이벤트!", "GLITCH", "2021.09.06");
         addNewsRecyclerView("글리치 보드게임 펀딩 시작!", "GLITCH", "2021.09.06");
+
+        news02 = view.findViewById(R.id.news02);
+        explain = view.findViewById(R.id.explain);
+        explain.setText("<게임 설명>\n플레이어 2~4인/재료카드를 모아 6명의 캐릭터들을 먼저 탈출시키자! 모든 플레이어는 재료 카드 10장과 캐릭터카드 3장을 받고 시작, 순서대로 카드 더미에서 한 장씩 뽑고 한 장씩 버린다. 각 캐릭터에 맞는 재료카드를 4장씩 모아서 캐릭터를 탈출시키면 캐릭터 피규어를 얻는다.");
     }
 
     private void eventListener() {
@@ -96,7 +110,8 @@ public class ChildNewsFragment extends Fragment {
 
         newsRecyclerAdapter.setOnItemClickListener(position -> {
             //소식 화면으로 전환.
-
+            news01.setVisibility(View.GONE);
+            news02.setVisibility(View.VISIBLE);
         });
     }
 
@@ -113,5 +128,15 @@ public class ChildNewsFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
+    }
+
+    public static boolean backView() {
+        if (news02.getVisibility() == View.VISIBLE) {
+            news01.setVisibility(View.VISIBLE);
+            news02.setVisibility(View.GONE);
+            return true;
+        }
+
+        return false;
     }
 }
